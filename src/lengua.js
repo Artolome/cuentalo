@@ -21,6 +21,7 @@
     juntos: { f: 'juntos', pl: 'juntos', fpl: 'juntas' },
     triste: { f: 'triste', pl: 'tristes', fpl: 'tristes' },
     'a salvo': { f: 'a salvo', pl: 'a salvo', fpl: 'a salvo' },
+    amigo: { f: 'amiga', pl: 'amigos', fpl: 'amigas' },
     nuevo: { f: 'nueva', pl: 'nuevos', fpl: 'nuevas' }
   };
 

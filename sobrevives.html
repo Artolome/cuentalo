@@ -40,6 +40,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .titulo .alt{font-size:.5em;font-weight:500;opacity:.8;margin-left:.6em}
 #estadoNivel{font-weight:700;color:var(--tinta2);font-size:1.1rem;min-width:8em}
 #estadoNivel.ok{color:var(--ok)}
+.inicio{flex-basis:100%;text-align:center;margin:0;font-size:1.1rem;color:var(--tinta2)}
 /* tira de viñetas */
 #tira{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
 .vineta{width:min(100%, var(--ancho-vineta, 380px), calc((100vh - 400px) * 1.45));min-width:230px;display:flex;flex-direction:column;background:var(--papel);border:3px solid var(--borde);border-radius:12px;overflow:hidden;box-shadow:0 5px 0 rgba(0,0,0,.3)}
@@ -119,6 +120,7 @@ footer a{color:inherit}
   <section id="titulo">
     <button id="tituloTxt" class="titulo" title="Escuchar el título"></button>
     <span id="estadoNivel"></span>
+    <p id="inicio" class="inicio" hidden></p>
   </section>
   <section id="tira" aria-label="Viñetas"></section>
   <section id="stock" aria-label="Escenas y personajes">
@@ -156,6 +158,7 @@ footer a{color:inherit}
     juntos: { f: 'juntos', pl: 'juntos', fpl: 'juntas' },
     triste: { f: 'triste', pl: 'tristes', fpl: 'tristes' },
     'a salvo': { f: 'a salvo', pl: 'a salvo', fpl: 'a salvo' },
+    amigo: { f: 'amiga', pl: 'amigos', fpl: 'amigas' },
     nuevo: { f: 'nueva', pl: 'nuevos', fpl: 'nuevas' }
   };
 
@@ -315,7 +318,7 @@ footer a{color:inherit}
     { id: 'sol', nombre: 'El sol', emoji: '🌞', slots: 2, color: '#dfa92c',
       regla_fr: 'Hace mucho calor → tiene sed.' },
     { id: 'tormenta', nombre: 'La tormenta', emoji: '⛈️', slots: 2, color: '#4a4f6a',
-      regla_fr: 'Llueve → tiene frío (sauf avec la manta). Seul·e → tiene miedo aussi.' },
+      regla_fr: 'Llueve → tiene frío. Avec la manta (l’un des deux) → se tapa y no tiene frío. Seul·e → tiene miedo aussi.' },
     { id: 'noche', nombre: 'La noche', emoji: '🌙', slots: 2, color: '#1b2550',
       regla_fr: 'Seul·e → está solo/a y tiene miedo (sauf avec la linterna : duerme tranquilo/a). À deux → duermen juntos, ya no están cansados, no tienen miedo.' },
     { id: 'jaguar', nombre: 'El jaguar', emoji: '🐆', slots: 2, color: '#b8742a',
@@ -323,7 +326,7 @@ footer a{color:inherit}
     { id: 'serpiente', nombre: 'La serpiente', emoji: '🐍', slots: 2, color: '#6b8e23',
       regla_fr: 'Seul·e → la serpiente le muerde : está herido/a. À deux → el otro la ve y avisa : nadie está herido.' },
     { id: 'frutas', nombre: 'El árbol de frutas', emoji: '🍌', slots: 2, color: '#8bb843',
-      regla_fr: 'Come frutas → ya no tiene hambre. S’il n’a pas faim → guarda frutas (obtient la comida).' },
+      regla_fr: 'Come frutas → ya no tiene hambre. (Pas d’objet : la comida ne vient que de la mochila.)' },
     { id: 'fuego', nombre: 'El fuego', emoji: '🔥', slots: 2, color: '#c4432e',
       regla_fr: 'Hace fuego → ya no tiene frío. Avec comida et hambre → come. À deux, si un seul a de la comida : amigos → comparte ; sinon → come solo/a y el otro está enfadado/a.' },
     { id: 'refugio', nombre: 'El refugio', emoji: '🏕️', slots: 2, color: '#8b5a3c',
@@ -344,27 +347,27 @@ footer a{color:inherit}
       regla_fr: 'El helicóptero llega → está a salvo. Si está perdido/a (seul·e) → el helicóptero no lo ve. Un personnage a salvo ne peut plus apparaître ensuite.' }
   ];
 
-  /* Regla general (engine.js): dos personajes juntos en una viñeta → si uno está perdido, el otro lo encuentra;
-     y se hacen amigos (salvo cuando uno come solo). */
+  /* Reglas generales (engine.js): dos personajes juntos en una viñeta → si uno está perdido, el otro lo encuentra;
+     y se hacen amigos («Ahora X y Y son amigos.»), salvo cuando uno come y no comparte. */
 
   /* ---------- Niveles ----------
      objetivo: ver engine.js → evaluar(). pistas: en español sencillo. secreto: segundo título (capítulos 2 y 3). */
   const NIVELES = [
     /* ===== Capítulo 1 · Solo en la selva (3 viñetas, 1 personaje, 2-3 escenas) ===== */
     { id: 'c1n1', capitulo: 1, titulo: 'Lucía ya no tiene sed', viñetas: 3,
-      escenas: ['sol', 'rio'], personajes: ['lucia'],
+      escenas: ['sol', 'rio', 'fuego'], personajes: ['lucia'],
       objetivo: { tipo: 'yaNo', quien: 'lucia', estado: 'sed' },
       pistas: ['Primero hace calor… ¿y después?', 'En el río, Lucía bebe agua.'] },
-    { id: 'c1n2', capitulo: 1, titulo: 'Mateo tiene frío', viñetas: 3,
+    { id: 'c1n2', capitulo: 1, titulo: 'Mateo ya no tiene frío', viñetas: 3,
       escenas: ['rio', 'fuego'], personajes: ['mateo'],
-      objetivo: { tipo: 'estado', quien: 'mateo', estado: 'frio', valor: true },
+      objetivo: { tipo: 'yaNo', quien: 'mateo', estado: 'frio' },
       pistas: ['Mateo se moja en el río.', 'El fuego quita el frío. ¡Cuidado con el orden!'] },
     { id: 'c1n3', capitulo: 1, titulo: 'Valeria duerme tranquila', viñetas: 3,
-      escenas: ['noche', 'linterna'], personajes: ['valeria'],
+      escenas: ['noche', 'linterna', 'refugio'], personajes: ['valeria'],
       objetivo: { tipo: 'evento', evento: 'nocheLinterna', quien: 'valeria' },
       pistas: ['De noche y sola, Valeria tiene miedo.', 'Con la linterna, no tiene miedo.'] },
     { id: 'c1n4', capitulo: 1, titulo: 'Diego ya no está perdido', viñetas: 3,
-      escenas: ['selva', 'montana'], personajes: ['diego'],
+      escenas: ['selva', 'montana', 'frutas'], personajes: ['diego'],
       objetivo: { tipo: 'yaNo', quien: 'diego', estado: 'perdido' },
       pistas: ['Si va solo por la selva, Diego se pierde.', 'Desde la montaña se ve el río.'] },
     { id: 'c1n5', capitulo: 1, titulo: 'Lucía está a salvo', viñetas: 3,
@@ -376,13 +379,13 @@ footer a{color:inherit}
     { id: 'c2n1', capitulo: 2, titulo: 'Mateo encuentra a Lucía', viñetas: 3,
       escenas: ['selva', 'noche', 'sol'], personajes: ['lucia', 'mateo'],
       objetivo: { tipo: 'evento', evento: 'encuentra', quien: 'mateo', a: 'lucia' },
-      secreto: { tipo: 'evento', evento: 'nocheJuntos' },
+      secreto: { tipo: 'y', partes: [{ tipo: 'evento', evento: 'nocheJuntos' }, { tipo: 'sinEvento', evento: 'nocheSolo' }] }, tituloSecreto: 'Nadie duerme solo',
       pistas: ['Primero, Lucía se pierde sola.', 'Después, Mateo y Lucía están juntos.'] },
     { id: 'c2n2', capitulo: 2, titulo: 'Valeria cura a Diego', viñetas: 3,
       escenas: ['serpiente', 'refugio'], personajes: ['valeria', 'diego'],
       objetivo: { tipo: 'evento', evento: 'cura', quien: 'valeria', a: 'diego' },
       secreto: { tipo: 'estado', quien: 'valeria', estado: 'herido', valor: true },
-      pistas: ['Si Diego está solo, la serpiente le muerde.', 'En el refugio, los amigos curan a los heridos.'] },
+      pistas: ['Si Diego está solo, la serpiente le muerde.', 'En el refugio, el otro cura al herido.'] },
     { id: 'c2n3', capitulo: 2, titulo: 'Lucía y Mateo ya no tienen hambre', viñetas: 3,
       escenas: ['selva', 'frutas', 'noche'], personajes: ['lucia', 'mateo'],
       objetivo: { tipo: 'y', partes: [{ tipo: 'yaNo', quien: 'lucia', estado: 'hambre' }, { tipo: 'yaNo', quien: 'mateo', estado: 'hambre' }] },
@@ -393,11 +396,11 @@ footer a{color:inherit}
       objetivo: { tipo: 'y', partes: [{ tipo: 'nadie', estado: 'miedo' }, { tipo: 'todos', estado: 'frio', valor: true }] },
       secreto: { tipo: 'evento', evento: 'jaguarJuntos' },
       pistas: ['Juntos, no tienen miedo.', 'La tormenta da frío… y miedo a quien está solo.'] },
-    { id: 'c2n5', capitulo: 2, titulo: 'Todos están a salvo', viñetas: 3,
+    { id: 'c2n5', capitulo: 2, titulo: 'Valeria encuentra a Mateo y todos están a salvo', viñetas: 3,
       escenas: ['selva', 'mapa', 'rescate'], personajes: ['valeria', 'mateo'],
-      objetivo: { tipo: 'todos', estado: 'salvo', valor: true },
-      secreto: { tipo: 'evento', evento: 'encuentra' },
-      pistas: ['El helicóptero no ve a una persona perdida.', 'Juntos, nadie está perdido.'] },
+      objetivo: { tipo: 'y', partes: [{ tipo: 'evento', evento: 'encuentra', quien: 'valeria', a: 'mateo' }, { tipo: 'todos', estado: 'salvo', valor: true }] },
+      secreto: { tipo: 'evento', evento: 'mapa', quien: 'valeria' },
+      pistas: ['El helicóptero no ve a una persona perdida.', '¿Quién necesita el mapa?'] },
 
     /* ===== Capítulo 3 · El grupo (4-6 viñetas, 2-3 personajes, 4-6 escenas) ===== */
     { id: 'c3n1', capitulo: 3, titulo: 'Lucía comparte la comida con Mateo', viñetas: 4,
@@ -413,23 +416,24 @@ footer a{color:inherit}
     { id: 'c3n3', capitulo: 3, titulo: 'Diego pide perdón a Lucía', viñetas: 4,
       escenas: ['mochila', 'montana', 'fuego', 'refugio'], personajes: ['lucia', 'diego'],
       objetivo: { tipo: 'evento', evento: 'perdon', quien: 'diego', a: 'lucia' },
-      secreto: { tipo: 'nunca', quien: 'diego', estado: 'hambre' },
+      /* sin título secreto a propósito: es un nivel «enigma» de cadena única (2 soluciones) */
       pistas: ['Primero, Diego no comparte y Lucía está enfadada.', 'En el refugio se pide perdón.'] },
-    { id: 'c3n4', capitulo: 3, titulo: 'Valeria está a salvo y nunca tiene miedo', viñetas: 4,
+    { id: 'c3n4', capitulo: 3, titulo: 'Valeria duerme tranquila y todos están a salvo', viñetas: 4,
       escenas: ['noche', 'jaguar', 'linterna', 'rescate'], personajes: ['valeria', 'diego'],
-      objetivo: { tipo: 'y', partes: [{ tipo: 'estado', quien: 'valeria', estado: 'salvo', valor: true }, { tipo: 'nunca', quien: 'valeria', estado: 'miedo' }] },
+      objetivo: { tipo: 'y', partes: [{ tipo: 'evento', evento: 'nocheLinterna', quien: 'valeria' }, { tipo: 'todos', estado: 'salvo', valor: true }] },
       secreto: { tipo: 'estado', quien: 'diego', estado: 'miedo', valor: true },
-      pistas: ['De noche, Valeria necesita la linterna o un amigo.', 'Con el jaguar, Valeria nunca está sola.'] },
-    { id: 'c3n5', capitulo: 3, titulo: 'Todos están a salvo', viñetas: 5,
+      pistas: ['Valeria necesita la linterna antes de la noche.', 'El helicóptero no ve a quien está perdido.'] },
+    { id: 'c3n5', capitulo: 3, titulo: 'Diego encuentra a Lucía y todos están a salvo', viñetas: 5,
       escenas: ['selva', 'jaguar', 'noche', 'mapa', 'rescate'], personajes: ['lucia', 'mateo', 'diego'],
-      objetivo: { tipo: 'todos', estado: 'salvo', valor: true },
-      secreto: { tipo: 'evento', evento: 'encuentra', quien: 'diego', a: 'lucia' },
-      pistas: ['El helicóptero solo lleva a dos personas.', 'En el rescate, nadie está perdido.'] },
+      objetivo: { tipo: 'y', partes: [{ tipo: 'evento', evento: 'encuentra', quien: 'diego', a: 'lucia' }, { tipo: 'todos', estado: 'salvo', valor: true }] },
+      secreto: { tipo: 'nunca', quien: 'mateo', estado: 'miedo' },
+      pistas: ['Primero, Lucía se pierde sola.', 'El helicóptero solo lleva a dos personas y no ve a quien está perdido.'] },
     { id: 'c3n6', capitulo: 3, titulo: 'Todos están contentos y a salvo', viñetas: 6,
       escenas: ['selva', 'rio', 'noche', 'frutas', 'refugio', 'rescate'], personajes: ['lucia', 'mateo', 'valeria'],
+      inicial: { lucia: { hambre: true, cansado: true }, mateo: { hambre: true, cansado: true }, valeria: { hambre: true, cansado: true } },
       objetivo: { tipo: 'y', partes: [{ tipo: 'todos', estado: 'contento', valor: true }, { tipo: 'todos', estado: 'salvo', valor: true }] },
-      secreto: { tipo: 'nunca', estado: 'perdido' },
-      pistas: ['Contento = sin hambre, sin sed, sin frío, sin miedo. Y no está cansado.', 'El helicóptero solo lleva a dos personas.'] },
+      secreto: { tipo: 'evento', evento: 'nocheJuntos', quien: 'lucia', a: 'valeria' },
+      pistas: ['Al principio todos tienen hambre y están cansados.', 'Contento = sin hambre, sin sed, sin frío, sin miedo. Y no está cansado.', 'El helicóptero solo lleva a dos personas.'] },
 
     /* ===== Nivel libre ===== */
     { id: 'libre', capitulo: 0, titulo: 'Mi historia', viñetas: 6, libre: true,
@@ -475,11 +479,18 @@ footer a{color:inherit}
       if (ini) {
         for (const k in ini) {
           if (k === 'objetos') for (const o of ini.objetos) S[id].objetos[o] = true;
+          else if (k === 'amigos' || k === 'enfadado') S[id][k] = Object.assign({}, ini[k]); // copia: nunca compartir con nivel.inicial
           else S[id][k] = ini[k];
         }
       }
     }
     return S;
+  }
+  /** Historial vacío, sembrado con los estados negativos iniciales (para yaNo / nunca). */
+  function historialInicial(nivel, S) {
+    const alguna = {};
+    for (const id of nivel.personajes) { alguna[id] = {}; for (const k of NEGATIVOS) if (S[id][k]) alguna[id][k] = true; }
+    return { alguna, eventos: [], invalido: false, salen: {} };
   }
   function clonar(S) {
     const T = {};
@@ -513,17 +524,23 @@ footer a{color:inherit}
   /* ---------- paso: aplica una viñeta ----------
      ctx = { S, hist:{alguna:{id:{estado:true}}, eventos:[], invalido:false}, tiempo } */
   function paso(ctx, panel, indice) {
-    const S = ctx.S, ids = ordenar(panel.personajes || []), esc = panel.escena;
+    const S = ctx.S, esc = panel.escena;
+    const ids = ordenar([...new Set(panel.personajes || [])]); // sin repetidos
     const evs = [];
     const ev = (tipo, datos) => { const e = Object.assign({ tipo, viñeta: indice, escena: esc }, datos || {}); evs.push(e); ctx.hist.eventos.push(e); };
     const marca = () => { for (const id of ids) for (const k of NEGATIVOS) if (S[id][k]) ctx.hist.alguna[id][k] = true; };
     const set = (id, k, v) => { S[id][k] = v; if (v && NEGATIVOS.includes(k)) ctx.hist.alguna[id][k] = true; };
-    const haceAmigos = () => { if (ids.length === 2) { S[ids[0]].amigos[ids[1]] = true; S[ids[1]].amigos[ids[0]] = true; } };
+    const haceAmigos = () => { // amistad nueva → evento visible («Ahora X y Y son amigos.»)
+      if (ids.length !== 2 || S[ids[0]].amigos[ids[1]]) return;
+      S[ids[0]].amigos[ids[1]] = true; S[ids[1]].amigos[ids[0]] = true;
+      ev('amigos', { quienes: ids });
+    };
     const tiene = (id, o) => !!S[id].objetos[o];
     const alguienTiene = o => ids.some(id => tiene(id, o));
     const quienes = k => ids.filter(id => S[id][k]);
 
     if (!esc || !ids.length) return evs; // viñeta incompleta
+    if (ESCENA[esc] && ids.length > ESCENA[esc].slots) { ctx.hist.invalido = true; ev('demasiados', { quienes: ids }); return evs; }
     for (const id of ids) ctx.hist.salen[id] = true;
 
     // 0. Un personaje ya a salvo no puede seguir en la historia.
@@ -571,7 +588,7 @@ footer a{color:inherit}
       }
       case 'tormenta': {
         const manta = alguienTiene('manta'), solo = ids.length === 1;
-        if (!manta) for (const id of ids) set(id, 'frio', true);
+        for (const id of ids) set(id, 'frio', !manta); // con manta: se tapa y no tiene frío (aunque viniera mojado)
         if (solo) set(ids[0], 'miedo', true);
         ev('tormenta', { quienes: ids, manta, solo });
         break;
@@ -599,7 +616,10 @@ footer a{color:inherit}
       }
       case 'serpiente': {
         if (ids.length === 1) { set(ids[0], 'herido', true); ev('serpienteMuerde', { quien: ids[0] }); }
-        else ev('serpienteAvisa', { quien: ids[0], a: ids[1] });
+        else { // avisa el que está mejor (sin miedo ni herida); en empate, el primero del reparto
+          const q = ids.find(id => !S[id].miedo && !S[id].herido) || ids[0];
+          ev('serpienteAvisa', { quien: q, a: ids.find(id => id !== q) });
+        }
         break;
       }
       case 'frutas': {
@@ -711,7 +731,8 @@ footer a{color:inherit}
         const f = `${L.cap(Vi('serImp'))} de noche. ${N(qs)} ${V('estar', qs)} ${A('juntos', qs)} y ${V('dormir', qs)} bien.`;
         if (e.cansados.length === qs.length) return [f, `${yaNo(qs, 'estar')} ${A('cansado', qs)}.`];
         if (e.cansados.length) return [f, `${N(e.cansados)} ya no ${V('estar', e.cansados)} ${A('cansado', e.cansados)}.`];
-        if (e.miedos.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
+        if (e.miedos.length === qs.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
+        if (e.miedos.length) return [f, `${N(e.miedos)} ya no ${V('tener', e.miedos)} miedo.`];
         return [f, `No ${V('tener', qs)} miedo.`];
       }
       case 'jaguarSolo': {
@@ -743,7 +764,8 @@ footer a{color:inherit}
         if (e.breve) return [f];
         if (e.cansados.length === qs.length) return [f, `${yaNo(qs, 'estar')} ${A('cansado', qs)}.`];
         if (e.cansados.length) return [f, `${N(e.cansados)} ya no ${V('estar', e.cansados)} ${A('cansado', e.cansados)}.`];
-        if (e.miedos.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
+        if (e.miedos.length === qs.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
+        if (e.miedos.length) return [f, `${N(e.miedos)} ya no ${V('tener', e.miedos)} miedo.`];
         return [f, `${L.cap(V('estar', qs))} ${A('tranquilo', qs)}.`];
       }
       case 'cura': return [`${N(q)} ${V('curar', q)} a ${N(a)}. ${N(a)} ya no ${V('estar', a)} ${A('herido', a)}.`];
@@ -761,6 +783,8 @@ footer a{color:inherit}
       case 'linterna': return e.miedo ? [`${N(q)} ${V('encontrar', q)} una linterna. ${yaNo(q, 'tener')} miedo.`] : [`${N(q)} ${V('encontrar', q)} una linterna. La ${V('guardar', q)}.`];
       case 'rescate': return [t === 'pret' ? `¡El helicóptero! ${N(qs)} ${V('salvarse', qs)}.` : `¡El helicóptero! ${N(qs)} ${V('estar', qs)} a salvo.`];
       case 'rescateNoVe': return [`El helicóptero no ${Vi('ver')} a ${N(q)}. ${N(q)} todavía ${V('estar', q)} ${A('perdido', q)}.`];
+      case 'amigos': return [t === 'pret' ? `${N(qs)} se hicieron ${A('amigo', qs)}.` : `Ahora ${N(qs)} ${V('ser', qs)} ${A('amigo', qs)}.`];
+      case 'demasiados': return ['Aquí solo cabe una persona.'];
       default: return ['…'];
     }
   }
@@ -811,6 +835,7 @@ footer a{color:inherit}
         return ids.every(id => !(H.alguna[id] && H.alguna[id][obj.estado]) && !valor(S[id], obj.estado));
       }
       case 'evento': return H.eventos.some(e => e.tipo === obj.evento && (!obj.quien || e.quien === obj.quien || (e.quienes && e.quienes.includes(obj.quien))) && (!obj.a || e.a === obj.a || (e.quienes && e.quienes.includes(obj.a))));
+      case 'sinEvento': return !H.eventos.some(e => e.tipo === obj.evento && (!obj.quien || e.quien === obj.quien || (e.quienes && e.quienes.includes(obj.quien))));
       case 'amigos': return !!S[obj.a].amigos[obj.b];
       case 'enfadado': return !!S[obj.quien].enfadado[obj.con];
       case 'y': return obj.partes.every(p => evaluar(p, res, nivel));
@@ -852,7 +877,42 @@ footer a{color:inherit}
     perdon: (q, a) => `${Nq(q, 'Alguien')} pide perdón a ${Nq(a, 'un amigo')}`,
     cruzaCuerda: (q, a) => q && a ? `${N1(q)} y ${N1(a)} cruzan el río con la cuerda` : q ? `${N1(q)} cruza el río con la cuerda` : 'Cruzan el río con la cuerda',
     serpienteAvisa: (q, a) => a ? `¡Cuidado, ${N1(a)}!` : '¡Cuidado con la serpiente!',
-    rescateNoVe: q => `El helicóptero no ve a ${Nq(q, 'alguien')}`
+    rescateNoVe: q => `El helicóptero no ve a ${Nq(q, 'alguien')}`,
+    nocheSolo: q => `${Nq(q, 'Alguien')} duerme ${acq('solo', q)}`,
+    pierde: q => `${Nq(q, 'Alguien')} se pierde`,
+    mapa: q => `${Nq(q, 'Alguien')} encuentra el mapa`,
+    mochila: q => `${Nq(q, 'Alguien')} encuentra la mochila`,
+    linterna: q => `${Nq(q, 'Alguien')} encuentra la linterna`,
+    manta: q => `${Nq(q, 'Alguien')} encuentra la manta`,
+    cuerda: q => `${Nq(q, 'Alguien')} encuentra la cuerda`,
+    bebe: q => `${Nq(q, 'Alguien')} bebe agua`,
+    comeFrutas: q => `${Nq(q, 'Alguien')} come frutas`,
+    fuego: q => `${Nq(q, 'Alguien')} hace fuego`,
+    descansa: q => `${Nq(q, 'Alguien')} descansa en el refugio`,
+    montana: q => `${Nq(q, 'Alguien')} sube la montaña`,
+    rescate: q => `${Nq(q, 'Alguien')} vuelve a casa`,
+    amigos: (q, a) => q && a ? `${N1(q)} y ${N1(a)} son amigos` : 'Dos personas se hacen amigas'
+  };
+  /* Títulos para «nunca ocurre el evento» (tipo sinEvento) */
+  const TITULO_SIN = {
+    nocheSolo: 'Nadie duerme solo', pierde: 'Nadie se pierde en la selva', jaguarSolo: 'Nadie corre solo', serpienteMuerde: 'La serpiente no muerde a nadie',
+    comeSolo: 'Todos comparten', cruzaMojado: 'Nadie se moja', rescateNoVe: 'El helicóptero ve a todos', tormenta: 'Nadie pasa la tormenta'
+  };
+  /* Qué hace falta para cada evento (explicación de «¿Qué pasa?» cuando falta un evento) */
+  const ac = (adj, id) => id ? L.acuerdo(adj, L.gn(P(id))) : adj + '/a';
+  const PRECONDICION = {
+    encuentra: o => `Primero ${Nq(o.a, 'alguien')} tiene que perderse (${ac('solo', o.a)} en la selva o con el jaguar). Después, los dos juntos.`,
+    seEncuentran: () => 'Primero los dos se pierden, cada uno solo. Después, los dos juntos.',
+    cura: o => `Primero ${Nq(o.a, 'alguien')} tiene que estar ${ac('herido', o.a)} (la serpiente, ${ac('solo', o.a)}). Después, los dos en el refugio.`,
+    comparte: o => `${Nq(o.quien, 'Alguien')} necesita la comida (la mochila), ${Nq(o.a, 'el otro')} necesita tener hambre y tienen que ser amigos antes del fuego.`,
+    comeSolo: o => `${Nq(o.quien, 'Alguien')} necesita la comida, ${Nq(o.a, 'el otro')} tiene hambre y todavía no son amigos. Después, el fuego.`,
+    perdon: o => `Primero ${Nq(o.a, 'alguien')} tiene que estar ${ac('enfadado', o.a)} (el fuego: comer y no compartir). Después, los dos en el refugio.`,
+    nocheLinterna: o => `${Nq(o.quien, 'Alguien')} necesita la linterna antes de la noche, y pasar la noche ${ac('solo', o.quien)}.`,
+    nocheJuntos: () => 'Los dos juntos en la noche.',
+    jaguarJuntos: () => 'Los dos juntos con el jaguar.',
+    caminanJuntos: () => 'Los dos juntos en la selva, sin estar perdidos.',
+    cruzaCuerda: () => 'Alguien necesita la cuerda antes del río.',
+    amigos: () => 'Los dos juntos en una viñeta (y nadie come sin compartir).'
   };
 
   function tituloDe(obj, nivel) {
@@ -870,6 +930,7 @@ footer a{color:inherit}
       case 'nadie': return L.cap(`Nadie ${fraseEstado(obj.estado, [], 'pres', false, { g: 'm', n: 'sg' })}`);
       case 'nunca': return obj.quien ? L.cap(`${N1(obj.quien)} nunca ${fraseEstado(obj.estado, [obj.quien])}`) : L.cap(`Nadie ${fraseEstado(obj.estado, [], 'pres', false, { g: 'm', n: 'sg' }, 'nunca')}`);
       case 'evento': return (TITULO_EVENTO[obj.evento] || (() => obj.evento))(obj.quien, obj.a);
+      case 'sinEvento': return TITULO_SIN[obj.evento] || `Nunca: ${obj.evento}`;
       case 'amigos': return `${N1(obj.a)} y ${N1(obj.b)} son amigos`;
       case 'enfadado': return `${N1(obj.quien)} está ${L.acuerdo('enfadado', L.gn(P(obj.quien)))} con ${N1(obj.con)}`;
       case 'y': return tituloY(obj.partes, nivel);
@@ -898,7 +959,17 @@ footer a{color:inherit}
       const suj = a.quien && b.quien && a.quien === b.quien ? N1(a.quien) + ' ' : null;
       if (suj && ta.startsWith(suj) && tb.startsWith(suj)) return `${ta} y ${tb.slice(suj.length)}`;
     }
-    return partes.map((p, i) => { const t = tituloDe(p, nivel); return i && /^(Todos|Todas|Nadie|No todos|No todas) /.test(t) ? t[0].toLowerCase() + t.slice(1) : t; }).join(' y ');
+    return partes.map((p, i) => { const t = tituloDe(p, nivel); return i && !/^[¡¿]/.test(t) && !NOMBRES.has(t.split(' ')[0]) ? t[0].toLowerCase() + t.slice(1) : t; }).join(' y ');
+  }
+  const NOMBRES = new Set(C.PERSONAJES.map(p => p.nombre));
+  /** ¿Tiene sentido este objetivo? (modo Autor, tests): yaNo / nunca solo sobre estados negativos. */
+  function objetivoValido(obj) {
+    if (!obj || !obj.tipo) return false;
+    if (obj.tipo === 'y') return Array.isArray(obj.partes) && obj.partes.length >= 2 && obj.partes.every(objetivoValido);
+    if ((obj.tipo === 'yaNo' || obj.tipo === 'nunca') && !NEGATIVOS.includes(obj.estado)) return false;
+    if ((obj.tipo === 'estado' || obj.tipo === 'todos' || obj.tipo === 'nadie') && !ESTADO_INFO[obj.estado]) return false;
+    if ((obj.tipo === 'evento' || obj.tipo === 'sinEvento') && !obj.evento) return false;
+    return true;
   }
 
   /** Explica en español sencillo por qué el objetivo aún no se cumple. */
@@ -923,13 +994,23 @@ footer a{color:inherit}
         for (const id of ids) {
           if (H.alguna[id] && H.alguna[id][obj.estado]) {
             const v = res.viñetas.findIndex(vi => vi.estado[id] && vi.estado[id][obj.estado]);
-            out.push(L.cap(`${N1(id)} ${fraseEstado(obj.estado, [id])} en la viñeta ${v + 1}.`));
+            out.push(L.cap(`${N1(id)} ${fraseEstado(obj.estado, [id])} ${v < 0 ? 'desde el principio' : 'en la viñeta ' + (v + 1)}.`));
           }
         }
         return out;
       }
-      case 'evento': return [`Falta: «${tituloDe(obj, nivel)}».`];
-      case 'amigos': return [`${N1(obj.a)} y ${N1(obj.b)} no están juntos en ninguna viñeta.`];
+      case 'evento': return [`Falta: «${tituloDe(obj, nivel)}».`, PRECONDICION[obj.evento] ? PRECONDICION[obj.evento](obj) : null].filter(Boolean);
+      case 'sinEvento': {
+        const e = H.eventos.find(x => x.tipo === obj.evento && (!obj.quien || x.quien === obj.quien || (x.quienes && x.quienes.includes(obj.quien))));
+        const f = TITULO_EVENTO[obj.evento];
+        return [L.cap(`${f ? f(e.quien, e.a) : obj.evento} en la viñeta ${e.viñeta + 1}.`)];
+      }
+      case 'amigos': {
+        const juntos = res.viñetas.some(v => v.personajes.includes(obj.a) && v.personajes.includes(obj.b));
+        if (!juntos) return [`${N1(obj.a)} y ${N1(obj.b)} no están juntos en ninguna viñeta.`];
+        const cs = H.eventos.find(e => e.tipo === 'comeSolo');
+        return [cs ? `${N1(cs.quien)} come y no comparte: ${N1(obj.a)} y ${N1(obj.b)} no son amigos.` : `${N1(obj.a)} y ${N1(obj.b)} todavía no son amigos.`];
+      }
       case 'enfadado': return [`${N1(obj.quien)} no está ${L.acuerdo('enfadado', L.gn(P(obj.quien)))} con ${N1(obj.con)}.`];
       case 'y': return obj.partes.flatMap(p => porque(p, res, nivel));
       default: return ['…'];
@@ -955,8 +1036,8 @@ footer a{color:inherit}
   function simular(nivel, viñetas, opts) {
     opts = opts || {};
     const tiempo = opts.tiempo === 'pret' ? 'pret' : 'pres';
-    const ctx = { S: estadoInicial(nivel), hist: { alguna: {}, eventos: [], invalido: false, salen: {} }, tiempo };
-    for (const id of nivel.personajes) ctx.hist.alguna[id] = {};
+    const S0 = estadoInicial(nivel), S0copia = clonar(S0);
+    const ctx = { S: S0, hist: historialInicial(nivel, S0), tiempo };
     const out = [];
     let incompleto = false;
     const n = nivel.viñetas;
@@ -982,6 +1063,12 @@ footer a{color:inherit}
     res.secreto = completa && !!nivel.secreto && evaluar(nivel.secreto, res, nivel);
     res.porque = nivel.objetivo ? porque(nivel.objetivo, res, nivel) : [];
     res.resumen = nivel.personajes.filter(id => out.some(v => v.personajes.includes(id))).map(id => describir(id, ctx.S, tiempo));
+    // «Al principio»: personajes con algún estado u objeto inicial (nivel.inicial)
+    res.inicio = nivel.inicial ? Object.keys(nivel.inicial).filter(id => S0copia[id] && (NEGATIVOS.some(k => S0copia[id][k]) || Object.keys(S0copia[id].objetos).length)).map(id => {
+      const d = describir(id, S0copia, 'pres');
+      const objs = Object.keys(S0copia[id].objetos).map(o => (C.OBJETOS.find(x => x.id === o) || { nombre: o }).nombre);
+      return objs.length ? `${d} Tiene ${lista(objs)}.` : d;
+    }) : [];
     res.frasesTodas = out.flatMap(v => v.frases);
     res.expresiones = {};
     for (const id of nivel.personajes) res.expresiones[id] = expresion(ctx.S[id]);
@@ -1003,7 +1090,7 @@ footer a{color:inherit}
     const rel = { eventos: new Set(), alguna: new Set() };
     const visita = o => {
       if (!o) return;
-      if (o.tipo === 'evento') rel.eventos.add(o.evento);
+      if (o.tipo === 'evento' || o.tipo === 'sinEvento') rel.eventos.add(o.evento);
       if (o.tipo === 'yaNo' || o.tipo === 'nunca') rel.alguna.add(o.estado);
       if (o.tipo === 'y') o.partes.forEach(visita);
     };
@@ -1061,8 +1148,8 @@ footer a{color:inherit}
       return r;
     }
     function clonarAlguna(a) { const b = {}; for (const id in a) b[id] = Object.assign({}, a[id]); return b; }
-    const inicio = { S: estadoInicial(nivel), hist: { alguna: {}, eventos: [], invalido: false, salen: {} }, tiempo: 'pres' };
-    for (const id of nivel.personajes) inicio.hist.alguna[id] = {};
+    const S0 = estadoInicial(nivel);
+    const inicio = { S: S0, hist: historialInicial(nivel, S0), tiempo: 'pres' };
     const total = nivel.objetivo ? cuenta(inicio, 0) : { t: 0, s: 0, a: 0 };
     // enumerar soluciones (hasta max) siguiendo solo ramas con t>0
     const soluciones = [];
@@ -1090,7 +1177,7 @@ footer a{color:inherit}
     return sol.map((op, i) => `${i + 1} ${ESCENA[op.escena].nombre.replace(/^(El|La) /, '').toLowerCase()} (${op.personajes.map(N1).join(', ')})`).join(' · ');
   }
 
-  return { simular, resolver, evaluar, tituloDe, porque, describir, lexicoDe, expresion, frasesDe, paso, estadoInicial, opcionesDe, textoSolucion, NEGATIVOS, LEXICO_ESCENA, P, ordenar };
+  return { simular, resolver, evaluar, tituloDe, porque, describir, lexicoDe, expresion, frasesDe, paso, estadoInicial, opcionesDe, textoSolucion, objetivoValido, NEGATIVOS, LEXICO_ESCENA, P, ordenar };
 });
 
 </script>
@@ -1336,6 +1423,10 @@ footer a{color:inherit}
     const tt = $('#tituloTxt');
     tt.innerHTML = nivel.libre ? 'Mi historia <span class="alt">(sin título: inventa)</span>' : nivel.titulo;
     tt.classList.remove('ok');
+    const ini = $('#inicio');
+    const lineas = E.simular(nivel, []).inicio;
+    ini.hidden = !lineas.length;
+    ini.innerHTML = lineas.length ? `<b>Al principio:</b> ${lineas.join(' ')}` : '';
     pintarStock();
     pintarTira();
     simular();
@@ -1465,7 +1556,7 @@ footer a{color:inherit}
     pintarNiveles();
     const d = $('#dlgExito');
     d.innerHTML = `<h2>¡Muy bien!</h2><div class="grande">${'★'.repeat(p.estrellas)}${'☆'.repeat(3 - p.estrellas)}</div>
-      <p><b>${nivel.titulo}</b></p>${res.secreto ? `<p>🔑 Título secreto: <b>${E.tituloDe(nivel.secreto, nivel)}</b></p>` : (nivel.secreto ? '<p class="alt">Hay un título secreto en este nivel… ¿lo encuentras?</p>' : '')}
+      <p><b>${nivel.titulo}</b></p>${res.secreto ? `<p>🔑 Título secreto: <b>${nivel.tituloSecreto || E.tituloDe(nivel.secreto, nivel)}</b></p>` : (nivel.secreto ? '<p class="alt">Hay un título secreto en este nivel… ¿lo encuentras?</p>' : '')}
       <div class="fila"><button class="btn sec" id="btnSeguir">Seguir aquí</button><button class="btn" id="btnLeer">Leer la historia</button><button class="btn verde" id="btnSig">Siguiente nivel →</button></div>`;
     d.querySelector('#btnSeguir').onclick = () => d.close();
     d.querySelector('#btnLeer').onclick = () => { d.close(); quePasa(); };

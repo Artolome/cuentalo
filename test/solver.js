@@ -35,9 +35,12 @@ for (const nivel of C.NIVELES) {
   console.log(`\n[${nivel.id}] cap ${nivel.capitulo} · ${nivel.viñetas} viñetas · ${nivel.escenas.length} escenas · ${nivel.personajes.length} personajes · ${r.opciones} opciones/viñeta · ${r.posibles.toLocaleString('es')} historias posibles`);
   console.log(`  título: «${nivel.titulo}»${titulo !== nivel.titulo ? `   (generado: «${titulo}»)` : ''}`);
   console.log(`  ${marca} — ${r.total.toLocaleString('es')} solución(es) · densidad ${pct} · ${r.estados.toLocaleString('es')} estados · ${ms} ms`);
+  if (!E.objetivoValido(nivel.objetivo)) { console.log('  ✗ objetivo no válido (yaNo/nunca solo sobre estados negativos)'); fallos++; }
   if (nivel.secreto) {
-    const ts = E.tituloDe(nivel.secreto, nivel);
+    const ts = nivel.tituloSecreto || E.tituloDe(nivel.secreto, nivel);
+    if (!E.objetivoValido(nivel.secreto)) { console.log('  ✗ secreto no válido'); fallos++; }
     if (r.secretas === 0) { console.log(`  ✗ título secreto imposible: «${ts}»`); fallos++; }
+    else if (r.ambas === r.total) { console.log(`  ⚠ secreto automático: «${ts}» se cumple en todas las soluciones`); avisos++; }
     else console.log(`  secreto: «${ts}» — ${r.secretas.toLocaleString('es')} historias, ${r.ambas.toLocaleString('es')} cumplen los dos títulos`);
   }
   const lista = r.soluciones.slice(0, todas ? r.soluciones.length : 6);

@@ -53,16 +53,17 @@ Cada viñeta = 1 escena + 1 o 2 personajes. Las reglas dependen del estado anter
 
 **Reglas generales (valen para todas las escenas con 2 personajes)**
 1. Si uno está perdido y el otro no → *«Y encuentra a X. ¡Qué alegría!»* (perdido ✗). Si los dos están perdidos → *«Se encuentran. Ya no están perdidos.»*
-2. Compartir una viñeta → son **amigos** (excepto si uno come solo).
-3. Un personaje **a salvo** no puede aparecer en una viñeta posterior (*«Pero Lucía ya está a salvo…»* → historia incoherente).
+2. Compartir una viñeta → son **amigos**, y la primera vez se dice: *«Ahora Lucía y Mateo son amigos.»* (excepto si uno come y no comparte). La amistad decide si se comparte la comida junto al fuego.
+3. Un personaje **a salvo** no puede aparecer en una viñeta posterior (*«¡Pero Lucía ya está a salvo! No puede estar aquí.»* → historia incoherente).
 4. **Todos los personajes del nivel tienen que salir** al menos una vez (si no: *«Mateo no sale en la historia.»*). ⚠️ Regla añadida para que el segundo personaje no sea decorativo; se puede quitar.
+5. Un nivel puede empezar con un **estado inicial** (`inicial`), que se lee bajo el título: *«Al principio: Lucía tiene hambre y está cansada.»* (usado en c3n6).
 
 | escena | slots | solo/a | a dos | objetos |
 |---|---|---|---|---|
 | 🌴 **La selva** | 1-2 | camina solo/a y **se pierde** | si uno está perdido: **lo encuentra**; si no: caminan juntos → **hambre + cansados** | con mapa: no se pierde |
 | 🌊 **El río** | 1-2 | bebe agua (**sed ✗**); cruza y se moja → **frío** | igual, los dos | con cuerda (uno basta): cruzan sin mojarse |
 | 🌞 **El sol** | 1-2 | hace mucho calor → **sed** | igual | — |
-| ⛈️ **La tormenta** | 1-2 | llueve → **frío + miedo** | llueve → **frío** (sin miedo: están juntos) | con manta (uno basta): sin frío |
+| ⛈️ **La tormenta** | 1-2 | llueve → **frío + miedo** | llueve → **frío** (sin miedo: están juntos) | con manta (uno basta): se tapa(n) → **frío ✗** |
 | 🌙 **La noche** | 1-2 | está solo/a → **miedo** | duermen juntos → **cansado ✗, miedo ✗** | con linterna: enciende la linterna y duerme tranquilo/a |
 | 🐆 **El jaguar** | 1-2 | miedo, corre → **miedo + perdido** | gritan juntos y el jaguar se va (sin efecto) | con mapa: no se pierde |
 | 🐍 **La serpiente** | 1-2 | la serpiente le muerde → **herido/a** | el otro la ve y avisa: nadie está herido | — |
@@ -88,10 +89,11 @@ Cada viñeta = 1 escena + 1 o 2 personajes. Las reglas dependen del estado anter
 | `todos` / `nadie` | *Todos están a salvo* · *Nadie tiene miedo* | todos / ninguno de los personajes del nivel (estado final) |
 | `nunca` | *Valeria nunca tiene miedo* | X no lo tiene en ninguna viñeta |
 | `evento` | *Mateo encuentra a Lucía* · *Valeria cura a Diego* · *Lucía comparte la comida con Mateo* · *Diego pide perdón a Lucía* · *Valeria duerme tranquila* | el evento ocurre en alguna viñeta |
+| `sinEvento` | *Nadie duerme solo* · *Nadie se pierde en la selva* · *Todos comparten* | el evento no ocurre en ninguna viñeta (se combina con `y`) |
 | `enfadado` / `amigos` | *Mateo está enfadado con Lucía* · *Lucía y Mateo son amigos* | relación final |
 | `y` | *Todos están contentos y a salvo* | las dos partes |
 
-El motor genera también el título desde el predicado (`tituloDe`) — sirve al asistente del modo Autor — y explica **por qué no** se cumple todavía (botón «¿Qué pasa?»): *«Lucía todavía tiene sed.»*, *«Mateo no sale en la historia.»*, *«Valeria tiene miedo en la viñeta 2.»*
+El motor genera también el título desde el predicado (`tituloDe`) — sirve al asistente del modo Autor — y explica **por qué no** se cumple todavía (botón «¿Qué pasa?»): *«Lucía todavía tiene sed.»*, *«Mateo no sale en la historia.»*, *«Valeria tiene miedo en la viñeta 2.»* Para los títulos de evento añade la condición que falta: *«Falta: «Diego pide perdón a Lucía». Primero Lucía tiene que estar enfadada (el fuego: comer y no compartir). Después, los dos en el refugio.»*
 
 ## 5. Los 16 niveles (+ nivel libre)
 
@@ -99,37 +101,38 @@ Dificultad medida por el resolvedor exacto (`node test/solver.js`): **soluciones
 
 | id | cap | título | viñ. | escenas | personajes | título secreto | soluciones · densidad |
 |---|---|---|---|---|---|---|---|
-| c1n1 | 1 | **Lucía ya no tiene sed** | 3 | sol · río | Lucía | — | 3 · 37 % |
-| c1n2 | 1 | **Mateo tiene frío** | 3 | río · fuego | Mateo | — | 4 · 50 % |
-| c1n3 | 1 | **Valeria duerme tranquila** | 3 | noche · linterna | Valeria | — | 4 · 50 % |
-| c1n4 | 1 | **Diego ya no está perdido** | 3 | selva · montaña | Diego | — | 3 · 37 % |
+| c1n1 | 1 | **Lucía ya no tiene sed** | 3 | sol · río · fuego | Lucía | — | 6 · 22 % |
+| c1n2 | 1 | **Mateo ya no tiene frío** | 3 | río · fuego | Mateo | — | 3 · 37 % |
+| c1n3 | 1 | **Valeria duerme tranquila** | 3 | noche · linterna · refugio | Valeria | — | 7 · 26 % |
+| c1n4 | 1 | **Diego ya no está perdido** | 3 | selva · montaña · frutas | Diego | — | 6 · 22 % |
 | c1n5 | 1 | **Lucía está a salvo** | 3 | selva · mapa · rescate | Lucía | — | 3 · 11 % |
 | c2n1 | 2 | **Mateo encuentra a Lucía** | 3 | selva · noche · sol | Lucía, Mateo | Nadie duerme solo | 63 · 8,6 % |
 | c2n2 | 2 | **Valeria cura a Diego** | 3 | serpiente · refugio | Valeria, Diego | Valeria está herida | 14 · 6,5 % |
 | c2n3 | 2 | **Lucía y Mateo ya no tienen hambre** | 3 | selva · frutas · noche | Lucía, Mateo | Nadie está cansado | 24 · 3,3 % |
 | c2n4 | 2 | **Nadie tiene miedo y todos tienen frío** | 3 | noche · tormenta · jaguar | Valeria, Diego | El jaguar se va | 39 · 5,4 % |
-| c2n5 | 2 | **Todos están a salvo** | 3 | selva · mapa · rescate | Valeria, Mateo | Alguien encuentra a un amigo | 35 · 6,8 % |
+| c2n5 | 2 | **Valeria encuentra a Mateo y todos están a salvo** | 3 | selva · mapa · rescate | Valeria, Mateo | Valeria encuentra el mapa | 6 · 1,2 % |
 | c3n1 | 3 | **Lucía comparte la comida con Mateo** | 4 | mochila · selva · fuego · noche | Lucía, Mateo | Nadie está cansado | 68 · 0,46 % |
 | c3n2 | 3 | **Mateo está enfadado con Lucía** | 4 | mochila · montaña · fuego · río | Lucía, Mateo | Mateo tiene frío | 58 · 0,40 % |
-| c3n3 | 3 | **Diego pide perdón a Lucía** | 4 | mochila · montaña · fuego · refugio | Lucía, Diego | Diego nunca tiene hambre | **2** · 0,01 % |
-| c3n4 | 3 | **Valeria está a salvo y nunca tiene miedo** | 4 | noche · jaguar · linterna · rescate | Valeria, Diego | Diego tiene miedo | 800 · 5,5 % |
-| c3n5 | 3 | **Todos están a salvo** | 5 | selva · jaguar · noche · mapa · rescate | Lucía, Mateo, Diego | Diego encuentra a Lucía | 78 489 · 0,55 % |
-| c3n6 | 3 | **Todos están contentos y a salvo** | 6 | selva · río · noche · frutas · refugio · rescate | Lucía, Mateo, Valeria | Nadie está perdido nunca | 1,27 M · 0,06 % |
+| c3n3 | 3 | **Diego pide perdón a Lucía** | 4 | mochila · montaña · fuego · refugio | Lucía, Diego | — (nivel «enigma», a propósito) | **2** · 0,01 % |
+| c3n4 | 3 | **Valeria duerme tranquila y todos están a salvo** | 4 | noche · jaguar · linterna · rescate | Valeria, Diego | Diego tiene miedo | 26 · 0,18 % |
+| c3n5 | 3 | **Diego encuentra a Lucía y todos están a salvo** | 5 | selva · jaguar · noche · mapa · rescate | Lucía, Mateo, Diego | Mateo nunca tiene miedo | 6 256 · 0,04 % |
+| c3n6 | 3 | **Todos están contentos y a salvo** (al principio todos tienen hambre y están cansados) | 6 | selva · río · noche · frutas · refugio · rescate | Lucía, Mateo, Valeria | Lucía y Valeria duermen bien | 20 088 · 0,001 % |
 | libre | — | *Mi historia* (sin título) | 6 | todas | los 4 | — | — |
 
-Progresión: cap. 1 = 1 personaje, 3 viñetas, 2-3 escenas, estructuras *tiene / está / ya no*; cap. 2 = 2 personajes, 3 viñetas, *encuentra a, cura a, todos / nadie, plural*; cap. 3 = 4-6 viñetas, 2-3 personajes, *comparte con, enfadado con, pide perdón a, nunca, y*.
+Progresión: cap. 1 = 1 personaje, 3 viñetas, 2-3 escenas, estructuras *tiene / está / ya no* (la tercera escena cierra el arco: *sol → río → fuego*); cap. 2 = 2 personajes, 3 viñetas, *encuentra a, cura a, todos / nadie, plural, son amigos*; cap. 3 = 4-6 viñetas, 2-3 personajes, *comparte con, enfadado con, pide perdón a, nunca, y*, estado inicial. Los tres niveles finales exigen una historia real (ya no se ganan con «frutas ×4 + dos helicópteros»).
 
 ⚠️ Las **pistas** (2-3 por nivel, en español sencillo) están en `src/contenido.js` y en `docs/frases.txt` (sección PISTAS).
 
 ## 6. Gabarits de frases (presente) — la capa pedagógica
 
-Una viñeta produce 1-3 frases cortas. Todas las variantes (género, número, presente/pretérito) están en `docs/frases.txt` (982 frases). Muestra:
+Una viñeta produce 1-3 frases cortas (4 la primera vez que dos personajes se hacen amigos). Todas las variantes (género, número, presente/pretérito) están en `docs/frases.txt` (≈1 600 líneas). Muestra:
 
 | escena | frase(s) |
 |---|---|
 | selva (solo) | *Lucía camina sola por la selva y se pierde.* |
 | selva (a dos, uno perdido) | *Mateo encuentra a Lucía en la selva. ¡Qué alegría!* |
-| selva (a dos) | *Lucía y Mateo caminan juntos por la selva. Tienen hambre y están cansados.* |
+| selva (a dos) | *Lucía y Mateo caminan juntos por la selva. Tienen hambre y están cansados. Ahora Lucía y Mateo son amigos.* |
+| estado inicial | *Al principio: Lucía tiene hambre. Está cansada.* |
 | río | *Lucía bebe agua del río. Ya no tiene sed. Cruza el río y se moja. Tiene frío.* |
 | sol | *Hace mucho calor. Mateo tiene sed.* |
 | tormenta (solo) | *Llueve mucho. Diego tiene frío y miedo.* |

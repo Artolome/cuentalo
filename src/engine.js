@@ -31,11 +31,18 @@
       if (ini) {
         for (const k in ini) {
           if (k === 'objetos') for (const o of ini.objetos) S[id].objetos[o] = true;
+          else if (k === 'amigos' || k === 'enfadado') S[id][k] = Object.assign({}, ini[k]); // copia: nunca compartir con nivel.inicial
           else S[id][k] = ini[k];
         }
       }
     }
     return S;
+  }
+  /** Historial vacío, sembrado con los estados negativos iniciales (para yaNo / nunca). */
+  function historialInicial(nivel, S) {
+    const alguna = {};
+    for (const id of nivel.personajes) { alguna[id] = {}; for (const k of NEGATIVOS) if (S[id][k]) alguna[id][k] = true; }
+    return { alguna, eventos: [], invalido: false, salen: {} };
   }
   function clonar(S) {
     const T = {};
@@ -69,17 +76,23 @@
   /* ---------- paso: aplica una viñeta ----------
      ctx = { S, hist:{alguna:{id:{estado:true}}, eventos:[], invalido:false}, tiempo } */
   function paso(ctx, panel, indice) {
-    const S = ctx.S, ids = ordenar(panel.personajes || []), esc = panel.escena;
+    const S = ctx.S, esc = panel.escena;
+    const ids = ordenar([...new Set(panel.personajes || [])]); // sin repetidos
     const evs = [];
     const ev = (tipo, datos) => { const e = Object.assign({ tipo, viñeta: indice, escena: esc }, datos || {}); evs.push(e); ctx.hist.eventos.push(e); };
     const marca = () => { for (const id of ids) for (const k of NEGATIVOS) if (S[id][k]) ctx.hist.alguna[id][k] = true; };
     const set = (id, k, v) => { S[id][k] = v; if (v && NEGATIVOS.includes(k)) ctx.hist.alguna[id][k] = true; };
-    const haceAmigos = () => { if (ids.length === 2) { S[ids[0]].amigos[ids[1]] = true; S[ids[1]].amigos[ids[0]] = true; } };
+    const haceAmigos = () => { // amistad nueva → evento visible («Ahora X y Y son amigos.»)
+      if (ids.length !== 2 || S[ids[0]].amigos[ids[1]]) return;
+      S[ids[0]].amigos[ids[1]] = true; S[ids[1]].amigos[ids[0]] = true;
+      ev('amigos', { quienes: ids });
+    };
     const tiene = (id, o) => !!S[id].objetos[o];
     const alguienTiene = o => ids.some(id => tiene(id, o));
     const quienes = k => ids.filter(id => S[id][k]);
 
     if (!esc || !ids.length) return evs; // viñeta incompleta
+    if (ESCENA[esc] && ids.length > ESCENA[esc].slots) { ctx.hist.invalido = true; ev('demasiados', { quienes: ids }); return evs; }
     for (const id of ids) ctx.hist.salen[id] = true;
 
     // 0. Un personaje ya a salvo no puede seguir en la historia.
@@ -127,7 +140,7 @@
       }
       case 'tormenta': {
         const manta = alguienTiene('manta'), solo = ids.length === 1;
-        if (!manta) for (const id of ids) set(id, 'frio', true);
+        for (const id of ids) set(id, 'frio', !manta); // con manta: se tapa y no tiene frío (aunque viniera mojado)
         if (solo) set(ids[0], 'miedo', true);
         ev('tormenta', { quienes: ids, manta, solo });
         break;
@@ -155,7 +168,10 @@
       }
       case 'serpiente': {
         if (ids.length === 1) { set(ids[0], 'herido', true); ev('serpienteMuerde', { quien: ids[0] }); }
-        else ev('serpienteAvisa', { quien: ids[0], a: ids[1] });
+        else { // avisa el que está mejor (sin miedo ni herida); en empate, el primero del reparto
+          const q = ids.find(id => !S[id].miedo && !S[id].herido) || ids[0];
+          ev('serpienteAvisa', { quien: q, a: ids.find(id => id !== q) });
+        }
         break;
       }
       case 'frutas': {
@@ -267,7 +283,8 @@
         const f = `${L.cap(Vi('serImp'))} de noche. ${N(qs)} ${V('estar', qs)} ${A('juntos', qs)} y ${V('dormir', qs)} bien.`;
         if (e.cansados.length === qs.length) return [f, `${yaNo(qs, 'estar')} ${A('cansado', qs)}.`];
         if (e.cansados.length) return [f, `${N(e.cansados)} ya no ${V('estar', e.cansados)} ${A('cansado', e.cansados)}.`];
-        if (e.miedos.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
+        if (e.miedos.length === qs.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
+        if (e.miedos.length) return [f, `${N(e.miedos)} ya no ${V('tener', e.miedos)} miedo.`];
         return [f, `No ${V('tener', qs)} miedo.`];
       }
       case 'jaguarSolo': {
@@ -299,7 +316,8 @@
         if (e.breve) return [f];
         if (e.cansados.length === qs.length) return [f, `${yaNo(qs, 'estar')} ${A('cansado', qs)}.`];
         if (e.cansados.length) return [f, `${N(e.cansados)} ya no ${V('estar', e.cansados)} ${A('cansado', e.cansados)}.`];
-        if (e.miedos.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
+        if (e.miedos.length === qs.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
+        if (e.miedos.length) return [f, `${N(e.miedos)} ya no ${V('tener', e.miedos)} miedo.`];
         return [f, `${L.cap(V('estar', qs))} ${A('tranquilo', qs)}.`];
       }
       case 'cura': return [`${N(q)} ${V('curar', q)} a ${N(a)}. ${N(a)} ya no ${V('estar', a)} ${A('herido', a)}.`];
@@ -317,6 +335,8 @@
       case 'linterna': return e.miedo ? [`${N(q)} ${V('encontrar', q)} una linterna. ${yaNo(q, 'tener')} miedo.`] : [`${N(q)} ${V('encontrar', q)} una linterna. La ${V('guardar', q)}.`];
       case 'rescate': return [t === 'pret' ? `¡El helicóptero! ${N(qs)} ${V('salvarse', qs)}.` : `¡El helicóptero! ${N(qs)} ${V('estar', qs)} a salvo.`];
       case 'rescateNoVe': return [`El helicóptero no ${Vi('ver')} a ${N(q)}. ${N(q)} todavía ${V('estar', q)} ${A('perdido', q)}.`];
+      case 'amigos': return [t === 'pret' ? `${N(qs)} se hicieron ${A('amigo', qs)}.` : `Ahora ${N(qs)} ${V('ser', qs)} ${A('amigo', qs)}.`];
+      case 'demasiados': return ['Aquí solo cabe una persona.'];
       default: return ['…'];
     }
   }
@@ -367,6 +387,7 @@
         return ids.every(id => !(H.alguna[id] && H.alguna[id][obj.estado]) && !valor(S[id], obj.estado));
       }
       case 'evento': return H.eventos.some(e => e.tipo === obj.evento && (!obj.quien || e.quien === obj.quien || (e.quienes && e.quienes.includes(obj.quien))) && (!obj.a || e.a === obj.a || (e.quienes && e.quienes.includes(obj.a))));
+      case 'sinEvento': return !H.eventos.some(e => e.tipo === obj.evento && (!obj.quien || e.quien === obj.quien || (e.quienes && e.quienes.includes(obj.quien))));
       case 'amigos': return !!S[obj.a].amigos[obj.b];
       case 'enfadado': return !!S[obj.quien].enfadado[obj.con];
       case 'y': return obj.partes.every(p => evaluar(p, res, nivel));
@@ -408,7 +429,42 @@
     perdon: (q, a) => `${Nq(q, 'Alguien')} pide perdón a ${Nq(a, 'un amigo')}`,
     cruzaCuerda: (q, a) => q && a ? `${N1(q)} y ${N1(a)} cruzan el río con la cuerda` : q ? `${N1(q)} cruza el río con la cuerda` : 'Cruzan el río con la cuerda',
     serpienteAvisa: (q, a) => a ? `¡Cuidado, ${N1(a)}!` : '¡Cuidado con la serpiente!',
-    rescateNoVe: q => `El helicóptero no ve a ${Nq(q, 'alguien')}`
+    rescateNoVe: q => `El helicóptero no ve a ${Nq(q, 'alguien')}`,
+    nocheSolo: q => `${Nq(q, 'Alguien')} duerme ${acq('solo', q)}`,
+    pierde: q => `${Nq(q, 'Alguien')} se pierde`,
+    mapa: q => `${Nq(q, 'Alguien')} encuentra el mapa`,
+    mochila: q => `${Nq(q, 'Alguien')} encuentra la mochila`,
+    linterna: q => `${Nq(q, 'Alguien')} encuentra la linterna`,
+    manta: q => `${Nq(q, 'Alguien')} encuentra la manta`,
+    cuerda: q => `${Nq(q, 'Alguien')} encuentra la cuerda`,
+    bebe: q => `${Nq(q, 'Alguien')} bebe agua`,
+    comeFrutas: q => `${Nq(q, 'Alguien')} come frutas`,
+    fuego: q => `${Nq(q, 'Alguien')} hace fuego`,
+    descansa: q => `${Nq(q, 'Alguien')} descansa en el refugio`,
+    montana: q => `${Nq(q, 'Alguien')} sube la montaña`,
+    rescate: q => `${Nq(q, 'Alguien')} vuelve a casa`,
+    amigos: (q, a) => q && a ? `${N1(q)} y ${N1(a)} son amigos` : 'Dos personas se hacen amigas'
+  };
+  /* Títulos para «nunca ocurre el evento» (tipo sinEvento) */
+  const TITULO_SIN = {
+    nocheSolo: 'Nadie duerme solo', pierde: 'Nadie se pierde en la selva', jaguarSolo: 'Nadie corre solo', serpienteMuerde: 'La serpiente no muerde a nadie',
+    comeSolo: 'Todos comparten', cruzaMojado: 'Nadie se moja', rescateNoVe: 'El helicóptero ve a todos', tormenta: 'Nadie pasa la tormenta'
+  };
+  /* Qué hace falta para cada evento (explicación de «¿Qué pasa?» cuando falta un evento) */
+  const ac = (adj, id) => id ? L.acuerdo(adj, L.gn(P(id))) : adj + '/a';
+  const PRECONDICION = {
+    encuentra: o => `Primero ${Nq(o.a, 'alguien')} tiene que perderse (${ac('solo', o.a)} en la selva o con el jaguar). Después, los dos juntos.`,
+    seEncuentran: () => 'Primero los dos se pierden, cada uno solo. Después, los dos juntos.',
+    cura: o => `Primero ${Nq(o.a, 'alguien')} tiene que estar ${ac('herido', o.a)} (la serpiente, ${ac('solo', o.a)}). Después, los dos en el refugio.`,
+    comparte: o => `${Nq(o.quien, 'Alguien')} necesita la comida (la mochila), ${Nq(o.a, 'el otro')} necesita tener hambre y tienen que ser amigos antes del fuego.`,
+    comeSolo: o => `${Nq(o.quien, 'Alguien')} necesita la comida, ${Nq(o.a, 'el otro')} tiene hambre y todavía no son amigos. Después, el fuego.`,
+    perdon: o => `Primero ${Nq(o.a, 'alguien')} tiene que estar ${ac('enfadado', o.a)} (el fuego: comer y no compartir). Después, los dos en el refugio.`,
+    nocheLinterna: o => `${Nq(o.quien, 'Alguien')} necesita la linterna antes de la noche, y pasar la noche ${ac('solo', o.quien)}.`,
+    nocheJuntos: () => 'Los dos juntos en la noche.',
+    jaguarJuntos: () => 'Los dos juntos con el jaguar.',
+    caminanJuntos: () => 'Los dos juntos en la selva, sin estar perdidos.',
+    cruzaCuerda: () => 'Alguien necesita la cuerda antes del río.',
+    amigos: () => 'Los dos juntos en una viñeta (y nadie come sin compartir).'
   };
 
   function tituloDe(obj, nivel) {
@@ -426,6 +482,7 @@
       case 'nadie': return L.cap(`Nadie ${fraseEstado(obj.estado, [], 'pres', false, { g: 'm', n: 'sg' })}`);
       case 'nunca': return obj.quien ? L.cap(`${N1(obj.quien)} nunca ${fraseEstado(obj.estado, [obj.quien])}`) : L.cap(`Nadie ${fraseEstado(obj.estado, [], 'pres', false, { g: 'm', n: 'sg' }, 'nunca')}`);
       case 'evento': return (TITULO_EVENTO[obj.evento] || (() => obj.evento))(obj.quien, obj.a);
+      case 'sinEvento': return TITULO_SIN[obj.evento] || `Nunca: ${obj.evento}`;
       case 'amigos': return `${N1(obj.a)} y ${N1(obj.b)} son amigos`;
       case 'enfadado': return `${N1(obj.quien)} está ${L.acuerdo('enfadado', L.gn(P(obj.quien)))} con ${N1(obj.con)}`;
       case 'y': return tituloY(obj.partes, nivel);
@@ -454,7 +511,17 @@
       const suj = a.quien && b.quien && a.quien === b.quien ? N1(a.quien) + ' ' : null;
       if (suj && ta.startsWith(suj) && tb.startsWith(suj)) return `${ta} y ${tb.slice(suj.length)}`;
     }
-    return partes.map((p, i) => { const t = tituloDe(p, nivel); return i && /^(Todos|Todas|Nadie|No todos|No todas) /.test(t) ? t[0].toLowerCase() + t.slice(1) : t; }).join(' y ');
+    return partes.map((p, i) => { const t = tituloDe(p, nivel); return i && !/^[¡¿]/.test(t) && !NOMBRES.has(t.split(' ')[0]) ? t[0].toLowerCase() + t.slice(1) : t; }).join(' y ');
+  }
+  const NOMBRES = new Set(C.PERSONAJES.map(p => p.nombre));
+  /** ¿Tiene sentido este objetivo? (modo Autor, tests): yaNo / nunca solo sobre estados negativos. */
+  function objetivoValido(obj) {
+    if (!obj || !obj.tipo) return false;
+    if (obj.tipo === 'y') return Array.isArray(obj.partes) && obj.partes.length >= 2 && obj.partes.every(objetivoValido);
+    if ((obj.tipo === 'yaNo' || obj.tipo === 'nunca') && !NEGATIVOS.includes(obj.estado)) return false;
+    if ((obj.tipo === 'estado' || obj.tipo === 'todos' || obj.tipo === 'nadie') && !ESTADO_INFO[obj.estado]) return false;
+    if ((obj.tipo === 'evento' || obj.tipo === 'sinEvento') && !obj.evento) return false;
+    return true;
   }
 
   /** Explica en español sencillo por qué el objetivo aún no se cumple. */
@@ -479,13 +546,23 @@
         for (const id of ids) {
           if (H.alguna[id] && H.alguna[id][obj.estado]) {
             const v = res.viñetas.findIndex(vi => vi.estado[id] && vi.estado[id][obj.estado]);
-            out.push(L.cap(`${N1(id)} ${fraseEstado(obj.estado, [id])} en la viñeta ${v + 1}.`));
+            out.push(L.cap(`${N1(id)} ${fraseEstado(obj.estado, [id])} ${v < 0 ? 'desde el principio' : 'en la viñeta ' + (v + 1)}.`));
           }
         }
         return out;
       }
-      case 'evento': return [`Falta: «${tituloDe(obj, nivel)}».`];
-      case 'amigos': return [`${N1(obj.a)} y ${N1(obj.b)} no están juntos en ninguna viñeta.`];
+      case 'evento': return [`Falta: «${tituloDe(obj, nivel)}».`, PRECONDICION[obj.evento] ? PRECONDICION[obj.evento](obj) : null].filter(Boolean);
+      case 'sinEvento': {
+        const e = H.eventos.find(x => x.tipo === obj.evento && (!obj.quien || x.quien === obj.quien || (x.quienes && x.quienes.includes(obj.quien))));
+        const f = TITULO_EVENTO[obj.evento];
+        return [L.cap(`${f ? f(e.quien, e.a) : obj.evento} en la viñeta ${e.viñeta + 1}.`)];
+      }
+      case 'amigos': {
+        const juntos = res.viñetas.some(v => v.personajes.includes(obj.a) && v.personajes.includes(obj.b));
+        if (!juntos) return [`${N1(obj.a)} y ${N1(obj.b)} no están juntos en ninguna viñeta.`];
+        const cs = H.eventos.find(e => e.tipo === 'comeSolo');
+        return [cs ? `${N1(cs.quien)} come y no comparte: ${N1(obj.a)} y ${N1(obj.b)} no son amigos.` : `${N1(obj.a)} y ${N1(obj.b)} todavía no son amigos.`];
+      }
       case 'enfadado': return [`${N1(obj.quien)} no está ${L.acuerdo('enfadado', L.gn(P(obj.quien)))} con ${N1(obj.con)}.`];
       case 'y': return obj.partes.flatMap(p => porque(p, res, nivel));
       default: return ['…'];
@@ -511,8 +588,8 @@
   function simular(nivel, viñetas, opts) {
     opts = opts || {};
     const tiempo = opts.tiempo === 'pret' ? 'pret' : 'pres';
-    const ctx = { S: estadoInicial(nivel), hist: { alguna: {}, eventos: [], invalido: false, salen: {} }, tiempo };
-    for (const id of nivel.personajes) ctx.hist.alguna[id] = {};
+    const S0 = estadoInicial(nivel), S0copia = clonar(S0);
+    const ctx = { S: S0, hist: historialInicial(nivel, S0), tiempo };
     const out = [];
     let incompleto = false;
     const n = nivel.viñetas;
@@ -538,6 +615,12 @@
     res.secreto = completa && !!nivel.secreto && evaluar(nivel.secreto, res, nivel);
     res.porque = nivel.objetivo ? porque(nivel.objetivo, res, nivel) : [];
     res.resumen = nivel.personajes.filter(id => out.some(v => v.personajes.includes(id))).map(id => describir(id, ctx.S, tiempo));
+    // «Al principio»: personajes con algún estado u objeto inicial (nivel.inicial)
+    res.inicio = nivel.inicial ? Object.keys(nivel.inicial).filter(id => S0copia[id] && (NEGATIVOS.some(k => S0copia[id][k]) || Object.keys(S0copia[id].objetos).length)).map(id => {
+      const d = describir(id, S0copia, 'pres');
+      const objs = Object.keys(S0copia[id].objetos).map(o => (C.OBJETOS.find(x => x.id === o) || { nombre: o }).nombre);
+      return objs.length ? `${d} Tiene ${lista(objs)}.` : d;
+    }) : [];
     res.frasesTodas = out.flatMap(v => v.frases);
     res.expresiones = {};
     for (const id of nivel.personajes) res.expresiones[id] = expresion(ctx.S[id]);
@@ -559,7 +642,7 @@
     const rel = { eventos: new Set(), alguna: new Set() };
     const visita = o => {
       if (!o) return;
-      if (o.tipo === 'evento') rel.eventos.add(o.evento);
+      if (o.tipo === 'evento' || o.tipo === 'sinEvento') rel.eventos.add(o.evento);
       if (o.tipo === 'yaNo' || o.tipo === 'nunca') rel.alguna.add(o.estado);
       if (o.tipo === 'y') o.partes.forEach(visita);
     };
@@ -617,8 +700,8 @@
       return r;
     }
     function clonarAlguna(a) { const b = {}; for (const id in a) b[id] = Object.assign({}, a[id]); return b; }
-    const inicio = { S: estadoInicial(nivel), hist: { alguna: {}, eventos: [], invalido: false, salen: {} }, tiempo: 'pres' };
-    for (const id of nivel.personajes) inicio.hist.alguna[id] = {};
+    const S0 = estadoInicial(nivel);
+    const inicio = { S: S0, hist: historialInicial(nivel, S0), tiempo: 'pres' };
     const total = nivel.objetivo ? cuenta(inicio, 0) : { t: 0, s: 0, a: 0 };
     // enumerar soluciones (hasta max) siguiendo solo ramas con t>0
     const soluciones = [];
@@ -646,5 +729,5 @@
     return sol.map((op, i) => `${i + 1} ${ESCENA[op.escena].nombre.replace(/^(El|La) /, '').toLowerCase()} (${op.personajes.map(N1).join(', ')})`).join(' · ');
   }
 
-  return { simular, resolver, evaluar, tituloDe, porque, describir, lexicoDe, expresion, frasesDe, paso, estadoInicial, opcionesDe, textoSolucion, NEGATIVOS, LEXICO_ESCENA, P, ordenar };
+  return { simular, resolver, evaluar, tituloDe, porque, describir, lexicoDe, expresion, frasesDe, paso, estadoInicial, opcionesDe, textoSolucion, objetivoValido, NEGATIVOS, LEXICO_ESCENA, P, ordenar };
 });

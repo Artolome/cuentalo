@@ -40,6 +40,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .titulo .alt{font-size:.5em;font-weight:500;opacity:.8;margin-left:.6em}
 #estadoNivel{font-weight:700;color:var(--tinta2);font-size:1.1rem;min-width:8em}
 #estadoNivel.ok{color:var(--ok)}
+.inicio{flex-basis:100%;text-align:center;margin:0;font-size:1.1rem;color:var(--tinta2)}
 /* tira de viñetas */
 #tira{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
 .vineta{width:min(100%, var(--ancho-vineta, 380px), calc((100vh - 400px) * 1.45));min-width:230px;display:flex;flex-direction:column;background:var(--papel);border:3px solid var(--borde);border-radius:12px;overflow:hidden;box-shadow:0 5px 0 rgba(0,0,0,.3)}
@@ -119,6 +120,7 @@ footer a{color:inherit}
   <section id="titulo">
     <button id="tituloTxt" class="titulo" title="Escuchar el título"></button>
     <span id="estadoNivel"></span>
+    <p id="inicio" class="inicio" hidden></p>
   </section>
   <section id="tira" aria-label="Viñetas"></section>
   <section id="stock" aria-label="Escenas y personajes">

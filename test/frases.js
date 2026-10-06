@@ -45,10 +45,12 @@ for (const tiempo of ['pres', 'pret']) {
       }
     }
   }
-  // «ya a salvo» (incoherencia)
-  const nivel = { id: 't', viñetas: 2, escenas: ['rescate', 'selva'], personajes: [F] };
-  const res = E.simular(nivel, [{ escena: 'rescate', personajes: [F] }, { escena: 'selva', personajes: [F] }], { tiempo });
+  // «ya a salvo» (incoherencia) y «demasiados» (2 personajes en escena de 1 plaza)
+  const nivel = { id: 't', viñetas: 3, escenas: ['rescate', 'selva', 'mapa'], personajes: [F, M] };
+  const res = E.simular(nivel, [{ escena: 'rescate', personajes: [F] }, { escena: 'selva', personajes: [F] }, { escena: 'mapa', personajes: [F, M] }], { tiempo });
   add(`${tiempo === 'pres' ? 'PRESENTE' : 'PRETÉRITO'} · incoherencia`, res.viñetas[1].frases.join(' '));
+  const res2 = E.simular(nivel, [{ escena: 'mapa', personajes: [F, M] }], { tiempo });
+  add(`${tiempo === 'pres' ? 'PRESENTE' : 'PRETÉRITO'} · incoherencia`, res2.viñetas[0].frases.join(' '));
 }
 
 // 2. Títulos de los niveles (explícitos y generados) + secretos + pistas
@@ -57,7 +59,8 @@ for (const n of C.NIVELES) {
   add('TÍTULOS · niveles', `${n.titulo}   [${n.id}]`);
   const g = E.tituloDe(n.objetivo, n);
   if (g !== n.titulo) add('TÍTULOS · generados por tituloDe (difieren del explícito)', `${g}   [${n.id}]`);
-  if (n.secreto) add('TÍTULOS · secretos', `${E.tituloDe(n.secreto, n)}   [${n.id}]`);
+  if (n.secreto) add('TÍTULOS · secretos', `${n.tituloSecreto || E.tituloDe(n.secreto, n)}   [${n.id}]`);
+  for (const l of E.simular(n, []).inicio) add('AL PRINCIPIO (estado inicial)', `${l}   [${n.id}]`);
   for (const p of n.pistas || []) add('PISTAS', `${p}   [${n.id}]`);
 }
 // 3. Títulos generables (asistente del modo Autor): cada tipo × estado × género

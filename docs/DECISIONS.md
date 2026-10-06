@@ -69,6 +69,19 @@ Format : **Décision** → pourquoi → ⚠️ ce que tu dois vérifier / tranch
 - Le moteur tourne en Node : `node test/solver.js` (exact, mémoïsé, < 6 s pour les 16 niveaux), `node test/frases.js`.
 - `test/serve.js` = mini serveur de dev pour les tests navigateur (non livré).
 
-## 10. Reporté aux phases suivantes
+## 10. Revue automatique moteur + design (appliquée)
 
-Modes Pizarra (chrono, tirage au sort, équipes) / Solo (sélecteur ★ ★★ ★★★) / Autor / Profe (touche P) ; modo escritor ; bascule pretérito dans l'UI ; impression A4 ; `GUIA_PROFE.md` ; Kiwi ; verrouillage de progression ; tests 3 navigateurs et hors-ligne.
+Deux agents relecteurs (bugs du moteur, design pédagogique) puis un vérificateur contradictoire par constat ; tout ce qui suit a été reproduit avec le moteur avant d'être appliqué.
+
+- **Bugs moteur corrigés** : `nivel.inicial` partagé par référence (la simulation modifiait le niveau) ; états initiaux absents de l'historique (*ya no / nunca* faux) ; manta dans la tormenta qui annonçait « no tiene frío » sans l'enlever (→ la manta enlève le froid) ; personnage en double dans une case ; 2 personnages dans une escena à 1 place (→ *« Aquí solo cabe una persona. »*, histoire invalide) ; majuscules internes dans les titres composés ; *yaNo / nunca* sur *contento* (irrésoluble) → `objetivoValido` ; qui prévient de la serpiente (celui qui va le mieux) ; explication « amigos » qui mentait.
+- **Relation « amigos » rendue visible** : la première viñeta partagée produit *« Ahora Lucía y Mateo son amigos. »* — c'est elle qui décide du partage au fuego, elle devait se lire.
+- **Titres secrets qui mentaient** : *Nadie duerme solo* exige maintenant qu'aucune viñeta ne contienne *duerme solo* (nouveau prédicat `sinEvento`) ; secrets « automatiques » (vérifiés dans 100 % des solutions) remplacés ou retirés (c3n3 reste sans secret : niveau « énigme »).
+- **Histoires vides** : les trois finales se gagnaient avec des cases sans rapport (Valeria seule dans l'hélicoptère ; *frutas ×4 + deux hélicoptères*). c3n4 → *Valeria duerme tranquila y todos están a salvo* (26 solutions) ; c3n5 → *Diego encuentra a Lucía y todos están a salvo* (6 256) ; c3n6 → **état initial** *todos tienen hambre y están cansados* (de 1,27 M à 20 088). `nivel.inicial` est affiché sous le titre (*« Al principio: … »*).
+- **Chapitre 1** : 3e escena qui ferme l'arc (sol → río → fuego ; noche → linterna → refugio ; selva → montaña → frutas) pour que la 3e case ne soit plus une répétition ; c1n2 devient *Mateo ya no tiene frío* (même structure que c1n1).
+- **c2n5** : *Valeria encuentra a Mateo y todos están a salvo* (le mapa n'était plus qu'un décor ; 35 → 6 solutions). ⚠️ Autre option, non retenue : interdire la retrouvaille dans *El rescate* (l'hélicoptère ne prend que ceux qui ne sont pas perdus) — plus dur, mais contredit la règle « ensemble = retrouvés ».
+- **« ¿Qué pasa? »** explique désormais la condition manquante des titres d'événement (*« Primero Lucía tiene que estar enfadada (el fuego: comer y no compartir). Después, los dos en el refugio. »*).
+- Non retenu : scène supplémentaire, rasgos à effet (Mateo commence affamé — testé : rend c3n1 plus lâche, 68 → 171), interdiction de la retrouvaille dans le rescate.
+
+## 11. Reporté aux phases suivantes
+
+Modes Pizarra (chrono, tirage au sort, équipes) / Solo (sélecteur ★ ★★ ★★★) / Autor / Profe (touche P) ; modo escritor ; bascule pretérito dans l'UI ; impression A4 ; `GUIA_PROFE.md` ; Kiwi ; verrouillage de progression ; badge 🤝 « amigos » près des visages ; tests 3 navigateurs et hors-ligne.

@@ -59,6 +59,10 @@
     const tt = $('#tituloTxt');
     tt.innerHTML = nivel.libre ? 'Mi historia <span class="alt">(sin título: inventa)</span>' : nivel.titulo;
     tt.classList.remove('ok');
+    const ini = $('#inicio');
+    const lineas = E.simular(nivel, []).inicio;
+    ini.hidden = !lineas.length;
+    ini.innerHTML = lineas.length ? `<b>Al principio:</b> ${lineas.join(' ')}` : '';
     pintarStock();
     pintarTira();
     simular();
@@ -188,7 +192,7 @@
     pintarNiveles();
     const d = $('#dlgExito');
     d.innerHTML = `<h2>¡Muy bien!</h2><div class="grande">${'★'.repeat(p.estrellas)}${'☆'.repeat(3 - p.estrellas)}</div>
-      <p><b>${nivel.titulo}</b></p>${res.secreto ? `<p>🔑 Título secreto: <b>${E.tituloDe(nivel.secreto, nivel)}</b></p>` : (nivel.secreto ? '<p class="alt">Hay un título secreto en este nivel… ¿lo encuentras?</p>' : '')}
+      <p><b>${nivel.titulo}</b></p>${res.secreto ? `<p>🔑 Título secreto: <b>${nivel.tituloSecreto || E.tituloDe(nivel.secreto, nivel)}</b></p>` : (nivel.secreto ? '<p class="alt">Hay un título secreto en este nivel… ¿lo encuentras?</p>' : '')}
       <div class="fila"><button class="btn sec" id="btnSeguir">Seguir aquí</button><button class="btn" id="btnLeer">Leer la historia</button><button class="btn verde" id="btnSig">Siguiente nivel →</button></div>`;
     d.querySelector('#btnSeguir').onclick = () => d.close();
     d.querySelector('#btnLeer').onclick = () => { d.close(); quePasa(); };
