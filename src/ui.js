@@ -58,7 +58,7 @@
     $('#inicioApp').hidden = true;
     const clase = $('#clase');
     if (m === 'pizarra' && window.SVPizarra && !clase.dataset.montado) { try { window.SVPizarra.montar(clase, { hablar, toast }); clase.dataset.montado = '1'; } catch (e) { console.error(e); } }
-    clase.hidden = !(m === 'pizarra' && clase.dataset.montado && ajustes().clase !== false);
+    clase.hidden = !(m === 'pizarra' && clase.dataset.montado && ajustes().clase === true); // oculta por defecto: se abre con «⏱ Clase»
     $('#btnClase').hidden = !(m === 'pizarra' && clase.dataset.montado);
     const vis = nivelesVisibles();
     const actual = vis.find(n => n.id === progreso.actual);
@@ -92,6 +92,7 @@
     nivel = todosNiveles().find(n => n.id === id) || C.NIVELES[0];
     viñetas = Array.from({ length: nivel.viñetas }, () => ({ escena: null, personajes: [] }));
     seleccion = null; intentos = 0; pistaIdx = 0; ultimoFallo = ''; exitoMostrado = '';
+    if (window.SVApp.escritor) window.SVApp.escritor.reiniciar();
     progreso.actual = nivel.id; guardar();
     pintarTodo();
     hablar(nivel.libre ? 'Mi historia' : nivel.titulo);
@@ -196,7 +197,10 @@
     if (!h) return;
     const f = tira.querySelector('.frase');
     const linea = f ? parseFloat(getComputedStyle(f).fontSize) * 1.3 : 20;
-    const wmax = Math.max(160, Math.floor((h - linea * 3.4 - 6) * 1.6));
+    const escritor = !!(window.SVApp && window.SVApp.escritor && window.SVApp.escritor.activo());
+    // en modo escritor hacen falta 3 frases (elegir) o un campo con su pista (escribir) bajo cada imagen
+    const lineas = !escritor ? 3.4 : ajustes().escritorNivel === 'escribir' ? 4.6 : 7;
+    const wmax = Math.max(220, Math.floor((h - linea * lineas - 6) * 1.6));
     tira.style.setProperty('--wmax', wmax + 'px');
   }
   window.addEventListener('resize', ajustarTira);
@@ -277,7 +281,7 @@
     if (res.secreto) p.secreto = true;
     progreso[nivel.id] = p; guardar();
     pintarNiveles();
-    if (escritorPendiente()) { toast('✔ La historia es correcta. Ahora escribe las frases.', 4000); return; }
+    if (escritorPendiente()) { toast('✔ La historia es correcta. Ahora completa las frases.', 4000); return; }
     mostrarExito(p);
   }
   function escritorPendiente() { return !!(window.SVApp.escritor && window.SVApp.escritor.activo() && !window.SVApp.escritor.completo()); }
@@ -367,7 +371,8 @@
   document.querySelectorAll('#inicioApp [data-modo]').forEach(b => b.onclick = () => elegirModo(b.dataset.modo));
   $('#cardAutor').onclick = () => { if (window.SVApp.abrirAutor) { if (!ajustes().modo) elegirModo('solo'); $('#inicioApp').hidden = true; window.SVApp.abrirAutor(); } };
   document.addEventListener('keydown', ev => {
-    if (ev.target.matches('input,textarea,select') || (ev.target.isContentEditable)) return;
+    const t = ev.target;
+    if (t && t.matches && (t.matches('input,textarea,select') || t.isContentEditable)) return;
     if (ev.key === 'Escape') { seleccionar(null); cerrarPaneles(); }
     if ((ev.key === 'p' || ev.key === 'P') && !ev.ctrlKey && !ev.metaKey && !ev.altKey && window.SVApp.abrirProfe) { ev.preventDefault(); window.SVApp.abrirProfe(); }
   });
