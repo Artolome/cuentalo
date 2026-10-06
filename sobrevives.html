@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sobrevives</title>
-<meta name="description" content="Sobrevives — juego de narración visual en español (A1/A2). Maqueta fase 0.">
+<meta name="description" content="Sobrevives — juego de narración visual en español (A1/A2). Un solo fichero, sin conexión.">
 <style>
 :root{
   --papel:#fff8ec; --papel2:#f6e9d2; --tinta:#1f1a17; --tinta2:#5b4a3a;
@@ -12,83 +12,133 @@
   --ok:#2e8b57; --borde:#1f1a17;
   --f-titulo: "Trebuchet MS","Segoe UI",Verdana,sans-serif;
   --f-texto: "Segoe UI",Verdana,Tahoma,sans-serif;
-  --base:18px;
+  --base: clamp(15px, 1.25vw, 20px);
+  --carta: clamp(86px, 7vw, 110px);
+  --gap: clamp(8px, 1vw, 14px);
 }
+body.pizarra{ --base: clamp(17px, 1.6vw, 30px); --carta: clamp(92px, 7.4vw, 140px); --borde:#000; --tinta:#000; --tinta2:#3b2d22; --papel:#fffdf7; }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{font-family:var(--f-texto);font-size:var(--base);color:var(--tinta);background:var(--papel2);
-  background-image:radial-gradient(rgba(120,85,35,.08) 1px,transparent 1.4px);background-size:7px 7px;display:flex;flex-direction:column;min-height:100vh}
+  background-image:radial-gradient(rgba(120,85,35,.08) 1px,transparent 1.4px);background-size:7px 7px;display:flex;flex-direction:column;height:100vh;overflow:hidden}
 button{font:inherit;color:inherit;cursor:pointer}
 [hidden]{display:none!important}
 .btn{border:2.5px solid var(--borde);background:var(--papel);border-radius:999px;padding:.35em .95em;box-shadow:0 3px 0 rgba(0,0,0,.35);font-weight:700;font-size:1rem;line-height:1.2}
 .btn:hover{transform:translateY(-1px);box-shadow:0 4px 0 rgba(0,0,0,.35)}
 .btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.35)}
+.btn:disabled{opacity:.45;cursor:default;transform:none}
 .btn.sec{background:var(--papel2);font-weight:600}
 .btn.rojo{background:var(--rojo);color:#fff6e6}
 .btn.verde{background:var(--ok);color:#fff6e6}
+.nota{font-size:.9rem;color:var(--tinta2)}
 /* ---------- cabecera ---------- */
-#cab{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:3px solid var(--borde);background:var(--papel)}
-#cab h1{margin:0;font-family:var(--f-titulo);font-size:1.5rem;letter-spacing:.04em;flex:1}
+#cab{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:3px solid var(--borde);background:var(--papel);flex:0 0 auto}
+#cab h1{margin:0;font-family:var(--f-titulo);font-size:1.4rem;letter-spacing:.04em;flex:1;white-space:nowrap}
 #cab h1 small{font-weight:400;font-size:.7em;color:var(--tinta2);margin-left:.6em}
-#cab .acciones{display:flex;gap:8px;flex-wrap:wrap}
+#cab .acciones{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.dif{position:relative}
+#btnDif{letter-spacing:.05em;color:#b07d10;min-width:3.6em}
+.menu{position:absolute;right:0;top:calc(100% + 8px);background:var(--papel);border:3px solid var(--borde);border-radius:12px;box-shadow:0 5px 0 rgba(0,0,0,.3);padding:6px;z-index:25;display:flex;flex-direction:column;gap:4px;min-width:14em}
+.menu button{border:none;background:transparent;text-align:left;padding:.4em .7em;border-radius:8px;font-weight:600;white-space:nowrap}
+.menu button:hover{background:var(--papel2)}
+.menu button.actual{background:#fff3c4}
+.menu button b{color:#b07d10;display:inline-block;width:2.6em;letter-spacing:.05em}
+/* barra de clase (pizarra): versión compacta, una sola franja */
+#clase{flex:0 0 auto;border-bottom:3px solid var(--borde);background:var(--papel2)}
+#clase .sv-pizarra{padding:6px 14px;gap:10px;border-bottom:none;flex-wrap:nowrap;overflow-x:auto}
+#clase .svp-widget{flex:0 1 auto;flex-direction:row;align-items:center;gap:8px;padding:6px 10px;border-width:2.5px;box-shadow:0 3px 0 rgba(0,0,0,.3)}
+#clase .svp-widget.svp-equipos{flex:1 1 auto;justify-content:flex-start}
+#clase .svp-titulo{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.65rem;letter-spacing:.12em;margin:0}
+#clase .svp-fila{flex-wrap:nowrap;gap:6px}
+#clase .svp-btn{min-width:38px;min-height:38px;font-size:1.05rem;border-width:2.5px;box-shadow:0 3px 0 rgba(0,0,0,.35);border-radius:10px}
+#clase .svp-btn.svp-grande{font-size:1.1rem;min-height:40px;padding:0 .7em}
+#clase .svp-chip{min-height:30px;padding:0 .6em;font-size:.8rem;border-width:2px}
+#clase .svp-crono > .svp-fila:last-child{flex-direction:column;align-items:stretch}
+#clase .svp-crono .svp-fila[role="group"]{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
+#clase .svp-tiempo{font-size:2.1rem;min-width:4.4em;padding:.05em .3em;border-width:2.5px}
+#clase .svp-bola{font-size:1.9rem;width:2em;height:2em;border-width:2.5px}
+#clase .svp-campo{width:3.2em;min-height:36px;font-size:1.05rem;border-width:2.5px}
+#clase .svp-etiqueta{font-size:.9rem}
+#clase .svp-casilla{width:20px;height:20px}
+#clase .svp-nota{font-size:.85rem;min-width:0}
+#clase .svp-sorteo > .svp-fila:last-child{display:grid;grid-template-columns:auto auto;gap:4px;align-items:center}
+#clase .svp-sorteo > .svp-fila:last-child .svp-nota{grid-column:1 / -1;text-align:left}
+#clase .svp-tarjetas{flex-wrap:nowrap;gap:8px;width:auto}
+#clase .svp-tarjeta{flex:0 0 auto;flex-direction:row;gap:6px;padding:4px 8px;border-width:2.5px;max-width:none}
+#clase .svp-nombre{min-height:34px;font-size:.95rem;max-width:7em}
+#clase .svp-puntos{font-size:1.7rem;min-width:1.4em;text-align:center}
+#clase .svp-tarjeta .svp-btn{font-size:1rem;min-width:38px}
+#clase .svp-equipos > .svp-fila[role="group"]{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+#clase .svp-equipos > .svp-fila[role="group"] .svp-btn{min-height:30px;min-width:30px;font-size:.9rem}
 /* ---------- juego ---------- */
-#juego{flex:1;display:flex;flex-direction:column;gap:12px;padding:12px 16px 8px;max-width:1500px;width:100%;margin:0 auto}
-#titulo{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
-.titulo{font-family:var(--f-titulo);font-size:clamp(1.6rem,3.4vw,2.6rem);font-weight:900;border:3px solid var(--borde);background:var(--papel);
-  border-radius:16px;padding:.25em .8em;box-shadow:0 5px 0 rgba(0,0,0,.35);transition:background .3s,color .3s}
+#juego{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:var(--gap);padding:var(--gap) 16px 6px;max-width:1900px;width:100%;margin:0 auto}
+#titulo{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;min-height:0}
+.titulo{font-family:var(--f-titulo);font-size:clamp(1.4rem,3vw,2.5rem);font-weight:900;border:3px solid var(--borde);background:var(--papel);
+  border-radius:16px;padding:.2em .8em;box-shadow:0 5px 0 rgba(0,0,0,.35);transition:background .3s,color .3s;line-height:1.15}
+.pizarra .titulo{font-size:clamp(1.8rem,3.8vw,4rem)}
 .titulo.ok{background:var(--ok);color:#fff6e6}
 .titulo .alt{font-size:.5em;font-weight:500;opacity:.8;margin-left:.6em}
-#estadoNivel{font-weight:700;color:var(--tinta2);font-size:1.1rem;min-width:8em}
+#estadoNivel{font-weight:700;color:var(--tinta2);font-size:1.1rem;min-width:7em}
 #estadoNivel.ok{color:var(--ok)}
-.inicio{flex-basis:100%;text-align:center;margin:0;font-size:1.1rem;color:var(--tinta2)}
-/* tira de viñetas */
-#tira{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
-.vineta{width:min(100%, var(--ancho-vineta, 380px), calc((100vh - 400px) * 1.45));min-width:230px;display:flex;flex-direction:column;background:var(--papel);border:3px solid var(--borde);border-radius:12px;overflow:hidden;box-shadow:0 5px 0 rgba(0,0,0,.3)}
-.vineta .num{position:absolute;left:8px;top:6px;z-index:3;font-family:var(--f-titulo);font-weight:900;font-size:1.1rem;background:var(--papel);border:2px solid var(--borde);border-radius:50%;width:1.7em;height:1.7em;display:flex;align-items:center;justify-content:center}
-.escena-caja{position:relative;aspect-ratio:16/10;background:#e9e2d2;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;border-bottom:3px solid var(--borde)}
+.inicio{flex-basis:100%;text-align:center;margin:0;font-size:1rem;color:var(--tinta2);display:flex;justify-content:center;gap:1.5em;flex-wrap:wrap}
+.inicio .sec{color:#8a5f00}
+/* tira de viñetas: rejilla que llena la altura disponible */
+#tira{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,var(--wmax,640px)));grid-auto-rows:minmax(0,1fr);gap:var(--gap);min-height:0;justify-content:center;align-content:center;align-items:center;width:100%}
+.vineta{display:flex;flex-direction:column;min-height:0;min-width:0;max-height:100%;background:var(--papel);border:3px solid var(--borde);border-radius:12px;overflow:hidden;box-shadow:0 5px 0 rgba(0,0,0,.3);position:relative}
+.vineta .num{position:absolute;left:8px;top:6px;z-index:3;font-family:var(--f-titulo);font-weight:900;font-size:1.05rem;background:var(--papel);border:2px solid var(--borde);border-radius:50%;width:1.7em;height:1.7em;display:flex;align-items:center;justify-content:center}
+.escena-caja{position:relative;flex:0 1 auto;min-height:0;aspect-ratio:16/10;background:#e9e2d2;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;border-bottom:3px solid var(--borde)}
 .escena-caja.vacia{background:repeating-linear-gradient(45deg,#ece4d4 0 12px,#e3d9c6 12px 24px)}
-.escena-caja.vacia::after{content:"Arrastra una escena aquí";position:absolute;inset:auto 0 42% 0;text-align:center;color:var(--tinta2);font-style:italic;font-size:1rem}
+.escena-caja.vacia::after{content:"Arrastra una escena aquí";position:absolute;inset:auto 0 42% 0;text-align:center;color:var(--tinta2);font-style:italic;font-size:1rem;padding:0 1em}
+.seleccion .escena-caja::before{content:"";position:absolute;inset:0;z-index:4;outline:5px dashed var(--amarillo);outline-offset:-5px;pointer-events:none;animation:latido 1s infinite}
+@keyframes latido{50%{outline-color:transparent}}
 .escena-caja > svg.fondo{position:absolute;inset:0;width:100%;height:100%}
 .escena-caja .personajes{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:center;gap:4%;width:100%;height:100%;padding:0 6% 2%}
 .escena-caja .personajes.vacia{pointer-events:none}
+.pj-wrap{height:100%;display:flex;align-items:flex-end}
 .pj{height:78%;width:auto;filter:drop-shadow(0 2px 0 rgba(0,0,0,.35));cursor:pointer;transition:transform .15s}
 .pj:hover{transform:scale(1.04)}
 .escena-caja .quitar{position:absolute;right:6px;top:6px;z-index:3;width:1.7em;height:1.7em;border-radius:50%;border:2px solid var(--borde);background:var(--papel);font-weight:900;line-height:1;padding:0}
+.escena-caja .pic-esc{display:none;position:absolute;right:8px;bottom:6px;z-index:3;font-size:1.6rem;background:var(--papel);border:2px solid var(--borde);border-radius:10px;padding:0 .2em;line-height:1.3}
+.paso .escena-caja .pic-esc{display:block}
 .escena-caja.sobre{outline:5px solid var(--amarillo);outline-offset:-5px}
-.vineta .frase{margin:0;padding:10px 12px;min-height:3.4em;font-size:1.1rem;line-height:1.3;cursor:pointer;background:var(--papel)}
+.escena-caja:focus-visible{outline:5px solid var(--azul);outline-offset:-5px}
+.vineta .frase{margin:0;padding:.5em .7em;min-height:2.6em;max-height:55%;flex:0 1 auto;font-size:calc(1.12rem * var(--fz,1));line-height:1.3;cursor:pointer;background:var(--papel);overflow:auto}
 .vineta .frase:hover{background:#fff}
 .vineta .frase.vacia{color:var(--tinta2);font-style:italic}
 .vineta .frase.alerta{color:var(--rojo);font-weight:700}
-/* stock */
-#stock{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:10px 28px;border-top:3px dashed rgba(0,0,0,.25);padding-top:10px}
-.stock-fila{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-#stockPersonajes{padding-left:28px;border-left:3px dashed rgba(0,0,0,.25)}
-.carta{display:flex;flex-direction:column;align-items:center;gap:4px;width:108px;padding:5px;border:3px solid var(--borde);border-radius:12px;background:var(--papel);box-shadow:0 4px 0 rgba(0,0,0,.3);cursor:grab;user-select:none;transition:transform .12s}
-.escena-caja:focus-visible{outline:5px solid var(--azul);outline-offset:-5px}
+/* stock: una sola fila, desplazable si no cabe */
+#stock{display:flex;flex-wrap:nowrap;justify-content:safe center;align-items:flex-start;gap:8px 24px;border-top:3px dashed rgba(0,0,0,.25);padding:8px 4px 4px;overflow-x:auto;overflow-y:hidden;min-height:0}
+.stock-fila{display:flex;flex-wrap:nowrap;gap:8px;flex:0 0 auto}
+#stockPersonajes{padding-left:24px;border-left:3px dashed rgba(0,0,0,.25)}
+.carta{display:flex;flex-direction:column;align-items:center;gap:4px;width:var(--carta);flex:0 0 auto;padding:5px;border:3px solid var(--borde);border-radius:12px;background:var(--papel);box-shadow:0 4px 0 rgba(0,0,0,.3);cursor:grab;user-select:none;transition:transform .12s}
 .carta:hover{transform:translateY(-3px)}
 .carta.sel{outline:5px solid var(--amarillo);outline-offset:1px;transform:translateY(-4px)}
 .carta svg{width:100%;height:auto;border-radius:6px;border:2px solid var(--borde);background:#fff}
-.carta .nom{font-weight:700;font-size:1rem;text-align:center;line-height:1.1}
-.ficha{width:104px;padding-bottom:6px}
-.ficha svg{height:76px;width:auto;border:none;background:transparent}
-.ficha .nom{font-size:1.05rem}
+.carta .nom{font-weight:700;font-size:.95rem;text-align:center;line-height:1.1}
+.carta .nom .pic{display:none}
+.paso .carta .nom .pic{display:inline}
+.ficha{padding-bottom:6px}
+.ficha svg{height:calc(var(--carta) * .72);width:auto;border:none;background:transparent}
+.ficha .nom{font-size:1rem}
 .ficha.lucia{border-color:#e2558c}.ficha.mateo{border-color:#2c5a9a}.ficha.valeria{border-color:#dfa92c}.ficha.diego{border-color:#7a3b9e}.ficha.kiwi{border-color:#4c8748}
 /* paneles laterales */
-.panel{position:fixed;top:0;bottom:0;width:min(420px,92vw);background:var(--papel);border-right:3px solid var(--borde);box-shadow:6px 0 0 rgba(0,0,0,.2);z-index:20;overflow:auto;padding:14px 16px}
+.panel{position:fixed;top:0;bottom:0;width:min(440px,92vw);background:var(--papel);border-right:3px solid var(--borde);box-shadow:6px 0 0 rgba(0,0,0,.2);z-index:20;overflow:auto;padding:14px 16px}
 #panelNiveles{left:0}
 #panelLexico{right:0;left:auto;border-right:none;border-left:3px solid var(--borde);box-shadow:-6px 0 0 rgba(0,0,0,.2)}
 .panel h2{font-family:var(--f-titulo);margin:4px 0 10px;display:flex;justify-content:space-between;align-items:center}
-.panel h3{margin:14px 0 6px;color:var(--tinta2);font-size:1rem;text-transform:uppercase;letter-spacing:.08em}
-.niv{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:2px solid var(--borde);border-radius:10px;background:var(--papel);padding:8px 10px;margin:5px 0;font-size:1.05rem}
-.niv .estrellas{margin-left:auto;font-size:1.1rem;letter-spacing:.05em}
+.panel h3{margin:14px 0 6px;color:var(--tinta2);font-size:.95rem;text-transform:uppercase;letter-spacing:.08em}
+.niv{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:2px solid var(--borde);border-radius:10px;background:var(--papel);padding:8px 10px;margin:5px 0;font-size:1rem}
+.niv .cnt{color:var(--tinta2);font-size:.9em;white-space:nowrap}
+.niv .estrellas{margin-left:auto;font-size:1.05rem;letter-spacing:.05em;white-space:nowrap}
 .niv.actual{background:#fff3c4}
 .niv.hecho{border-color:var(--ok)}
 .lex{display:flex;flex-wrap:wrap;gap:8px}
 .lex button{border:2px solid var(--borde);border-radius:999px;background:var(--papel);padding:.25em .7em .25em .5em;font-size:1.05rem;display:flex;gap:.4em;align-items:center}
 /* diálogos */
-dialog{border:3px solid var(--borde);border-radius:16px;background:var(--papel);color:var(--tinta);padding:18px 22px;max-width:min(760px,94vw);box-shadow:0 8px 0 rgba(0,0,0,.35);font-size:1.1rem}
+dialog{border:3px solid var(--borde);border-radius:16px;background:var(--papel);color:var(--tinta);padding:18px 22px;max-width:min(820px,94vw);max-height:92vh;box-shadow:0 8px 0 rgba(0,0,0,.35);font-size:1.1rem}
 dialog::backdrop{background:rgba(30,20,10,.55)}
 dialog h2{font-family:var(--f-titulo);margin:0 0 10px}
+dialog h3{margin:12px 0 4px;font-size:1rem;color:var(--tinta2);text-transform:uppercase;letter-spacing:.06em}
 dialog .historia p{margin:.3em 0;cursor:pointer;padding:.2em .4em;border-radius:6px}
 dialog .historia p:hover{background:#fff}
 dialog .historia p b{display:inline-block;width:1.6em;color:var(--tinta2)}
@@ -96,26 +146,48 @@ dialog .porque{margin-top:10px;padding:10px 12px;border:2px dashed var(--rojo);b
 dialog .porque.ok{border-color:var(--ok);color:var(--ok)}
 dialog .fila{display:flex;gap:10px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
 #dlgExito{text-align:center}
-#dlgExito .grande{font-size:3rem;margin:6px 0}
+#dlgExito .grande{font-size:3rem;margin:6px 0;color:#b07d10}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--tinta);color:var(--papel);padding:.6em 1.2em;border-radius:999px;font-weight:700;z-index:30;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90vw;text-align:center}
 .toast.on{opacity:1}
-footer{text-align:center;font-size:.85rem;color:var(--tinta2);padding:6px}
-footer a{color:inherit}
-@media (max-width:720px){ :root{--base:16px} #cab h1 small{display:none} .vineta{--ancho-vineta:100%} }
-@media print{ #cab,#stock,footer,.quitar,.num,.panel{display:none!important} body{background:#fff} .vineta{box-shadow:none;break-inside:avoid} }
+footer{text-align:center;font-size:.8rem;color:var(--tinta2);padding:3px;flex:0 0 auto}
+/* pantalla de inicio */
+.inicio-app{position:fixed;inset:0;z-index:40;background:var(--papel2);background-image:radial-gradient(rgba(120,85,35,.08) 1px,transparent 1.4px);background-size:7px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,3vh,36px);padding:24px;text-align:center}
+.inicio-app h1{font-family:var(--f-titulo);font-size:clamp(2.6rem,7vw,6rem);margin:0;letter-spacing:.04em;color:var(--tinta);text-shadow:4px 4px 0 var(--amarillo)}
+.inicio-app p{margin:0;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--tinta2)}
+.tarjetas{display:flex;gap:clamp(12px,2.5vw,36px);flex-wrap:wrap;justify-content:center}
+.tarjeta{width:clamp(200px,22vw,320px);border:4px solid var(--borde);border-radius:20px;background:var(--papel);box-shadow:0 8px 0 rgba(0,0,0,.3);padding:clamp(12px,2vh,24px) 16px;display:flex;flex-direction:column;align-items:center;gap:6px;transition:transform .12s}
+.tarjeta:hover{transform:translateY(-4px)}
+.tarjeta .ico{font-size:clamp(2.4rem,5vw,4.4rem);line-height:1.1}
+.tarjeta b{font-family:var(--f-titulo);font-size:clamp(1.4rem,2.6vw,2.2rem)}
+.tarjeta span{font-size:clamp(.95rem,1.4vw,1.2rem);color:var(--tinta2)}
+.inicio-app .pie{font-size:.9rem;color:var(--tinta2)}
+@media (max-width:720px){ :root{--base:15px} #cab h1 small{display:none} body{height:auto;overflow:auto} #juego{display:flex;flex-direction:column} #tira{grid-template-columns:1fr;grid-template-rows:none} }
+@media print{ #cab,#clase,#stock,footer,.quitar,.num,.panel,.toast,.inicio-app,.pic-esc{display:none!important} body{background:#fff;height:auto;overflow:visible} .vineta{box-shadow:none;break-inside:avoid} }
 </style>
 </head>
 <body>
 <header id="cab">
+  <button id="btnInicio" class="btn sec" title="Inicio: Pizarra / Solo / Autor">🏠</button>
   <button id="btnNiveles" class="btn sec" title="Elegir nivel">☰ Niveles</button>
   <h1>Sobrevives <small id="subcap"></small></h1>
   <div class="acciones">
+    <button id="btnClase" class="btn sec" title="Mostrar u ocultar el cronómetro, el sorteo y los equipos" hidden>⏱ Clase</button>
     <button id="btnPista" class="btn sec">💡 Pista</button>
     <button id="btnLexico" class="btn sec">📖 Léxico</button>
     <button id="btnQuePasa" class="btn">¿Qué pasa?</button>
+    <button id="btnImprimir" class="btn sec" title="Imprimir mi historia" hidden>🖨</button>
     <button id="btnReiniciar" class="btn sec" title="Vaciar las viñetas">↺</button>
+    <div class="dif">
+      <button id="btnDif" class="btn sec" aria-haspopup="menu" aria-label="Nivel de juego">★★</button>
+      <div id="menuDif" class="menu" role="menu" hidden>
+        <button role="menuitem" data-d="1"><b>★</b> Paso a paso</button>
+        <button role="menuitem" data-d="2"><b>★★</b> Estándar</button>
+        <button role="menuitem" data-d="3"><b>★★★</b> Reto</button>
+      </div>
+    </div>
   </div>
 </header>
+<div id="clase" hidden></div>
 <main id="juego">
   <section id="titulo">
     <button id="tituloTxt" class="titulo" title="Escuchar el título"></button>
@@ -132,8 +204,19 @@ footer a{color:inherit}
 <aside id="panelLexico" class="panel" hidden></aside>
 <dialog id="dlgQuePasa"></dialog>
 <dialog id="dlgExito"></dialog>
+<dialog id="dlgModos"></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<footer>Sobrevives · maqueta fase 0 · 2026-10-06 · sin conexión · ningún dato sale de este ordenador</footer>
+<div id="inicioApp" class="inicio-app" hidden>
+  <h1>Sobrevives</h1>
+  <p>Cuenta la historia con las viñetas. ¿Sobrevives en la selva?</p>
+  <div class="tarjetas">
+    <button class="tarjeta" data-modo="pizarra"><span class="ico">🖥️</span><b>Pizarra</b><span>En clase, con el videoproyector</span></button>
+    <button class="tarjeta" data-modo="solo"><span class="ico">🎒</span><b>Solo</b><span>Juego yo. Mis estrellas se guardan aquí.</span></button>
+    <button class="tarjeta" id="cardAutor" hidden><span class="ico">✎</span><b>Autor</b><span>Creo un nivel para la clase</span></button>
+  </div>
+  <p class="pie">Sin conexión · ningún dato sale de este ordenador</p>
+</div>
+<footer>Sobrevives · 2026-10-06 · sin conexión · ningún dato sale de este ordenador</footer>
 <script>/* lengua.js */
 /* Sobrevives — capa de lengua (sin DOM).
    Acuerdos de género/número, sujetos compuestos, conjugación presente / pretérito.
@@ -839,8 +922,27 @@ footer a{color:inherit}
       case 'amigos': return !!S[obj.a].amigos[obj.b];
       case 'enfadado': return !!S[obj.quien].enfadado[obj.con];
       case 'y': return obj.partes.every(p => evaluar(p, res, nivel));
+      case 'historia': {
+        // Objetivo «grabado» (modo Autor con título libre): estados finales exactos + eventos clave.
+        for (const id in obj.finales) { if (!S[id]) return false; for (const k in obj.finales[id]) if (valor(S[id], k) !== !!obj.finales[id][k]) return false; }
+        return (obj.eventos || []).every(ev => H.eventos.some(e => mismoEvento(e, ev)));
+      }
       default: return false;
     }
+  }
+  function mismoEvento(e, ev) {
+    if (e.tipo !== ev.tipo) return false;
+    const tiene = (x, id) => x.quien === id || x.a === id || (x.quienes && x.quienes.includes(id));
+    if (ev.quien && !tiene(e, ev.quien)) return false;
+    if (ev.a && !tiene(e, ev.a)) return false;
+    return true;
+  }
+  /** Construye un objetivo «historia» a partir de una simulación resuelta (modo Autor, título libre). */
+  function objetivoDeHistoria(nivel, res) {
+    const finales = {};
+    for (const id of humanos(nivel)) { finales[id] = {}; for (const k of NEGATIVOS.concat(['salvo'])) finales[id][k] = !!valor(res.estado[id], k); }
+    const eventos = res.eventos.filter(e => TITULO_EVENTO[e.tipo]).map(e => ({ tipo: e.tipo, quien: e.quien || (e.quienes ? e.quienes[0] : undefined), a: e.a || (e.quienes ? e.quienes[1] : undefined) }));
+    return { tipo: 'historia', finales, eventos };
   }
 
   /** Frase verbal de un estado para un grupo: «tiene hambre» · «está perdida» · «están a salvo».
@@ -934,6 +1036,7 @@ footer a{color:inherit}
       case 'amigos': return `${N1(obj.a)} y ${N1(obj.b)} son amigos`;
       case 'enfadado': return `${N1(obj.quien)} está ${L.acuerdo('enfadado', L.gn(P(obj.quien)))} con ${N1(obj.con)}`;
       case 'y': return tituloY(obj.partes, nivel);
+      case 'historia': return obj.titulo || 'Mi historia';
       default: return '';
     }
   }
@@ -969,6 +1072,7 @@ footer a{color:inherit}
     if ((obj.tipo === 'yaNo' || obj.tipo === 'nunca') && !NEGATIVOS.includes(obj.estado)) return false;
     if ((obj.tipo === 'estado' || obj.tipo === 'todos' || obj.tipo === 'nadie') && !ESTADO_INFO[obj.estado]) return false;
     if ((obj.tipo === 'evento' || obj.tipo === 'sinEvento') && !obj.evento) return false;
+    if (obj.tipo === 'historia' && (!obj.finales || !Object.keys(obj.finales).length)) return false;
     return true;
   }
 
@@ -1013,6 +1117,15 @@ footer a{color:inherit}
       }
       case 'enfadado': return [`${N1(obj.quien)} no está ${L.acuerdo('enfadado', L.gn(P(obj.quien)))} con ${N1(obj.con)}.`];
       case 'y': return obj.partes.flatMap(p => porque(p, res, nivel));
+      case 'historia': {
+        const out = [];
+        for (const id in obj.finales) {
+          if (!S[id]) continue;
+          for (const k in obj.finales[id]) if (valor(S[id], k) !== !!obj.finales[id][k]) out.push(L.cap(`${N1(id)} ${fraseEstado(k, [id], 'pres', !obj.finales[id][k])}.`));
+        }
+        for (const ev of obj.eventos || []) if (!H.eventos.some(e => mismoEvento(e, ev))) { const f = TITULO_EVENTO[ev.tipo]; out.push(`Falta: «${f ? f(ev.quien, ev.a) : ev.tipo}».`); }
+        return out.length ? out : ['La historia no es la misma.'];
+      }
       default: return ['…'];
     }
   }
@@ -1091,6 +1204,7 @@ footer a{color:inherit}
     const visita = o => {
       if (!o) return;
       if (o.tipo === 'evento' || o.tipo === 'sinEvento') rel.eventos.add(o.evento);
+      if (o.tipo === 'historia') for (const ev of o.eventos || []) rel.eventos.add(ev.tipo);
       if (o.tipo === 'yaNo' || o.tipo === 'nunca') rel.alguna.add(o.estado);
       if (o.tipo === 'y') o.partes.forEach(visita);
     };
@@ -1177,7 +1291,7 @@ footer a{color:inherit}
     return sol.map((op, i) => `${i + 1} ${ESCENA[op.escena].nombre.replace(/^(El|La) /, '').toLowerCase()} (${op.personajes.map(N1).join(', ')})`).join(' · ');
   }
 
-  return { simular, resolver, evaluar, tituloDe, porque, describir, lexicoDe, expresion, frasesDe, paso, estadoInicial, opcionesDe, textoSolucion, objetivoValido, NEGATIVOS, LEXICO_ESCENA, P, ordenar };
+  return { simular, resolver, evaluar, tituloDe, porque, describir, objetivoDeHistoria, lexicoDe, expresion, frasesDe, paso, estadoInicial, opcionesDe, textoSolucion, objetivoValido, NEGATIVOS, LEXICO_ESCENA, P, ordenar };
 });
 
 </script>
@@ -1361,9 +1475,1144 @@ footer a{color:inherit}
 });
 
 </script>
+<script>/* escritor.js */
+/* Sobrevives — modo escritor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVEscritor).
+   En cada viñeta la frase generada se oculta: el alumno elige la frase correcta entre 3 (A1) o la escribe (A2).
+   normalizar(s)                          → minúsculas, sin tildes (la ñ se conserva), sin signos ni comillas
+   comparar(escrito, correcta)            → { ok, casi, nota, diferencias:[{esperada, escrita}], mensaje }
+   opciones(nivel, viñetas, i, res, opts) → { correcta, opciones:[3 frases], indice, origen, recurso }
+   pista(correcta)                        → «L____ t____ s__.»
+   distancia(a, b)                        → distancia de edición (Levenshtein)
+   Determinista: las alternativas son frases GENERADAS POR EL MOTOR (variantes de la viñeta) y el orden sale de un hash. */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./contenido.js'), require('./engine.js'));
+  else root.SVEscritor = factory(root.SVContenido, root.SVEngine);
+})(typeof self !== 'undefined' ? self : this, function (C, E) {
+  'use strict';
+
+  /* ---------- texto ---------- */
+  const SIGNOS = /[¿¡!?.,;:«»"'“”‘’…]/g;
+  const ABRE = /[¿¡!?]/g;
+
+  /** Quita tildes y diéresis; la ñ se conserva. */
+  function sinTildes(s) {
+    return s.normalize('NFD').replace(/ñ/g, 'ñ').replace(/Ñ/g, 'Ñ').replace(/[̀-ͯ]/g, '');
+  }
+  const sinSignos = s => s.replace(SIGNOS, '');
+  const compactar = s => s.replace(/\s+/g, ' ').trim();
+  const texto = s => String(s == null ? '' : s);
+  const cuenta = (s, re) => (s.match(re) || []).length;
+  const lista = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1];
+  const comillas = w => '“' + w + '”';
+
+  /** «  ¡Lucía tiene SED!  » → «lucia tiene sed» */
+  function normalizar(s) { return compactar(sinSignos(sinTildes(texto(s).toLowerCase()))); }
+
+  /** Distancia de edición (Levenshtein) entre dos cadenas. */
+  function distancia(a, b) {
+    a = texto(a); b = texto(b);
+    if (a === b) return 0;
+    if (!a.length || !b.length) return a.length + b.length;
+    let prev = Array.from({ length: b.length + 1 }, (_, j) => j), cur = new Array(b.length + 1);
+    for (let i = 1; i <= a.length; i++) {
+      cur[0] = i;
+      for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      [prev, cur] = [cur, prev];
+    }
+    return prev[b.length];
+  }
+
+  /** Palabras de una frase: [{ norm, texto }] (texto = la palabra original sin signos, para mostrarla). */
+  function palabras(s) {
+    const out = [];
+    for (const t of texto(s).split(/\s+/)) {
+      const limpia = sinSignos(t), norm = normalizar(limpia);
+      if (norm) out.push({ norm, texto: limpia });
+    }
+    return out;
+  }
+
+  /** Alineación palabra a palabra (LCS). Devuelve solo las diferencias: [{ esperada, escrita }] ('' = falta / sobra). */
+  function alinear(esperadas, escritas) {
+    const m = esperadas.length, n = escritas.length;
+    const T = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+    for (let i = m - 1; i >= 0; i--) for (let j = n - 1; j >= 0; j--) {
+      T[i][j] = esperadas[i].norm === escritas[j].norm ? T[i + 1][j + 1] + 1 : Math.max(T[i + 1][j], T[i][j + 1]);
+    }
+    const dif = [];
+    let i = 0, j = 0, pE = [], pW = [];
+    const vuelca = () => { // empareja por posición las palabras que no se han alineado
+      for (let k = 0; k < Math.max(pE.length, pW.length); k++) dif.push({ esperada: pE[k] ? pE[k].texto : '', escrita: pW[k] ? pW[k].texto : '' });
+      pE = []; pW = [];
+    };
+    while (i < m && j < n) {
+      if (esperadas[i].norm === escritas[j].norm) { vuelca(); i++; j++; }
+      else if (T[i + 1][j] >= T[i][j + 1]) pE.push(esperadas[i++]);
+      else pW.push(escritas[j++]);
+    }
+    while (i < m) pE.push(esperadas[i++]);
+    while (j < n) pW.push(escritas[j++]);
+    vuelca();
+    return dif;
+  }
+
+  /* ---------- comparar ----------
+     ok   = la frase es correcta una vez normalizada (se toleran tildes, signos y mayúsculas).
+     casi = con ok: solo fallan tildes / signos / mayúsculas; sin ok: pocos errores (≤ 1 por cada 8 letras, mínimo 1).
+     nota = 1 exacta · 0,9 correcta con fallos de superficie · ≤ 0,8 según la distancia de edición.
+     El mensaje señala las palabras del alumno que debe revisar, sin dar la solución (la UI tiene «diferencias» y pista()). */
+  function comparar(escrito, correcta) {
+    const e = compactar(texto(escrito)), c = compactar(texto(correcta));
+    const nE = normalizar(e), nC = normalizar(c);
+    const diferencias = alinear(palabras(c), palabras(e));
+    if (!nE) return { ok: false, casi: false, nota: 0, diferencias, mensaje: 'Escribe la frase.' };
+    if (nE === nC) {
+      if (e === c) return { ok: true, casi: false, nota: 1, diferencias, mensaje: '¡Muy bien!' };
+      const bajo = s => s.toLowerCase();
+      const acentos = compactar(sinSignos(bajo(e))) !== compactar(sinSignos(bajo(c)));
+      const signos = compactar(sinTildes(bajo(e))) !== compactar(sinTildes(bajo(c)));
+      const mayus = compactar(sinTildes(sinSignos(e))) !== compactar(sinTildes(sinSignos(c)));
+      const faltan = signos && cuenta(e, ABRE) < cuenta(c, ABRE);
+      let mensaje;
+      if (signos && !acentos && !mayus) mensaje = faltan ? 'Casi: faltan los signos ¿ ¡ ! ?.' : 'Casi: mira la puntuación.';
+      else {
+        const partes = [];
+        if (acentos) partes.push('los acentos');
+        if (signos) partes.push(faltan ? 'los signos ¿ ¡ ! ?' : 'la puntuación');
+        if (mayus) partes.push('las mayúsculas');
+        mensaje = 'Casi: mira ' + lista(partes.length ? partes : ['la puntuación']) + '.';
+      }
+      return { ok: true, casi: true, nota: 0.9, diferencias, mensaje };
+    }
+    const dist = distancia(nE, nC);
+    const umbral = Math.max(2, Math.floor(nC.length / 8)); // un despiste de 1–2 letras es «casi», incluso en frases cortas
+    const nota = Math.round(80 * Math.max(0, 1 - dist / Math.max(nE.length, nC.length))) / 100;
+    const cambiadas = diferencias.filter(d => d.esperada && d.escrita);
+    const faltan = diferencias.filter(d => d.esperada && !d.escrita);
+    const sobran = diferencias.filter(d => !d.esperada && d.escrita);
+    if (dist <= umbral) {
+      const partes = [];
+      if (cambiadas.length) partes.push('revisa ' + lista(cambiadas.map(d => comillas(d.escrita))));
+      if (faltan.length) partes.push(faltan.length > 1 ? 'faltan palabras' : 'falta una palabra');
+      if (sobran.length) partes.push((sobran.length > 1 ? 'sobran ' : 'sobra ') + lista(sobran.map(d => comillas(d.escrita))));
+      return { ok: false, casi: true, nota, diferencias, mensaje: 'Casi: ' + (partes.length ? partes.join(' y ') : 'revisa la frase') + '.' };
+    }
+    let mensaje = 'No es la frase. Inténtalo otra vez.';
+    if (faltan.length && !cambiadas.length && !sobran.length) mensaje = 'Faltan palabras.';
+    else if (sobran.length && !cambiadas.length && !faltan.length) mensaje = 'Sobran palabras.';
+    return { ok: false, casi: false, nota, diferencias, mensaje };
+  }
+
+  /** «Lucía tiene sed.» → «L____ t____ s__.» (primera letra de cada palabra; signos y mayúsculas se conservan). */
+  function pista(correcta) {
+    let out = '', dentro = false;
+    for (const ch of texto(correcta)) {
+      if (/\p{L}/u.test(ch)) { out += dentro ? '_' : ch; dentro = true; }
+      else { out += ch; dentro = false; }
+    }
+    return out;
+  }
+
+  /** Hash FNV-1a de 32 bits (orden determinista de las opciones). */
+  function hash(s) {
+    let h = 0x811c9dc5;
+    for (let k = 0; k < s.length; k++) { h ^= s.charCodeAt(k); h = Math.imul(h, 0x01000193); }
+    return h >>> 0;
+  }
+
+  /* ---------- opciones (A1: elegir entre 3) ----------
+     Las dos alternativas falsas son frases del motor para esa misma viñeta, por orden de preferencia:
+       1 'personajes' misma escena con otro personaje u otra pareja del nivel (mismo estado previo)
+       2 'escena'     otra escena del nivel con los mismos personajes (mismo estado previo)
+       3 'estado'     mismo panel con otro estado previo (desde el inicio del nivel, sin una viñeta anterior, estados ficticios)
+       4 'historia'   frases de otras viñetas de la misma historia (solo si faltan alternativas)
+       5 'recurso'    la escena simulada con cada personaje en un nivel ficticio de 1 viñeta (último recurso)
+     Se prefieren las de la misma escena y de longitud parecida; el orden final sale de hash(nivel.id, i, correcta). */
+  const ESCENA = {};
+  for (const e of C.ESCENAS) ESCENA[e.id] = e;
+  const HUMANOS = C.PERSONAJES.filter(p => !p.animal).map(p => p.id);
+  const ORIGEN = { 1: 'personajes', 2: 'escena', 3: 'estado', 4: 'historia', 5: 'recurso' };
+  const TODO = ['mapa', 'cuerda', 'manta', 'linterna', 'comida'];
+  /* Estados previos ficticios para variar la frase del mismo panel (como en test/frases.js). */
+  const PREVIOS = [
+    { hambre: true, sed: true, frio: true, miedo: true, cansado: true },
+    { hambre: true }, { sed: true }, { frio: true }, { miedo: true }, { cansado: true }, { perdido: true }, { herido: true },
+    { objetos: TODO }, { objetos: ['comida'], hambre: true }, { objetos: ['linterna'], miedo: true }, { objetos: ['mapa'] }, { objetos: ['cuerda'] }, { objetos: ['manta'], frio: true }
+  ];
+  const slotsDe = esc => (ESCENA[esc] ? ESCENA[esc].slots : 2);
+  const fraseDe = (res, k) => (res.viñetas[k] && res.viñetas[k].frases.join(' ')) || '';
+
+  /** Grupos posibles de personajes: solos y, si caben, parejas. */
+  function grupos(ids, max) {
+    const out = ids.map(a => [a]);
+    if (max >= 2) for (let a = 0; a < ids.length; a++) for (let b = a + 1; b < ids.length; b++) out.push([ids[a], ids[b]]);
+    return out;
+  }
+
+  function opciones(nivel, viñetas, i, res, opts) {
+    opts = opts || {};
+    const tiempo = opts.tiempo === 'pret' ? 'pret' : 'pres';
+    viñetas = viñetas || [];
+    res = res || E.simular(nivel, viñetas, { tiempo });
+    const correcta = fraseDe(res, i);
+    if (!correcta) return { correcta: '', opciones: [], indice: -1, origen: [], recurso: false }; // viñeta vacía o historia ya inválida
+    const panel = viñetas[i] || {}, esc = panel.escena;
+    const ids = E.ordenar([...new Set(panel.personajes || [])]);
+    const nC = normalizar(correcta);
+    const cands = new Map(); // frase normalizada → { texto, escena, tier }
+    const sim = (niv, vs, k) => fraseDe(E.simular(niv, vs, { tiempo }), k);
+    const añade = (t, escena, tier) => {
+      const n = normalizar(t);
+      if (!n || n === nC) return;
+      const prev = cands.get(n);
+      if (!prev || tier < prev.tier) cands.set(n, { texto: t, escena, tier });
+    };
+    const previas = viñetas.slice(0, i);
+    const con = p => previas.concat([p]);
+
+    // 1. misma escena, otros personajes del nivel
+    const todos = E.ordenar(nivel.personajes);
+    for (const g of grupos(todos, slotsDe(esc))) if (g.join() !== ids.join()) añade(sim(nivel, con({ escena: esc, personajes: g }), i), esc, 1);
+    // 2. otra escena del nivel, mismos personajes
+    for (const e of nivel.escenas) if (e !== esc && slotsDe(e) >= ids.length) añade(sim(nivel, con({ escena: e, personajes: ids }), i), e, 2);
+    // 3. mismo panel, otro estado previo
+    if (i > 0) {
+      añade(sim(nivel, [panel], 0), esc, 3); // desde el estado inicial del nivel
+      for (let j = 0; j < i; j++) añade(sim(nivel, previas.filter((_, k) => k !== j).concat([panel]), i - 1), esc, 3); // sin una viñeta anterior
+    }
+    const ficticio = inicial => ({ id: (nivel.id || '') + '~', viñetas: 1, escenas: [esc], personajes: ids, inicial });
+    const simF = inicial => añade(sim(ficticio(inicial), [{ escena: esc, personajes: ids }], 0), esc, 3);
+    for (const pre of PREVIOS) {
+      const ini = {};
+      for (const id of ids) ini[id] = pre;
+      simF(ini);
+      if (ids.length === 2) { simF({ [ids[0]]: pre, [ids[1]]: {} }); simF({ [ids[0]]: {}, [ids[1]]: pre }); }
+    }
+    if (ids.length === 2) {
+      const [x, y] = ids;
+      simF({ [x]: { objetos: ['comida'], amigos: { [y]: true } }, [y]: { hambre: true, amigos: { [x]: true } } });
+      simF({ [y]: { objetos: ['comida'], amigos: { [x]: true } }, [x]: { hambre: true, amigos: { [y]: true } } });
+      simF({ [x]: { objetos: ['comida'] }, [y]: { hambre: true, enfadado: { [x]: true } } });
+      simF({ [x]: { hambre: true, enfadado: { [y]: true } }, [y]: {} });
+      simF({ [x]: { perdido: true }, [y]: { perdido: true } });
+    }
+    // 4. frases de otras viñetas de la misma historia
+    if (cands.size < 2) for (let k = 0; k < res.viñetas.length; k++) if (k !== i) añade(fraseDe(res, k), viñetas[k] && viñetas[k].escena, 4);
+    // 5. último recurso: la escena con cada personaje (del nivel; después, todos) en un nivel ficticio de 1 viñeta
+    if (cands.size < 2) {
+      for (const lote of [todos, HUMANOS]) {
+        const niv = { id: (nivel.id || '') + '~r', viñetas: 1, escenas: [esc], personajes: lote };
+        for (const g of grupos(lote, slotsDe(esc))) añade(sim(niv, [{ escena: esc, personajes: g }], 0), esc, 5);
+        if (cands.size >= 2) break;
+      }
+    }
+    if (cands.size < 2) { // (no debería ocurrir) cualquier escena con cualquier personaje
+      const niv = { id: (nivel.id || '') + '~r', viñetas: 1, escenas: C.ESCENAS.map(e => e.id), personajes: HUMANOS };
+      for (const e of niv.escenas) for (const id of HUMANOS) añade(sim(niv, [{ escena: e, personajes: [id] }], 0), e, 5);
+    }
+
+    // las 2 mejores: misma escena, longitud parecida, origen más fiel; desempate por hash del texto
+    const orden = [...cands.values()].map(c => Object.assign(c, { puntos: Math.abs(c.texto.length - correcta.length) + (c.escena === esc ? 0 : 60) + c.tier * 3, h: hash(c.texto) }));
+    orden.sort((a, b) => a.puntos - b.puntos || a.h - b.h || (a.texto < b.texto ? -1 : 1));
+    const dos = orden.slice(0, 2);
+    const h = hash((nivel.id || '') + '|' + i + '|' + correcta);
+    const indice = h % 3;
+    const falsas = (h >>> 2) & 1 ? dos.slice().reverse() : dos;
+    const out = falsas.map(c => c.texto), origen = falsas.map(c => ORIGEN[c.tier]);
+    out.splice(indice, 0, correcta); origen.splice(indice, 0, 'correcta');
+    return { correcta, opciones: out, indice, origen, recurso: falsas.some(c => c.tier === 5) };
+  }
+
+  return { normalizar, comparar, opciones, pista, distancia, palabras, alinear, hash };
+});
+
+</script>
+<script>/* autor.js */
+/* Sobrevives — modo Autor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVAutor).
+   codificar(nivel)                      → código corto para dictar: «S1AB-CDEF-GHJK-M»
+   decodificar(codigo)                   → nivel {id:'autor-…', capitulo:0, autor:true, titulo, viñetas, escenas, personajes, objetivo, inicial?}
+   asistenteTitulos(personajes, escenas) → [{objetivo, titulo}] títulos posibles con esas cartas
+   validar(nivel, opts)                  → {ok, errores, total, soluciones, textos, densidad, segundos}
+   almacen(store)                        → {listar, guardar, borrar, exportarTodo, importarTodo} sobre localStorage (inyectado)
+   grabar(nivel, viñetas)                → copia del nivel con el objetivo «historia» grabado de la solución jugada
+
+   FORMATO DEL CÓDIGO (versión 1)
+   · Alfabeto Crockford base32: 0-9 y A-Z sin I, L, O, U (al leer: I, L → 1 · O → 0 · U → V). 5 bits por carácter.
+   · «S» + versión (1 carácter) + carga + control (1 carácter). Grupos de 4 separados por «-»; mayúsculas, espacios y guiones dan igual.
+   · Control = Σ (2i+1)·valor(i) mod 32 sobre versión + carga. Los pesos impares son invertibles mod 32: cualquier
+     cambio de UN carácter se detecta siempre; los cambios de orden de dos letras vecinas casi siempre.
+   · Carga (flujo de bits, relleno final con ceros, < 5 bits):
+       viñetas-1 (3) · nPersonajes-1 (2) · personajes (3 cada uno, índice en C.PERSONAJES)
+       nEscenas-1 (5) · escenas (5 cada una, índice en C.ESCENAS) · títuloLibre (1) · inicial (1)
+       objetivo: tipo (4) + campos según tipo; personajes del objetivo = índice en el nivel (2); estado (4); evento (6)
+         estado    quien · estado · valor(1)        yaNo   quien · estado        todos  estado · valor(1)   nadie  estado
+         nunca     ¿quien?(1+2) · estado            evento evento · ¿quien? · ¿a?   sinEvento evento · ¿quien?
+         amigos    a · b                            enfadado quien · con          y      nPartes-2 (2) + partes
+         historia  por personaje del nivel: presente(1) + máscara de 8 bits (7 negativos + a salvo); nEventos (5) + eventos (evento · ¿quien? · ¿a?)
+       título libre (solo si no es igual a E.tituloDe(objetivo)): longitud en bytes (8) + UTF-8
+       inicial (si hay): por personaje del nivel, máscara de estados (8) + máscara de objetos (5)
+   Las tablas TIPOS / EVENTOS / C.ESTADOS / C.ESCENAS / C.PERSONAJES solo pueden crecer por el final: si cambian, sube VERSION. */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./contenido.js'), require('./engine.js'));
+  else root.SVAutor = factory(root.SVContenido, root.SVEngine);
+})(typeof self !== 'undefined' ? self : this, function (C, E) {
+  'use strict';
+
+  const NEGATIVOS = E.NEGATIVOS; // hambre, sed, frio, miedo, cansado, herido, perdido
+  const ESTADOS = C.ESTADOS.map(e => e.id); // … + salvo, contento
+  const OBJETOS = C.OBJETOS.map(o => o.id);
+  const ESCENA = {}; for (const e of C.ESCENAS) ESCENA[e.id] = e;
+  const PJ = {}; for (const p of C.PERSONAJES) PJ[p.id] = p;
+  const nombre = id => (PJ[id] ? PJ[id].nombre : id);
+
+  /* ---------- alfabeto y código ---------- */
+  const ALFABETO = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+  const VERSION = '1';
+  const MENSAJE_INVALIDO = 'Este código no es válido. Revísalo letra por letra.';
+  const invalido = () => new Error(MENSAJE_INVALIDO);
+  const noGuardable = razon => new Error(`No se puede crear el código: ${razon}.`);
+
+  /** Carácter de control de una cadena de símbolos del alfabeto. */
+  function sumaControl(simbolos) {
+    let s = 0;
+    for (let i = 0; i < simbolos.length; i++) s += (2 * i + 1) * ALFABETO.indexOf(simbolos[i]);
+    return ALFABETO[s % 32];
+  }
+  /** Solo letras y cifras, en mayúsculas, con los confundibles corregidos (I, L → 1 · O → 0 · U → V). */
+  function limpiar(codigo) {
+    return String(codigo == null ? '' : codigo).replace(/[^0-9A-Za-z]/g, '').toUpperCase().replace(/[IL]/g, '1').replace(/O/g, '0').replace(/U/g, 'V');
+  }
+  /** Grupos de 4 separados por «-»: más fácil de dictar y de copiar. */
+  function formatear(s) { return (s.match(/.{1,4}/g) || []).join('-'); }
+  /** Hash corto (FNV-1a → 6 símbolos) para el id del nivel: el mismo código da siempre el mismo id. */
+  function hashCorto(s) {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+    let out = '';
+    for (let i = 0; i < 6; i++) { out = ALFABETO[h & 31] + out; h >>>= 5; }
+    return out;
+  }
+
+  /* ---------- bits ---------- */
+  function Escritor() { this.bits = []; }
+  Escritor.prototype.u = function (n, v) { for (let i = n - 1; i >= 0; i--) this.bits.push((v >> i) & 1); return this; };
+  Escritor.prototype.simbolos = function () {
+    const b = this.bits.slice();
+    while (b.length % 5) b.push(0);
+    let s = '';
+    for (let i = 0; i < b.length; i += 5) s += ALFABETO[(b[i] << 4) | (b[i + 1] << 3) | (b[i + 2] << 2) | (b[i + 3] << 1) | b[i + 4]];
+    return s;
+  };
+  function Lector(simbolos) {
+    this.bits = []; this.pos = 0;
+    for (const ch of simbolos) {
+      const v = ALFABETO.indexOf(ch);
+      if (v < 0) throw invalido();
+      for (let i = 4; i >= 0; i--) this.bits.push((v >> i) & 1);
+    }
+  }
+  Lector.prototype.u = function (n) {
+    if (this.pos + n > this.bits.length) throw invalido();
+    let v = 0;
+    for (let i = 0; i < n; i++) v = (v << 1) | this.bits[this.pos++];
+    return v;
+  };
+  /** Al final solo puede quedar el relleno: menos de 5 bits, todos a cero. */
+  Lector.prototype.fin = function () {
+    if (this.bits.length - this.pos >= 5) throw invalido();
+    while (this.pos < this.bits.length) if (this.bits[this.pos++]) throw invalido();
+  };
+
+  /* ---------- UTF-8 a mano (igual en Node y en cualquier navegador) ---------- */
+  function aUtf8(s) {
+    const out = [];
+    for (let i = 0; i < s.length; i++) {
+      let c = s.charCodeAt(i);
+      if (c >= 0xD800 && c < 0xDC00 && i + 1 < s.length) {
+        const d = s.charCodeAt(i + 1);
+        if (d >= 0xDC00 && d < 0xE000) { c = 0x10000 + ((c - 0xD800) << 10) + (d - 0xDC00); i++; }
+      }
+      if (c < 0x80) out.push(c);
+      else if (c < 0x800) out.push(0xC0 | (c >> 6), 0x80 | (c & 63));
+      else if (c < 0x10000) out.push(0xE0 | (c >> 12), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63));
+      else out.push(0xF0 | (c >> 18), 0x80 | ((c >> 12) & 63), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63));
+    }
+    return out;
+  }
+  function deUtf8(bytes) {
+    let s = '', i = 0;
+    const sig = () => { if (i >= bytes.length) throw invalido(); const b = bytes[i++]; if ((b & 0xC0) !== 0x80) throw invalido(); return b & 63; };
+    while (i < bytes.length) {
+      const b = bytes[i++];
+      let c;
+      if (b < 0x80) c = b;
+      else if (b < 0xC0) throw invalido();
+      else if (b < 0xE0) c = ((b & 31) << 6) | sig();
+      else if (b < 0xF0) { c = (b & 15) << 12; c |= sig() << 6; c |= sig(); }
+      else { c = (b & 7) << 18; c |= sig() << 12; c |= sig() << 6; c |= sig(); }
+      if (c > 0x10FFFF) throw invalido();
+      s += String.fromCodePoint(c);
+    }
+    return s;
+  }
+
+  /* ---------- tablas fijas del formato (solo crecen por el final) ---------- */
+  const TIPOS = ['estado', 'yaNo', 'todos', 'nadie', 'nunca', 'evento', 'sinEvento', 'amigos', 'enfadado', 'y', 'historia'];
+  const EVENTOS = ['encuentra', 'seEncuentran', 'pierde', 'noPierde', 'caminanJuntos', 'bebe', 'cruzaCuerda', 'cruzaMojado', 'calor', 'tormenta',
+    'nocheSolo', 'nocheLinterna', 'nocheJuntos', 'jaguarSolo', 'jaguarJuntos', 'serpienteMuerde', 'serpienteAvisa', 'comeFrutas', 'fuego', 'comeComida',
+    'comen', 'comparte', 'comeSolo', 'descansa', 'cura', 'seCuran', 'perdon', 'montana', 'mapa', 'mochila', 'cuerda', 'manta', 'linterna', 'rescate',
+    'rescateNoVe', 'amigos', 'yaSalvo', 'demasiados'];
+
+  /** Quita las claves undefined (para que el objetivo decodificado sea igual al original). */
+  function limpio(o) { for (const k in o) if (o[k] === undefined) delete o[k]; return o; }
+
+  function escribirObjetivo(w, obj, nivel) {
+    const ref = id => { const i = nivel.personajes.indexOf(id); if (i < 0 || i > 3) throw noGuardable(`el título habla de «${nombre(id)}», que no está en el nivel`); w.u(2, i); };
+    const refOpc = id => { if (id) { w.u(1, 1); ref(id); } else w.u(1, 0); };
+    const est = e => { const i = ESTADOS.indexOf(e); if (i < 0) throw noGuardable(`estado desconocido «${e}»`); w.u(4, i); };
+    const evt = e => { const i = EVENTOS.indexOf(e); if (i < 0) throw noGuardable(`evento desconocido «${e}»`); w.u(6, i); };
+    if (!obj || !obj.tipo) throw noGuardable('el nivel todavía no tiene título u objetivo');
+    const t = TIPOS.indexOf(obj.tipo);
+    if (t < 0) throw noGuardable(`tipo de objetivo desconocido «${obj.tipo}»`);
+    w.u(4, t);
+    switch (obj.tipo) {
+      case 'estado': ref(obj.quien); est(obj.estado); w.u(1, obj.valor === false ? 0 : 1); break;
+      case 'yaNo': ref(obj.quien); est(obj.estado); break;
+      case 'todos': est(obj.estado); w.u(1, obj.valor === false ? 0 : 1); break;
+      case 'nadie': est(obj.estado); break;
+      case 'nunca': refOpc(obj.quien); est(obj.estado); break;
+      case 'evento': evt(obj.evento); refOpc(obj.quien); refOpc(obj.a); break;
+      case 'sinEvento': evt(obj.evento); refOpc(obj.quien); break;
+      case 'amigos': ref(obj.a); ref(obj.b); break;
+      case 'enfadado': ref(obj.quien); ref(obj.con); break;
+      case 'y': {
+        const partes = obj.partes || [];
+        if (partes.length < 2 || partes.length > 5) throw noGuardable('un título con «y» tiene de 2 a 5 partes');
+        w.u(2, partes.length - 2);
+        for (const p of partes) escribirObjetivo(w, p, nivel);
+        break;
+      }
+      case 'historia': {
+        for (const id of nivel.personajes) {
+          const f = (obj.finales || {})[id];
+          if (!f) { w.u(1, 0); continue; }
+          let m = 0;
+          NEGATIVOS.forEach((k, i) => { if (f[k]) m |= 1 << i; });
+          if (f.salvo) m |= 1 << 7;
+          w.u(1, 1); w.u(8, m);
+        }
+        const evs = obj.eventos || [];
+        if (evs.length > 31) throw noGuardable('la historia tiene demasiados eventos');
+        w.u(5, evs.length);
+        for (const e of evs) { evt(e.tipo); refOpc(e.quien); refOpc(e.a); }
+        break;
+      }
+    }
+  }
+  function leerObjetivo(r, personajes) {
+    const ref = () => { const i = r.u(2); if (i >= personajes.length) throw invalido(); return personajes[i]; };
+    const refOpc = () => (r.u(1) ? ref() : undefined);
+    const est = () => { const i = r.u(4); if (i >= ESTADOS.length) throw invalido(); return ESTADOS[i]; };
+    const evt = () => { const i = r.u(6); if (i >= EVENTOS.length) throw invalido(); return EVENTOS[i]; };
+    const t = r.u(4);
+    if (t >= TIPOS.length) throw invalido();
+    switch (TIPOS[t]) {
+      case 'estado': return { tipo: 'estado', quien: ref(), estado: est(), valor: !!r.u(1) };
+      case 'yaNo': return { tipo: 'yaNo', quien: ref(), estado: est() };
+      case 'todos': return { tipo: 'todos', estado: est(), valor: !!r.u(1) };
+      case 'nadie': return { tipo: 'nadie', estado: est() };
+      case 'nunca': return limpio({ tipo: 'nunca', quien: refOpc(), estado: est() });
+      case 'evento': return limpio({ tipo: 'evento', evento: evt(), quien: refOpc(), a: refOpc() });
+      case 'sinEvento': return limpio({ tipo: 'sinEvento', evento: evt(), quien: refOpc() });
+      case 'amigos': return { tipo: 'amigos', a: ref(), b: ref() };
+      case 'enfadado': return { tipo: 'enfadado', quien: ref(), con: ref() };
+      case 'y': {
+        const n = r.u(2) + 2, partes = [];
+        for (let i = 0; i < n; i++) partes.push(leerObjetivo(r, personajes));
+        return { tipo: 'y', partes };
+      }
+      case 'historia': {
+        const finales = {};
+        for (const id of personajes) {
+          if (!r.u(1)) continue;
+          const m = r.u(8), f = {};
+          NEGATIVOS.forEach((k, i) => { f[k] = !!((m >> i) & 1); });
+          f.salvo = !!((m >> 7) & 1);
+          finales[id] = f;
+        }
+        const n = r.u(5), eventos = [];
+        for (let i = 0; i < n; i++) eventos.push(limpio({ tipo: evt(), quien: refOpc(), a: refOpc() }));
+        return { tipo: 'historia', finales, eventos };
+      }
+    }
+    throw invalido();
+  }
+
+  /** Estado inicial como máscaras por personaje; null si no hay nada que guardar. */
+  function inicialCompacto(nivel) {
+    if (!nivel.inicial || typeof nivel.inicial !== 'object') return null;
+    const out = {};
+    let alguno = false;
+    for (const id of nivel.personajes) {
+      const s = nivel.inicial[id];
+      if (!s) continue;
+      let m = 0, o = 0;
+      NEGATIVOS.forEach((k, i) => { if (s[k]) m |= 1 << i; });
+      if (s.salvo) m |= 1 << 7;
+      for (const x of s.objetos || []) { const i = OBJETOS.indexOf(x); if (i >= 0) o |= 1 << i; }
+      if (m || o) { out[id] = { m, o }; alguno = true; }
+    }
+    return alguno ? out : null;
+  }
+
+  /* ---------- codificar / decodificar ---------- */
+  function codificar(nivel) {
+    if (!nivel || typeof nivel !== 'object') throw noGuardable('falta el nivel');
+    const w = new Escritor();
+    const n = Number(nivel.viñetas);
+    if (!Number.isInteger(n) || n < 1 || n > 8) throw noGuardable('las viñetas tienen que estar entre 1 y 8');
+    w.u(3, n - 1);
+    const pjs = Array.isArray(nivel.personajes) ? nivel.personajes : [];
+    if (pjs.length < 1 || pjs.length > 4) throw noGuardable('el nivel necesita de 1 a 4 personajes');
+    if (new Set(pjs).size !== pjs.length) throw noGuardable('hay un personaje repetido');
+    w.u(2, pjs.length - 1);
+    for (const id of pjs) { const i = C.PERSONAJES.findIndex(p => p.id === id); if (i < 0) throw noGuardable(`personaje desconocido «${id}»`); w.u(3, i); }
+    const escs = Array.isArray(nivel.escenas) ? nivel.escenas : [];
+    if (escs.length < 1 || escs.length > 32) throw noGuardable('el nivel necesita de 1 a 32 escenas');
+    if (new Set(escs).size !== escs.length) throw noGuardable('hay una escena repetida');
+    w.u(5, escs.length - 1);
+    for (const id of escs) { const i = C.ESCENAS.findIndex(e => e.id === id); if (i < 0) throw noGuardable(`escena desconocida «${id}»`); w.u(5, i); }
+    // Título: solo se guarda si el motor no puede regenerarlo desde el objetivo
+    const titulo = String(nivel.titulo || '').trim();
+    let generado = null;
+    try { generado = E.tituloDe(nivel.objetivo, nivel); } catch (_) { generado = null; }
+    const libre = !!titulo && titulo !== generado;
+    const ini = inicialCompacto(nivel);
+    w.u(1, libre ? 1 : 0); w.u(1, ini ? 1 : 0);
+    escribirObjetivo(w, nivel.objetivo, nivel);
+    if (libre) {
+      const b = aUtf8(titulo);
+      if (b.length > 255) throw noGuardable('el título es demasiado largo');
+      w.u(8, b.length);
+      for (const x of b) w.u(8, x);
+    }
+    if (ini) for (const id of pjs) { const s = ini[id] || { m: 0, o: 0 }; w.u(8, s.m); w.u(5, s.o); }
+    const cuerpo = VERSION + w.simbolos();
+    return formatear('S' + cuerpo + sumaControl(cuerpo));
+  }
+
+  function decodificar(codigo) {
+    const s = limpiar(codigo);
+    if (!s) throw new Error('Escribe un código.');
+    if (s[0] !== 'S' || s.length < 4) throw invalido();
+    if (s[1] !== VERSION) throw new Error('Este código es de otra versión del juego.');
+    const cuerpo = s.slice(1, -1);
+    if (sumaControl(cuerpo) !== s[s.length - 1]) throw invalido();
+    const r = new Lector(cuerpo.slice(1));
+    const n = r.u(3) + 1;
+    const nP = r.u(2) + 1, personajes = [];
+    for (let i = 0; i < nP; i++) { const k = r.u(3); if (k >= C.PERSONAJES.length) throw invalido(); personajes.push(C.PERSONAJES[k].id); }
+    const nE = r.u(5) + 1, escenas = [];
+    for (let i = 0; i < nE; i++) { const k = r.u(5); if (k >= C.ESCENAS.length) throw invalido(); escenas.push(C.ESCENAS[k].id); }
+    if (new Set(personajes).size !== nP || new Set(escenas).size !== nE) throw invalido();
+    const libre = r.u(1), conInicial = r.u(1);
+    const objetivo = leerObjetivo(r, personajes);
+    let titulo = null;
+    if (libre) { const len = r.u(8), bytes = []; for (let i = 0; i < len; i++) bytes.push(r.u(8)); titulo = deUtf8(bytes); }
+    let inicial = null;
+    if (conInicial) {
+      inicial = {};
+      for (const id of personajes) {
+        const m = r.u(8), o = r.u(5);
+        if (!m && !o) continue;
+        const st = {};
+        NEGATIVOS.forEach((k, i) => { if ((m >> i) & 1) st[k] = true; });
+        if ((m >> 7) & 1) st.salvo = true;
+        const objetos = OBJETOS.filter((x, i) => (o >> i) & 1);
+        if (objetos.length) st.objetos = objetos;
+        inicial[id] = st;
+      }
+    }
+    r.fin();
+    const nivel = { id: 'autor-' + hashCorto(s), capitulo: 0, autor: true, titulo: '', viñetas: n, escenas, personajes, objetivo, pistas: [], codigo: formatear(s) };
+    if (inicial && Object.keys(inicial).length) nivel.inicial = inicial;
+    nivel.titulo = titulo !== null ? titulo : E.tituloDe(objetivo, nivel);
+    return nivel;
+  }
+
+  /* ---------- asistente de títulos ----------
+     Requisitos leídos en paso() de engine.js. Cada entrada es una lista de alternativas; una alternativa exige TODAS
+     sus escenas, un mínimo de personajes y, si «dos», alguna escena de 2 plazas. */
+  const CONSIGUE = { // cómo aparece un estado
+    hambre: [{ escenas: ['selva'], personajes: 2 }, { escenas: ['montana'] }],      // selva a dos (caminan juntos) · montaña
+    sed: [{ escenas: ['sol'] }],                                                     // el sol
+    frio: [{ escenas: ['rio'] }, { escenas: ['tormenta'] }],                         // río sin cuerda · tormenta sin manta
+    miedo: [{ escenas: ['tormenta'] }, { escenas: ['noche'] }, { escenas: ['jaguar'] }], // solo/a en la tormenta, la noche (sin linterna) o con el jaguar
+    cansado: [{ escenas: ['selva'], personajes: 2 }, { escenas: ['montana'] }],     // selva a dos · montaña
+    herido: [{ escenas: ['serpiente'] }],                                            // la serpiente, solo/a
+    perdido: [{ escenas: ['selva'] }, { escenas: ['jaguar'] }],                      // solo/a sin mapa en la selva o con el jaguar
+    salvo: [{ escenas: ['rescate'] }]                                                // el rescate (sin estar perdido)
+  };
+  const QUITA = { // cómo desaparece un estado
+    hambre: [{ escenas: ['frutas'] }, { escenas: ['mochila'] }],                     // frutas · mochila (y el fuego con la comida de la mochila)
+    sed: [{ escenas: ['rio'] }],                                                     // bebe agua
+    frio: [{ escenas: ['fuego'] }, { escenas: ['manta'] }],                          // fuego · manta
+    miedo: [{ escenas: ['noche'], personajes: 2 }, { escenas: ['noche', 'linterna'] }, { escenas: ['refugio'] }, { escenas: ['linterna'] }],
+    cansado: [{ escenas: ['noche'], personajes: 2 }, { escenas: ['refugio'] }],     // noche a dos · refugio
+    herido: [{ escenas: ['refugio'], personajes: 2 }],                               // el otro lo cura en el refugio
+    perdido: [{ escenas: ['mapa'] }, { escenas: ['montana'] }, { dos: true, personajes: 2 }] // mapa · montaña · alguien lo encuentra (cualquier escena a dos)
+  };
+  const REQ_EVENTO = {
+    encuentra: [{ escenas: ['selva'], personajes: 2 }, { escenas: ['jaguar'], personajes: 2 }],      // uno se pierde solo; después, los dos juntos (la misma escena vale)
+    seEncuentran: [{ escenas: ['selva'], personajes: 2 }, { escenas: ['jaguar'], personajes: 2 }],   // los dos se pierden por separado; después, juntos
+    cura: [{ escenas: ['serpiente', 'refugio'], personajes: 2 }],                                      // herido (serpiente solo) + los dos en el refugio
+    comparte: [{ escenas: ['mochila', 'fuego', 'selva'], personajes: 2 }, { escenas: ['mochila', 'fuego', 'montana'], personajes: 2 }], // comida + hambre del otro + amigos antes del fuego
+    comeSolo: [{ escenas: ['mochila', 'fuego', 'montana'], personajes: 2 }, { escenas: ['mochila', 'fuego', 'selva'], personajes: 3 }],  // comida + hambre del otro (montaña solo, o selva con un tercero) sin ser amigos
+    perdon: [{ escenas: ['mochila', 'fuego', 'montana', 'refugio'], personajes: 2 }, { escenas: ['mochila', 'fuego', 'selva', 'refugio'], personajes: 3 }], // comeSolo + los dos en el refugio
+    nocheJuntos: [{ escenas: ['noche'], personajes: 2 }],
+    jaguarJuntos: [{ escenas: ['jaguar'], personajes: 2 }],
+    caminanJuntos: [{ escenas: ['selva'], personajes: 2 }],
+    nocheLinterna: [{ escenas: ['noche', 'linterna'] }]                                                 // linterna antes de la noche, solo/a
+  };
+  const REQ_RELACION = {
+    amigos: [{ dos: true, personajes: 2 }], // compartir cualquier viñeta de 2 plazas
+    enfadado: REQ_EVENTO.comeSolo
+  };
+  // Orden pedagógico de los eventos propuestos y cómo se nombran sus participantes
+  const EVENTOS_ASISTENTE = ['encuentra', 'cura', 'comparte', 'perdon', 'seEncuentran', 'nocheJuntos', 'jaguarJuntos', 'caminanJuntos', 'nocheLinterna', 'comeSolo'];
+  const FORMA_EVENTO = { encuentra: 'ordenado', cura: 'ordenado', comparte: 'ordenado', perdon: 'ordenado', seEncuentran: 'pareja', nocheJuntos: 'pareja',
+    caminanJuntos: 'pareja', jaguarJuntos: 'generico', nocheLinterna: 'uno', comeSolo: 'uno' };
+
+  function cumple(alternativas, escenas, nP) {
+    return (alternativas || []).some(alt => (alt.escenas || []).every(e => escenas.includes(e)) && nP >= (alt.personajes || 1) && (!alt.dos || escenas.some(e => ESCENA[e].slots >= 2)));
+  }
+
+  function asistenteTitulos(personajes, escenas) {
+    const pjs = E.ordenar((personajes || []).filter((id, i, a) => PJ[id] && a.indexOf(id) === i));
+    const escs = (escenas || []).filter((id, i, a) => ESCENA[id] && a.indexOf(id) === i);
+    const nivel = { personajes: pjs, escenas: escs };
+    const nP = pjs.length;
+    const puede = alts => cumple(alts, escs, nP);
+    const consigue = k => puede(CONSIGUE[k]);
+    const algunNegativo = NEGATIVOS.some(consigue);
+    const out = [], vistos = new Set();
+    const add = objetivo => {
+      if (!E.objetivoValido(objetivo)) return;
+      const titulo = E.tituloDe(objetivo, nivel);
+      if (!titulo || vistos.has(titulo)) return;
+      vistos.add(titulo); out.push({ objetivo, titulo });
+    };
+    const parejas = [], ordenadas = [];
+    for (let i = 0; i < nP; i++) for (let j = 0; j < nP; j++) if (i !== j) { ordenadas.push([pjs[i], pjs[j]]); if (i < j) parejas.push([pjs[i], pjs[j]]); }
+
+    // 1. estados simples: «Lucía tiene sed» · «Lucía está a salvo» · «Lucía está contenta» (si algo puede salir mal)
+    for (const q of pjs) {
+      for (const k of NEGATIVOS) if (consigue(k)) add({ tipo: 'estado', quien: q, estado: k, valor: true });
+      if (consigue('salvo')) add({ tipo: 'estado', quien: q, estado: 'salvo', valor: true });
+      if (algunNegativo) add({ tipo: 'estado', quien: q, estado: 'contento', valor: true });
+    }
+    // 2. ya no: el estado tiene que poder aparecer y desaparecer
+    for (const q of pjs) for (const k of NEGATIVOS) if (consigue(k) && puede(QUITA[k])) add({ tipo: 'yaNo', quien: q, estado: k });
+    // 3. nunca: solo tiene gracia si el estado puede aparecer
+    for (const q of pjs) for (const k of NEGATIVOS) if (consigue(k)) add({ tipo: 'nunca', quien: q, estado: k });
+    // 4. eventos
+    for (const ev of EVENTOS_ASISTENTE) {
+      if (!puede(REQ_EVENTO[ev])) continue;
+      const forma = FORMA_EVENTO[ev];
+      if (forma === 'ordenado') for (const [q, a] of ordenadas) add({ tipo: 'evento', evento: ev, quien: q, a });
+      else if (forma === 'pareja') for (const [q, a] of parejas) add({ tipo: 'evento', evento: ev, quien: q, a });
+      else if (forma === 'generico') add({ tipo: 'evento', evento: ev });
+      else for (const q of pjs) add({ tipo: 'evento', evento: ev, quien: q });
+    }
+    // 5. todos / nadie (con 2 personajes o más)
+    if (nP >= 2) {
+      for (const k of NEGATIVOS) if (consigue(k)) add({ tipo: 'todos', estado: k, valor: true });
+      if (consigue('salvo')) add({ tipo: 'todos', estado: 'salvo', valor: true });
+      if (algunNegativo) add({ tipo: 'todos', estado: 'contento', valor: true });
+      for (const k of NEGATIVOS) if (consigue(k)) add({ tipo: 'nadie', estado: k });
+    }
+    // 6. relaciones
+    if (nP >= 2) {
+      if (puede(REQ_RELACION.amigos)) for (const [a, b] of parejas) add({ tipo: 'amigos', a, b });
+      if (puede(REQ_RELACION.enfadado)) for (const [q, con] of ordenadas) add({ tipo: 'enfadado', quien: q, con });
+    }
+    return out;
+  }
+
+  /* ---------- validar ---------- */
+  /** Personajes nombrados en un objetivo (para avisar si alguno no está en el nivel). */
+  function personajesDe(obj, out) {
+    out = out || [];
+    if (!obj || typeof obj !== 'object') return out;
+    for (const k of ['quien', 'a', 'b', 'con']) if (typeof obj[k] === 'string' && !out.includes(obj[k])) out.push(obj[k]);
+    if (obj.finales) for (const id in obj.finales) if (!out.includes(id)) out.push(id);
+    for (const e of obj.eventos || []) personajesDe(e, out);
+    for (const p of obj.partes || []) personajesDe(p, out);
+    return out;
+  }
+  function validar(nivel, opts) {
+    opts = opts || {};
+    const reloj = opts.reloj || (() => Date.now()); // solo para el campo informativo «segundos»: no cambia el resultado
+    const t0 = reloj();
+    const errores = [];
+    const salida = r => ({ ok: !errores.length, errores, total: r ? r.total : 0, soluciones: r ? r.soluciones.slice(0, 5) : [],
+      textos: r ? r.soluciones.slice(0, 5).map(E.textoSolucion) : [], densidad: r ? r.densidad : 0, desbordado: !!(r && r.desbordado), segundos: (reloj() - t0) / 1000 });
+    if (!nivel || typeof nivel !== 'object') { errores.push('Falta el nivel.'); return salida(null); }
+    const titulo = String(nivel.titulo || '').trim();
+    const escenas = Array.isArray(nivel.escenas) ? nivel.escenas : [];
+    const personajes = Array.isArray(nivel.personajes) ? nivel.personajes : [];
+    const n = Number(nivel.viñetas);
+    if (!titulo) errores.push('Escribe un título.');
+    if (!escenas.length) errores.push('Elige al menos una escena.');
+    else if (escenas.length > 8) errores.push('Demasiadas escenas: 8 como máximo.');
+    if (escenas.some(id => !ESCENA[id])) errores.push('Hay una escena que no existe.');
+    if (!personajes.length) errores.push('Elige al menos un personaje.');
+    else if (personajes.length > 4) errores.push('Demasiados personajes: 4 como máximo.');
+    if (personajes.some(id => !PJ[id])) errores.push('Hay un personaje que no existe.');
+    if (new Set(personajes).size !== personajes.length) errores.push('Hay un personaje repetido.');
+    if (!Number.isInteger(n) || n < 1 || n > 6) errores.push('El número de viñetas tiene que estar entre 1 y 6.');
+    if (!nivel.objetivo) errores.push('Este nivel todavía no tiene objetivo: elige un título o juega la solución.');
+    else if (!E.objetivoValido(nivel.objetivo)) errores.push('Este título no tiene sentido.');
+    else {
+      const fuera = personajesDe(nivel.objetivo).filter(id => !personajes.includes(id));
+      if (fuera.length) errores.push(`El título habla de ${nombre(fuera[0])}, pero no está en el nivel.`);
+    }
+    if (errores.length) return salida(null);
+    const r = E.resolver(nivel, { max: 5, limite: opts.limite || 1.5e6 });
+    if (r.desbordado) errores.push('Demasiado grande para comprobarlo.');
+    else if (!r.total) errores.push('Este título no tiene solución con estas escenas y estos personajes.');
+    return salida(r);
+  }
+
+  /* ---------- grabar la solución jugada (título libre → objetivo «historia») ---------- */
+  function grabar(nivel, viñetas) {
+    const res = E.simular(nivel, viñetas);
+    if (res.incompleto) throw new Error('Faltan viñetas: pon una escena y un personaje en cada viñeta.');
+    if (!res.valido) throw new Error('Esta historia no vale: mira la frase en rojo.');
+    if (res.faltan && res.faltan.length) throw new Error(`${nombre(res.faltan[0])} no sale en la historia.`);
+    return Object.assign({}, nivel, { objetivo: E.objetivoDeHistoria(nivel, res) });
+  }
+
+  /* ---------- almacén (localStorage inyectado; nunca lanza por falta de almacenamiento) ---------- */
+  const CLAVE = 'sobrevives.autor.v0';
+  const copia = x => JSON.parse(JSON.stringify(x));
+  function almacen(store) {
+    let memoria = []; // repuesto cuando el almacenamiento falla o no existe
+    function leer() {
+      try {
+        const s = store ? store.getItem(CLAVE) : null;
+        if (!s) return memoria.slice();
+        const v = JSON.parse(s);
+        if (Array.isArray(v)) { memoria = v; return v.slice(); }
+      } catch (_) { /* sin almacenamiento o datos rotos: se usa la memoria */ }
+      return memoria.slice();
+    }
+    function escribir(lista) {
+      memoria = lista;
+      try { if (store) store.setItem(CLAVE, JSON.stringify(lista)); } catch (_) { /* lleno o bloqueado: se queda en memoria */ }
+    }
+    return {
+      listar() { return leer().map(copia); },
+      guardar(nivel) {
+        if (!nivel || typeof nivel.id !== 'string' || !nivel.id) throw new Error('El nivel necesita un id.');
+        const lista = leer(), n = copia(nivel);
+        n.autor = true;
+        const i = lista.findIndex(x => x.id === n.id);
+        if (i >= 0) lista[i] = n; else lista.push(n);
+        escribir(lista);
+        return copia(n);
+      },
+      borrar(id) {
+        const lista = leer(), i = lista.findIndex(x => x.id === id);
+        if (i < 0) return false;
+        lista.splice(i, 1); escribir(lista);
+        return true;
+      },
+      exportarTodo() { return JSON.stringify({ formato: CLAVE, niveles: leer() }); },
+      importarTodo(json) {
+        let datos;
+        try { datos = typeof json === 'string' ? JSON.parse(json) : json; } catch (_) { throw new Error('Este archivo no es válido.'); }
+        const nuevos = Array.isArray(datos) ? datos : datos && Array.isArray(datos.niveles) ? datos.niveles : null;
+        if (!nuevos) throw new Error('Este archivo no es válido.');
+        const lista = leer(), ids = new Set(lista.map(x => x.id));
+        let k = 0;
+        for (const n of nuevos) {
+          if (!n || typeof n !== 'object' || typeof n.id !== 'string' || !n.id || ids.has(n.id)) continue;
+          const c = copia(n); c.autor = true;
+          lista.push(c); ids.add(c.id); k++;
+        }
+        if (k) escribir(lista);
+        return k;
+      }
+    };
+  }
+
+  return { codificar, decodificar, asistenteTitulos, validar, almacen, grabar, limpiar, formatear, sumaControl, hashCorto,
+    ALFABETO, VERSION, TIPOS, EVENTOS, CONSIGUE, QUITA, REQ_EVENTO, REQ_RELACION, CLAVE, MENSAJE_INVALIDO };
+});
+
+</script>
+<script>/* pizarra.js */
+/* Sobrevives — modo «Pizarra»: herramientas de clase para el videoproyector (sin dependencias).
+   Tres widgets en una barra: cronómetro, sorteo de números (sin nombres) y marcador de equipos.
+   Funciona en el navegador (window.SVPizarra); en Node solo exporta la API (no toca el DOM).
+   montar(contenedor, opts) → { destruir(), reiniciar() }
+   opts = { hablar(texto)?, toast(msg)?, store? (tipo localStorage; si falta, window.localStorage) }
+   Excepción al resto del proyecto: aquí sí se usan Math.random (sorteo) y Date (cronómetro). */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.SVPizarra = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  const KEY = 'sobrevives.pizarra.v0';
+  const W = typeof window !== 'undefined' ? window : null;
+  const MODOS = ['arriba', 1, 3, 5, 10]; // cuenta arriba, o cuenta atrás en minutos
+  const TOPE = 99 * 60000 + 59000; // 99:59, tope de la cuenta arriba
+  const MIN_ALUMNOS = 2, MAX_ALUMNOS = 40, MAX_PUNTOS = 999;
+  /* Cuatro colores vivos de la paleta; el texto se elige según el fondo. */
+  const COLORES = [
+    { fondo: 'var(--rojo,#c4432e)', texto: '#fff6e6' },
+    { fondo: 'var(--azul,#2c5a9a)', texto: '#fff6e6' },
+    { fondo: 'var(--verde,#4c8748)', texto: '#fff6e6' },
+    { fondo: 'var(--amarillo,#dfa92c)', texto: '#1f1a17' }
+  ];
+
+  /* ---------- números en letras (0..99) ---------- */
+  const UNIDADES = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez',
+    'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve', 'veinte',
+    'veintiuno', 'veintidós', 'veintitrés', 'veinticuatro', 'veinticinco', 'veintiséis', 'veintisiete', 'veintiocho', 'veintinueve'];
+  const DECENAS = ['', '', '', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
+  /** numeroEnLetras(12) → 'doce' · numeroEnLetras(40) → 'cuarenta' · fuera de 0..99 → el número en cifras */
+  function numeroEnLetras(n) {
+    n = Math.round(Number(n));
+    if (!isFinite(n) || n < 0 || n > 99) return String(n);
+    if (n < 30) return UNIDADES[n];
+    const u = n % 10;
+    return DECENAS[Math.floor(n / 10)] + (u ? ' y ' + UNIDADES[u] : '');
+  }
+
+  /* ---------- CSS ----------
+     Variables del proyecto con valor de reserva, para que la barra funcione también sola (test/pizarra.html). */
+  const CSS = `
+.sv-pizarra{display:flex;flex-wrap:wrap;align-items:stretch;gap:14px;padding:10px 16px;background:var(--papel2,#f6e9d2);border-bottom:3px solid var(--borde,#1f1a17);font-family:var(--f-texto,"Segoe UI",Verdana,Tahoma,sans-serif);color:var(--tinta,#1f1a17);box-sizing:border-box}
+.sv-pizarra *,.sv-pizarra *::before,.sv-pizarra *::after{box-sizing:border-box}
+.sv-pizarra [hidden]{display:none!important}
+.svp-widget{flex:1 1 280px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 14px 14px;background:var(--papel,#fff8ec);border:3px solid var(--borde,#1f1a17);border-radius:14px;box-shadow:0 4px 0 rgba(0,0,0,.3)}
+.svp-widget.svp-equipos{flex:3 1 480px}
+.svp-titulo{margin:0;font-family:var(--f-titulo,"Trebuchet MS","Segoe UI",Verdana,sans-serif);font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta2,#5b4a3a)}
+.svp-fila{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.svp-num{font-family:var(--f-titulo,"Trebuchet MS","Segoe UI",Verdana,sans-serif);font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.svp-btn{min-width:44px;min-height:44px;padding:0 .7em;border:3px solid var(--borde,#1f1a17);border-radius:12px;background:var(--papel,#fff8ec);color:var(--tinta,#1f1a17);font:inherit;font-size:1.3rem;font-weight:900;line-height:1;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.35);user-select:none}
+.svp-btn:hover{transform:translateY(-1px);box-shadow:0 5px 0 rgba(0,0,0,.35)}
+.svp-btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.35)}
+.svp-btn:disabled{opacity:.55;cursor:default;transform:none}
+.svp-btn:focus-visible,.svp-chip:focus-visible,.svp-nombre:focus-visible{outline:4px solid var(--azul,#2c5a9a);outline-offset:2px}
+.svp-btn.svp-ok{background:var(--ok,#2e8b57);color:#fff6e6}
+.svp-btn.svp-rojo{background:var(--rojo,#c4432e);color:#fff6e6}
+.svp-btn.svp-grande{font-size:1.6rem;min-height:56px;padding:0 1em}
+.svp-chip{min-height:44px;padding:0 .9em;border:3px solid var(--borde,#1f1a17);border-radius:999px;background:var(--papel,#fff8ec);color:var(--tinta,#1f1a17);font:inherit;font-size:1rem;font-weight:700;cursor:pointer}
+.svp-chip[aria-pressed="true"]{background:var(--tinta,#1f1a17);color:var(--papel,#fff8ec)}
+.svp-etiqueta{display:flex;align-items:center;gap:.4em;font-size:1.1rem;font-weight:700}
+.svp-campo{width:4.4em;min-height:44px;padding:0 .3em;border:3px solid var(--borde,#1f1a17);border-radius:10px;background:#fff;color:var(--tinta,#1f1a17);font:inherit;font-size:1.4rem;font-weight:700;text-align:center}
+.svp-casilla{width:28px;height:28px;margin:0;accent-color:var(--tinta,#1f1a17);cursor:pointer}
+.svp-nota{font-size:1rem;font-weight:700;color:var(--tinta2,#5b4a3a);min-width:6em;text-align:center}
+/* cronómetro */
+.svp-tiempo{font-size:3.6rem;padding:.1em .35em;border:3px solid var(--borde,#1f1a17);border-radius:14px;background:#fff;min-width:4.6em;text-align:center}
+.svp-tiempo.svp-fin{animation:svp-parpadeo .5s steps(1) 8}
+@keyframes svp-parpadeo{0%,100%{background:#fff;color:var(--tinta,#1f1a17)}50%{background:var(--rojo,#c4432e);color:#fff6e6}}
+/* sorteo */
+.svp-bola{font-size:4.2rem;width:2.1em;height:2.1em;display:flex;align-items:center;justify-content:center;border:3px solid var(--borde,#1f1a17);border-radius:50%;background:var(--amarillo,#dfa92c);box-shadow:0 4px 0 rgba(0,0,0,.3)}
+.svp-bola.svp-girando{color:var(--tinta2,#5b4a3a)}
+.svp-pop{animation:svp-pop .35s ease-out}
+@keyframes svp-pop{0%{transform:scale(.7)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+/* equipos */
+.svp-tarjetas{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;width:100%}
+.svp-tarjeta{flex:1 1 118px;max-width:220px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 6px 10px;background:var(--c);color:var(--t);border:3px solid var(--borde,#1f1a17);border-radius:12px;box-shadow:0 4px 0 rgba(0,0,0,.3)}
+.svp-nombre{max-width:100%;min-height:44px;padding:0 .5em;border:3px dashed transparent;border-radius:10px;background:transparent;color:inherit;font:inherit;font-size:1.15rem;font-weight:900;line-height:1.1;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.svp-nombre:hover{border-color:currentColor}
+.svp-puntos{font-size:3rem}
+.svp-tarjeta .svp-fila{width:100%;flex-wrap:nowrap}
+.svp-tarjeta .svp-btn{flex:1 1 0;min-width:44px;padding:0 .2em;font-size:1.4rem}
+@media print{.sv-pizarra{display:none!important}}
+`;
+
+  /* ---------- utilidades ---------- */
+  function inyectarCSS() {
+    if (typeof document === 'undefined' || document.getElementById('sv-pizarra-css')) return;
+    const s = document.createElement('style');
+    s.id = 'sv-pizarra-css';
+    s.textContent = CSS;
+    (document.head || document.documentElement).appendChild(s);
+  }
+  function el(tag, attrs, texto) {
+    const n = document.createElement(tag);
+    if (attrs) for (const k in attrs) {
+      if (k === 'class') n.className = attrs[k];
+      else if (k.startsWith('on')) n.addEventListener(k.slice(2), attrs[k]);
+      else n.setAttribute(k, attrs[k]);
+    }
+    if (texto !== undefined) n.textContent = texto;
+    return n;
+  }
+  const limitar = (v, min, max) => Math.min(max, Math.max(min, v));
+  const dosCifras = n => String(n).padStart(2, '0');
+  function formato(ms) { const s = Math.max(0, Math.round(ms / 1000)); return dosCifras(Math.floor(s / 60)) + ':' + dosCifras(s % 60); }
+  /** Vuelve a lanzar la animación «pop» aunque ya estuviera puesta. */
+  function pop(n) { n.classList.remove('svp-pop'); void n.offsetWidth; n.classList.add('svp-pop'); }
+
+  /* ---------- datos persistidos ----------
+     { equipos, nombres[4], puntos[4], alumnos, crono, sinRepetir } — sin ningún dato personal. */
+  function porDefecto() {
+    return { equipos: 2, nombres: ['Equipo 1', 'Equipo 2', 'Equipo 3', 'Equipo 4'], puntos: [0, 0, 0, 0], alumnos: 24, crono: 'arriba', sinRepetir: false };
+  }
+  function sanear(d) {
+    const b = porDefecto();
+    if (!d || typeof d !== 'object') return b;
+    if ([2, 3, 4].includes(d.equipos)) b.equipos = d.equipos;
+    if (Array.isArray(d.nombres)) d.nombres.slice(0, 4).forEach((s, i) => { if (typeof s === 'string' && s.trim()) b.nombres[i] = s.trim().slice(0, 24); });
+    if (Array.isArray(d.puntos)) d.puntos.slice(0, 4).forEach((p, i) => { if (Number.isInteger(p)) b.puntos[i] = limitar(p, 0, MAX_PUNTOS); });
+    if (Number.isInteger(d.alumnos)) b.alumnos = limitar(d.alumnos, MIN_ALUMNOS, MAX_ALUMNOS);
+    if (MODOS.includes(d.crono)) b.crono = d.crono;
+    b.sinRepetir = !!d.sinRepetir;
+    return b;
+  }
+
+  /* ---------- montar ---------- */
+  function montar(contenedor, opts) {
+    opts = opts || {};
+    if (typeof document === 'undefined' || !contenedor) return { destruir() {}, reiniciar() {} }; // Node o sin contenedor: nada que montar
+    inyectarCSS();
+    const toast = typeof opts.toast === 'function' ? opts.toast : () => {};
+    const hablar = typeof opts.hablar === 'function' ? opts.hablar : null;
+    let store = opts.store || null;
+    if (!store) { try { store = W && W.localStorage; } catch (_) { store = null; } }
+    function leer() { try { return sanear(JSON.parse(store.getItem(KEY) || 'null')); } catch (_) { return porDefecto(); } }
+    function guardar() { try { if (store) store.setItem(KEY, JSON.stringify(datos)); } catch (_) { /* sin almacenamiento */ } }
+    const datos = leer();
+    const temporizadores = { crono: 0, anim: 0 };
+
+    const barra = el('div', { class: 'sv-pizarra', role: 'region', 'aria-label': 'Herramientas de la pizarra' });
+
+    /* ===== 1. Cronómetro ===== */
+    const wCrono = el('section', { class: 'svp-widget svp-crono' });
+    wCrono.appendChild(el('h3', { class: 'svp-titulo' }, 'Cronómetro'));
+    const tiempo = el('div', { class: 'svp-num svp-tiempo', role: 'timer', 'aria-live': 'off' }, '00:00');
+    const btnPlay = el('button', { class: 'svp-btn svp-ok', type: 'button', 'aria-label': 'Empezar', title: 'Empezar' }, '▶');
+    const btnCero = el('button', { class: 'svp-btn', type: 'button', 'aria-label': 'Poner a cero', title: 'Poner a cero' }, '↺');
+    const modos = el('div', { class: 'svp-fila', role: 'group', 'aria-label': 'Modo del cronómetro' });
+    const chipsModo = MODOS.map(m => {
+      const c = el('button', { class: 'svp-chip', type: 'button', 'data-modo': String(m), 'aria-pressed': 'false' }, m === 'arriba' ? '▲ Cuenta' : m + ' min');
+      c.addEventListener('click', () => { datos.crono = m; guardar(); ponerACero(); pintarModos(); });
+      modos.appendChild(c);
+      return c;
+    });
+    let corriendo = false, inicioMs = 0, acumulado = 0, audio = null;
+
+    const transcurrido = () => acumulado + (corriendo ? Date.now() - inicioMs : 0);
+    const duracion = () => datos.crono === 'arriba' ? TOPE : datos.crono * 60000;
+    function pintarTiempo() {
+      const t = Math.min(transcurrido(), duracion());
+      const txt = formato(datos.crono === 'arriba' ? t : duracion() - t);
+      if (tiempo.textContent !== txt) tiempo.textContent = txt;
+    }
+    function pintarModos() { chipsModo.forEach(c => c.setAttribute('aria-pressed', String(c.dataset.modo === String(datos.crono)))); }
+    function pintarPlay() {
+      btnPlay.textContent = corriendo ? '⏸' : '▶';
+      const t = corriendo ? 'Pausa' : 'Empezar';
+      btnPlay.setAttribute('aria-label', t); btnPlay.title = t;
+      btnPlay.classList.toggle('svp-ok', !corriendo);
+    }
+    /** El AudioContext se crea al pulsar ▶ (gesto del usuario): así el navegador deja sonar el pitido al final. */
+    function prepararAudio() {
+      try {
+        const AC = W && (W.AudioContext || W.webkitAudioContext);
+        if (!AC) return;
+        if (!audio) audio = new AC();
+        if (audio.state === 'suspended') audio.resume();
+      } catch (_) { audio = null; }
+    }
+    function pitido() {
+      try {
+        if (!audio) prepararAudio();
+        if (!audio) return;
+        const t0 = audio.currentTime;
+        const o = audio.createOscillator(), g = audio.createGain();
+        o.type = 'square'; o.frequency.value = 880;
+        g.gain.setValueAtTime(0.0001, t0);
+        g.gain.exponentialRampToValueAtTime(0.25, t0 + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.6);
+        o.connect(g); g.connect(audio.destination);
+        o.start(t0); o.stop(t0 + 0.65);
+      } catch (_) { /* sin audio */ }
+    }
+    function parar() { if (corriendo) { acumulado = transcurrido(); corriendo = false; } clearInterval(temporizadores.crono); temporizadores.crono = 0; pintarPlay(); }
+    function ponerACero() { parar(); acumulado = 0; tiempo.classList.remove('svp-fin'); pintarTiempo(); }
+    function tick() {
+      pintarTiempo();
+      if (transcurrido() < duracion()) return;
+      parar(); acumulado = duracion(); pintarTiempo();
+      if (datos.crono !== 'arriba') { tiempo.classList.add('svp-fin'); pitido(); toast('¡Tiempo!'); }
+    }
+    function empezar() {
+      if (transcurrido() >= duracion()) acumulado = 0; // ya había terminado: vuelve a empezar
+      tiempo.classList.remove('svp-fin');
+      prepararAudio();
+      inicioMs = Date.now(); corriendo = true;
+      temporizadores.crono = setInterval(tick, 200);
+      pintarPlay(); pintarTiempo();
+    }
+    btnPlay.addEventListener('click', () => (corriendo ? parar() : empezar()));
+    btnCero.addEventListener('click', ponerACero);
+    const filaCrono = el('div', { class: 'svp-fila' });
+    filaCrono.appendChild(btnPlay); filaCrono.appendChild(btnCero);
+    wCrono.appendChild(tiempo); wCrono.appendChild(filaCrono); wCrono.appendChild(modos);
+    pintarModos(); pintarPlay(); pintarTiempo();
+
+    /* ===== 2. Sorteo (solo números, nunca nombres) ===== */
+    const wSorteo = el('section', { class: 'svp-widget svp-sorteo' });
+    wSorteo.appendChild(el('h3', { class: 'svp-titulo' }, 'Sorteo'));
+    const bola = el('div', { class: 'svp-num svp-bola', 'aria-live': 'polite', 'aria-label': 'Número que ha salido' }, '?');
+    const campo = el('input', { class: 'svp-campo', type: 'number', min: String(MIN_ALUMNOS), max: String(MAX_ALUMNOS), step: '1', inputmode: 'numeric', 'aria-label': '¿Cuántos?' });
+    campo.value = String(datos.alumnos);
+    const etiqueta = el('label', { class: 'svp-etiqueta' }); etiqueta.appendChild(document.createTextNode('¿Cuántos?')); etiqueta.appendChild(campo);
+    const btnNumero = el('button', { class: 'svp-btn svp-grande svp-rojo', type: 'button' }, '¡Número!');
+    const casilla = el('input', { class: 'svp-casilla', type: 'checkbox' });
+    casilla.checked = datos.sinRepetir;
+    const etqCasilla = el('label', { class: 'svp-etiqueta' }); etqCasilla.appendChild(casilla); etqCasilla.appendChild(document.createTextNode('sin repetir'));
+    const nota = el('span', { class: 'svp-nota', 'aria-live': 'polite' });
+    const btnBolsa = el('button', { class: 'svp-btn', type: 'button', 'aria-label': 'Reiniciar la bolsa', title: 'Reiniciar la bolsa' }, '↺');
+    let bolsa = [], ultimo = 0, animando = false;
+
+    function llenarBolsa() { bolsa = Array.from({ length: datos.alumnos }, (_, i) => i + 1); }
+    function pintarBolsa() {
+      nota.hidden = !datos.sinRepetir; btnBolsa.hidden = !datos.sinRepetir;
+      nota.textContent = bolsa.length === 1 ? 'Queda 1' : 'Quedan ' + bolsa.length;
+    }
+    function fijarAlumnos() {
+      const v = limitar(parseInt(campo.value, 10) || datos.alumnos, MIN_ALUMNOS, MAX_ALUMNOS);
+      campo.value = String(v);
+      if (v !== datos.alumnos) { datos.alumnos = v; guardar(); llenarBolsa(); pintarBolsa(); }
+    }
+    function sortear() {
+      if (animando) return;
+      fijarAlumnos();
+      const n = datos.alumnos;
+      let final;
+      if (datos.sinRepetir) {
+        if (!bolsa.length) { llenarBolsa(); toast('Ya han salido todos. ¡Bolsa nueva!'); }
+        final = bolsa.splice(Math.floor(Math.random() * bolsa.length), 1)[0];
+      } else {
+        do { final = 1 + Math.floor(Math.random() * n); } while (final === ultimo); // sin repetir el anterior dos veces seguidas
+      }
+      ultimo = final; animando = true; btnNumero.disabled = true;
+      bola.classList.add('svp-girando'); bola.classList.remove('svp-pop');
+      const t0 = Date.now();
+      const paso = () => {
+        if (Date.now() - t0 < 800) {
+          bola.textContent = String(1 + Math.floor(Math.random() * n));
+          temporizadores.anim = setTimeout(paso, 60);
+          return;
+        }
+        temporizadores.anim = 0;
+        bola.textContent = String(final);
+        bola.classList.remove('svp-girando'); pop(bola);
+        animando = false; btnNumero.disabled = false;
+        pintarBolsa();
+        if (hablar) hablar('Número ' + numeroEnLetras(final));
+      };
+      paso();
+    }
+    campo.addEventListener('change', fijarAlumnos);
+    campo.addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); fijarAlumnos(); sortear(); } });
+    casilla.addEventListener('change', () => { datos.sinRepetir = casilla.checked; guardar(); llenarBolsa(); pintarBolsa(); });
+    btnNumero.addEventListener('click', sortear);
+    btnBolsa.addEventListener('click', () => { llenarBolsa(); pintarBolsa(); toast('Bolsa llena otra vez.'); });
+    const fila1 = el('div', { class: 'svp-fila' }); fila1.appendChild(etiqueta); fila1.appendChild(btnNumero);
+    const fila2 = el('div', { class: 'svp-fila' }); fila2.appendChild(etqCasilla); fila2.appendChild(nota); fila2.appendChild(btnBolsa);
+    wSorteo.appendChild(bola); wSorteo.appendChild(fila1); wSorteo.appendChild(fila2);
+    llenarBolsa(); pintarBolsa();
+
+    /* ===== 3. Equipos ===== */
+    const wEquipos = el('section', { class: 'svp-widget svp-equipos' });
+    wEquipos.appendChild(el('h3', { class: 'svp-titulo' }, 'Equipos'));
+    const selector = el('div', { class: 'svp-fila', role: 'group', 'aria-label': 'Número de equipos' });
+    const chipsEq = [2, 3, 4].map(n => {
+      const c = el('button', { class: 'svp-chip', type: 'button', 'data-n': String(n), 'aria-pressed': 'false', 'aria-label': n + ' equipos' }, n + ' equipos');
+      c.addEventListener('click', () => { datos.equipos = n; guardar(); pintarEquipos(); });
+      selector.appendChild(c);
+      return c;
+    });
+    const btnCeroEq = el('button', { class: 'svp-btn', type: 'button', 'aria-label': 'Poner los puntos a cero', title: 'Poner los puntos a cero' }, '↺');
+    btnCeroEq.addEventListener('click', () => {
+      if (W && W.confirm('¿Poner todos los puntos a cero?')) { datos.puntos = [0, 0, 0, 0]; guardar(); pintarEquipos(); toast('Marcador a cero.'); }
+    });
+    selector.appendChild(btnCeroEq);
+    const tarjetas = el('div', { class: 'svp-tarjetas' });
+    const fichas = COLORES.map((col, i) => {
+      const t = el('div', { class: 'svp-tarjeta' });
+      t.style.setProperty('--c', col.fondo); t.style.setProperty('--t', col.texto);
+      const nombre = el('button', { class: 'svp-nombre', type: 'button', title: 'Cambiar el nombre del equipo' });
+      /* Nombre libre con prompt(); se propone el nombre actual, nunca nombres de alumnos. */
+      nombre.addEventListener('click', () => {
+        if (!W) return;
+        const nuevo = W.prompt('Nombre del equipo ' + (i + 1) + ':', datos.nombres[i]);
+        if (nuevo === null) return;
+        datos.nombres[i] = (nuevo.trim() || 'Equipo ' + (i + 1)).slice(0, 24);
+        guardar(); pintarEquipos();
+      });
+      const puntos = el('div', { class: 'svp-num svp-puntos', 'aria-live': 'polite' }, '0');
+      const sumar = d => { const v = limitar(datos.puntos[i] + d, 0, MAX_PUNTOS); if (v === datos.puntos[i]) return; datos.puntos[i] = v; guardar(); puntos.textContent = String(v); pop(puntos); };
+      const menos = el('button', { class: 'svp-btn', type: 'button', 'aria-label': 'Quitar un punto a ' + datos.nombres[i] }, '−1');
+      const mas = el('button', { class: 'svp-btn', type: 'button', 'aria-label': 'Dar un punto a ' + datos.nombres[i] }, '+1');
+      menos.addEventListener('click', () => sumar(-1));
+      mas.addEventListener('click', () => sumar(1));
+      const fila = el('div', { class: 'svp-fila' }); fila.appendChild(menos); fila.appendChild(mas);
+      t.appendChild(nombre); t.appendChild(puntos); t.appendChild(fila);
+      tarjetas.appendChild(t);
+      return { t, nombre, puntos, menos, mas };
+    });
+    function pintarEquipos() {
+      chipsEq.forEach(c => c.setAttribute('aria-pressed', String(+c.dataset.n === datos.equipos)));
+      fichas.forEach((f, i) => {
+        f.t.hidden = i >= datos.equipos;
+        f.nombre.textContent = datos.nombres[i];
+        f.puntos.textContent = String(datos.puntos[i]);
+        f.menos.setAttribute('aria-label', 'Quitar un punto a ' + datos.nombres[i]);
+        f.mas.setAttribute('aria-label', 'Dar un punto a ' + datos.nombres[i]);
+      });
+    }
+    wEquipos.appendChild(selector); wEquipos.appendChild(tarjetas);
+    pintarEquipos();
+
+    barra.appendChild(wCrono); barra.appendChild(wSorteo); barra.appendChild(wEquipos);
+    contenedor.appendChild(barra);
+
+    /* ===== API ===== */
+    function reiniciar() {
+      ponerACero();
+      clearTimeout(temporizadores.anim); temporizadores.anim = 0; animando = false; btnNumero.disabled = false;
+      bola.textContent = '?'; bola.classList.remove('svp-girando', 'svp-pop'); ultimo = 0; llenarBolsa(); pintarBolsa();
+      datos.puntos = [0, 0, 0, 0]; guardar(); pintarEquipos();
+    }
+    function destruir() {
+      parar();
+      clearTimeout(temporizadores.anim); temporizadores.anim = 0;
+      try { if (audio && audio.close) audio.close(); } catch (_) { /* nada */ }
+      audio = null;
+      if (barra.parentNode) barra.parentNode.removeChild(barra);
+    }
+    return { destruir, reiniciar };
+  }
+
+  return { montar, CSS, numeroEnLetras, KEY };
+});
+
+</script>
 <script>/* ui.js */
-/* Sobrevives — interfaz (maqueta fase 0). Vanilla JS, sin dependencias.
-   Arrastrar-soltar + repliegue clic-clic (clic en la carta, clic en la viñeta). Todo en localStorage. */
+/* Sobrevives — interfaz principal. Vanilla JS, sin dependencias.
+   Arrastrar-soltar + repliegue clic-clic (clic en la carta, clic en la viñeta). Todo en localStorage.
+   Expone window.SVApp (ganchos para los módulos Autor / Profe / Escritor / Imprimir, en src/ui-modos.js). */
 (function () {
   'use strict';
   const C = window.SVContenido, E = window.SVEngine, AP = window.SVArtePersonajes, AE = window.SVArteEscenas;
@@ -1372,12 +2621,18 @@ footer a{color:inherit}
   const PJ = {}; for (const p of C.PERSONAJES) PJ[p.id] = p;
   const ES = {}; for (const e of C.ESCENAS) ES[e.id] = e;
   const KEY = 'sobrevives.progreso.v0';
+  const DIF = { 1: 'Paso a paso', 2: 'Estándar', 3: 'Reto' };
 
   /* ---------- estado de la aplicación ---------- */
   let nivel = null, viñetas = [], res = null, seleccion = null, intentos = 0, pistaIdx = 0;
   let progreso = cargar();
+  let extra = []; // niveles de autor (los añade ui-modos.js)
   function cargar() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (_) { return {}; } }
   function guardar() { try { localStorage.setItem(KEY, JSON.stringify(progreso)); } catch (_) { /* sin almacenamiento */ } }
+  function ajustes() { if (!progreso.ajustes) progreso.ajustes = { modo: null, dif: 2, escritor: false, preterito: false }; return progreso.ajustes; }
+  const dif = () => ajustes().dif || 2;
+  const tiempo = () => ajustes().preterito ? 'pret' : 'pres';
+  const todosNiveles = () => C.NIVELES.concat(extra);
 
   /* ---------- voz ---------- */
   let voz = null;
@@ -1388,7 +2643,7 @@ footer a{color:inherit}
   }
   if ('speechSynthesis' in window) { elegirVoz(); speechSynthesis.onvoiceschanged = elegirVoz; }
   function hablar(texto) {
-    if (!('speechSynthesis' in window) || !voz) return;
+    if (!('speechSynthesis' in window) || !voz || !texto) return;
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(texto);
     u.voice = voz; u.lang = voz.lang; u.rate = 0.9;
@@ -1402,43 +2657,94 @@ footer a{color:inherit}
     clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), ms || 2600);
   }
 
+  /* ---------- pantalla de inicio y modos ---------- */
+  function pintarInicio() {
+    const p = $('#inicioApp');
+    p.hidden = false;
+    p.querySelector('#cardAutor').hidden = !(window.SVApp && window.SVApp.abrirAutor);
+    cerrarPaneles();
+  }
+  function elegirModo(m) {
+    ajustes().modo = m; guardar();
+    document.body.classList.toggle('pizarra', m === 'pizarra');
+    $('#inicioApp').hidden = true;
+    const clase = $('#clase');
+    if (m === 'pizarra' && window.SVPizarra && !clase.dataset.montado) { try { window.SVPizarra.montar(clase, { hablar, toast }); clase.dataset.montado = '1'; } catch (e) { console.error(e); } }
+    clase.hidden = !(m === 'pizarra' && clase.dataset.montado && ajustes().clase !== false);
+    $('#btnClase').hidden = !(m === 'pizarra' && clase.dataset.montado);
+    const vis = nivelesVisibles();
+    const actual = vis.find(n => n.id === progreso.actual);
+    abrirNivel(actual ? actual.id : vis[0].id);
+  }
+
+  /* ---------- dificultad (★ / ★★ / ★★★) ---------- */
+  function nivelesVisibles() {
+    const d = dif(), todos = todosNiveles();
+    if (d === 1) return todos.filter(n => n.libre || n.autor || (n.viñetas <= 3 && n.escenas.length <= 3));
+    if (d === 3) return todos.filter(n => n.libre || n.autor || n.viñetas >= 4);
+    return todos;
+  }
+  function pintarDif() {
+    const d = dif();
+    $('#btnDif').textContent = '★'.repeat(d);
+    $('#btnDif').title = DIF[d];
+    document.querySelectorAll('#menuDif button').forEach(b => b.classList.toggle('actual', +b.dataset.d === d));
+    document.body.classList.toggle('paso', d === 1);
+    document.body.classList.toggle('reto', d === 3);
+  }
+  function ponerDif(d) {
+    ajustes().dif = d; guardar(); pintarDif();
+    $('#menuDif').hidden = true;
+    const vis = nivelesVisibles();
+    if (nivel && !vis.includes(nivel)) abrirNivel(vis[0].id); else pintarTodo();
+  }
+
   /* ---------- niveles ---------- */
   function abrirNivel(id) {
-    nivel = C.NIVELES.find(n => n.id === id) || C.NIVELES[0];
+    nivel = todosNiveles().find(n => n.id === id) || C.NIVELES[0];
     viñetas = Array.from({ length: nivel.viñetas }, () => ({ escena: null, personajes: [] }));
-    seleccion = null; intentos = 0; pistaIdx = 0;
+    seleccion = null; intentos = 0; pistaIdx = 0; ultimoFallo = ''; exitoMostrado = '';
     progreso.actual = nivel.id; guardar();
     pintarTodo();
-    hablar(nivel.titulo);
+    hablar(nivel.libre ? 'Mi historia' : nivel.titulo);
   }
   function siguienteNivel() {
-    const i = C.NIVELES.indexOf(nivel);
-    const sig = C.NIVELES.slice(i + 1).find(n => !n.libre) || C.NIVELES.find(n => n.libre);
+    const vis = nivelesVisibles(), i = vis.indexOf(nivel);
+    const sig = vis.slice(i + 1).find(n => !n.libre) || vis.find(n => n.libre) || vis[0];
     abrirNivel(sig.id);
   }
+  function tituloSecreto(n) { return n.tituloSecreto || E.tituloDe(n.secreto, n); }
 
   /* ---------- pintar ---------- */
   function pintarTodo() {
-    $('#subcap').textContent = nivel.libre ? 'nivel libre' : `capítulo ${nivel.capitulo}`;
+    pintarDif();
+    $('#subcap').textContent = nivel.libre ? 'nivel libre' : nivel.autor ? 'nivel de autor' : `capítulo ${nivel.capitulo}`;
     const tt = $('#tituloTxt');
     tt.innerHTML = nivel.libre ? 'Mi historia <span class="alt">(sin título: inventa)</span>' : nivel.titulo;
     tt.classList.remove('ok');
+    // línea «Al principio» + título secreto
     const ini = $('#inicio');
-    const lineas = E.simular(nivel, []).inicio;
-    ini.hidden = !lineas.length;
-    ini.innerHTML = lineas.length ? `<b>Al principio:</b> ${lineas.join(' ')}` : '';
+    const lineas = E.simular(nivel, [], { tiempo: tiempo() }).inicio;
+    let sec = '';
+    if (nivel.secreto) {
+      const pr = progreso[nivel.id] || {};
+      sec = (pr.secreto || (dif() !== 3 && pr.estrellas)) ? `🔑 Título secreto: <b>${tituloSecreto(nivel)}</b>` : '🔑 Hay un título secreto.';
+    }
+    ini.hidden = !lineas.length && !sec;
+    ini.innerHTML = (lineas.length ? `<span><b>Al principio:</b> ${lineas.join(' ')}</span>` : '') + (sec ? `<span class="sec">${sec}</span>` : '');
     pintarStock();
     pintarTira();
     simular();
     pintarNiveles();
     pintarLexico();
+    if (window.SVApp.alPintar) window.SVApp.alPintar();
   }
   function pintarStock() {
     const se = $('#stockEscenas'); se.innerHTML = '';
     for (const id of nivel.escenas) {
       const e = ES[id];
       const c = el('div', { class: 'carta escena', draggable: 'true', 'data-tipo': 'escena', 'data-id': id, title: e.nombre, role: 'button', tabindex: '0' });
-      c.innerHTML = AE.escenaSVG(id) + `<span class="nom">${e.emoji} ${e.nombre}</span>`;
+      c.innerHTML = AE.escenaSVG(id) + `<span class="nom"><span class="pic">${e.emoji}</span> ${e.nombre}</span>`;
       arrastrable(c, 'escena', id);
       se.appendChild(c);
     }
@@ -1450,6 +2756,7 @@ footer a{color:inherit}
       arrastrable(c, 'personaje', id);
       sp.appendChild(c);
     }
+    $('#stock').style.setProperty('--n-cartas', nivel.escenas.length + nivel.personajes.length);
   }
   function arrastrable(c, tipo, id) {
     c.addEventListener('dragstart', ev => { ev.dataTransfer.setData('text/plain', tipo + ':' + id); ev.dataTransfer.effectAllowed = 'copy'; seleccionar(null); });
@@ -1460,12 +2767,15 @@ footer a{color:inherit}
   function seleccionar(s) {
     seleccion = s;
     document.querySelectorAll('.carta').forEach(c => c.classList.toggle('sel', !!s && c.dataset.tipo === s.tipo && c.dataset.id === s.id));
+    document.body.classList.toggle('seleccion', !!s);
     if (s) toast(s.tipo === 'escena' ? `Ahora haz clic en una viñeta para poner «${ES[s.id].nombre}»` : `Ahora haz clic en una viñeta para poner a ${PJ[s.id].nombre}`, 3500);
   }
   function pintarTira() {
     const tira = $('#tira'); tira.innerHTML = '';
     const n = nivel.viñetas;
-    tira.style.setProperty('--ancho-vineta', n <= 3 ? '400px' : n === 4 ? '360px' : '330px');
+    // Una sola fila (como una tira de cómic): se lee de izquierda a derecha y cabe en 16:9 sin desplazamiento.
+    tira.style.setProperty('--cols', n);
+    tira.style.setProperty('--fz', n <= 3 ? 1 : n === 4 ? 0.92 : 0.84);
     viñetas.forEach((v, i) => {
       const caja = el('div', { class: 'vineta', 'data-i': i });
       const esc = el('div', { class: 'escena-caja' + (v.escena ? '' : ' vacia'), 'data-i': i, role: 'button', tabindex: '0', 'aria-label': `Viñeta ${i + 1}${v.escena ? ': ' + ES[v.escena].nombre : ' (vacía)'}` });
@@ -1473,6 +2783,7 @@ footer a{color:inherit}
       esc.appendChild(el('span', { class: 'num' }, String(i + 1)));
       if (v.escena) {
         esc.insertAdjacentHTML('beforeend', AE.escenaSVG(v.escena, { clase: 'fondo' }));
+        esc.appendChild(el('span', { class: 'pic-esc', title: ES[v.escena].nombre }, ES[v.escena].emoji));
         const pjs = el('div', { class: 'personajes' + (v.personajes.length ? '' : ' vacia') });
         esc.appendChild(pjs);
         esc.appendChild(el('button', { class: 'quitar', title: 'Quitar la escena', onclick: ev => { ev.stopPropagation(); viñetas[i] = { escena: null, personajes: [] }; pintarTira(); simular(); } }, '×'));
@@ -1483,12 +2794,24 @@ footer a{color:inherit}
       esc.addEventListener('drop', ev => { ev.preventDefault(); esc.classList.remove('sobre'); const [tipo, id] = (ev.dataTransfer.getData('text/plain') || '').split(':'); if (tipo) colocar(i, tipo, id); });
       esc.addEventListener('click', () => { if (seleccion) { colocar(i, seleccion.tipo, seleccion.id); seleccionar(null); } });
       caja.appendChild(esc);
-      const frase = el('p', { class: 'frase vacia', title: 'Escuchar' }, '…');
-      frase.addEventListener('click', () => { if (frase.textContent && !frase.classList.contains('vacia')) hablar(frase.textContent); });
+      const frase = el('div', { class: 'frase vacia', title: 'Escuchar' }, '…');
+      frase.addEventListener('click', ev => { if (ev.target.closest('button,input,label')) return; if (frase.dataset.texto) hablar(frase.dataset.texto); });
       caja.appendChild(frase);
       tira.appendChild(caja);
     });
+    ajustarTira();
   }
+  /* Ancho máximo de cada viñeta para que la imagen (16:10) y unas 3 líneas de frase quepan en la altura disponible, sin recortes. */
+  function ajustarTira() {
+    const tira = $('#tira');
+    const h = tira.clientHeight;
+    if (!h) return;
+    const f = tira.querySelector('.frase');
+    const linea = f ? parseFloat(getComputedStyle(f).fontSize) * 1.3 : 20;
+    const wmax = Math.max(160, Math.floor((h - linea * 3.4 - 6) * 1.6));
+    tira.style.setProperty('--wmax', wmax + 'px');
+  }
+  window.addEventListener('resize', ajustarTira);
   function colocar(i, tipo, id) {
     const v = viñetas[i];
     if (tipo === 'escena') {
@@ -1507,7 +2830,8 @@ footer a{color:inherit}
   function quitarPersonaje(i, id) { viñetas[i].personajes = viñetas[i].personajes.filter(x => x !== id); pintarTira(); simular(); }
 
   function simular() {
-    res = E.simular(nivel, viñetas, { tiempo: progreso.preterito ? 'pret' : 'pres' });
+    res = E.simular(nivel, viñetas, { tiempo: tiempo() });
+    const escritor = !!(window.SVApp.escritor && window.SVApp.escritor.activo());
     // personajes y frases
     document.querySelectorAll('.vineta').forEach((caja, i) => {
       const v = viñetas[i], r = res.viñetas[i];
@@ -1518,21 +2842,28 @@ footer a{color:inherit}
           const ex = r.estado[id] ? E.expresion(r.estado[id]) : 'contento';
           const w = el('div', { class: 'pj-wrap', title: `${PJ[id].nombre} — clic para quitar` });
           w.innerHTML = AP.personajeSVG(PJ[id], ex, { clase: 'pj' });
-          w.style.height = '100%'; w.style.display = 'flex'; w.style.alignItems = 'flex-end';
           w.addEventListener('click', ev => { ev.stopPropagation(); quitarPersonaje(i, id); });
           pjs.appendChild(w);
         }
       }
       const f = caja.querySelector('.frase');
+      f.dataset.texto = '';
       if (!v.escena) { f.textContent = '…'; f.className = 'frase vacia'; }
       else if (!v.personajes.length) { f.textContent = `${ES[v.escena].nombre}. ¿Quién está aquí?`; f.className = 'frase vacia'; }
-      else if (r.frases.length) { f.textContent = r.frases.join(' '); f.className = 'frase' + (r.eventos.some(e => e.tipo === 'yaSalvo') ? ' alerta' : ''); }
+      else if (r.frases.length) {
+        const texto = r.frases.join(' ');
+        f.dataset.texto = texto;
+        f.className = 'frase' + (r.eventos.some(e => e.tipo === 'yaSalvo' || e.tipo === 'demasiados') ? ' alerta' : '');
+        if (escritor) window.SVApp.escritor.pintar(f, i, texto, res); else f.textContent = texto;
+      }
       else { f.textContent = '…'; f.className = 'frase vacia'; }
     });
     // estado del nivel
     const est = $('#estadoNivel'), tt = $('#tituloTxt');
-    if (nivel.libre) { est.textContent = res.incompleto ? `${viñetas.filter(v => v.escena && v.personajes.length).length}/${nivel.viñetas} viñetas` : '¡Historia completa!'; est.className = res.incompleto ? '' : 'ok'; return; }
+    if (window.SVApp.alSimular) window.SVApp.alSimular(res);
+    if (nivel.libre || nivel.enConstruccion) { est.textContent = res.incompleto ? `${viñetas.filter(v => v.escena && v.personajes.length).length}/${nivel.viñetas} viñetas` : (nivel.enConstruccion && !res.valido ? 'Esta historia no vale' : '¡Historia completa!'); est.className = res.incompleto || !res.valido ? '' : 'ok'; $('#btnImprimir').disabled = res.incompleto; return; }
     tt.classList.toggle('ok', res.resuelto);
+    $('#btnImprimir').disabled = !res.resuelto;
     if (res.resuelto) { est.textContent = '✔ ¡Muy bien!' + (res.secreto ? ' 🔑 ¡Título secreto!' : ''); est.className = 'ok'; exito(); }
     else if (res.incompleto || res.faltan.length) { est.textContent = ''; est.className = ''; }
     else { est.textContent = 'Todavía no…'; est.className = ''; fallo(); }
@@ -1542,7 +2873,11 @@ footer a{color:inherit}
     const firma = JSON.stringify(viñetas);
     if (firma === ultimoFallo) return;
     ultimoFallo = firma; intentos++;
-    if (intentos === 2 && nivel.pistas && nivel.pistas.length) toast('💡 ' + nivel.pistas[0], 5000);
+    const pistas = nivel.pistas || [];
+    if (!pistas.length) return;
+    // ★ pista automática cada 2 fallos · ★★ una pista al 4.º fallo · ★★★ nunca
+    if (dif() === 1 && intentos % 2 === 0) toast('💡 ' + pistas[(intentos / 2 - 1) % pistas.length], 6000);
+    else if (dif() === 2 && intentos === 4) toast('💡 ' + pistas[0], 6000);
   }
   let exitoMostrado = '';
   function exito() {
@@ -1554,14 +2889,23 @@ footer a{color:inherit}
     if (res.secreto) p.secreto = true;
     progreso[nivel.id] = p; guardar();
     pintarNiveles();
+    if (escritorPendiente()) { toast('✔ La historia es correcta. Ahora escribe las frases.', 4000); return; }
+    mostrarExito(p);
+  }
+  function escritorPendiente() { return !!(window.SVApp.escritor && window.SVApp.escritor.activo() && !window.SVApp.escritor.completo()); }
+  function mostrarExito(p) {
+    p = p || progreso[nivel.id] || {};
     const d = $('#dlgExito');
-    d.innerHTML = `<h2>¡Muy bien!</h2><div class="grande">${'★'.repeat(p.estrellas)}${'☆'.repeat(3 - p.estrellas)}</div>
-      <p><b>${nivel.titulo}</b></p>${res.secreto ? `<p>🔑 Título secreto: <b>${nivel.tituloSecreto || E.tituloDe(nivel.secreto, nivel)}</b></p>` : (nivel.secreto ? '<p class="alt">Hay un título secreto en este nivel… ¿lo encuentras?</p>' : '')}
-      <div class="fila"><button class="btn sec" id="btnSeguir">Seguir aquí</button><button class="btn" id="btnLeer">Leer la historia</button><button class="btn verde" id="btnSig">Siguiente nivel →</button></div>`;
+    const sec = res.secreto ? `<p>🔑 Título secreto: <b>${tituloSecreto(nivel)}</b></p>` : (nivel.secreto ? '<p class="alt">Hay un título secreto en este nivel… ¿lo encuentras?</p>' : '');
+    d.innerHTML = `<h2>¡Muy bien!</h2><div class="grande">${'★'.repeat(p.estrellas || 0)}${'☆'.repeat(3 - (p.estrellas || 0))}</div>
+      <p><b>${nivel.titulo}</b></p>${sec}
+      <div class="fila"><button class="btn sec" id="btnSeguir">Seguir aquí</button><button class="btn sec" id="btnImprimirDlg">🖨 Imprimir</button><button class="btn" id="btnLeer">Leer la historia</button><button class="btn verde" id="btnSig">Siguiente nivel →</button></div>`;
     d.querySelector('#btnSeguir').onclick = () => d.close();
     d.querySelector('#btnLeer').onclick = () => { d.close(); quePasa(); };
     d.querySelector('#btnSig').onclick = () => { d.close(); siguienteNivel(); };
-    setTimeout(() => d.showModal(), 350);
+    const bi = d.querySelector('#btnImprimirDlg');
+    if (window.SVApp.imprimir) bi.onclick = () => { d.close(); window.SVApp.imprimir(); }; else bi.hidden = true;
+    setTimeout(() => { if (!d.open) d.showModal(); }, 350);
     hablar(res.frasesTodas.join(' '));
   }
 
@@ -1584,48 +2928,80 @@ footer a{color:inherit}
   }
 
   /* ---------- paneles ---------- */
+  function cerrarPaneles() { $('#panelNiveles').hidden = true; $('#panelLexico').hidden = true; $('#menuDif').hidden = true; }
   function pintarNiveles() {
     const p = $('#panelNiveles');
-    const caps = { 1: 'Capítulo 1 · Solo en la selva', 2: 'Capítulo 2 · Juntos', 3: 'Capítulo 3 · El grupo', 0: 'Nivel libre' };
-    let html = `<h2>Niveles <button class="btn sec" id="cerrarNiv">×</button></h2>`;
-    for (const c of [1, 2, 3, 0]) {
+    const caps = { 1: 'Capítulo 1 · Solo en la selva', 2: 'Capítulo 2 · Juntos', 3: 'Capítulo 3 · El grupo', 0: 'Nivel libre', 9: 'Niveles de la clase' };
+    const vis = nivelesVisibles();
+    let html = `<h2>Niveles <button class="btn sec cerrar" aria-label="Cerrar">×</button></h2>`;
+    for (const c of [1, 2, 3, 0, 9]) {
+      const lista = vis.filter(n => (c === 9 ? n.autor : n.capitulo === c && !n.autor));
+      if (!lista.length) continue;
       html += `<h3>${caps[c]}</h3>`;
-      for (const n of C.NIVELES.filter(n => n.capitulo === c)) {
+      for (const n of lista) {
         const pr = progreso[n.id] || {};
         const est = n.libre ? '' : `<span class="estrellas">${'★'.repeat(pr.estrellas || 0)}${'☆'.repeat(3 - (pr.estrellas || 0))}${pr.secreto ? ' 🔑' : ''}</span>`;
-        html += `<button class="niv${n === nivel ? ' actual' : ''}${pr.estrellas ? ' hecho' : ''}" data-id="${n.id}"><span>${n.libre ? '✎' : n.viñetas + ' ▭'}</span><span>${n.titulo}</span>${est}</button>`;
+        html += `<button class="niv${n === nivel ? ' actual' : ''}${pr.estrellas ? ' hecho' : ''}" data-id="${n.id}"><span class="cnt">${n.libre ? '✎' : n.viñetas + ' ▭'}</span><span>${n.titulo}</span>${est}</button>`;
       }
     }
-    html += `<h3>Datos</h3><button class="btn sec" id="btnBorrarDatos">Borrar mis datos</button><p style="font-size:.9rem;color:var(--tinta2)">Las estrellas se guardan solo en este navegador.</p>`;
+    if (window.SVApp.abrirAutor) html += `<h3>Crear</h3><button class="btn sec" id="btnIrAutor">✎ Crear un nivel</button> <button class="btn sec" id="btnImportar">⌨ Tengo un código</button>`;
+    html += `<h3>Datos</h3><button class="btn sec" id="btnBorrarDatos">Borrar mis datos</button><p class="nota">Las estrellas se guardan solo en este navegador. Ningún dato sale de este ordenador.</p>`;
     p.innerHTML = html;
-    p.querySelector('#cerrarNiv').onclick = () => { p.hidden = true; };
+    p.querySelector('.cerrar').onclick = () => { p.hidden = true; };
     p.querySelectorAll('.niv').forEach(b => b.onclick = () => { p.hidden = true; abrirNivel(b.dataset.id); });
-    p.querySelector('#btnBorrarDatos').onclick = () => { if (confirm('¿Borrar las estrellas y el progreso de este navegador?')) { progreso = {}; guardar(); pintarNiveles(); toast('Datos borrados.'); } };
+    p.querySelector('#btnBorrarDatos').onclick = () => { if (confirm('¿Borrar las estrellas, los ajustes y los niveles creados en este navegador?')) { const modo = ajustes().modo; progreso = {}; ajustes().modo = modo; guardar(); if (window.SVApp.borrarDatos) window.SVApp.borrarDatos(); extra = []; pintarTodo(); toast('Datos borrados.'); } };
+    const ia = p.querySelector('#btnIrAutor'); if (ia) ia.onclick = () => { p.hidden = true; window.SVApp.abrirAutor(); };
+    const im = p.querySelector('#btnImportar'); if (im) im.onclick = () => { p.hidden = true; window.SVApp.importarCodigo(); };
   }
   function pintarLexico() {
     const p = $('#panelLexico');
     const lex = E.lexicoDe(nivel);
-    p.innerHTML = `<h2>Léxico <button class="btn sec" id="cerrarLex">×</button></h2><p style="color:var(--tinta2);font-size:.95rem">Palabras de este nivel. Haz clic para escuchar.</p><div class="lex">${lex.map(w => `<button data-w="${w.palabra}"><span>${w.picto}</span><span>${w.palabra}</span></button>`).join('')}</div>`;
-    p.querySelector('#cerrarLex').onclick = () => { p.hidden = true; };
+    p.innerHTML = `<h2>Léxico <button class="btn sec cerrar" aria-label="Cerrar">×</button></h2><p class="nota">Palabras de este nivel. Haz clic para escuchar.</p><div class="lex">${lex.map(w => `<button data-w="${w.palabra}"><span>${w.picto}</span><span>${w.palabra}</span></button>`).join('')}</div>`;
+    p.querySelector('.cerrar').onclick = () => { p.hidden = true; };
     p.querySelectorAll('.lex button').forEach(b => b.onclick = () => hablar(b.dataset.w));
   }
 
   /* ---------- botones ---------- */
-  $('#btnNiveles').onclick = () => { const p = $('#panelNiveles'); p.hidden = !p.hidden; $('#panelLexico').hidden = true; };
-  $('#btnLexico').onclick = () => { const p = $('#panelLexico'); p.hidden = !p.hidden; $('#panelNiveles').hidden = true; };
+  $('#btnInicio').onclick = pintarInicio;
+  $('#btnNiveles').onclick = () => { const p = $('#panelNiveles'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
+  $('#btnLexico').onclick = () => { const p = $('#panelLexico'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
   $('#btnQuePasa').onclick = quePasa;
-  $('#btnReiniciar').onclick = () => { viñetas = viñetas.map(() => ({ escena: null, personajes: [] })); pintarTira(); simular(); };
+  $('#btnReiniciar').onclick = () => { viñetas = viñetas.map(() => ({ escena: null, personajes: [] })); seleccionar(null); pintarTira(); simular(); };
   $('#btnPista').onclick = () => {
     if (nivel.libre || !nivel.pistas || !nivel.pistas.length) { toast('Aquí no hay pistas: ¡inventa tu historia!'); return; }
-    toast('💡 ' + nivel.pistas[pistaIdx % nivel.pistas.length], 5000); pistaIdx++;
+    toast('💡 ' + nivel.pistas[pistaIdx % nivel.pistas.length], 6000); pistaIdx++;
   };
+  $('#btnClase').onclick = () => { const c = $('#clase'); c.hidden = !c.hidden; ajustes().clase = !c.hidden; guardar(); ajustarTira(); };
+  $('#btnDif').onclick = ev => { ev.stopPropagation(); const m = $('#menuDif'); const h = m.hidden; cerrarPaneles(); m.hidden = !h; };
+  document.querySelectorAll('#menuDif button').forEach(b => b.onclick = () => ponerDif(+b.dataset.d));
+  document.addEventListener('click', ev => { if (!ev.target.closest('.dif')) $('#menuDif').hidden = true; });
   $('#tituloTxt').onclick = () => hablar(nivel.libre ? 'Mi historia' : nivel.titulo);
+  document.querySelectorAll('#inicioApp [data-modo]').forEach(b => b.onclick = () => elegirModo(b.dataset.modo));
+  $('#cardAutor').onclick = () => { if (window.SVApp.abrirAutor) { if (!ajustes().modo) elegirModo('solo'); $('#inicioApp').hidden = true; window.SVApp.abrirAutor(); } };
   document.addEventListener('keydown', ev => {
-    if (ev.key === 'Escape') { seleccionar(null); $('#panelNiveles').hidden = true; $('#panelLexico').hidden = true; }
+    if (ev.target.matches('input,textarea,select') || (ev.target.isContentEditable)) return;
+    if (ev.key === 'Escape') { seleccionar(null); cerrarPaneles(); }
+    if ((ev.key === 'p' || ev.key === 'P') && !ev.ctrlKey && !ev.metaKey && !ev.altKey && window.SVApp.abrirProfe) { ev.preventDefault(); window.SVApp.abrirProfe(); }
   });
 
+  /* ---------- ganchos para los módulos (ui-modos.js) ---------- */
+  window.SVApp = {
+    nivel: () => nivel, viñetas: () => viñetas, resultado: () => res, progreso: () => progreso, ajustes, guardar, hablar, toast,
+    abrirNivel, pintarTodo, simular, elegirModo, pintarInicio, nivelesVisibles, tiempo, dif, tituloSecreto, mostrarExito,
+    añadirNiveles(ns) { extra = ns.slice(); },
+    extra: () => extra,
+    ponerViñetas(vs) { viñetas = Array.from({ length: nivel.viñetas }, (_, i) => ({ escena: vs[i] ? vs[i].escena : null, personajes: vs[i] ? vs[i].personajes.slice() : [] })); seleccionar(null); pintarTira(); simular(); },
+    reiniciarIntentos() { intentos = 0; ultimoFallo = ''; exitoMostrado = ''; },
+    escritor: null, abrirAutor: null, abrirProfe: null, imprimir: null, importarCodigo: null, borrarDatos: null, alPintar: null
+  };
+
   /* ---------- inicio ---------- */
-  abrirNivel(progreso.actual || C.NIVELES[0].id);
+  function arrancar() {
+    if (window.SVApp.iniciarModulos) { try { window.SVApp.iniciarModulos(); } catch (e) { console.error(e); } }
+    pintarDif();
+    if (ajustes().modo) elegirModo(ajustes().modo); else { abrirNivel(progreso.actual || C.NIVELES[0].id); pintarInicio(); }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arrancar); else arrancar();
 })();
 
 </script>

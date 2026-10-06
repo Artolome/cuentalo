@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prueba · Pizarra (Sobrevives)</title>
+<!-- Prueba MANUAL de src/pizarra.js (no forma parte del build).
+     Abrir con: node test/serve.js 4173 → http://127.0.0.1:4173/test/pizarra.html
+     (o directamente como fichero: file://…/test/pizarra.html) -->
+<style>
+:root{
+  --papel:#fff8ec; --papel2:#f6e9d2; --tinta:#1f1a17; --tinta2:#5b4a3a;
+  --rojo:#c4432e; --verde:#4c8748; --azul:#2c5a9a; --amarillo:#dfa92c; --ok:#2e8b57; --borde:#1f1a17;
+  --f-titulo:"Trebuchet MS","Segoe UI",Verdana,sans-serif; --f-texto:"Segoe UI",Verdana,Tahoma,sans-serif;
+}
+body{margin:0;font-family:var(--f-texto);font-size:18px;color:var(--tinta);background:var(--papel2)}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:3px solid var(--borde);background:var(--papel)}
+header h1{margin:0;font-family:var(--f-titulo);font-size:1.5rem;flex:1}
+.btn{border:2.5px solid var(--borde);background:var(--papel);border-radius:999px;padding:.35em .95em;box-shadow:0 3px 0 rgba(0,0,0,.35);font:inherit;font-weight:700;cursor:pointer}
+main{padding:16px;max-width:900px;margin:0 auto}
+main p{line-height:1.4}
+code{background:#fff;border:1px solid rgba(0,0,0,.2);border-radius:4px;padding:0 .3em}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--tinta);color:var(--papel);padding:.6em 1.2em;border-radius:999px;font-weight:700;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.on{opacity:1}
+#registro{font-size:.9rem;color:var(--tinta2);white-space:pre-wrap;background:#fff;border:2px dashed rgba(0,0,0,.25);border-radius:8px;padding:8px;min-height:3em}
+</style>
+</head>
+<body>
+<header>
+  <h1>Sobrevives <small>· prueba de la barra «Pizarra»</small></h1>
+  <button class="btn" id="btnMontar">Montar</button>
+  <button class="btn" id="btnDestruir">Destruir</button>
+  <button class="btn" id="btnReiniciar">reiniciar()</button>
+  <button class="btn" id="btnBorrar">Borrar datos guardados</button>
+</header>
+<div id="barra"></div>
+<main>
+  <p><b>Qué probar:</b> cronómetro (▶/⏸, ↺, modos; al llegar a 0 parpadea, pita y sale «¡Tiempo!») ·
+    sorteo («¿Cuántos?» 2..40, ¡Número!, «sin repetir» + ↺ de la bolsa; lee el número si hay voz en español) ·
+    equipos (2/3/4, clic en el nombre para cambiarlo, +1 / −1, ↺ con confirmación).</p>
+  <p>Los datos se guardan en <code>localStorage['sobrevives.pizarra.v0']</code> (recarga la página para comprobarlo). Ideal probar a 1280×720.</p>
+  <p><b>Registro</b> (llamadas a <code>hablar</code> y <code>toast</code>):</p>
+  <div id="registro"></div>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="../src/pizarra.js"></script>
+<script>
+(function () {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const registro = $('#registro');
+  const anotar = (tipo, txt) => { registro.textContent = `${new Date().toLocaleTimeString()} ${tipo}: ${txt}\n` + registro.textContent; };
+
+  let toastT = 0;
+  function toast(msg) {
+    const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+    clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2600);
+    anotar('toast', msg);
+  }
+  let voz = null;
+  function elegirVoz() {
+    if (!('speechSynthesis' in window)) return;
+    const voces = speechSynthesis.getVoices();
+    voz = voces.find(v => /^es[-_](ES|MX)/i.test(v.lang)) || voces.find(v => /^es/i.test(v.lang)) || null;
+  }
+  if ('speechSynthesis' in window) { elegirVoz(); speechSynthesis.onvoiceschanged = elegirVoz; }
+  function hablar(texto) {
+    anotar('hablar', texto);
+    if (!voz) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(texto);
+    u.voice = voz; u.lang = voz.lang; u.rate = 0.9;
+    speechSynthesis.speak(u);
+  }
+
+  let barra = null;
+  function montar() { if (barra) return; barra = SVPizarra.montar($('#barra'), { hablar, toast }); anotar('api', 'montar()'); }
+  $('#btnMontar').onclick = montar;
+  $('#btnDestruir').onclick = () => { if (!barra) return; barra.destruir(); barra = null; anotar('api', 'destruir()'); };
+  $('#btnReiniciar').onclick = () => { if (barra) { barra.reiniciar(); anotar('api', 'reiniciar()'); } };
+  $('#btnBorrar').onclick = () => { try { localStorage.removeItem(SVPizarra.KEY); } catch (_) {} if (barra) { barra.destruir(); barra = null; } montar(); toast('Datos de la pizarra borrados.'); };
+  montar();
+})();
+</script>
+</body>
+</html>

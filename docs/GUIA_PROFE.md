@@ -1,0 +1,338 @@
+# Sobrevives — Guide de la professeure
+
+> Document d'accompagnement du jeu « Sobrevives » (espagnol LVB, collège, A1 → A2).
+> Les chiffres de la partie 3 (solutions, titres secrets, phrases) sont calculés par le moteur du jeu lui-même
+> (`node test/solver.js`), à partir des données de `src/contenido.js`. Rien n'est écrit de mémoire.
+
+## 1. Présentation
+
+« Sobrevives » est un jeu de narration visuelle inspiré de *Storyteller*. Chaque niveau donne un titre en espagnol (« Lucía ya no tiene sed »), 3 à 6 cases de BD vides, quelques « escenas » (la selva, el río, la noche…) et un ou plusieurs « personajes » (Lucía, Mateo, Valeria, Diego). L'élève glisse une escena et un personaje dans chaque case. Le moteur écrit aussitôt la phrase de la case : « Lucía bebe agua del río. Ya no tiene sed. » Quand l'histoire réalise le titre, le niveau est réussi.
+
+Le cœur pédagogique n'est pas le puzzle, c'est la phrase. Chaque case produit 1 à 3 phrases courtes, que l'élève lit, écoute et compare. Les phrases réemploient le lexique de la survie et font travailler les accords (« cansado / cansada / cansados »), les structures « tiene / está / ya no », puis « encuentra a », « comparte con », « pide perdón a ».
+
+Le fichier `sobrevives.html` contient tout le jeu : un seul fichier, à ouvrir par double-clic, qui fonctionne hors-ligne et n'envoie aucune donnée nulle part. Il se copie sur une clé USB, un ENT ou le réseau du collège.
+
+## 2. Prise en main
+
+### 2.1 L'écran d'accueil
+
+Trois entrées :
+
+| Entrée | Pour qui | Usage |
+|---|---|---|
+| « Pizarra » | la classe entière, au vidéoprojecteur | gros affichage ; la professeure ou un élève manipule, la classe lit et répète |
+| « Solo » | un élève en autonomie | sur poste ou tablette, seul ou en binôme |
+| « Autor » | un élève ou la professeure | créer un niveau : choisir les escenas, les personajes, le titre, puis le partager par un code (partie 6) |
+
+### 2.2 Le sélecteur d'étoiles ★ / ★★ / ★★★
+
+En haut à droite, un petit sélecteur règle le jeu. Il ne dit jamais « facile » ou « difficile » : les trois réglages s'appellent « Paso a paso », « Estándar » et « Reto ». L'élève le choisit lui-même, ce qui évite l'étiquette.
+
+| Réglage | Nom | Ce qui change |
+|---|---|---|
+| ★ | « Paso a paso » | niveaux de 3 cases et 2-3 escenas (chapitres 1 et 2) ; le titre est lu à voix haute ; une pista s'affiche automatiquement après 2 échecs ; les phrases restent toujours visibles |
+| ★★ | « Estándar » | le jeu standard |
+| ★★★ | « Reto » | niveaux de 4-6 cases (chapitre 3) ; le « modo escritor » est obligatoire ; le « título secreto » est caché, à découvrir |
+
+### 2.3 Les boutons de l'interface
+
+| Bouton | Ce qu'il fait |
+|---|---|
+| « ☰ Niveles » | ouvre la liste des niveaux par chapitre, avec les étoiles déjà obtenues |
+| « 💡 Pista » | affiche une pista du niveau (une autre à chaque clic) |
+| « 📖 Léxico » | les mots du niveau, avec un picto ; un clic sur un mot le fait entendre |
+| « ¿Qué pasa? » | relit toute l'histoire case par case, résume l'état final de chaque personnage et explique pourquoi le titre n'est pas encore réalisé (« Lucía todavía tiene sed. ») |
+| « ↺ » | vide toutes les cases |
+| « 🖨 Imprimir » | imprime la BD et la hoja de viñetas (partie 7) |
+
+### 2.4 Les gestes
+
+- **Glisser-déposer** : on tire une carte escena ou une carte personaje vers une case.
+- **Repli clic-clic** : clic sur la carte, puis clic sur la case. Utile sur tablette, avec une souris capricieuse, ou pour un élève gêné par le glisser.
+- **Clic sur une phrase** (ou sur le titre) : la synthèse vocale la lit en espagnol.
+- **Touche P** : ouvre le panneau Profe. Mot de passe par défaut : « profe ». Il se change dans le panneau lui-même.
+- **Touche Échap** : ferme les panneaux ouverts.
+
+### 2.5 Avant la première séance
+
+1. Copier `sobrevives.html` sur le poste du vidéoprojecteur et sur les postes élèves (ou sur le réseau). Double-clic : le jeu s'ouvre dans le navigateur par défaut.
+2. Cliquer sur un titre : si aucune voix espagnole ne se fait entendre, voir la partie 10.
+3. Touche P, mot de passe « profe » : changer le mot de passe tout de suite. Les élèves découvrent vite les touches.
+4. Faire soi-même un niveau du chapitre 1 avec glisser-déposer, puis en clic-clic, pour pouvoir montrer les deux gestes.
+5. Ouvrir « 📖 Léxico » sur un niveau du chapitre 1 et regarder quels mots sont nouveaux pour la classe (partie 9).
+
+## 3. Les niveaux
+
+16 niveaux en 3 chapitres, plus un « nivel libre ». La progression suit la grammaire :
+
+| Chapitre | Personajes | Cases | Ce qu'on travaille |
+|---|---|---|---|
+| 1 · Solo en la selva | 1 | 3 | « tiene hambre / sed / frío / miedo », « está cansado/a, perdido/a, a salvo », « ya no » ; la 3e case ferme l'histoire |
+| 2 · Juntos | 2 | 3 | « encuentra a », « cura a », « todos / nadie », le pluriel et l'accord, « son amigos » |
+| 3 · El grupo | 2-3 | 4-6 | « comparte con », « enfadado/a con », « pide perdón a », « nunca », titres composés avec « y », état initial (« Al principio… ») |
+
+### 3.1 Ce que fait chaque escena
+
+Pour lire les solutions, il faut connaître les règles des escenas. Elles dépendent de l'état du personnage et du fait d'être seul ou à deux.
+
+| Escena | Seul·e | À deux | Objet |
+|---|---|---|---|
+| 🌴 La selva | marche seul·e et se perd | si l'un est perdu, l'autre le retrouve ; sinon ils marchent ensemble → faim + fatigue | avec « el mapa » : ne se perd pas |
+| 🌊 El río | boit (plus soif) ; traverse et se mouille → froid | pareil pour les deux | avec « la cuerda » : traverse sans se mouiller |
+| 🌞 El sol | il fait très chaud → soif | pareil | — |
+| ⛈️ La tormenta | pluie → froid + peur | pluie → froid (pas de peur : ils sont ensemble) | avec « la manta » : pas de froid |
+| 🌙 La noche | seul·e → peur | dorment ensemble → plus fatigués, plus peur | avec « la linterna » : dort tranquille |
+| 🐆 El jaguar | peur, court → peur + perdu·e | crient ensemble, le jaguar s'en va | avec « el mapa » : ne se perd pas |
+| 🐍 La serpiente | la serpiente le mord → blessé·e | l'autre la voit et prévient : personne n'est blessé | — |
+| 🍌 El árbol de frutas | mange → plus faim | pareil | — |
+| 🔥 El fuego | fait du feu → plus froid ; avec « la comida » et faim : mange | si un seul a la comida et l'autre a faim : amis → partage ; pas amis → mange seul et l'autre est fâché | — |
+| 🏕️ El refugio | se repose → plus fatigué·e, plus peur | en plus : soigne le blessé ; demande pardon si l'un est fâché | — |
+| ⛰️ La montaña | monte → fatigue + faim ; d'en haut voit le río → plus perdu·e | pareil | — |
+| 🗺️ El mapa (1 place) | trouve le mapa → plus perdu·e, et le garde | — | + mapa |
+| 🎒 La mochila (1 place) | trouve une mochila avec de la nourriture → plus faim, et garde la comida | — | + comida |
+| 🪢 La cuerda (1 place) | trouve une corde et la garde | — | + cuerda |
+| 🧣 La manta (1 place) | trouve une couverture → plus froid, et la garde | — | + manta |
+| 🔦 La linterna (1 place) | trouve une lampe → plus peur, et la garde | — | + linterna |
+| 🚁 El rescate | l'hélicoptère ! → « a salvo » ; si le personnage est perdu, l'hélicoptère ne le voit pas | les deux sont « a salvo » (à deux, ils se sont retrouvés) | — |
+
+Trois règles générales :
+
+- partager une case rend « amigos » (« Ahora Lucía y Mateo son amigos. »), sauf si l'un mange sans partager ;
+- un personnage « a salvo » ne peut plus apparaître ensuite (« ¡Pero Lucía ya está a salvo! No puede estar aquí. ») ;
+- tous les personajes du niveau doivent apparaître au moins une fois (« Mateo no sale en la historia. »).
+
+### 3.2 Comment lire les tableaux
+
+- **Solution** : « 1 sol (Lucía) · 2 río (Lucía) · 3 fuego (Lucía) » = case 1 : el sol avec Lucía ; case 2 : el río avec Lucía ; case 3 : el fuego avec Lucía. C'est la solution la plus variée parmi celles que liste le résolveur.
+- **Nb** : nombre d'histoires complètes différentes qui réalisent le titre (résolveur exact du moteur). Plusieurs solutions, ce n'est pas un défaut : chaque élève imprime une BD différente.
+- **Titre secret** : dans les chapitres 2 et 3, un second titre caché peut être réalisé en même temps. La solution donnée réalise les deux titres (vérifiée avec le moteur). Le niveau c3n3 n'a volontairement pas de secret : c'est le niveau « énigme », avec 2 solutions seulement.
+- **Pistas** : ce qu'affiche « 💡 Pista », dans l'ordre.
+
+### 3.3 Capítulo 1 · Solo en la selva
+
+| id | Titre | Cases | Escenas | Personajes | Solution | Nb | Titre secret | Pistas |
+|---|---|---|---|---|---|---|---|---|
+| c1n1 | Lucía ya no tiene sed | 3 | sol · río · fuego | Lucía | 1 sol (Lucía) · 2 río (Lucía) · 3 fuego (Lucía) | 6 | — | « Primero hace calor… ¿y después? » · « En el río, Lucía bebe agua. » |
+| c1n2 | Mateo ya no tiene frío | 3 | río · fuego | Mateo | 1 río (Mateo) · 2 río (Mateo) · 3 fuego (Mateo) | 3 | — | « Mateo se moja en el río. » · « El fuego quita el frío. ¡Cuidado con el orden! » |
+| c1n3 | Valeria duerme tranquila | 3 | noche · linterna · refugio | Valeria | 1 linterna (Valeria) · 2 noche (Valeria) · 3 refugio (Valeria) | 7 | — | « De noche y sola, Valeria tiene miedo. » · « Con la linterna, no tiene miedo. » |
+| c1n4 | Diego ya no está perdido | 3 | selva · montaña · frutas | Diego | 1 selva (Diego) · 2 montaña (Diego) · 3 árbol de frutas (Diego) | 6 | — | « Si va solo por la selva, Diego se pierde. » · « Desde la montaña se ve el río. » |
+| c1n5 | Lucía está a salvo | 3 | selva · mapa · rescate | Lucía | 1 selva (Lucía) · 2 mapa (Lucía) · 3 rescate (Lucía) | 3 | — | « El helicóptero no ve a una persona perdida. » · « Con el mapa, Lucía no se pierde. » |
+
+Remarque : c1n2 n'a que deux escenas pour trois cases ; une escena se répète forcément (« río » deux fois). C'est l'occasion de parler de la répétition dans un récit.
+
+### 3.4 Capítulo 2 · Juntos
+
+| id | Titre | Cases | Escenas | Personajes | Solution | Nb | Titre secret + solution qui réalise les deux | Pistas |
+|---|---|---|---|---|---|---|---|---|
+| c2n1 | Mateo encuentra a Lucía | 3 | selva · noche · sol | Lucía, Mateo | 1 selva (Lucía) · 2 noche (Lucía) · 3 sol (Lucía, Mateo) | 63 | « Nadie duerme solo » → 1 selva (Lucía) · 2 noche (Lucía, Mateo) · 3 sol (Lucía) | « Primero, Lucía se pierde sola. » · « Después, Mateo y Lucía están juntos. » |
+| c2n2 | Valeria cura a Diego | 3 | serpiente · refugio | Valeria, Diego | 1 serpiente (Diego) · 2 serpiente (Diego) · 3 refugio (Valeria, Diego) | 14 | « Valeria está herida » → 1 serpiente (Diego) · 2 refugio (Valeria, Diego) · 3 serpiente (Valeria) | « Si Diego está solo, la serpiente le muerde. » · « En el refugio, el otro cura al herido. » |
+| c2n3 | Lucía y Mateo ya no tienen hambre | 3 | selva · frutas · noche | Lucía, Mateo | 1 selva (Lucía, Mateo) · 2 árbol de frutas (Lucía, Mateo) · 3 noche (Lucía) | 24 | « Nadie está cansado » → 1 selva (Lucía, Mateo) · 2 árbol de frutas (Lucía, Mateo) · 3 noche (Lucía, Mateo) | « Caminar juntos da hambre. » · « Las frutas quitan el hambre: ¡cuidado con el orden! » |
+| c2n4 | Nadie tiene miedo y todos tienen frío | 3 | noche · tormenta · jaguar | Valeria, Diego | 1 noche (Valeria, Diego) · 2 tormenta (Valeria, Diego) · 3 jaguar (Valeria, Diego) | 39 | « El jaguar se va » → la même solution réalise les deux titres | « Juntos, no tienen miedo. » · « La tormenta da frío… y miedo a quien está solo. » |
+| c2n5 | Valeria encuentra a Mateo y todos están a salvo | 3 | selva · mapa · rescate | Valeria, Mateo | 1 selva (Mateo) · 2 mapa (Valeria) · 3 rescate (Mateo, Valeria) | 6 | « Valeria encuentra el mapa » → la même solution réalise les deux titres | « El helicóptero no ve a una persona perdida. » · « ¿Quién necesita el mapa? » |
+
+Remarque : c2n2 n'a que deux escenas ; « serpiente » revient deux fois. Dans la solution secrète, c'est Valeria qui finit mordue : le titre secret « Valeria está herida » est une fin ouverte, à discuter avec la classe.
+
+### 3.5 Capítulo 3 · El grupo
+
+| id | Titre | Cases | Escenas | Personajes | Solution | Nb | Titre secret + solution qui réalise les deux | Pistas |
+|---|---|---|---|---|---|---|---|---|
+| c3n1 | Lucía comparte la comida con Mateo | 4 | mochila · selva · fuego · noche | Lucía, Mateo | 1 mochila (Lucía) · 2 selva (Lucía, Mateo) · 3 fuego (Lucía, Mateo) · 4 noche (Lucía) | 68 | « Nadie está cansado » → 1 mochila (Lucía) · 2 selva (Lucía, Mateo) · 3 fuego (Lucía, Mateo) · 4 noche (Lucía, Mateo) | « Lucía necesita la mochila. » · « Mateo necesita tener hambre. » · « Solo se comparte con los amigos. » |
+| c3n2 | Mateo está enfadado con Lucía | 4 | mochila · montaña · fuego · río | Lucía, Mateo | 1 mochila (Lucía) · 2 montaña (Mateo) · 3 fuego (Lucía, Mateo) · 4 río (Lucía) | 58 | « Mateo tiene frío » → 1 mochila (Lucía) · 2 montaña (Mateo) · 3 fuego (Lucía, Mateo) · 4 río (Mateo) | « Si no son amigos, Lucía no comparte. » · « Mateo tiene hambre, pero Lucía no comparte. » |
+| c3n3 | Diego pide perdón a Lucía | 4 | mochila · montaña · fuego · refugio | Lucía, Diego | 1 mochila (Diego) · 2 montaña (Lucía) · 3 fuego (Lucía, Diego) · 4 refugio (Lucía, Diego) | **2** | — (niveau « énigme », sans secret ; l'autre solution inverse les cases 1 et 2) | « Primero, Diego no comparte y Lucía está enfadada. » · « En el refugio se pide perdón. » |
+| c3n4 | Valeria duerme tranquila y todos están a salvo | 4 | noche · jaguar · linterna · rescate | Valeria, Diego | 1 jaguar (Valeria) · 2 linterna (Valeria) · 3 noche (Valeria) · 4 rescate (Valeria, Diego) | 26 | « Diego tiene miedo » → 1 jaguar (Diego) · 2 linterna (Valeria) · 3 noche (Valeria) · 4 rescate (Valeria, Diego) | « Valeria necesita la linterna antes de la noche. » · « El helicóptero no ve a quien está perdido. » |
+| c3n5 | Diego encuentra a Lucía y todos están a salvo | 5 | selva · jaguar · noche · mapa · rescate | Lucía, Mateo, Diego | 1 selva (Lucía) · 2 jaguar (Lucía) · 3 noche (Lucía) · 4 rescate (Mateo) · 5 rescate (Lucía, Diego) | 6 256 | « Mateo nunca tiene miedo » → la même solution réalise les deux titres | « Primero, Lucía se pierde sola. » · « El helicóptero solo lleva a dos personas y no ve a quien está perdido. » |
+| c3n6 | Todos están contentos y a salvo — « Al principio: Lucía tiene hambre. Está cansada. Mateo tiene hambre. Está cansado. Valeria tiene hambre. Está cansada. » | 6 | selva · río · noche · frutas · refugio · rescate | Lucía, Mateo, Valeria | 1 noche (Lucía, Mateo) · 2 árbol de frutas (Lucía) · 3 árbol de frutas (Mateo, Valeria) · 4 refugio (Valeria) · 5 rescate (Lucía) · 6 rescate (Mateo, Valeria) | 20 088 | « Lucía y Valeria duermen bien » → 1 noche (Lucía, Valeria) · 2 árbol de frutas (Lucía) · 3 árbol de frutas (Mateo, Valeria) · 4 refugio (Mateo) · 5 rescate (Lucía) · 6 rescate (Mateo, Valeria) | « Al principio todos tienen hambre y están cansados. » · « Contento = sin hambre, sin sed, sin frío, sin miedo. Y no está cansado. » · « El helicóptero solo lleva a dos personas. » |
+
+Les grands nombres de c3n5 et c3n6 ne veulent pas dire « facile » : avec 3 personnages et 5-6 cases, le nombre d'histoires possibles explose (plusieurs millions), et les solutions n'en représentent qu'une toute petite part. En pratique, les élèves doivent vraiment construire une chaîne : se perdre, être retrouvé, puis deux hélicoptères (il n'emporte que deux personnes).
+
+### 3.6 Les histoires complètes (pour préparer la séance)
+
+Voici, pour chaque niveau, les phrases que le moteur écrit pour la solution du tableau. À lire avant la séance, ou à imprimer comme corrigé.
+
+- **c1n1** — « Hace mucho calor. Lucía tiene sed. Lucía bebe agua del río. Ya no tiene sed. Cruza el río y se moja. Tiene frío. Lucía hace fuego. Ya no tiene frío. »
+- **c1n2** — « Mateo bebe agua del río. Cruza el río y se moja. Tiene frío. Mateo bebe agua del río. Cruza el río y se moja. Tiene frío. Mateo hace fuego. Ya no tiene frío. »
+- **c1n3** — « Valeria encuentra una linterna. La guarda. Es de noche. Valeria enciende la linterna y duerme tranquila. Valeria descansa en el refugio. Está tranquila. »
+- **c1n4** — « Diego camina solo por la selva y se pierde. Diego sube la montaña. Está cansado y tiene hambre. Desde arriba ve el río. ¡Ya no está perdido! Diego come frutas. Ya no tiene hambre. »
+- **c1n5** — « Lucía camina sola por la selva y se pierde. Lucía encuentra el mapa. ¡Ya no está perdida! ¡El helicóptero! Lucía está a salvo. »
+- **c2n1** — « Lucía camina sola por la selva y se pierde. Es de noche. Lucía está sola y tiene miedo. Hace mucho calor. Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo tienen sed. Ahora Lucía y Mateo son amigos. »
+- **c2n2** — « ¡Ay! Una serpiente muerde a Diego. Está herido. ¡Ay! Una serpiente muerde a Diego. Está herido. Valeria y Diego descansan en el refugio. Valeria cura a Diego. Diego ya no está herido. Ahora Valeria y Diego son amigos. »
+- **c2n3** — « Lucía y Mateo caminan juntos por la selva. Tienen hambre y están cansados. Ahora Lucía y Mateo son amigos. Lucía y Mateo comen frutas. Ya no tienen hambre. Es de noche. Lucía está sola y tiene miedo. »
+- **c2n4** — « Es de noche. Valeria y Diego están juntos y duermen bien. No tienen miedo. Ahora Valeria y Diego son amigos. Llueve mucho. Valeria y Diego tienen frío. ¡Un jaguar! Valeria y Diego gritan juntos y el jaguar se va. »
+- **c2n5** — « Mateo camina solo por la selva y se pierde. Valeria encuentra un mapa. Lo guarda. Valeria encuentra a Mateo. ¡Qué alegría! ¡El helicóptero! Mateo y Valeria están a salvo. Ahora Mateo y Valeria son amigos. »
+- **c3n1** — « Lucía encuentra una mochila con comida. ¡Qué suerte! Lucía y Mateo caminan juntos por la selva. Tienen hambre y están cansados. Ahora Lucía y Mateo son amigos. Lucía y Mateo hacen fuego. Lucía comparte la comida con Mateo. Ya no tienen hambre. Es de noche. Lucía está sola y tiene miedo. »
+- **c3n2** — « Lucía encuentra una mochila con comida. ¡Qué suerte! Mateo sube la montaña. Está cansado y tiene hambre. Lucía y Mateo hacen fuego. Lucía come y no comparte. Mateo tiene hambre y está enfadado con Lucía. Lucía bebe agua del río. Cruza el río y se moja. Tiene frío. »
+- **c3n3** — « Diego encuentra una mochila con comida. ¡Qué suerte! Lucía sube la montaña. Está cansada y tiene hambre. Lucía y Diego hacen fuego. Diego come y no comparte. Lucía tiene hambre y está enfadada con Diego. Lucía y Diego descansan en el refugio. Diego pide perdón a Lucía. Lucía ya no está enfadada. Ahora Lucía y Diego son amigos. »
+- **c3n4** — « ¡Un jaguar! Valeria tiene miedo y corre. Se pierde. Valeria encuentra una linterna. Ya no tiene miedo. Es de noche. Valeria enciende la linterna y duerme tranquila. Diego encuentra a Valeria. ¡Qué alegría! ¡El helicóptero! Valeria y Diego están a salvo. Ahora Valeria y Diego son amigos. »
+- **c3n5** — « Lucía camina sola por la selva y se pierde. ¡Un jaguar! Lucía tiene miedo y corre. Se pierde. Es de noche. Lucía está sola y tiene miedo. ¡El helicóptero! Mateo está a salvo. Diego encuentra a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Diego están a salvo. Ahora Lucía y Diego son amigos. »
+- **c3n6** — « Es de noche. Lucía y Mateo están juntos y duermen bien. Ya no están cansados. Ahora Lucía y Mateo son amigos. Lucía come frutas. Ya no tiene hambre. Mateo y Valeria comen frutas. Ya no tienen hambre. Ahora Mateo y Valeria son amigos. Valeria descansa en el refugio. Ya no está cansada. ¡El helicóptero! Lucía está a salvo. ¡El helicóptero! Mateo y Valeria están a salvo. »
+
+### 3.7 Le « nivel libre »
+
+Le niveau « Mi historia » n'a pas de titre : 6 cases, les 17 escenas et les 4 personajes. Il n'y a pas de pistas. Le moteur écrit quand même les phrases de chaque case, et « ¿Qué pasa? » relit l'histoire complète et résume l'état final de chacun (« Lucía tiene hambre y frío. Está perdida. »). Le panneau « Léxico » y réunit les 50 mots du jeu. C'est le terrain d'entraînement de la tâche finale (partie 4.3) : l'élève invente, lit ce que le moteur écrit, puis trouve lui-même un titre à son histoire.
+
+## 4. Trois déroulés
+
+### 4.1 Rituel de 10 minutes en début d'heure (« Pizarra »)
+
+Matériel : le vidéoprojecteur, le fichier ouvert en « Pizarra », un niveau choisi à l'avance.
+
+1. **Le titre** (1 min). Lire le titre ensemble ; clic sur le titre pour l'entendre. Faire répéter par deux ou trois élèves, puis par la classe.
+2. **Le sorteo** (1 min). Tirer au sort un numéro d'élève. L'élève vient placer la première case, ou la dicte à la professeure : « la selva, con Lucía ».
+3. **La phrase** (2 min). Lire la phrase produite à voix haute ; la classe répète. Clic sur la phrase pour la réécouter si besoin. Question rapide : « ¿Cómo está Lucía? » → « Está perdida. »
+4. **La suite** (4 min). Nouveau tirage pour chaque case, jusqu'à la fin. Si le titre n'est pas réalisé : « ¿Qué pasa? », on lit l'explication (« Lucía todavía tiene sed. »), on corrige une case.
+5. **La relecture** (2 min). La classe relit toute l'histoire en chœur, ou un élève la lit seul avec la voix en appui.
+
+Cinq rituels suffisent pour le chapitre 1. Les élèves retiennent « tiene / está / ya no » sans leçon de grammaire, parce qu'ils ont entendu et répété les phrases vingt fois. Variantes : faire deviner la phrase avant de la lire (« ¿Qué va a pasar en el río? ») ; cacher la phrase et la faire reconstituer de mémoire ; en ★, laisser le titre se lire tout seul.
+
+### 4.2 Séance de 55 minutes
+
+Matériel : vidéoprojecteur, un poste ou une tablette pour deux élèves, cahiers.
+
+| Temps | Phase | Déroulé |
+|---|---|---|
+| 0-10 min | Découverte collective | « Pizarra », un niveau du chapitre travaillé. Titre lu et répété. On résout ensemble, en nommant les escenas et les personajes à voix haute. |
+| 10-35 min | Binômes en « Solo » | Chaque binôme règle ses étoiles (★ pour ceux qui ont besoin de pistas et de phrases toujours visibles, ★★ pour la plupart, ★★★ pour ceux qui veulent le « modo escritor » et le titre secret). Consigne : résoudre 2 niveaux et noter dans le cahier la phrase préférée de chaque niveau. La professeure passe, fait lire une phrase à voix haute par binôme. |
+| 35-50 min | Mise en commun | Deux binômes présentent leur histoire au vidéoprojecteur. On ouvre « ¿Qué pasa? » pour relire, puis « 📖 Léxico » pour pointer 5 mots et les faire entendre. Si deux binômes ont des solutions différentes pour le même titre : comparer, c'est le moment de langue (« ¿Por qué Lucía está cansada aquí y no allí? »). |
+| 50-55 min | Trace écrite | Chaque élève recopie le titre et 3 phrases de son histoire. En 3e, en « pretérito » (partie 5). |
+
+Différenciation par les étoiles : le réglage change le jeu, pas l'exercice. Tout le monde produit une BD et des phrases ; seule l'aide varie. Un binôme qui a fini ouvre le « nivel libre » et invente.
+
+### 4.3 Tâche finale : « Mi cómic de supervivencia »
+
+**Consigne élève (à donner en espagnol simple).** Tu crées une histoire de survie de 4 ou 6 cases pour Lucía, Mateo, Valeria ou Diego. Tu lui donnes un titre. Tu l'imprimes et tu écris les phrases.
+
+**Étapes (deux séances).**
+
+1. En « Autor », l'élève choisit ses escenas, ses personajes et un titre.
+2. Il résout son propre niveau, lit les phrases produites, les écoute. Il vérifie avec « ¿Qué pasa? » que son histoire réalise bien son titre.
+3. « 🖨 Imprimir » → « Imprimir mi historia » : il obtient sa BD résolue avec ses phrases, et une « hoja de viñetas » vide (partie 7).
+4. Sur la hoja de viñetas papier, il réécrit l'histoire de sa main : il recopie, puis complète (un détail par case, une phrase de plus, un dialogue dans une bulle).
+5. Il lit sa BD à la classe ou en petit groupe. Les autres devinent le titre.
+
+**Grille d'évaluation (/10).**
+
+| Critère | Points | Ce qu'on regarde |
+|---|---|---|
+| Respect du titre | 2 | l'histoire réalise bien le titre choisi ; le titre est en espagnol correct |
+| Cohérence du récit | 2 | l'ordre des cases a un sens (cause → conséquence) ; pas de personnage « a salvo » qui réapparaît |
+| Lexique de la séquence | 2 | les mots de survie sont réemployés à l'écrit (selva, río, fuego, perdido, a salvo…) |
+| Accords genre / nombre | 2 | « cansada », « perdidos », « juntas », « están » : l'accord suit le personnage |
+| Ponctuation ¿ ¡ | 1 | « ¡Qué alegría! », « ¿Quién está aquí? » : les deux signes, majuscules et points |
+| Présentation / oral | 1 | BD propre et lisible ; lecture à voix haute compréhensible |
+| **Total** | **10** | |
+
+Variante A1 (5e) : 4 cases, phrases recopiées puis une phrase ajoutée par case. Variante A2 (4e-3e) : 6 cases, phrases réécrites au « pretérito », un titre inventé. Le code du niveau (partie 6) peut être noté sur la copie : la professeure rejoue l'histoire de l'élève pour corriger.
+
+## 5. Différenciation et inclusion
+
+- **Les étoiles** (partie 2.2) sont le premier levier : même niveau, même titre, mais pistas automatiques, phrases toujours visibles et titre lu en ★ ; modo escritor et titre secret en ★★★. Sans mention de niveau de difficulté, l'élève choisit sans se sentir jugé, et peut changer en cours de route.
+- **Les pictos** : chaque escena a son dessin et son emoji, chaque mot du « Léxico » a un picto. Un élève qui ne lit pas encore le mot reconnaît l'image, et le visage du personnage change avec son état (peur, faim, froid…).
+- **La synthèse vocale** : un clic sur une phrase, sur le titre ou sur un mot du Léxico le fait entendre en espagnol. Pour un élève dyslexique ou petit lecteur, c'est la voie d'entrée. Vérifier la voix avant la séance (partie 10).
+- **Le « modo escritor »** : au lieu de lire la phrase produite, l'élève doit la produire.
+  - **A1 : choisir parmi 3.** Trois phrases sont proposées pour la case ; une seule est juste (les autres ont une erreur d'accord, de personnage ou de sens). L'élève choisit.
+  - **A2 : écrire.** L'élève tape la phrase. La correction tolère les accents (« Lucia » pour « Lucía », « rio » pour « río ») et donne un retour simple sur ce qui manque.
+- **Le « pretérito » (3e)** : le jeu peut passer toutes les phrases au passé. La règle est unique et c'est celle du contraste passé composé / imparfait enseigné en A2 (voir `docs/DECISIONS.md` §6) : **les actions à l'indefinido** (« caminó, se perdió, encontró, bebió, durmió »), **les états et les cadres à l'imperfecto** (« tenía sed, estaba perdida, ya no estaban cansados · Llovía mucho. Hacía calor. Era de noche. »). Exemple produit par le moteur pour c2n1 :
+  - présent : « Lucía camina sola por la selva y se pierde. Es de noche. Lucía está sola y tiene miedo. Hace mucho calor. Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo tienen sed. Ahora Lucía y Mateo son amigos. »
+  - pretérito : « Lucía caminó sola por la selva y se perdió. Era de noche. Lucía estaba sola y tenía miedo. Hacía mucho calor. Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo tenían sed. Lucía y Mateo se hicieron amigos. »
+- **Élèves petits lecteurs** : commencer par « Pizarra » et le rituel (partie 4.1), où l'on entend avant de lire ; puis « Solo » en ★ avec un binôme lecteur ; faire répéter la phrase après la voix ; n'écrire qu'une phrase par séance, mais la sienne.
+
+Quel réglage pour quel élève ?
+
+| Profil | Réglage conseillé | Pourquoi |
+|---|---|---|
+| Élève en difficulté de lecture, allophone débutant | ★ « Paso a paso » | titre lu, pistas automatiques, phrases toujours visibles ; niveaux de 3 cases |
+| Élève A1 ordinaire (5e, 4e) | ★★ « Estándar » | le jeu tel quel ; « modo escritor » A1 pour la trace écrite |
+| Élève rapide, A2 (4e, 3e) | ★★★ « Reto » | 4-6 cases, « modo escritor » obligatoire, titre secret à découvrir ; « pretérito » en 3e |
+| Groupe hétérogène en binômes | mélanger | le lecteur fort lit, l'autre manipule et répète ; on échange au niveau suivant |
+
+## 6. Mode « Autor » et codes
+
+- Dans « Autor », l'élève ou la professeure compose un niveau : les escenas disponibles, les personajes, le nombre de cases, le titre.
+- Un niveau se partage par un **code court à dicter** : des lettres et des chiffres, par groupes de 4 (par exemple « AB3K 9ZT2 »). Le code est insensible à la casse : « ab3k 9zt2 » marche aussi. On l'écrit au tableau ou on le dicte.
+- **Importer** : dans « Autor », on tape le code reçu ; le niveau apparaît alors dans « ☰ Niveles » de ce navigateur et se joue comme les autres.
+- **Où sont les niveaux de la classe ?** Dans le `localStorage` du navigateur de chaque poste, c'est-à-dire sur ce poste, dans ce navigateur, et nulle part ailleurs. Un niveau créé sur le poste 3 n'existe pas sur le poste 4 tant qu'on n'y a pas tapé son code.
+- **Export JSON** : le panneau Profe (touche P) permet d'exporter les niveaux de la classe en un fichier JSON, pour les garder d'une année sur l'autre ou les passer sur un autre poste.
+
+Conseils :
+
+- Avant une séance en « Autor », créer un niveau témoin et dicter son code à toute la classe. C'est l'exercice d'écoute et d'épellation du jour (« a, be, tres, ka… »).
+- Demander aux élèves d'écrire leur code en haut de leur hoja de viñetas : il remplace le nom sur la copie et permet de rejouer leur histoire.
+- Exporter le JSON en fin de séquence, avant « Borrar mis datos » (partie 8).
+
+## 7. Impression
+
+« 🖨 Imprimir » → « Imprimir mi historia » produit une page **A4 paysage** avec :
+
+1. la BD résolue : les cases dans l'ordre, avec leurs dessins et les phrases produites ;
+2. une « hoja de viñetas » vide : une grille de 4 cases et une de 6 cases, à remplir à la main (dessin et phrase).
+
+Conseils :
+
+- Dans la boîte d'impression du navigateur, choisir **Paysage** et **A4** ; laisser les marges par défaut ou « minimales ».
+- En noir et blanc, les dessins restent lisibles (trait net, fonds unis). En couleur, activer l'option « Imprimer les arrière-plans » si les fonds des escenas sortent blancs.
+- Utiliser « Aperçu avant impression » ou « Enregistrer en PDF » pour contrôler la mise en page avant de lancer 30 copies.
+- Pour la tâche finale, imprimer d'abord la hoja de viñetas seule pour toute la classe, puis la BD de chaque élève.
+- Une BD de 6 cases avec ses phrases est dense : au vidéoprojecteur, préférer l'écran ; sur papier, la hoja de viñetas vide laisse la place d'écrire gros.
+
+## 8. RGPD et données
+
+- Le jeu ne demande **aucun nom d'élève**, aucune adresse, aucun identifiant. Le tirage au sort en « Pizarra » utilise des numéros, pas des noms.
+- **Aucune télémétrie** : le fichier ne fait aucune requête réseau. Il fonctionne sans Internet. Rien n'est envoyé à qui que ce soit.
+- Tout ce que le jeu retient (étoiles, niveau en cours, réglages, niveaux créés en « Autor ») est dans le **`localStorage`** du navigateur : sur ce poste, dans ce navigateur, uniquement.
+- Le bouton **« Borrar mis datos »** (dans « ☰ Niveles ») efface tout ce que ce navigateur a retenu.
+- **Sur un poste partagé** (salle informatique, CDI) : les étoiles et les niveaux restent d'un élève à l'autre. Deux solutions : « Borrar mis datos » en fin de séance, ou considérer que la progression est celle du poste et non de l'élève (c'est le plus simple). Les niveaux « Autor » importants sont à exporter en JSON (partie 6) avant tout effacement.
+- Rien à déclarer au registre des traitements : aucune donnée personnelle n'est collectée ni stockée.
+
+## 9. Lexique ajouté par le jeu
+
+Le lexique des escenas a été vérifié contre les decks du jeu de cartes « ¡Sobrevive! » (`docs/lexico_fuente.md`). La plupart des mots y sont déjà (hambre, miedo, cansado, noche, sol, lluvia, montaña, mochila, mapa, manta, comida, comer, beber, dormir, descansar, curar, perdón, cruzar, subir, caminar, correr, gritar, avisar, guardar, ver, amigo, alegría…).
+
+Les 28 lemmes suivants sont ceux que le jeu **ajoute** : ils n'apparaissent pas dans les decks (`docs/CONTENIDO.md` §7). Ils sont **à valider et à introduire avant de jouer**, par exemple avec le panneau « Léxico » en « Pizarra ». Le picto est celui du panneau Léxico quand il existe.
+
+| Mot | Picto | Français | Où on le rencontre |
+|---|---|---|---|
+| selva | 🌴 | la forêt, la jungle | la selva |
+| río | 🌊 | la rivière, le fleuve | el río, la montaña |
+| agua | 💧 | l'eau | el río |
+| frío | 🥶 | le froid (« tener frío ») | el río, la tormenta, el fuego, la manta |
+| sed | 🥤 | la soif (« tener sed ») | el sol, el río |
+| calor | 🌡️ | la chaleur (« hace calor ») | el sol |
+| tormenta | ⛈️ | l'orage | la tormenta |
+| refugio | 🏕️ | l'abri | el refugio |
+| fuego | 🔥 | le feu | el fuego |
+| cuerda | 🪢 | la corde | la cuerda, el río |
+| linterna | 🔦 | la lampe de poche | la linterna, la noche |
+| rescate | — | le sauvetage | el rescate |
+| helicóptero | 🚁 | l'hélicoptère | el rescate |
+| jaguar | 🐆 | le jaguar | el jaguar |
+| serpiente | 🐍 | le serpent | la serpiente |
+| herido / herida | 🤕 | blessé / blessée | la serpiente, el refugio |
+| perdido / perdida | ❓ | perdu / perdue | la selva, el jaguar, el mapa, la montaña |
+| a salvo | 🛟 | sain et sauf | el rescate |
+| mojarse | — | se mouiller | el río |
+| morder | 🦷 | mordre | la serpiente |
+| encender | 💡 | allumer | la noche (linterna) |
+| taparse | — | se couvrir | la tormenta (manta) |
+| encontrar(se) | 🔍 | trouver, retrouver (se retrouver) | toutes les escenas à deux, les objets |
+| compartir | 🤲 | partager | el fuego |
+| enfadado / enfadada | 😠 | fâché / fâchée | el fuego, el refugio |
+| juntos / juntas | 🧑‍🤝‍🧑 | ensemble | la selva, la noche, el jaguar |
+| suerte | — | la chance (« ¡Qué suerte! ») | la mochila |
+| ¡cuidado! | — | attention ! | la serpiente, les pistas |
+
+Presque tous sont concrets et « dessinables ». « frío, sed, perdido, herido, a salvo, encontrar a, juntos, enfadado con » sont en plus les structures-objectifs de la séquence de survie. Si un mot ne convient pas (par exemple « enfadado », usage d'Espagne, plutôt que « enojado »), il se change dans les gabarits du moteur.
+
+## 10. Dépannage
+
+| Problème | Cause probable | Solution |
+|---|---|---|
+| Pas de voix espagnole : un clic sur une phrase ne lit rien, ou lit avec un accent français | aucune voix « es-ES » installée dans Windows | Windows : Paramètres → Heure et langue → Langue et région → Ajouter une langue → Español (España), cocher « Synthèse vocale ». Ou ouvrir le fichier dans Edge ou Chrome, qui ont leurs propres voix espagnoles. |
+| Le fichier s'ouvre, mais rien ne bouge : pas de cartes, pas de phrases | JavaScript bloqué, ou navigateur trop ancien | ouvrir `sobrevives.html` dans Chrome, Edge ou Firefox ; vérifier que JavaScript n'est pas désactivé par une politique du poste. Le fichier n'a besoin d'aucune connexion. |
+| Au vidéoprojecteur (1280 × 720), tout ne tient pas à l'écran | résolution basse | passer en plein écran avec **F11** ; utiliser « Pizarra », conçu pour cet affichage. Les niveaux de 3 cases tiennent sans défilement. |
+| Les étoiles ou les niveaux ont disparu | changement de navigateur ou de poste, ou données effacées | normal : tout est dans le `localStorage` de ce navigateur (partie 8). Réimporter les niveaux par leur code ou le fichier JSON. |
+| Il faut repartir de zéro | — | « ☰ Niveles » → « Borrar mis datos ». |
+| Le glisser-déposer ne marche pas (tablette, souris) | geste non reconnu | utiliser le clic-clic : clic sur la carte, puis clic sur la case. |
+
+---
+
+*Fichiers utiles : `sobrevives.html` (le jeu) · `docs/CONTENIDO.md` (modèle de contenu) · `docs/DECISIONS.md` (choix et points à valider) · `docs/frases.txt` (toutes les phrases que le moteur peut produire, pour relecture).*

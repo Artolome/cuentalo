@@ -391,8 +391,27 @@
       case 'amigos': return !!S[obj.a].amigos[obj.b];
       case 'enfadado': return !!S[obj.quien].enfadado[obj.con];
       case 'y': return obj.partes.every(p => evaluar(p, res, nivel));
+      case 'historia': {
+        // Objetivo «grabado» (modo Autor con título libre): estados finales exactos + eventos clave.
+        for (const id in obj.finales) { if (!S[id]) return false; for (const k in obj.finales[id]) if (valor(S[id], k) !== !!obj.finales[id][k]) return false; }
+        return (obj.eventos || []).every(ev => H.eventos.some(e => mismoEvento(e, ev)));
+      }
       default: return false;
     }
+  }
+  function mismoEvento(e, ev) {
+    if (e.tipo !== ev.tipo) return false;
+    const tiene = (x, id) => x.quien === id || x.a === id || (x.quienes && x.quienes.includes(id));
+    if (ev.quien && !tiene(e, ev.quien)) return false;
+    if (ev.a && !tiene(e, ev.a)) return false;
+    return true;
+  }
+  /** Construye un objetivo «historia» a partir de una simulación resuelta (modo Autor, título libre). */
+  function objetivoDeHistoria(nivel, res) {
+    const finales = {};
+    for (const id of humanos(nivel)) { finales[id] = {}; for (const k of NEGATIVOS.concat(['salvo'])) finales[id][k] = !!valor(res.estado[id], k); }
+    const eventos = res.eventos.filter(e => TITULO_EVENTO[e.tipo]).map(e => ({ tipo: e.tipo, quien: e.quien || (e.quienes ? e.quienes[0] : undefined), a: e.a || (e.quienes ? e.quienes[1] : undefined) }));
+    return { tipo: 'historia', finales, eventos };
   }
 
   /** Frase verbal de un estado para un grupo: «tiene hambre» · «está perdida» · «están a salvo».
@@ -486,6 +505,7 @@
       case 'amigos': return `${N1(obj.a)} y ${N1(obj.b)} son amigos`;
       case 'enfadado': return `${N1(obj.quien)} está ${L.acuerdo('enfadado', L.gn(P(obj.quien)))} con ${N1(obj.con)}`;
       case 'y': return tituloY(obj.partes, nivel);
+      case 'historia': return obj.titulo || 'Mi historia';
       default: return '';
     }
   }
@@ -521,6 +541,7 @@
     if ((obj.tipo === 'yaNo' || obj.tipo === 'nunca') && !NEGATIVOS.includes(obj.estado)) return false;
     if ((obj.tipo === 'estado' || obj.tipo === 'todos' || obj.tipo === 'nadie') && !ESTADO_INFO[obj.estado]) return false;
     if ((obj.tipo === 'evento' || obj.tipo === 'sinEvento') && !obj.evento) return false;
+    if (obj.tipo === 'historia' && (!obj.finales || !Object.keys(obj.finales).length)) return false;
     return true;
   }
 
@@ -565,6 +586,15 @@
       }
       case 'enfadado': return [`${N1(obj.quien)} no está ${L.acuerdo('enfadado', L.gn(P(obj.quien)))} con ${N1(obj.con)}.`];
       case 'y': return obj.partes.flatMap(p => porque(p, res, nivel));
+      case 'historia': {
+        const out = [];
+        for (const id in obj.finales) {
+          if (!S[id]) continue;
+          for (const k in obj.finales[id]) if (valor(S[id], k) !== !!obj.finales[id][k]) out.push(L.cap(`${N1(id)} ${fraseEstado(k, [id], 'pres', !obj.finales[id][k])}.`));
+        }
+        for (const ev of obj.eventos || []) if (!H.eventos.some(e => mismoEvento(e, ev))) { const f = TITULO_EVENTO[ev.tipo]; out.push(`Falta: «${f ? f(ev.quien, ev.a) : ev.tipo}».`); }
+        return out.length ? out : ['La historia no es la misma.'];
+      }
       default: return ['…'];
     }
   }
@@ -643,6 +673,7 @@
     const visita = o => {
       if (!o) return;
       if (o.tipo === 'evento' || o.tipo === 'sinEvento') rel.eventos.add(o.evento);
+      if (o.tipo === 'historia') for (const ev of o.eventos || []) rel.eventos.add(ev.tipo);
       if (o.tipo === 'yaNo' || o.tipo === 'nunca') rel.alguna.add(o.estado);
       if (o.tipo === 'y') o.partes.forEach(visita);
     };
@@ -729,5 +760,5 @@
     return sol.map((op, i) => `${i + 1} ${ESCENA[op.escena].nombre.replace(/^(El|La) /, '').toLowerCase()} (${op.personajes.map(N1).join(', ')})`).join(' · ');
   }
 
-  return { simular, resolver, evaluar, tituloDe, porque, describir, lexicoDe, expresion, frasesDe, paso, estadoInicial, opcionesDe, textoSolucion, objetivoValido, NEGATIVOS, LEXICO_ESCENA, P, ordenar };
+  return { simular, resolver, evaluar, tituloDe, porque, describir, objetivoDeHistoria, lexicoDe, expresion, frasesDe, paso, estadoInicial, opcionesDe, textoSolucion, objetivoValido, NEGATIVOS, LEXICO_ESCENA, P, ordenar };
 });
