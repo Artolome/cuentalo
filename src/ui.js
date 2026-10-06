@@ -55,6 +55,7 @@
   function elegirModo(m) {
     ajustes().modo = m; guardar();
     document.body.classList.toggle('pizarra', m === 'pizarra');
+    document.documentElement.classList.toggle('pizarra', m === 'pizarra'); // el tamaño de letra (rem) se define en <html>
     $('#inicioApp').hidden = true;
     const clase = $('#clase');
     if (m === 'pizarra' && window.SVPizarra && !clase.dataset.montado) { try { window.SVPizarra.montar(clase, { hablar, toast }); clase.dataset.montado = '1'; } catch (e) { console.error(e); } }
