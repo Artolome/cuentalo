@@ -1,4 +1,4 @@
-SOBREVIVES — todas las frases generables (982) — generado por test/frases.js
+SOBREVIVES — todas las frases generables (979) — generado por test/frases.js
 
 ## PRESENTE · La selva · evento pierde
 Lucía camina sola por la selva y se pierde.
@@ -24,7 +24,7 @@ Lucía y Valeria se encuentran en la selva. Ya no están perdidas.
 Mateo y Diego se encuentran en la selva. Ya no están perdidos.
 
 ## PRESENTE · El río · evento bebe
-Diego encuentra a Mateo en el río. ¡Qué alegría! Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Lucía bebe agua del río. Cruza el río con la cuerda. No se moja.
 Lucía bebe agua del río. Cruza el río y se moja. Tiene frío.
 Lucía bebe agua del río. Ya no tiene sed. Cruza el río y se moja. Tiene frío.
@@ -32,43 +32,43 @@ Lucía y Mateo beben agua del río. Cruzan el río con la cuerda. No se mojan.
 Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Lucía y Mateo beben agua del río. Lucía ya no tiene sed. Cruzan el río y se mojan. Tienen frío.
 Lucía y Mateo beben agua del río. Ya no tienen sed. Cruzan el río y se mojan. Tienen frío.
-Lucía y Mateo se encuentran en el río. Ya no están perdidos. Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Lucía y Valeria beben agua del río. Cruzan el río con la cuerda. No se mojan.
 Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Lucía y Valeria beben agua del río. Lucía ya no tiene sed. Cruzan el río y se mojan. Tienen frío.
 Lucía y Valeria beben agua del río. Ya no tienen sed. Cruzan el río y se mojan. Tienen frío.
-Lucía y Valeria se encuentran en el río. Ya no están perdidas. Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Mateo bebe agua del río. Cruza el río con la cuerda. No se moja.
 Mateo bebe agua del río. Cruza el río y se moja. Tiene frío.
 Mateo bebe agua del río. Ya no tiene sed. Cruza el río y se moja. Tiene frío.
-Mateo encuentra a Lucía en el río. ¡Qué alegría! Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Mateo y Diego beben agua del río. Cruzan el río con la cuerda. No se mojan.
 Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Mateo y Diego beben agua del río. Mateo ya no tiene sed. Cruzan el río y se mojan. Tienen frío.
 Mateo y Diego beben agua del río. Ya no tienen sed. Cruzan el río y se mojan. Tienen frío.
-Mateo y Diego se encuentran en el río. Ya no están perdidos. Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
-Valeria encuentra a Lucía en el río. ¡Qué alegría! Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
 
 ## PRESENTE · El río · evento cruzaMojado
-Diego encuentra a Mateo en el río. ¡Qué alegría! Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Lucía bebe agua del río. Cruza el río y se moja. Tiene frío.
 Lucía bebe agua del río. Ya no tiene sed. Cruza el río y se moja. Tiene frío.
 Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Lucía y Mateo beben agua del río. Lucía ya no tiene sed. Cruzan el río y se mojan. Tienen frío.
 Lucía y Mateo beben agua del río. Ya no tienen sed. Cruzan el río y se mojan. Tienen frío.
-Lucía y Mateo se encuentran en el río. Ya no están perdidos. Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Lucía y Valeria beben agua del río. Lucía ya no tiene sed. Cruzan el río y se mojan. Tienen frío.
 Lucía y Valeria beben agua del río. Ya no tienen sed. Cruzan el río y se mojan. Tienen frío.
-Lucía y Valeria se encuentran en el río. Ya no están perdidas. Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Mateo bebe agua del río. Cruza el río y se moja. Tiene frío.
 Mateo bebe agua del río. Ya no tiene sed. Cruza el río y se moja. Tiene frío.
-Mateo encuentra a Lucía en el río. ¡Qué alegría! Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
 Mateo y Diego beben agua del río. Mateo ya no tiene sed. Cruzan el río y se mojan. Tienen frío.
 Mateo y Diego beben agua del río. Ya no tienen sed. Cruzan el río y se mojan. Tienen frío.
-Mateo y Diego se encuentran en el río. Ya no están perdidos. Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
-Valeria encuentra a Lucía en el río. ¡Qué alegría! Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
 
 ## PRESENTE · El río · evento cruzaCuerda
 Lucía bebe agua del río. Cruza el río con la cuerda. No se moja.
@@ -78,65 +78,65 @@ Mateo bebe agua del río. Cruza el río con la cuerda. No se moja.
 Mateo y Diego beben agua del río. Cruzan el río con la cuerda. No se mojan.
 
 ## PRESENTE · El río · evento encuentra
-Diego encuentra a Mateo en el río. ¡Qué alegría! Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
-Mateo encuentra a Lucía en el río. ¡Qué alegría! Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
-Valeria encuentra a Lucía en el río. ¡Qué alegría! Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
 
 ## PRESENTE · El río · evento seEncuentran
-Lucía y Mateo se encuentran en el río. Ya no están perdidos. Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
-Lucía y Valeria se encuentran en el río. Ya no están perdidas. Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
-Mateo y Diego se encuentran en el río. Ya no están perdidos. Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria beben agua del río. Cruzan el río y se mojan. Tienen frío.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego beben agua del río. Cruzan el río y se mojan. Tienen frío.
 
 ## PRESENTE · El sol · evento calor
-Diego encuentra a Mateo. ¡Qué alegría! Hace mucho calor. Mateo y Diego tienen sed.
+Hace mucho calor. Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego tienen sed.
 Hace mucho calor. Lucía tiene sed.
+Hace mucho calor. Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo tienen sed.
 Hace mucho calor. Lucía y Mateo tienen sed.
+Hace mucho calor. Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria tienen sed.
 Hace mucho calor. Lucía y Valeria tienen sed.
+Hace mucho calor. Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo tienen sed.
 Hace mucho calor. Mateo tiene sed.
+Hace mucho calor. Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego tienen sed.
 Hace mucho calor. Mateo y Diego tienen sed.
-Lucía y Mateo se encuentran. Ya no están perdidos. Hace mucho calor. Lucía y Mateo tienen sed.
-Lucía y Valeria se encuentran. Ya no están perdidas. Hace mucho calor. Lucía y Valeria tienen sed.
-Mateo encuentra a Lucía. ¡Qué alegría! Hace mucho calor. Lucía y Mateo tienen sed.
-Mateo y Diego se encuentran. Ya no están perdidos. Hace mucho calor. Mateo y Diego tienen sed.
-Valeria encuentra a Lucía. ¡Qué alegría! Hace mucho calor. Lucía y Valeria tienen sed.
+Hace mucho calor. Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria tienen sed.
 
 ## PRESENTE · El sol · evento encuentra
-Diego encuentra a Mateo. ¡Qué alegría! Hace mucho calor. Mateo y Diego tienen sed.
-Mateo encuentra a Lucía. ¡Qué alegría! Hace mucho calor. Lucía y Mateo tienen sed.
-Valeria encuentra a Lucía. ¡Qué alegría! Hace mucho calor. Lucía y Valeria tienen sed.
+Hace mucho calor. Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego tienen sed.
+Hace mucho calor. Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo tienen sed.
+Hace mucho calor. Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria tienen sed.
 
 ## PRESENTE · El sol · evento seEncuentran
-Lucía y Mateo se encuentran. Ya no están perdidos. Hace mucho calor. Lucía y Mateo tienen sed.
-Lucía y Valeria se encuentran. Ya no están perdidas. Hace mucho calor. Lucía y Valeria tienen sed.
-Mateo y Diego se encuentran. Ya no están perdidos. Hace mucho calor. Mateo y Diego tienen sed.
+Hace mucho calor. Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo tienen sed.
+Hace mucho calor. Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria tienen sed.
+Hace mucho calor. Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego tienen sed.
 
 ## PRESENTE · La tormenta · evento tormenta
-Diego encuentra a Mateo. ¡Qué alegría! Llueve mucho. Mateo y Diego tienen frío.
-Llueve mucho. Lucía se tapa con la manta, pero está sola y tiene miedo.
+Llueve mucho. Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego tienen frío.
+Llueve mucho. Lucía se tapa con la manta y no tiene frío. Pero está sola y tiene miedo.
 Llueve mucho. Lucía tiene frío y miedo.
+Llueve mucho. Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo tienen frío.
 Llueve mucho. Lucía y Mateo se tapan con la manta. No tienen frío.
 Llueve mucho. Lucía y Mateo tienen frío.
+Llueve mucho. Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria tienen frío.
 Llueve mucho. Lucía y Valeria se tapan con la manta. No tienen frío.
 Llueve mucho. Lucía y Valeria tienen frío.
-Llueve mucho. Mateo se tapa con la manta, pero está solo y tiene miedo.
+Llueve mucho. Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo tienen frío.
+Llueve mucho. Mateo se tapa con la manta y no tiene frío. Pero está solo y tiene miedo.
 Llueve mucho. Mateo tiene frío y miedo.
+Llueve mucho. Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego tienen frío.
 Llueve mucho. Mateo y Diego se tapan con la manta. No tienen frío.
 Llueve mucho. Mateo y Diego tienen frío.
-Lucía y Mateo se encuentran. Ya no están perdidos. Llueve mucho. Lucía y Mateo tienen frío.
-Lucía y Valeria se encuentran. Ya no están perdidas. Llueve mucho. Lucía y Valeria tienen frío.
-Mateo encuentra a Lucía. ¡Qué alegría! Llueve mucho. Lucía y Mateo tienen frío.
-Mateo y Diego se encuentran. Ya no están perdidos. Llueve mucho. Mateo y Diego tienen frío.
-Valeria encuentra a Lucía. ¡Qué alegría! Llueve mucho. Lucía y Valeria tienen frío.
+Llueve mucho. Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria tienen frío.
 
 ## PRESENTE · La tormenta · evento encuentra
-Diego encuentra a Mateo. ¡Qué alegría! Llueve mucho. Mateo y Diego tienen frío.
-Mateo encuentra a Lucía. ¡Qué alegría! Llueve mucho. Lucía y Mateo tienen frío.
-Valeria encuentra a Lucía. ¡Qué alegría! Llueve mucho. Lucía y Valeria tienen frío.
+Llueve mucho. Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego tienen frío.
+Llueve mucho. Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo tienen frío.
+Llueve mucho. Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria tienen frío.
 
 ## PRESENTE · La tormenta · evento seEncuentran
-Lucía y Mateo se encuentran. Ya no están perdidos. Llueve mucho. Lucía y Mateo tienen frío.
-Lucía y Valeria se encuentran. Ya no están perdidas. Llueve mucho. Lucía y Valeria tienen frío.
-Mateo y Diego se encuentran. Ya no están perdidos. Llueve mucho. Mateo y Diego tienen frío.
+Llueve mucho. Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo tienen frío.
+Llueve mucho. Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria tienen frío.
+Llueve mucho. Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego tienen frío.
 
 ## PRESENTE · La noche · evento nocheSolo
 Es de noche. Lucía está sola y tiene miedo.
@@ -147,31 +147,31 @@ Es de noche. Lucía enciende la linterna y duerme tranquila.
 Es de noche. Mateo enciende la linterna y duerme tranquilo.
 
 ## PRESENTE · La noche · evento nocheJuntos
-Diego encuentra a Mateo de noche. ¡Qué alegría! Es de noche. Mateo y Diego duermen juntos. No tienen miedo.
-Es de noche. Lucía y Mateo duermen juntos. Lucía ya no está cansada.
-Es de noche. Lucía y Mateo duermen juntos. No tienen miedo.
-Es de noche. Lucía y Mateo duermen juntos. Ya no están cansados.
-Es de noche. Lucía y Valeria duermen juntas. Lucía ya no está cansada.
-Es de noche. Lucía y Valeria duermen juntas. No tienen miedo.
-Es de noche. Lucía y Valeria duermen juntas. Ya no están cansadas.
-Es de noche. Mateo y Diego duermen juntos. Mateo ya no está cansado.
-Es de noche. Mateo y Diego duermen juntos. No tienen miedo.
-Es de noche. Mateo y Diego duermen juntos. Ya no están cansados.
-Lucía y Mateo se encuentran de noche. Ya no están perdidos. Es de noche. Lucía y Mateo duermen juntos. No tienen miedo.
-Lucía y Valeria se encuentran de noche. Ya no están perdidas. Es de noche. Lucía y Valeria duermen juntas. No tienen miedo.
-Mateo encuentra a Lucía de noche. ¡Qué alegría! Es de noche. Lucía y Mateo duermen juntos. No tienen miedo.
-Mateo y Diego se encuentran de noche. Ya no están perdidos. Es de noche. Mateo y Diego duermen juntos. No tienen miedo.
-Valeria encuentra a Lucía de noche. ¡Qué alegría! Es de noche. Lucía y Valeria duermen juntas. No tienen miedo.
+Es de noche. Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego están juntos y duermen bien. No tienen miedo.
+Es de noche. Lucía y Mateo están juntos y duermen bien. Lucía ya no está cansada.
+Es de noche. Lucía y Mateo están juntos y duermen bien. No tienen miedo.
+Es de noche. Lucía y Mateo están juntos y duermen bien. Ya no están cansados.
+Es de noche. Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo están juntos y duermen bien. No tienen miedo.
+Es de noche. Lucía y Valeria están juntas y duermen bien. Lucía ya no está cansada.
+Es de noche. Lucía y Valeria están juntas y duermen bien. No tienen miedo.
+Es de noche. Lucía y Valeria están juntas y duermen bien. Ya no están cansadas.
+Es de noche. Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria están juntas y duermen bien. No tienen miedo.
+Es de noche. Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo están juntos y duermen bien. No tienen miedo.
+Es de noche. Mateo y Diego están juntos y duermen bien. Mateo ya no está cansado.
+Es de noche. Mateo y Diego están juntos y duermen bien. No tienen miedo.
+Es de noche. Mateo y Diego están juntos y duermen bien. Ya no están cansados.
+Es de noche. Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego están juntos y duermen bien. No tienen miedo.
+Es de noche. Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria están juntas y duermen bien. No tienen miedo.
 
 ## PRESENTE · La noche · evento encuentra
-Diego encuentra a Mateo de noche. ¡Qué alegría! Es de noche. Mateo y Diego duermen juntos. No tienen miedo.
-Mateo encuentra a Lucía de noche. ¡Qué alegría! Es de noche. Lucía y Mateo duermen juntos. No tienen miedo.
-Valeria encuentra a Lucía de noche. ¡Qué alegría! Es de noche. Lucía y Valeria duermen juntas. No tienen miedo.
+Es de noche. Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego están juntos y duermen bien. No tienen miedo.
+Es de noche. Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo están juntos y duermen bien. No tienen miedo.
+Es de noche. Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria están juntas y duermen bien. No tienen miedo.
 
 ## PRESENTE · La noche · evento seEncuentran
-Lucía y Mateo se encuentran de noche. Ya no están perdidos. Es de noche. Lucía y Mateo duermen juntos. No tienen miedo.
-Lucía y Valeria se encuentran de noche. Ya no están perdidas. Es de noche. Lucía y Valeria duermen juntas. No tienen miedo.
-Mateo y Diego se encuentran de noche. Ya no están perdidos. Es de noche. Mateo y Diego duermen juntos. No tienen miedo.
+Es de noche. Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo están juntos y duermen bien. No tienen miedo.
+Es de noche. Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria están juntas y duermen bien. No tienen miedo.
+Es de noche. Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego están juntos y duermen bien. No tienen miedo.
 
 ## PRESENTE · El jaguar · evento jaguarSolo
 ¡Un jaguar! Lucía tiene miedo y corre. Con el mapa, no se pierde.
@@ -205,117 +205,117 @@ Mateo y Diego se encuentran. Ya no están perdidos. ¡Un jaguar! Mateo y Diego g
 ¡Ay! Una serpiente muerde a Mateo. Está herido.
 
 ## PRESENTE · La serpiente · evento serpienteAvisa
-Diego encuentra a Mateo. ¡Qué alegría! Mateo ve una serpiente y avisa a Diego. ¡Cuidado! Nadie está herido.
-Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! Nadie está herido.
-Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! Nadie está herido.
-Lucía y Mateo se encuentran. Ya no están perdidos. Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! Nadie está herido.
-Lucía y Valeria se encuentran. Ya no están perdidas. Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! Nadie está herido.
-Mateo encuentra a Lucía. ¡Qué alegría! Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! Nadie está herido.
-Mateo ve una serpiente y avisa a Diego. ¡Cuidado! Nadie está herido.
-Mateo y Diego se encuentran. Ya no están perdidos. Mateo ve una serpiente y avisa a Diego. ¡Cuidado! Nadie está herido.
-Valeria encuentra a Lucía. ¡Qué alegría! Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! Nadie está herido.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo ve una serpiente y avisa a Diego. ¡Cuidado! La serpiente no muerde a nadie.
+Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! La serpiente no muerde a nadie.
+Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! La serpiente no muerde a nadie.
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! La serpiente no muerde a nadie.
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! La serpiente no muerde a nadie.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! La serpiente no muerde a nadie.
+Mateo ve una serpiente y avisa a Diego. ¡Cuidado! La serpiente no muerde a nadie.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo ve una serpiente y avisa a Diego. ¡Cuidado! La serpiente no muerde a nadie.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! La serpiente no muerde a nadie.
 
 ## PRESENTE · La serpiente · evento encuentra
-Diego encuentra a Mateo. ¡Qué alegría! Mateo ve una serpiente y avisa a Diego. ¡Cuidado! Nadie está herido.
-Mateo encuentra a Lucía. ¡Qué alegría! Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! Nadie está herido.
-Valeria encuentra a Lucía. ¡Qué alegría! Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! Nadie está herido.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo ve una serpiente y avisa a Diego. ¡Cuidado! La serpiente no muerde a nadie.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! La serpiente no muerde a nadie.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! La serpiente no muerde a nadie.
 
 ## PRESENTE · La serpiente · evento seEncuentran
-Lucía y Mateo se encuentran. Ya no están perdidos. Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! Nadie está herido.
-Lucía y Valeria se encuentran. Ya no están perdidas. Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! Nadie está herido.
-Mateo y Diego se encuentran. Ya no están perdidos. Mateo ve una serpiente y avisa a Diego. ¡Cuidado! Nadie está herido.
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía ve una serpiente y avisa a Mateo. ¡Cuidado! La serpiente no muerde a nadie.
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía ve una serpiente y avisa a Valeria. ¡Cuidado! La serpiente no muerde a nadie.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo ve una serpiente y avisa a Diego. ¡Cuidado! La serpiente no muerde a nadie.
 
 ## PRESENTE · El árbol de frutas · evento comeFrutas
-Diego encuentra a Mateo bajo el árbol. ¡Qué alegría! Mateo y Diego comen frutas. ¡Qué ricas!
-Diego encuentra a Mateo bajo el árbol. ¡Qué alegría! Mateo y Diego comen frutas. Diego ya no tiene hambre.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego comen frutas. ¡Qué ricas!
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego comen frutas. Diego ya no tiene hambre.
 Lucía come frutas. ¡Qué ricas!
 Lucía come frutas. Ya no tiene hambre.
 Lucía y Mateo comen frutas. ¡Qué ricas!
 Lucía y Mateo comen frutas. Lucía ya no tiene hambre.
 Lucía y Mateo comen frutas. Mateo ya no tiene hambre.
 Lucía y Mateo comen frutas. Ya no tienen hambre.
-Lucía y Mateo se encuentran bajo el árbol. Ya no están perdidos. Lucía y Mateo comen frutas. ¡Qué ricas!
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo comen frutas. ¡Qué ricas!
 Lucía y Valeria comen frutas. ¡Qué ricas!
 Lucía y Valeria comen frutas. Lucía ya no tiene hambre.
 Lucía y Valeria comen frutas. Valeria ya no tiene hambre.
 Lucía y Valeria comen frutas. Ya no tienen hambre.
-Lucía y Valeria se encuentran bajo el árbol. Ya no están perdidas. Lucía y Valeria comen frutas. ¡Qué ricas!
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria comen frutas. ¡Qué ricas!
 Mateo come frutas. ¡Qué ricas!
 Mateo come frutas. Ya no tiene hambre.
-Mateo encuentra a Lucía bajo el árbol. ¡Qué alegría! Lucía y Mateo comen frutas. ¡Qué ricas!
-Mateo encuentra a Lucía bajo el árbol. ¡Qué alegría! Lucía y Mateo comen frutas. Mateo ya no tiene hambre.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo comen frutas. ¡Qué ricas!
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo comen frutas. Mateo ya no tiene hambre.
 Mateo y Diego comen frutas. ¡Qué ricas!
 Mateo y Diego comen frutas. Diego ya no tiene hambre.
 Mateo y Diego comen frutas. Mateo ya no tiene hambre.
 Mateo y Diego comen frutas. Ya no tienen hambre.
-Mateo y Diego se encuentran bajo el árbol. Ya no están perdidos. Mateo y Diego comen frutas. ¡Qué ricas!
-Valeria encuentra a Lucía bajo el árbol. ¡Qué alegría! Lucía y Valeria comen frutas. ¡Qué ricas!
-Valeria encuentra a Lucía bajo el árbol. ¡Qué alegría! Lucía y Valeria comen frutas. Valeria ya no tiene hambre.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego comen frutas. ¡Qué ricas!
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria comen frutas. ¡Qué ricas!
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria comen frutas. Valeria ya no tiene hambre.
 
 ## PRESENTE · El árbol de frutas · evento encuentra
-Diego encuentra a Mateo bajo el árbol. ¡Qué alegría! Mateo y Diego comen frutas. ¡Qué ricas!
-Diego encuentra a Mateo bajo el árbol. ¡Qué alegría! Mateo y Diego comen frutas. Diego ya no tiene hambre.
-Mateo encuentra a Lucía bajo el árbol. ¡Qué alegría! Lucía y Mateo comen frutas. ¡Qué ricas!
-Mateo encuentra a Lucía bajo el árbol. ¡Qué alegría! Lucía y Mateo comen frutas. Mateo ya no tiene hambre.
-Valeria encuentra a Lucía bajo el árbol. ¡Qué alegría! Lucía y Valeria comen frutas. ¡Qué ricas!
-Valeria encuentra a Lucía bajo el árbol. ¡Qué alegría! Lucía y Valeria comen frutas. Valeria ya no tiene hambre.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego comen frutas. ¡Qué ricas!
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego comen frutas. Diego ya no tiene hambre.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo comen frutas. ¡Qué ricas!
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo comen frutas. Mateo ya no tiene hambre.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria comen frutas. ¡Qué ricas!
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria comen frutas. Valeria ya no tiene hambre.
 
 ## PRESENTE · El árbol de frutas · evento seEncuentran
-Lucía y Mateo se encuentran bajo el árbol. Ya no están perdidos. Lucía y Mateo comen frutas. ¡Qué ricas!
-Lucía y Valeria se encuentran bajo el árbol. Ya no están perdidas. Lucía y Valeria comen frutas. ¡Qué ricas!
-Mateo y Diego se encuentran bajo el árbol. Ya no están perdidos. Mateo y Diego comen frutas. ¡Qué ricas!
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo comen frutas. ¡Qué ricas!
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria comen frutas. ¡Qué ricas!
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego comen frutas. ¡Qué ricas!
 
 ## PRESENTE · El fuego · evento fuego
-Diego encuentra a Mateo junto al fuego. ¡Qué alegría! Mateo y Diego hacen fuego. ¡Qué bien!
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego hacen fuego. ¡Qué bien!
 Lucía hace fuego. ¡Qué bien!
-Lucía hace fuego. Lucía come. Ya no tiene hambre.
+Lucía hace fuego. Come y ya no tiene hambre.
 Lucía hace fuego. Ya no tiene frío.
 Lucía y Mateo hacen fuego. ¡Qué bien!
-Lucía y Mateo hacen fuego. Lucía come sola. Mateo tiene hambre y está enfadado con Lucía.
-Lucía y Mateo hacen fuego. Lucía come. Ya no tiene hambre.
+Lucía y Mateo hacen fuego. Come y ya no tiene hambre.
+Lucía y Mateo hacen fuego. Comen y ya no tienen hambre.
+Lucía y Mateo hacen fuego. Lucía come y no comparte. Mateo tiene hambre y está enfadado con Lucía.
 Lucía y Mateo hacen fuego. Lucía comparte la comida con Mateo. Ya no tienen hambre.
-Lucía y Mateo hacen fuego. Lucía y Mateo comen. Ya no tienen hambre.
 Lucía y Mateo hacen fuego. Lucía ya no tiene frío.
 Lucía y Mateo hacen fuego. Ya no tienen frío.
-Lucía y Mateo se encuentran junto al fuego. Ya no están perdidos. Lucía y Mateo hacen fuego. ¡Qué bien!
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo hacen fuego. ¡Qué bien!
 Lucía y Valeria hacen fuego. ¡Qué bien!
-Lucía y Valeria hacen fuego. Lucía come sola. Valeria tiene hambre y está enfadada con Lucía.
-Lucía y Valeria hacen fuego. Lucía come. Ya no tiene hambre.
+Lucía y Valeria hacen fuego. Come y ya no tiene hambre.
+Lucía y Valeria hacen fuego. Comen y ya no tienen hambre.
+Lucía y Valeria hacen fuego. Lucía come y no comparte. Valeria tiene hambre y está enfadada con Lucía.
 Lucía y Valeria hacen fuego. Lucía comparte la comida con Valeria. Ya no tienen hambre.
-Lucía y Valeria hacen fuego. Lucía y Valeria comen. Ya no tienen hambre.
 Lucía y Valeria hacen fuego. Lucía ya no tiene frío.
 Lucía y Valeria hacen fuego. Ya no tienen frío.
-Lucía y Valeria se encuentran junto al fuego. Ya no están perdidas. Lucía y Valeria hacen fuego. ¡Qué bien!
-Mateo encuentra a Lucía junto al fuego. ¡Qué alegría! Lucía y Mateo hacen fuego. ¡Qué bien!
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria hacen fuego. ¡Qué bien!
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo hacen fuego. ¡Qué bien!
 Mateo hace fuego. ¡Qué bien!
-Mateo hace fuego. Mateo come. Ya no tiene hambre.
+Mateo hace fuego. Come y ya no tiene hambre.
 Mateo hace fuego. Ya no tiene frío.
 Mateo y Diego hacen fuego. ¡Qué bien!
-Mateo y Diego hacen fuego. Mateo come solo. Diego tiene hambre y está enfadado con Mateo.
-Mateo y Diego hacen fuego. Mateo come. Ya no tiene hambre.
+Mateo y Diego hacen fuego. Come y ya no tiene hambre.
+Mateo y Diego hacen fuego. Comen y ya no tienen hambre.
+Mateo y Diego hacen fuego. Mateo come y no comparte. Diego tiene hambre y está enfadado con Mateo.
 Mateo y Diego hacen fuego. Mateo comparte la comida con Diego. Ya no tienen hambre.
-Mateo y Diego hacen fuego. Mateo y Diego comen. Ya no tienen hambre.
 Mateo y Diego hacen fuego. Mateo ya no tiene frío.
 Mateo y Diego hacen fuego. Ya no tienen frío.
-Mateo y Diego se encuentran junto al fuego. Ya no están perdidos. Mateo y Diego hacen fuego. ¡Qué bien!
-Valeria encuentra a Lucía junto al fuego. ¡Qué alegría! Lucía y Valeria hacen fuego. ¡Qué bien!
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego hacen fuego. ¡Qué bien!
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria hacen fuego. ¡Qué bien!
 
 ## PRESENTE · El fuego · evento comeComida
-Lucía hace fuego. Lucía come. Ya no tiene hambre.
-Lucía y Mateo hacen fuego. Lucía come. Ya no tiene hambre.
-Lucía y Valeria hacen fuego. Lucía come. Ya no tiene hambre.
-Mateo hace fuego. Mateo come. Ya no tiene hambre.
-Mateo y Diego hacen fuego. Mateo come. Ya no tiene hambre.
+Lucía hace fuego. Come y ya no tiene hambre.
+Lucía y Mateo hacen fuego. Come y ya no tiene hambre.
+Lucía y Valeria hacen fuego. Come y ya no tiene hambre.
+Mateo hace fuego. Come y ya no tiene hambre.
+Mateo y Diego hacen fuego. Come y ya no tiene hambre.
 
 ## PRESENTE · El fuego · evento encuentra
-Diego encuentra a Mateo junto al fuego. ¡Qué alegría! Mateo y Diego hacen fuego. ¡Qué bien!
-Mateo encuentra a Lucía junto al fuego. ¡Qué alegría! Lucía y Mateo hacen fuego. ¡Qué bien!
-Valeria encuentra a Lucía junto al fuego. ¡Qué alegría! Lucía y Valeria hacen fuego. ¡Qué bien!
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego hacen fuego. ¡Qué bien!
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo hacen fuego. ¡Qué bien!
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria hacen fuego. ¡Qué bien!
 
 ## PRESENTE · El fuego · evento seEncuentran
-Lucía y Mateo se encuentran junto al fuego. Ya no están perdidos. Lucía y Mateo hacen fuego. ¡Qué bien!
-Lucía y Valeria se encuentran junto al fuego. Ya no están perdidas. Lucía y Valeria hacen fuego. ¡Qué bien!
-Mateo y Diego se encuentran junto al fuego. Ya no están perdidos. Mateo y Diego hacen fuego. ¡Qué bien!
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo hacen fuego. ¡Qué bien!
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria hacen fuego. ¡Qué bien!
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego hacen fuego. ¡Qué bien!
 
 ## PRESENTE · El fuego · evento comparte
 Lucía y Mateo hacen fuego. Lucía comparte la comida con Mateo. Ya no tienen hambre.
@@ -323,118 +323,118 @@ Lucía y Valeria hacen fuego. Lucía comparte la comida con Valeria. Ya no tiene
 Mateo y Diego hacen fuego. Mateo comparte la comida con Diego. Ya no tienen hambre.
 
 ## PRESENTE · El fuego · evento comeSolo
-Lucía y Mateo hacen fuego. Lucía come sola. Mateo tiene hambre y está enfadado con Lucía.
-Lucía y Valeria hacen fuego. Lucía come sola. Valeria tiene hambre y está enfadada con Lucía.
-Mateo y Diego hacen fuego. Mateo come solo. Diego tiene hambre y está enfadado con Mateo.
+Lucía y Mateo hacen fuego. Lucía come y no comparte. Mateo tiene hambre y está enfadado con Lucía.
+Lucía y Valeria hacen fuego. Lucía come y no comparte. Valeria tiene hambre y está enfadada con Lucía.
+Mateo y Diego hacen fuego. Mateo come y no comparte. Diego tiene hambre y está enfadado con Mateo.
 
 ## PRESENTE · El fuego · evento comen
-Lucía y Mateo hacen fuego. Lucía y Mateo comen. Ya no tienen hambre.
-Lucía y Valeria hacen fuego. Lucía y Valeria comen. Ya no tienen hambre.
-Mateo y Diego hacen fuego. Mateo y Diego comen. Ya no tienen hambre.
+Lucía y Mateo hacen fuego. Comen y ya no tienen hambre.
+Lucía y Valeria hacen fuego. Comen y ya no tienen hambre.
+Mateo y Diego hacen fuego. Comen y ya no tienen hambre.
 
 ## PRESENTE · El refugio · evento descansa
-Diego encuentra a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansan en el refugio. Están tranquilos.
-Diego encuentra a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansan en el refugio. Mateo pide perdón a Diego. Diego ya no está enfadado.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego descansan en el refugio. Están tranquilos.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego descansan en el refugio. Mateo pide perdón a Diego. Diego ya no está enfadado.
 Lucía descansa en el refugio. Está tranquila.
 Lucía descansa en el refugio. Ya no está cansada.
 Lucía y Mateo descansan en el refugio. Están tranquilos.
 Lucía y Mateo descansan en el refugio. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
-Lucía y Mateo descansan en el refugio. Lucía y Mateo se curan. Ya no están heridos.
 Lucía y Mateo descansan en el refugio. Lucía ya no está cansada.
-Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Ya no está herida.
-Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Ya no está herida. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
+Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Lucía ya no está herida.
+Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Lucía ya no está herida. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
+Lucía y Mateo descansan en el refugio. Se curan. Ya no están heridos.
 Lucía y Mateo descansan en el refugio. Ya no están cansados.
-Lucía y Mateo se encuentran en el refugio. Ya no están perdidos. Lucía y Mateo descansan en el refugio. Están tranquilos.
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo descansan en el refugio. Están tranquilos.
 Lucía y Valeria descansan en el refugio. Están tranquilas.
 Lucía y Valeria descansan en el refugio. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
-Lucía y Valeria descansan en el refugio. Lucía y Valeria se curan. Ya no están heridas.
 Lucía y Valeria descansan en el refugio. Lucía ya no está cansada.
-Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Ya no está herida.
-Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Ya no está herida. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
+Lucía y Valeria descansan en el refugio. Se curan. Ya no están heridas.
+Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Lucía ya no está herida.
+Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Lucía ya no está herida. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
 Lucía y Valeria descansan en el refugio. Ya no están cansadas.
-Lucía y Valeria se encuentran en el refugio. Ya no están perdidas. Lucía y Valeria descansan en el refugio. Están tranquilas.
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria descansan en el refugio. Están tranquilas.
 Mateo descansa en el refugio. Está tranquilo.
 Mateo descansa en el refugio. Ya no está cansado.
-Mateo encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Están tranquilos.
-Mateo encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
-Mateo y Diego descansan en el refugio. Diego cura a Mateo. Ya no está herido.
-Mateo y Diego descansan en el refugio. Diego cura a Mateo. Ya no está herido. Mateo pide perdón a Diego. Diego ya no está enfadado.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Están tranquilos.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
+Mateo y Diego descansan en el refugio. Diego cura a Mateo. Mateo ya no está herido.
+Mateo y Diego descansan en el refugio. Diego cura a Mateo. Mateo ya no está herido. Mateo pide perdón a Diego. Diego ya no está enfadado.
 Mateo y Diego descansan en el refugio. Están tranquilos.
 Mateo y Diego descansan en el refugio. Mateo pide perdón a Diego. Diego ya no está enfadado.
-Mateo y Diego descansan en el refugio. Mateo y Diego se curan. Ya no están heridos.
 Mateo y Diego descansan en el refugio. Mateo ya no está cansado.
+Mateo y Diego descansan en el refugio. Se curan. Ya no están heridos.
 Mateo y Diego descansan en el refugio. Ya no están cansados.
-Mateo y Diego se encuentran en el refugio. Ya no están perdidos. Mateo y Diego descansan en el refugio. Están tranquilos.
-Valeria encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Están tranquilas.
-Valeria encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego descansan en el refugio. Están tranquilos.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Están tranquilas.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
 
 ## PRESENTE · El refugio · evento perdon
-Diego encuentra a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansan en el refugio. Mateo pide perdón a Diego. Diego ya no está enfadado.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego descansan en el refugio. Mateo pide perdón a Diego. Diego ya no está enfadado.
 Lucía y Mateo descansan en el refugio. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
-Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Ya no está herida. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
+Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Lucía ya no está herida. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
 Lucía y Valeria descansan en el refugio. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
-Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Ya no está herida. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
-Mateo encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
-Mateo y Diego descansan en el refugio. Diego cura a Mateo. Ya no está herido. Mateo pide perdón a Diego. Diego ya no está enfadado.
+Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Lucía ya no está herida. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
+Mateo y Diego descansan en el refugio. Diego cura a Mateo. Mateo ya no está herido. Mateo pide perdón a Diego. Diego ya no está enfadado.
 Mateo y Diego descansan en el refugio. Mateo pide perdón a Diego. Diego ya no está enfadado.
-Valeria encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
 
 ## PRESENTE · El refugio · evento encuentra
-Diego encuentra a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansan en el refugio. Están tranquilos.
-Diego encuentra a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansan en el refugio. Mateo pide perdón a Diego. Diego ya no está enfadado.
-Mateo encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Están tranquilos.
-Mateo encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
-Valeria encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Están tranquilas.
-Valeria encuentra a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego descansan en el refugio. Están tranquilos.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego descansan en el refugio. Mateo pide perdón a Diego. Diego ya no está enfadado.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Están tranquilos.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo descansan en el refugio. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Están tranquilas.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria descansan en el refugio. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
 
 ## PRESENTE · El refugio · evento seEncuentran
-Lucía y Mateo se encuentran en el refugio. Ya no están perdidos. Lucía y Mateo descansan en el refugio. Están tranquilos.
-Lucía y Valeria se encuentran en el refugio. Ya no están perdidas. Lucía y Valeria descansan en el refugio. Están tranquilas.
-Mateo y Diego se encuentran en el refugio. Ya no están perdidos. Mateo y Diego descansan en el refugio. Están tranquilos.
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo descansan en el refugio. Están tranquilos.
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria descansan en el refugio. Están tranquilas.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego descansan en el refugio. Están tranquilos.
 
 ## PRESENTE · El refugio · evento seCuran
-Lucía y Mateo descansan en el refugio. Lucía y Mateo se curan. Ya no están heridos.
-Lucía y Valeria descansan en el refugio. Lucía y Valeria se curan. Ya no están heridas.
-Mateo y Diego descansan en el refugio. Mateo y Diego se curan. Ya no están heridos.
+Lucía y Mateo descansan en el refugio. Se curan. Ya no están heridos.
+Lucía y Valeria descansan en el refugio. Se curan. Ya no están heridas.
+Mateo y Diego descansan en el refugio. Se curan. Ya no están heridos.
 
 ## PRESENTE · El refugio · evento cura
-Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Ya no está herida.
-Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Ya no está herida. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
-Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Ya no está herida.
-Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Ya no está herida. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
-Mateo y Diego descansan en el refugio. Diego cura a Mateo. Ya no está herido.
-Mateo y Diego descansan en el refugio. Diego cura a Mateo. Ya no está herido. Mateo pide perdón a Diego. Diego ya no está enfadado.
+Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Lucía ya no está herida.
+Lucía y Mateo descansan en el refugio. Mateo cura a Lucía. Lucía ya no está herida. Lucía pide perdón a Mateo. Mateo ya no está enfadado.
+Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Lucía ya no está herida.
+Lucía y Valeria descansan en el refugio. Valeria cura a Lucía. Lucía ya no está herida. Lucía pide perdón a Valeria. Valeria ya no está enfadada.
+Mateo y Diego descansan en el refugio. Diego cura a Mateo. Mateo ya no está herido.
+Mateo y Diego descansan en el refugio. Diego cura a Mateo. Mateo ya no está herido. Mateo pide perdón a Diego. Diego ya no está enfadado.
 
 ## PRESENTE · La montaña · evento montana
-Diego encuentra a Mateo en la montaña. ¡Qué alegría! Mateo y Diego suben la montaña. Están cansados y tienen hambre.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego suben la montaña. Están cansados y tienen hambre.
 Lucía sube la montaña. Está cansada y tiene hambre.
 Lucía sube la montaña. Está cansada y tiene hambre. Desde arriba ve el río. ¡Ya no está perdida!
-Lucía y Mateo se encuentran en la montaña. Ya no están perdidos. Lucía y Mateo suben la montaña. Están cansados y tienen hambre.
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo suben la montaña. Están cansados y tienen hambre.
 Lucía y Mateo suben la montaña. Están cansados y tienen hambre.
-Lucía y Valeria se encuentran en la montaña. Ya no están perdidas. Lucía y Valeria suben la montaña. Están cansadas y tienen hambre.
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria suben la montaña. Están cansadas y tienen hambre.
 Lucía y Valeria suben la montaña. Están cansadas y tienen hambre.
-Mateo encuentra a Lucía en la montaña. ¡Qué alegría! Lucía y Mateo suben la montaña. Están cansados y tienen hambre.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo suben la montaña. Están cansados y tienen hambre.
 Mateo sube la montaña. Está cansado y tiene hambre.
 Mateo sube la montaña. Está cansado y tiene hambre. Desde arriba ve el río. ¡Ya no está perdido!
-Mateo y Diego se encuentran en la montaña. Ya no están perdidos. Mateo y Diego suben la montaña. Están cansados y tienen hambre.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego suben la montaña. Están cansados y tienen hambre.
 Mateo y Diego suben la montaña. Están cansados y tienen hambre.
-Valeria encuentra a Lucía en la montaña. ¡Qué alegría! Lucía y Valeria suben la montaña. Están cansadas y tienen hambre.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria suben la montaña. Están cansadas y tienen hambre.
 
 ## PRESENTE · La montaña · evento encuentra
-Diego encuentra a Mateo en la montaña. ¡Qué alegría! Mateo y Diego suben la montaña. Están cansados y tienen hambre.
-Mateo encuentra a Lucía en la montaña. ¡Qué alegría! Lucía y Mateo suben la montaña. Están cansados y tienen hambre.
-Valeria encuentra a Lucía en la montaña. ¡Qué alegría! Lucía y Valeria suben la montaña. Están cansadas y tienen hambre.
+Diego encuentra a Mateo. ¡Qué alegría! Mateo y Diego suben la montaña. Están cansados y tienen hambre.
+Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo suben la montaña. Están cansados y tienen hambre.
+Valeria encuentra a Lucía. ¡Qué alegría! Lucía y Valeria suben la montaña. Están cansadas y tienen hambre.
 
 ## PRESENTE · La montaña · evento seEncuentran
-Lucía y Mateo se encuentran en la montaña. Ya no están perdidos. Lucía y Mateo suben la montaña. Están cansados y tienen hambre.
-Lucía y Valeria se encuentran en la montaña. Ya no están perdidas. Lucía y Valeria suben la montaña. Están cansadas y tienen hambre.
-Mateo y Diego se encuentran en la montaña. Ya no están perdidos. Mateo y Diego suben la montaña. Están cansados y tienen hambre.
+Lucía y Mateo se encuentran. Ya no están perdidos. Lucía y Mateo suben la montaña. Están cansados y tienen hambre.
+Lucía y Valeria se encuentran. Ya no están perdidas. Lucía y Valeria suben la montaña. Están cansadas y tienen hambre.
+Mateo y Diego se encuentran. Ya no están perdidos. Mateo y Diego suben la montaña. Están cansados y tienen hambre.
 
 ## PRESENTE · El mapa · evento mapa
 Lucía encuentra el mapa. ¡Ya no está perdida!
-Lucía encuentra un mapa. Lo guarda en la mochila.
+Lucía encuentra un mapa. Lo guarda.
 Mateo encuentra el mapa. ¡Ya no está perdido!
-Mateo encuentra un mapa. Lo guarda en la mochila.
+Mateo encuentra un mapa. Lo guarda.
 
 ## PRESENTE · La mochila · evento mochila
 Lucía encuentra una mochila con comida. ¡Qué suerte!
@@ -472,8 +472,8 @@ Mateo y Diego se encuentran. Ya no están perdidos. ¡El helicóptero! Mateo y D
 Valeria encuentra a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Valeria están a salvo.
 
 ## PRESENTE · El rescate · evento rescateNoVe
-El helicóptero no ve a Lucía. Sigue perdida.
-El helicóptero no ve a Mateo. Sigue perdido.
+El helicóptero no ve a Lucía. Lucía todavía está perdida.
+El helicóptero no ve a Mateo. Mateo todavía está perdido.
 
 ## PRESENTE · El rescate · evento encuentra
 Diego encuentra a Mateo. ¡Qué alegría! ¡El helicóptero! Mateo y Diego están a salvo.
@@ -486,20 +486,20 @@ Lucía y Valeria se encuentran. Ya no están perdidas. ¡El helicóptero! Lucía
 Mateo y Diego se encuentran. Ya no están perdidos. ¡El helicóptero! Mateo y Diego están a salvo.
 
 ## PRESENTE · incoherencia
-Pero Lucía ya está a salvo…
+¡Pero Lucía ya está a salvo! No puede estar aquí.
 
 ## PRETÉRITO · La selva · evento pierde
 Lucía caminó sola por la selva y se perdió.
 Mateo caminó solo por la selva y se perdió.
 
 ## PRETÉRITO · La selva · evento noPierde
-Lucía caminó por la selva. Tuvo el mapa y no se perdió.
-Mateo caminó por la selva. Tuvo el mapa y no se perdió.
+Lucía caminó por la selva. Tenía el mapa y no se perdió.
+Mateo caminó por la selva. Tenía el mapa y no se perdió.
 
 ## PRETÉRITO · La selva · evento caminanJuntos
-Lucía y Mateo caminaron juntos por la selva. Tuvieron hambre y estuvieron cansados.
-Lucía y Valeria caminaron juntas por la selva. Tuvieron hambre y estuvieron cansadas.
-Mateo y Diego caminaron juntos por la selva. Tuvieron hambre y estuvieron cansados.
+Lucía y Mateo caminaron juntos por la selva. Tenían hambre y estaban cansados.
+Lucía y Valeria caminaron juntas por la selva. Tenían hambre y estaban cansadas.
+Mateo y Diego caminaron juntos por la selva. Tenían hambre y estaban cansados.
 
 ## PRETÉRITO · La selva · evento encuentra
 Diego encontró a Mateo en la selva. ¡Qué alegría!
@@ -507,56 +507,56 @@ Mateo encontró a Lucía en la selva. ¡Qué alegría!
 Valeria encontró a Lucía en la selva. ¡Qué alegría!
 
 ## PRETÉRITO · La selva · evento seEncuentran
-Lucía y Mateo se encontraron en la selva. Ya no estuvieron perdidos.
-Lucía y Valeria se encontraron en la selva. Ya no estuvieron perdidas.
-Mateo y Diego se encontraron en la selva. Ya no estuvieron perdidos.
+Lucía y Mateo se encontraron en la selva. Ya no estaban perdidos.
+Lucía y Valeria se encontraron en la selva. Ya no estaban perdidas.
+Mateo y Diego se encontraron en la selva. Ya no estaban perdidos.
 
 ## PRETÉRITO · El río · evento bebe
-Diego encontró a Mateo en el río. ¡Qué alegría! Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
 Lucía bebió agua del río. Cruzó el río con la cuerda. No se mojó.
-Lucía bebió agua del río. Cruzó el río y se mojó. Tuvo frío.
-Lucía bebió agua del río. Ya no tuvo sed. Cruzó el río y se mojó. Tuvo frío.
+Lucía bebió agua del río. Cruzó el río y se mojó. Tenía frío.
+Lucía bebió agua del río. Ya no tenía sed. Cruzó el río y se mojó. Tenía frío.
 Lucía y Mateo bebieron agua del río. Cruzaron el río con la cuerda. No se mojaron.
-Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Mateo bebieron agua del río. Lucía ya no tuvo sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Mateo bebieron agua del río. Ya no tuvieron sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Mateo se encontraron en el río. Ya no estuvieron perdidos. Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
+Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Mateo bebieron agua del río. Lucía ya no tenía sed. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Mateo bebieron agua del río. Ya no tenían sed. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
 Lucía y Valeria bebieron agua del río. Cruzaron el río con la cuerda. No se mojaron.
-Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Valeria bebieron agua del río. Lucía ya no tuvo sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Valeria bebieron agua del río. Ya no tuvieron sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Valeria se encontraron en el río. Ya no estuvieron perdidas. Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
+Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Valeria bebieron agua del río. Lucía ya no tenía sed. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Valeria bebieron agua del río. Ya no tenían sed. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
 Mateo bebió agua del río. Cruzó el río con la cuerda. No se mojó.
-Mateo bebió agua del río. Cruzó el río y se mojó. Tuvo frío.
-Mateo bebió agua del río. Ya no tuvo sed. Cruzó el río y se mojó. Tuvo frío.
-Mateo encontró a Lucía en el río. ¡Qué alegría! Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
+Mateo bebió agua del río. Cruzó el río y se mojó. Tenía frío.
+Mateo bebió agua del río. Ya no tenía sed. Cruzó el río y se mojó. Tenía frío.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
 Mateo y Diego bebieron agua del río. Cruzaron el río con la cuerda. No se mojaron.
-Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo y Diego bebieron agua del río. Mateo ya no tuvo sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo y Diego bebieron agua del río. Ya no tuvieron sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo y Diego se encontraron en el río. Ya no estuvieron perdidos. Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Valeria encontró a Lucía en el río. ¡Qué alegría! Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
+Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Mateo y Diego bebieron agua del río. Mateo ya no tenía sed. Cruzaron el río y se mojaron. Tenían frío.
+Mateo y Diego bebieron agua del río. Ya no tenían sed. Cruzaron el río y se mojaron. Tenían frío.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
 
 ## PRETÉRITO · El río · evento cruzaMojado
-Diego encontró a Mateo en el río. ¡Qué alegría! Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía bebió agua del río. Cruzó el río y se mojó. Tuvo frío.
-Lucía bebió agua del río. Ya no tuvo sed. Cruzó el río y se mojó. Tuvo frío.
-Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Mateo bebieron agua del río. Lucía ya no tuvo sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Mateo bebieron agua del río. Ya no tuvieron sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Mateo se encontraron en el río. Ya no estuvieron perdidos. Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Valeria bebieron agua del río. Lucía ya no tuvo sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Valeria bebieron agua del río. Ya no tuvieron sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Valeria se encontraron en el río. Ya no estuvieron perdidas. Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo bebió agua del río. Cruzó el río y se mojó. Tuvo frío.
-Mateo bebió agua del río. Ya no tuvo sed. Cruzó el río y se mojó. Tuvo frío.
-Mateo encontró a Lucía en el río. ¡Qué alegría! Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo y Diego bebieron agua del río. Mateo ya no tuvo sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo y Diego bebieron agua del río. Ya no tuvieron sed. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo y Diego se encontraron en el río. Ya no estuvieron perdidos. Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Valeria encontró a Lucía en el río. ¡Qué alegría! Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Lucía bebió agua del río. Cruzó el río y se mojó. Tenía frío.
+Lucía bebió agua del río. Ya no tenía sed. Cruzó el río y se mojó. Tenía frío.
+Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Mateo bebieron agua del río. Lucía ya no tenía sed. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Mateo bebieron agua del río. Ya no tenían sed. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Valeria bebieron agua del río. Lucía ya no tenía sed. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Valeria bebieron agua del río. Ya no tenían sed. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Mateo bebió agua del río. Cruzó el río y se mojó. Tenía frío.
+Mateo bebió agua del río. Ya no tenía sed. Cruzó el río y se mojó. Tenía frío.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Mateo y Diego bebieron agua del río. Mateo ya no tenía sed. Cruzaron el río y se mojaron. Tenían frío.
+Mateo y Diego bebieron agua del río. Ya no tenían sed. Cruzaron el río y se mojaron. Tenían frío.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
 
 ## PRETÉRITO · El río · evento cruzaCuerda
 Lucía bebió agua del río. Cruzó el río con la cuerda. No se mojó.
@@ -566,116 +566,116 @@ Mateo bebió agua del río. Cruzó el río con la cuerda. No se mojó.
 Mateo y Diego bebieron agua del río. Cruzaron el río con la cuerda. No se mojaron.
 
 ## PRETÉRITO · El río · evento encuentra
-Diego encontró a Mateo en el río. ¡Qué alegría! Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo encontró a Lucía en el río. ¡Qué alegría! Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Valeria encontró a Lucía en el río. ¡Qué alegría! Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
 
 ## PRETÉRITO · El río · evento seEncuentran
-Lucía y Mateo se encontraron en el río. Ya no estuvieron perdidos. Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Lucía y Valeria se encontraron en el río. Ya no estuvieron perdidas. Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
-Mateo y Diego se encontraron en el río. Ya no estuvieron perdidos. Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tuvieron frío.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego bebieron agua del río. Cruzaron el río y se mojaron. Tenían frío.
 
 ## PRETÉRITO · El sol · evento calor
-Diego encontró a Mateo. ¡Qué alegría! Hacía mucho calor. Mateo y Diego tuvieron sed.
-Hacía mucho calor. Lucía tuvo sed.
-Hacía mucho calor. Lucía y Mateo tuvieron sed.
-Hacía mucho calor. Lucía y Valeria tuvieron sed.
-Hacía mucho calor. Mateo tuvo sed.
-Hacía mucho calor. Mateo y Diego tuvieron sed.
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. Hacía mucho calor. Lucía y Mateo tuvieron sed.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. Hacía mucho calor. Lucía y Valeria tuvieron sed.
-Mateo encontró a Lucía. ¡Qué alegría! Hacía mucho calor. Lucía y Mateo tuvieron sed.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. Hacía mucho calor. Mateo y Diego tuvieron sed.
-Valeria encontró a Lucía. ¡Qué alegría! Hacía mucho calor. Lucía y Valeria tuvieron sed.
+Hacía mucho calor. Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego tenían sed.
+Hacía mucho calor. Lucía tenía sed.
+Hacía mucho calor. Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo tenían sed.
+Hacía mucho calor. Lucía y Mateo tenían sed.
+Hacía mucho calor. Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria tenían sed.
+Hacía mucho calor. Lucía y Valeria tenían sed.
+Hacía mucho calor. Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo tenían sed.
+Hacía mucho calor. Mateo tenía sed.
+Hacía mucho calor. Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego tenían sed.
+Hacía mucho calor. Mateo y Diego tenían sed.
+Hacía mucho calor. Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria tenían sed.
 
 ## PRETÉRITO · El sol · evento encuentra
-Diego encontró a Mateo. ¡Qué alegría! Hacía mucho calor. Mateo y Diego tuvieron sed.
-Mateo encontró a Lucía. ¡Qué alegría! Hacía mucho calor. Lucía y Mateo tuvieron sed.
-Valeria encontró a Lucía. ¡Qué alegría! Hacía mucho calor. Lucía y Valeria tuvieron sed.
+Hacía mucho calor. Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego tenían sed.
+Hacía mucho calor. Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo tenían sed.
+Hacía mucho calor. Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria tenían sed.
 
 ## PRETÉRITO · El sol · evento seEncuentran
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. Hacía mucho calor. Lucía y Mateo tuvieron sed.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. Hacía mucho calor. Lucía y Valeria tuvieron sed.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. Hacía mucho calor. Mateo y Diego tuvieron sed.
+Hacía mucho calor. Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo tenían sed.
+Hacía mucho calor. Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria tenían sed.
+Hacía mucho calor. Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego tenían sed.
 
 ## PRETÉRITO · La tormenta · evento tormenta
-Diego encontró a Mateo. ¡Qué alegría! Llovía mucho. Mateo y Diego tuvieron frío.
-Llovía mucho. Lucía se tapó con la manta, pero estuvo sola y tuvo miedo.
-Llovía mucho. Lucía tuvo frío y miedo.
-Llovía mucho. Lucía y Mateo se taparon con la manta. No tuvieron frío.
-Llovía mucho. Lucía y Mateo tuvieron frío.
-Llovía mucho. Lucía y Valeria se taparon con la manta. No tuvieron frío.
-Llovía mucho. Lucía y Valeria tuvieron frío.
-Llovía mucho. Mateo se tapó con la manta, pero estuvo solo y tuvo miedo.
-Llovía mucho. Mateo tuvo frío y miedo.
-Llovía mucho. Mateo y Diego se taparon con la manta. No tuvieron frío.
-Llovía mucho. Mateo y Diego tuvieron frío.
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. Llovía mucho. Lucía y Mateo tuvieron frío.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. Llovía mucho. Lucía y Valeria tuvieron frío.
-Mateo encontró a Lucía. ¡Qué alegría! Llovía mucho. Lucía y Mateo tuvieron frío.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. Llovía mucho. Mateo y Diego tuvieron frío.
-Valeria encontró a Lucía. ¡Qué alegría! Llovía mucho. Lucía y Valeria tuvieron frío.
+Llovía mucho. Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego tenían frío.
+Llovía mucho. Lucía se tapó con la manta y no tenía frío. Pero estaba sola y tenía miedo.
+Llovía mucho. Lucía tenía frío y miedo.
+Llovía mucho. Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo tenían frío.
+Llovía mucho. Lucía y Mateo se taparon con la manta. No tenían frío.
+Llovía mucho. Lucía y Mateo tenían frío.
+Llovía mucho. Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria tenían frío.
+Llovía mucho. Lucía y Valeria se taparon con la manta. No tenían frío.
+Llovía mucho. Lucía y Valeria tenían frío.
+Llovía mucho. Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo tenían frío.
+Llovía mucho. Mateo se tapó con la manta y no tenía frío. Pero estaba solo y tenía miedo.
+Llovía mucho. Mateo tenía frío y miedo.
+Llovía mucho. Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego tenían frío.
+Llovía mucho. Mateo y Diego se taparon con la manta. No tenían frío.
+Llovía mucho. Mateo y Diego tenían frío.
+Llovía mucho. Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria tenían frío.
 
 ## PRETÉRITO · La tormenta · evento encuentra
-Diego encontró a Mateo. ¡Qué alegría! Llovía mucho. Mateo y Diego tuvieron frío.
-Mateo encontró a Lucía. ¡Qué alegría! Llovía mucho. Lucía y Mateo tuvieron frío.
-Valeria encontró a Lucía. ¡Qué alegría! Llovía mucho. Lucía y Valeria tuvieron frío.
+Llovía mucho. Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego tenían frío.
+Llovía mucho. Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo tenían frío.
+Llovía mucho. Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria tenían frío.
 
 ## PRETÉRITO · La tormenta · evento seEncuentran
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. Llovía mucho. Lucía y Mateo tuvieron frío.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. Llovía mucho. Lucía y Valeria tuvieron frío.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. Llovía mucho. Mateo y Diego tuvieron frío.
+Llovía mucho. Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo tenían frío.
+Llovía mucho. Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria tenían frío.
+Llovía mucho. Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego tenían frío.
 
 ## PRETÉRITO · La noche · evento nocheSolo
-Era de noche. Lucía estuvo sola y tuvo miedo.
-Era de noche. Mateo estuvo solo y tuvo miedo.
+Era de noche. Lucía estaba sola y tenía miedo.
+Era de noche. Mateo estaba solo y tenía miedo.
 
 ## PRETÉRITO · La noche · evento nocheLinterna
 Era de noche. Lucía encendió la linterna y durmió tranquila.
 Era de noche. Mateo encendió la linterna y durmió tranquilo.
 
 ## PRETÉRITO · La noche · evento nocheJuntos
-Diego encontró a Mateo de noche. ¡Qué alegría! Era de noche. Mateo y Diego durmieron juntos. No tuvieron miedo.
-Era de noche. Lucía y Mateo durmieron juntos. Lucía ya no estuvo cansada.
-Era de noche. Lucía y Mateo durmieron juntos. No tuvieron miedo.
-Era de noche. Lucía y Mateo durmieron juntos. Ya no estuvieron cansados.
-Era de noche. Lucía y Valeria durmieron juntas. Lucía ya no estuvo cansada.
-Era de noche. Lucía y Valeria durmieron juntas. No tuvieron miedo.
-Era de noche. Lucía y Valeria durmieron juntas. Ya no estuvieron cansadas.
-Era de noche. Mateo y Diego durmieron juntos. Mateo ya no estuvo cansado.
-Era de noche. Mateo y Diego durmieron juntos. No tuvieron miedo.
-Era de noche. Mateo y Diego durmieron juntos. Ya no estuvieron cansados.
-Lucía y Mateo se encontraron de noche. Ya no estuvieron perdidos. Era de noche. Lucía y Mateo durmieron juntos. No tuvieron miedo.
-Lucía y Valeria se encontraron de noche. Ya no estuvieron perdidas. Era de noche. Lucía y Valeria durmieron juntas. No tuvieron miedo.
-Mateo encontró a Lucía de noche. ¡Qué alegría! Era de noche. Lucía y Mateo durmieron juntos. No tuvieron miedo.
-Mateo y Diego se encontraron de noche. Ya no estuvieron perdidos. Era de noche. Mateo y Diego durmieron juntos. No tuvieron miedo.
-Valeria encontró a Lucía de noche. ¡Qué alegría! Era de noche. Lucía y Valeria durmieron juntas. No tuvieron miedo.
+Era de noche. Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego estaban juntos y durmieron bien. No tenían miedo.
+Era de noche. Lucía y Mateo estaban juntos y durmieron bien. Lucía ya no estaba cansada.
+Era de noche. Lucía y Mateo estaban juntos y durmieron bien. No tenían miedo.
+Era de noche. Lucía y Mateo estaban juntos y durmieron bien. Ya no estaban cansados.
+Era de noche. Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo estaban juntos y durmieron bien. No tenían miedo.
+Era de noche. Lucía y Valeria estaban juntas y durmieron bien. Lucía ya no estaba cansada.
+Era de noche. Lucía y Valeria estaban juntas y durmieron bien. No tenían miedo.
+Era de noche. Lucía y Valeria estaban juntas y durmieron bien. Ya no estaban cansadas.
+Era de noche. Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria estaban juntas y durmieron bien. No tenían miedo.
+Era de noche. Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo estaban juntos y durmieron bien. No tenían miedo.
+Era de noche. Mateo y Diego estaban juntos y durmieron bien. Mateo ya no estaba cansado.
+Era de noche. Mateo y Diego estaban juntos y durmieron bien. No tenían miedo.
+Era de noche. Mateo y Diego estaban juntos y durmieron bien. Ya no estaban cansados.
+Era de noche. Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego estaban juntos y durmieron bien. No tenían miedo.
+Era de noche. Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria estaban juntas y durmieron bien. No tenían miedo.
 
 ## PRETÉRITO · La noche · evento encuentra
-Diego encontró a Mateo de noche. ¡Qué alegría! Era de noche. Mateo y Diego durmieron juntos. No tuvieron miedo.
-Mateo encontró a Lucía de noche. ¡Qué alegría! Era de noche. Lucía y Mateo durmieron juntos. No tuvieron miedo.
-Valeria encontró a Lucía de noche. ¡Qué alegría! Era de noche. Lucía y Valeria durmieron juntas. No tuvieron miedo.
+Era de noche. Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego estaban juntos y durmieron bien. No tenían miedo.
+Era de noche. Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo estaban juntos y durmieron bien. No tenían miedo.
+Era de noche. Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria estaban juntas y durmieron bien. No tenían miedo.
 
 ## PRETÉRITO · La noche · evento seEncuentran
-Lucía y Mateo se encontraron de noche. Ya no estuvieron perdidos. Era de noche. Lucía y Mateo durmieron juntos. No tuvieron miedo.
-Lucía y Valeria se encontraron de noche. Ya no estuvieron perdidas. Era de noche. Lucía y Valeria durmieron juntas. No tuvieron miedo.
-Mateo y Diego se encontraron de noche. Ya no estuvieron perdidos. Era de noche. Mateo y Diego durmieron juntos. No tuvieron miedo.
+Era de noche. Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo estaban juntos y durmieron bien. No tenían miedo.
+Era de noche. Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria estaban juntas y durmieron bien. No tenían miedo.
+Era de noche. Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego estaban juntos y durmieron bien. No tenían miedo.
 
 ## PRETÉRITO · El jaguar · evento jaguarSolo
-¡Un jaguar! Lucía tuvo miedo y corrió. Con el mapa, no se perdió.
-¡Un jaguar! Lucía tuvo miedo y corrió. Se perdió.
-¡Un jaguar! Mateo tuvo miedo y corrió. Con el mapa, no se perdió.
-¡Un jaguar! Mateo tuvo miedo y corrió. Se perdió.
+¡Un jaguar! Lucía tenía miedo y corrió. Con el mapa, no se perdió.
+¡Un jaguar! Lucía tenía miedo y corrió. Se perdió.
+¡Un jaguar! Mateo tenía miedo y corrió. Con el mapa, no se perdió.
+¡Un jaguar! Mateo tenía miedo y corrió. Se perdió.
 
 ## PRETÉRITO · El jaguar · evento jaguarJuntos
 ¡Un jaguar! Lucía y Mateo gritaron juntos y el jaguar se fue.
 ¡Un jaguar! Lucía y Valeria gritaron juntas y el jaguar se fue.
 ¡Un jaguar! Mateo y Diego gritaron juntos y el jaguar se fue.
 Diego encontró a Mateo. ¡Qué alegría! ¡Un jaguar! Mateo y Diego gritaron juntos y el jaguar se fue.
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. ¡Un jaguar! Lucía y Mateo gritaron juntos y el jaguar se fue.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. ¡Un jaguar! Lucía y Valeria gritaron juntas y el jaguar se fue.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. ¡Un jaguar! Lucía y Mateo gritaron juntos y el jaguar se fue.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. ¡Un jaguar! Lucía y Valeria gritaron juntas y el jaguar se fue.
 Mateo encontró a Lucía. ¡Qué alegría! ¡Un jaguar! Lucía y Mateo gritaron juntos y el jaguar se fue.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. ¡Un jaguar! Mateo y Diego gritaron juntos y el jaguar se fue.
+Mateo y Diego se encontraron. Ya no estaban perdidos. ¡Un jaguar! Mateo y Diego gritaron juntos y el jaguar se fue.
 Valeria encontró a Lucía. ¡Qué alegría! ¡Un jaguar! Lucía y Valeria gritaron juntas y el jaguar se fue.
 
 ## PRETÉRITO · El jaguar · evento encuentra
@@ -684,251 +684,251 @@ Mateo encontró a Lucía. ¡Qué alegría! ¡Un jaguar! Lucía y Mateo gritaron 
 Valeria encontró a Lucía. ¡Qué alegría! ¡Un jaguar! Lucía y Valeria gritaron juntas y el jaguar se fue.
 
 ## PRETÉRITO · El jaguar · evento seEncuentran
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. ¡Un jaguar! Lucía y Mateo gritaron juntos y el jaguar se fue.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. ¡Un jaguar! Lucía y Valeria gritaron juntas y el jaguar se fue.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. ¡Un jaguar! Mateo y Diego gritaron juntos y el jaguar se fue.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. ¡Un jaguar! Lucía y Mateo gritaron juntos y el jaguar se fue.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. ¡Un jaguar! Lucía y Valeria gritaron juntas y el jaguar se fue.
+Mateo y Diego se encontraron. Ya no estaban perdidos. ¡Un jaguar! Mateo y Diego gritaron juntos y el jaguar se fue.
 
 ## PRETÉRITO · La serpiente · evento serpienteMuerde
-¡Ay! Una serpiente mordió a Lucía. Estuvo herida.
-¡Ay! Una serpiente mordió a Mateo. Estuvo herido.
+¡Ay! Una serpiente mordió a Lucía. Estaba herida.
+¡Ay! Una serpiente mordió a Mateo. Estaba herido.
 
 ## PRETÉRITO · La serpiente · evento serpienteAvisa
-Diego encontró a Mateo. ¡Qué alegría! Mateo vio una serpiente y avisó a Diego. ¡Cuidado! Nadie estuvo herido.
-Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! Nadie estuvo herido.
-Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! Nadie estuvo herido.
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! Nadie estuvo herido.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! Nadie estuvo herido.
-Mateo encontró a Lucía. ¡Qué alegría! Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! Nadie estuvo herido.
-Mateo vio una serpiente y avisó a Diego. ¡Cuidado! Nadie estuvo herido.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. Mateo vio una serpiente y avisó a Diego. ¡Cuidado! Nadie estuvo herido.
-Valeria encontró a Lucía. ¡Qué alegría! Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! Nadie estuvo herido.
+Diego encontró a Mateo. ¡Qué alegría! Mateo vio una serpiente y avisó a Diego. ¡Cuidado! La serpiente no mordió a nadie.
+Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! La serpiente no mordió a nadie.
+Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! La serpiente no mordió a nadie.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! La serpiente no mordió a nadie.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! La serpiente no mordió a nadie.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! La serpiente no mordió a nadie.
+Mateo vio una serpiente y avisó a Diego. ¡Cuidado! La serpiente no mordió a nadie.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo vio una serpiente y avisó a Diego. ¡Cuidado! La serpiente no mordió a nadie.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! La serpiente no mordió a nadie.
 
 ## PRETÉRITO · La serpiente · evento encuentra
-Diego encontró a Mateo. ¡Qué alegría! Mateo vio una serpiente y avisó a Diego. ¡Cuidado! Nadie estuvo herido.
-Mateo encontró a Lucía. ¡Qué alegría! Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! Nadie estuvo herido.
-Valeria encontró a Lucía. ¡Qué alegría! Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! Nadie estuvo herido.
+Diego encontró a Mateo. ¡Qué alegría! Mateo vio una serpiente y avisó a Diego. ¡Cuidado! La serpiente no mordió a nadie.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! La serpiente no mordió a nadie.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! La serpiente no mordió a nadie.
 
 ## PRETÉRITO · La serpiente · evento seEncuentran
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! Nadie estuvo herido.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! Nadie estuvo herido.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. Mateo vio una serpiente y avisó a Diego. ¡Cuidado! Nadie estuvo herido.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía vio una serpiente y avisó a Mateo. ¡Cuidado! La serpiente no mordió a nadie.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía vio una serpiente y avisó a Valeria. ¡Cuidado! La serpiente no mordió a nadie.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo vio una serpiente y avisó a Diego. ¡Cuidado! La serpiente no mordió a nadie.
 
 ## PRETÉRITO · El árbol de frutas · evento comeFrutas
-Diego encontró a Mateo bajo el árbol. ¡Qué alegría! Mateo y Diego comieron frutas. ¡Qué ricas!
-Diego encontró a Mateo bajo el árbol. ¡Qué alegría! Mateo y Diego comieron frutas. Diego ya no tuvo hambre.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego comieron frutas. ¡Qué ricas!
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego comieron frutas. Diego ya no tenía hambre.
 Lucía comió frutas. ¡Qué ricas!
-Lucía comió frutas. Ya no tuvo hambre.
+Lucía comió frutas. Ya no tenía hambre.
 Lucía y Mateo comieron frutas. ¡Qué ricas!
-Lucía y Mateo comieron frutas. Lucía ya no tuvo hambre.
-Lucía y Mateo comieron frutas. Mateo ya no tuvo hambre.
-Lucía y Mateo comieron frutas. Ya no tuvieron hambre.
-Lucía y Mateo se encontraron bajo el árbol. Ya no estuvieron perdidos. Lucía y Mateo comieron frutas. ¡Qué ricas!
+Lucía y Mateo comieron frutas. Lucía ya no tenía hambre.
+Lucía y Mateo comieron frutas. Mateo ya no tenía hambre.
+Lucía y Mateo comieron frutas. Ya no tenían hambre.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo comieron frutas. ¡Qué ricas!
 Lucía y Valeria comieron frutas. ¡Qué ricas!
-Lucía y Valeria comieron frutas. Lucía ya no tuvo hambre.
-Lucía y Valeria comieron frutas. Valeria ya no tuvo hambre.
-Lucía y Valeria comieron frutas. Ya no tuvieron hambre.
-Lucía y Valeria se encontraron bajo el árbol. Ya no estuvieron perdidas. Lucía y Valeria comieron frutas. ¡Qué ricas!
+Lucía y Valeria comieron frutas. Lucía ya no tenía hambre.
+Lucía y Valeria comieron frutas. Valeria ya no tenía hambre.
+Lucía y Valeria comieron frutas. Ya no tenían hambre.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria comieron frutas. ¡Qué ricas!
 Mateo comió frutas. ¡Qué ricas!
-Mateo comió frutas. Ya no tuvo hambre.
-Mateo encontró a Lucía bajo el árbol. ¡Qué alegría! Lucía y Mateo comieron frutas. ¡Qué ricas!
-Mateo encontró a Lucía bajo el árbol. ¡Qué alegría! Lucía y Mateo comieron frutas. Mateo ya no tuvo hambre.
+Mateo comió frutas. Ya no tenía hambre.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo comieron frutas. ¡Qué ricas!
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo comieron frutas. Mateo ya no tenía hambre.
 Mateo y Diego comieron frutas. ¡Qué ricas!
-Mateo y Diego comieron frutas. Diego ya no tuvo hambre.
-Mateo y Diego comieron frutas. Mateo ya no tuvo hambre.
-Mateo y Diego comieron frutas. Ya no tuvieron hambre.
-Mateo y Diego se encontraron bajo el árbol. Ya no estuvieron perdidos. Mateo y Diego comieron frutas. ¡Qué ricas!
-Valeria encontró a Lucía bajo el árbol. ¡Qué alegría! Lucía y Valeria comieron frutas. ¡Qué ricas!
-Valeria encontró a Lucía bajo el árbol. ¡Qué alegría! Lucía y Valeria comieron frutas. Valeria ya no tuvo hambre.
+Mateo y Diego comieron frutas. Diego ya no tenía hambre.
+Mateo y Diego comieron frutas. Mateo ya no tenía hambre.
+Mateo y Diego comieron frutas. Ya no tenían hambre.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego comieron frutas. ¡Qué ricas!
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria comieron frutas. ¡Qué ricas!
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria comieron frutas. Valeria ya no tenía hambre.
 
 ## PRETÉRITO · El árbol de frutas · evento encuentra
-Diego encontró a Mateo bajo el árbol. ¡Qué alegría! Mateo y Diego comieron frutas. ¡Qué ricas!
-Diego encontró a Mateo bajo el árbol. ¡Qué alegría! Mateo y Diego comieron frutas. Diego ya no tuvo hambre.
-Mateo encontró a Lucía bajo el árbol. ¡Qué alegría! Lucía y Mateo comieron frutas. ¡Qué ricas!
-Mateo encontró a Lucía bajo el árbol. ¡Qué alegría! Lucía y Mateo comieron frutas. Mateo ya no tuvo hambre.
-Valeria encontró a Lucía bajo el árbol. ¡Qué alegría! Lucía y Valeria comieron frutas. ¡Qué ricas!
-Valeria encontró a Lucía bajo el árbol. ¡Qué alegría! Lucía y Valeria comieron frutas. Valeria ya no tuvo hambre.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego comieron frutas. ¡Qué ricas!
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego comieron frutas. Diego ya no tenía hambre.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo comieron frutas. ¡Qué ricas!
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo comieron frutas. Mateo ya no tenía hambre.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria comieron frutas. ¡Qué ricas!
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria comieron frutas. Valeria ya no tenía hambre.
 
 ## PRETÉRITO · El árbol de frutas · evento seEncuentran
-Lucía y Mateo se encontraron bajo el árbol. Ya no estuvieron perdidos. Lucía y Mateo comieron frutas. ¡Qué ricas!
-Lucía y Valeria se encontraron bajo el árbol. Ya no estuvieron perdidas. Lucía y Valeria comieron frutas. ¡Qué ricas!
-Mateo y Diego se encontraron bajo el árbol. Ya no estuvieron perdidos. Mateo y Diego comieron frutas. ¡Qué ricas!
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo comieron frutas. ¡Qué ricas!
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria comieron frutas. ¡Qué ricas!
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego comieron frutas. ¡Qué ricas!
 
 ## PRETÉRITO · El fuego · evento fuego
-Diego encontró a Mateo junto al fuego. ¡Qué alegría! Mateo y Diego hicieron fuego. ¡Qué bien!
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego hicieron fuego. ¡Qué bien!
 Lucía hizo fuego. ¡Qué bien!
-Lucía hizo fuego. Lucía comió. Ya no tuvo hambre.
-Lucía hizo fuego. Ya no tuvo frío.
+Lucía hizo fuego. Comió y ya no tenía hambre.
+Lucía hizo fuego. Ya no tenía frío.
 Lucía y Mateo hicieron fuego. ¡Qué bien!
-Lucía y Mateo hicieron fuego. Lucía comió sola. Mateo tuvo hambre y estuvo enfadado con Lucía.
-Lucía y Mateo hicieron fuego. Lucía comió. Ya no tuvo hambre.
-Lucía y Mateo hicieron fuego. Lucía compartió la comida con Mateo. Ya no tuvieron hambre.
-Lucía y Mateo hicieron fuego. Lucía y Mateo comieron. Ya no tuvieron hambre.
-Lucía y Mateo hicieron fuego. Lucía ya no tuvo frío.
-Lucía y Mateo hicieron fuego. Ya no tuvieron frío.
-Lucía y Mateo se encontraron junto al fuego. Ya no estuvieron perdidos. Lucía y Mateo hicieron fuego. ¡Qué bien!
+Lucía y Mateo hicieron fuego. Comieron y ya no tenían hambre.
+Lucía y Mateo hicieron fuego. Comió y ya no tenía hambre.
+Lucía y Mateo hicieron fuego. Lucía comió y no compartió. Mateo tenía hambre y estaba enfadado con Lucía.
+Lucía y Mateo hicieron fuego. Lucía compartió la comida con Mateo. Ya no tenían hambre.
+Lucía y Mateo hicieron fuego. Lucía ya no tenía frío.
+Lucía y Mateo hicieron fuego. Ya no tenían frío.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo hicieron fuego. ¡Qué bien!
 Lucía y Valeria hicieron fuego. ¡Qué bien!
-Lucía y Valeria hicieron fuego. Lucía comió sola. Valeria tuvo hambre y estuvo enfadada con Lucía.
-Lucía y Valeria hicieron fuego. Lucía comió. Ya no tuvo hambre.
-Lucía y Valeria hicieron fuego. Lucía compartió la comida con Valeria. Ya no tuvieron hambre.
-Lucía y Valeria hicieron fuego. Lucía y Valeria comieron. Ya no tuvieron hambre.
-Lucía y Valeria hicieron fuego. Lucía ya no tuvo frío.
-Lucía y Valeria hicieron fuego. Ya no tuvieron frío.
-Lucía y Valeria se encontraron junto al fuego. Ya no estuvieron perdidas. Lucía y Valeria hicieron fuego. ¡Qué bien!
-Mateo encontró a Lucía junto al fuego. ¡Qué alegría! Lucía y Mateo hicieron fuego. ¡Qué bien!
+Lucía y Valeria hicieron fuego. Comieron y ya no tenían hambre.
+Lucía y Valeria hicieron fuego. Comió y ya no tenía hambre.
+Lucía y Valeria hicieron fuego. Lucía comió y no compartió. Valeria tenía hambre y estaba enfadada con Lucía.
+Lucía y Valeria hicieron fuego. Lucía compartió la comida con Valeria. Ya no tenían hambre.
+Lucía y Valeria hicieron fuego. Lucía ya no tenía frío.
+Lucía y Valeria hicieron fuego. Ya no tenían frío.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria hicieron fuego. ¡Qué bien!
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo hicieron fuego. ¡Qué bien!
 Mateo hizo fuego. ¡Qué bien!
-Mateo hizo fuego. Mateo comió. Ya no tuvo hambre.
-Mateo hizo fuego. Ya no tuvo frío.
+Mateo hizo fuego. Comió y ya no tenía hambre.
+Mateo hizo fuego. Ya no tenía frío.
 Mateo y Diego hicieron fuego. ¡Qué bien!
-Mateo y Diego hicieron fuego. Mateo comió solo. Diego tuvo hambre y estuvo enfadado con Mateo.
-Mateo y Diego hicieron fuego. Mateo comió. Ya no tuvo hambre.
-Mateo y Diego hicieron fuego. Mateo compartió la comida con Diego. Ya no tuvieron hambre.
-Mateo y Diego hicieron fuego. Mateo y Diego comieron. Ya no tuvieron hambre.
-Mateo y Diego hicieron fuego. Mateo ya no tuvo frío.
-Mateo y Diego hicieron fuego. Ya no tuvieron frío.
-Mateo y Diego se encontraron junto al fuego. Ya no estuvieron perdidos. Mateo y Diego hicieron fuego. ¡Qué bien!
-Valeria encontró a Lucía junto al fuego. ¡Qué alegría! Lucía y Valeria hicieron fuego. ¡Qué bien!
+Mateo y Diego hicieron fuego. Comieron y ya no tenían hambre.
+Mateo y Diego hicieron fuego. Comió y ya no tenía hambre.
+Mateo y Diego hicieron fuego. Mateo comió y no compartió. Diego tenía hambre y estaba enfadado con Mateo.
+Mateo y Diego hicieron fuego. Mateo compartió la comida con Diego. Ya no tenían hambre.
+Mateo y Diego hicieron fuego. Mateo ya no tenía frío.
+Mateo y Diego hicieron fuego. Ya no tenían frío.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego hicieron fuego. ¡Qué bien!
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria hicieron fuego. ¡Qué bien!
 
 ## PRETÉRITO · El fuego · evento comeComida
-Lucía hizo fuego. Lucía comió. Ya no tuvo hambre.
-Lucía y Mateo hicieron fuego. Lucía comió. Ya no tuvo hambre.
-Lucía y Valeria hicieron fuego. Lucía comió. Ya no tuvo hambre.
-Mateo hizo fuego. Mateo comió. Ya no tuvo hambre.
-Mateo y Diego hicieron fuego. Mateo comió. Ya no tuvo hambre.
+Lucía hizo fuego. Comió y ya no tenía hambre.
+Lucía y Mateo hicieron fuego. Comió y ya no tenía hambre.
+Lucía y Valeria hicieron fuego. Comió y ya no tenía hambre.
+Mateo hizo fuego. Comió y ya no tenía hambre.
+Mateo y Diego hicieron fuego. Comió y ya no tenía hambre.
 
 ## PRETÉRITO · El fuego · evento encuentra
-Diego encontró a Mateo junto al fuego. ¡Qué alegría! Mateo y Diego hicieron fuego. ¡Qué bien!
-Mateo encontró a Lucía junto al fuego. ¡Qué alegría! Lucía y Mateo hicieron fuego. ¡Qué bien!
-Valeria encontró a Lucía junto al fuego. ¡Qué alegría! Lucía y Valeria hicieron fuego. ¡Qué bien!
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego hicieron fuego. ¡Qué bien!
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo hicieron fuego. ¡Qué bien!
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria hicieron fuego. ¡Qué bien!
 
 ## PRETÉRITO · El fuego · evento seEncuentran
-Lucía y Mateo se encontraron junto al fuego. Ya no estuvieron perdidos. Lucía y Mateo hicieron fuego. ¡Qué bien!
-Lucía y Valeria se encontraron junto al fuego. Ya no estuvieron perdidas. Lucía y Valeria hicieron fuego. ¡Qué bien!
-Mateo y Diego se encontraron junto al fuego. Ya no estuvieron perdidos. Mateo y Diego hicieron fuego. ¡Qué bien!
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo hicieron fuego. ¡Qué bien!
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria hicieron fuego. ¡Qué bien!
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego hicieron fuego. ¡Qué bien!
 
 ## PRETÉRITO · El fuego · evento comparte
-Lucía y Mateo hicieron fuego. Lucía compartió la comida con Mateo. Ya no tuvieron hambre.
-Lucía y Valeria hicieron fuego. Lucía compartió la comida con Valeria. Ya no tuvieron hambre.
-Mateo y Diego hicieron fuego. Mateo compartió la comida con Diego. Ya no tuvieron hambre.
+Lucía y Mateo hicieron fuego. Lucía compartió la comida con Mateo. Ya no tenían hambre.
+Lucía y Valeria hicieron fuego. Lucía compartió la comida con Valeria. Ya no tenían hambre.
+Mateo y Diego hicieron fuego. Mateo compartió la comida con Diego. Ya no tenían hambre.
 
 ## PRETÉRITO · El fuego · evento comeSolo
-Lucía y Mateo hicieron fuego. Lucía comió sola. Mateo tuvo hambre y estuvo enfadado con Lucía.
-Lucía y Valeria hicieron fuego. Lucía comió sola. Valeria tuvo hambre y estuvo enfadada con Lucía.
-Mateo y Diego hicieron fuego. Mateo comió solo. Diego tuvo hambre y estuvo enfadado con Mateo.
+Lucía y Mateo hicieron fuego. Lucía comió y no compartió. Mateo tenía hambre y estaba enfadado con Lucía.
+Lucía y Valeria hicieron fuego. Lucía comió y no compartió. Valeria tenía hambre y estaba enfadada con Lucía.
+Mateo y Diego hicieron fuego. Mateo comió y no compartió. Diego tenía hambre y estaba enfadado con Mateo.
 
 ## PRETÉRITO · El fuego · evento comen
-Lucía y Mateo hicieron fuego. Lucía y Mateo comieron. Ya no tuvieron hambre.
-Lucía y Valeria hicieron fuego. Lucía y Valeria comieron. Ya no tuvieron hambre.
-Mateo y Diego hicieron fuego. Mateo y Diego comieron. Ya no tuvieron hambre.
+Lucía y Mateo hicieron fuego. Comieron y ya no tenían hambre.
+Lucía y Valeria hicieron fuego. Comieron y ya no tenían hambre.
+Mateo y Diego hicieron fuego. Comieron y ya no tenían hambre.
 
 ## PRETÉRITO · El refugio · evento descansa
-Diego encontró a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Estuvieron tranquilos.
-Diego encontró a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estuvo enfadado.
-Lucía descansó en el refugio. Estuvo tranquila.
-Lucía descansó en el refugio. Ya no estuvo cansada.
-Lucía y Mateo descansaron en el refugio. Estuvieron tranquilos.
-Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estuvo enfadado.
-Lucía y Mateo descansaron en el refugio. Lucía y Mateo se curaron. Ya no estuvieron heridos.
-Lucía y Mateo descansaron en el refugio. Lucía ya no estuvo cansada.
-Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Ya no estuvo herida.
-Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Ya no estuvo herida. Lucía pidió perdón a Mateo. Mateo ya no estuvo enfadado.
-Lucía y Mateo descansaron en el refugio. Ya no estuvieron cansados.
-Lucía y Mateo se encontraron en el refugio. Ya no estuvieron perdidos. Lucía y Mateo descansaron en el refugio. Estuvieron tranquilos.
-Lucía y Valeria descansaron en el refugio. Estuvieron tranquilas.
-Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estuvo enfadada.
-Lucía y Valeria descansaron en el refugio. Lucía y Valeria se curaron. Ya no estuvieron heridas.
-Lucía y Valeria descansaron en el refugio. Lucía ya no estuvo cansada.
-Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Ya no estuvo herida.
-Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Ya no estuvo herida. Lucía pidió perdón a Valeria. Valeria ya no estuvo enfadada.
-Lucía y Valeria descansaron en el refugio. Ya no estuvieron cansadas.
-Lucía y Valeria se encontraron en el refugio. Ya no estuvieron perdidas. Lucía y Valeria descansaron en el refugio. Estuvieron tranquilas.
-Mateo descansó en el refugio. Estuvo tranquilo.
-Mateo descansó en el refugio. Ya no estuvo cansado.
-Mateo encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Estuvieron tranquilos.
-Mateo encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estuvo enfadado.
-Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Ya no estuvo herido.
-Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Ya no estuvo herido. Mateo pidió perdón a Diego. Diego ya no estuvo enfadado.
-Mateo y Diego descansaron en el refugio. Estuvieron tranquilos.
-Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estuvo enfadado.
-Mateo y Diego descansaron en el refugio. Mateo y Diego se curaron. Ya no estuvieron heridos.
-Mateo y Diego descansaron en el refugio. Mateo ya no estuvo cansado.
-Mateo y Diego descansaron en el refugio. Ya no estuvieron cansados.
-Mateo y Diego se encontraron en el refugio. Ya no estuvieron perdidos. Mateo y Diego descansaron en el refugio. Estuvieron tranquilos.
-Valeria encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Estuvieron tranquilas.
-Valeria encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estuvo enfadada.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Estaban tranquilos.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estaba enfadado.
+Lucía descansó en el refugio. Estaba tranquila.
+Lucía descansó en el refugio. Ya no estaba cansada.
+Lucía y Mateo descansaron en el refugio. Estaban tranquilos.
+Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estaba enfadado.
+Lucía y Mateo descansaron en el refugio. Lucía ya no estaba cansada.
+Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Lucía ya no estaba herida.
+Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Lucía ya no estaba herida. Lucía pidió perdón a Mateo. Mateo ya no estaba enfadado.
+Lucía y Mateo descansaron en el refugio. Se curaron. Ya no estaban heridos.
+Lucía y Mateo descansaron en el refugio. Ya no estaban cansados.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo descansaron en el refugio. Estaban tranquilos.
+Lucía y Valeria descansaron en el refugio. Estaban tranquilas.
+Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estaba enfadada.
+Lucía y Valeria descansaron en el refugio. Lucía ya no estaba cansada.
+Lucía y Valeria descansaron en el refugio. Se curaron. Ya no estaban heridas.
+Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Lucía ya no estaba herida.
+Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Lucía ya no estaba herida. Lucía pidió perdón a Valeria. Valeria ya no estaba enfadada.
+Lucía y Valeria descansaron en el refugio. Ya no estaban cansadas.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria descansaron en el refugio. Estaban tranquilas.
+Mateo descansó en el refugio. Estaba tranquilo.
+Mateo descansó en el refugio. Ya no estaba cansado.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Estaban tranquilos.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estaba enfadado.
+Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Mateo ya no estaba herido.
+Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Mateo ya no estaba herido. Mateo pidió perdón a Diego. Diego ya no estaba enfadado.
+Mateo y Diego descansaron en el refugio. Estaban tranquilos.
+Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estaba enfadado.
+Mateo y Diego descansaron en el refugio. Mateo ya no estaba cansado.
+Mateo y Diego descansaron en el refugio. Se curaron. Ya no estaban heridos.
+Mateo y Diego descansaron en el refugio. Ya no estaban cansados.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego descansaron en el refugio. Estaban tranquilos.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Estaban tranquilas.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estaba enfadada.
 
 ## PRETÉRITO · El refugio · evento perdon
-Diego encontró a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estuvo enfadado.
-Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estuvo enfadado.
-Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Ya no estuvo herida. Lucía pidió perdón a Mateo. Mateo ya no estuvo enfadado.
-Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estuvo enfadada.
-Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Ya no estuvo herida. Lucía pidió perdón a Valeria. Valeria ya no estuvo enfadada.
-Mateo encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estuvo enfadado.
-Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Ya no estuvo herido. Mateo pidió perdón a Diego. Diego ya no estuvo enfadado.
-Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estuvo enfadado.
-Valeria encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estuvo enfadada.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estaba enfadado.
+Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estaba enfadado.
+Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Lucía ya no estaba herida. Lucía pidió perdón a Mateo. Mateo ya no estaba enfadado.
+Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estaba enfadada.
+Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Lucía ya no estaba herida. Lucía pidió perdón a Valeria. Valeria ya no estaba enfadada.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estaba enfadado.
+Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Mateo ya no estaba herido. Mateo pidió perdón a Diego. Diego ya no estaba enfadado.
+Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estaba enfadado.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estaba enfadada.
 
 ## PRETÉRITO · El refugio · evento encuentra
-Diego encontró a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Estuvieron tranquilos.
-Diego encontró a Mateo en el refugio. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estuvo enfadado.
-Mateo encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Estuvieron tranquilos.
-Mateo encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estuvo enfadado.
-Valeria encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Estuvieron tranquilas.
-Valeria encontró a Lucía en el refugio. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estuvo enfadada.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Estaban tranquilos.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego descansaron en el refugio. Mateo pidió perdón a Diego. Diego ya no estaba enfadado.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Estaban tranquilos.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo descansaron en el refugio. Lucía pidió perdón a Mateo. Mateo ya no estaba enfadado.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Estaban tranquilas.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria descansaron en el refugio. Lucía pidió perdón a Valeria. Valeria ya no estaba enfadada.
 
 ## PRETÉRITO · El refugio · evento seEncuentran
-Lucía y Mateo se encontraron en el refugio. Ya no estuvieron perdidos. Lucía y Mateo descansaron en el refugio. Estuvieron tranquilos.
-Lucía y Valeria se encontraron en el refugio. Ya no estuvieron perdidas. Lucía y Valeria descansaron en el refugio. Estuvieron tranquilas.
-Mateo y Diego se encontraron en el refugio. Ya no estuvieron perdidos. Mateo y Diego descansaron en el refugio. Estuvieron tranquilos.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo descansaron en el refugio. Estaban tranquilos.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria descansaron en el refugio. Estaban tranquilas.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego descansaron en el refugio. Estaban tranquilos.
 
 ## PRETÉRITO · El refugio · evento seCuran
-Lucía y Mateo descansaron en el refugio. Lucía y Mateo se curaron. Ya no estuvieron heridos.
-Lucía y Valeria descansaron en el refugio. Lucía y Valeria se curaron. Ya no estuvieron heridas.
-Mateo y Diego descansaron en el refugio. Mateo y Diego se curaron. Ya no estuvieron heridos.
+Lucía y Mateo descansaron en el refugio. Se curaron. Ya no estaban heridos.
+Lucía y Valeria descansaron en el refugio. Se curaron. Ya no estaban heridas.
+Mateo y Diego descansaron en el refugio. Se curaron. Ya no estaban heridos.
 
 ## PRETÉRITO · El refugio · evento cura
-Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Ya no estuvo herida.
-Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Ya no estuvo herida. Lucía pidió perdón a Mateo. Mateo ya no estuvo enfadado.
-Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Ya no estuvo herida.
-Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Ya no estuvo herida. Lucía pidió perdón a Valeria. Valeria ya no estuvo enfadada.
-Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Ya no estuvo herido.
-Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Ya no estuvo herido. Mateo pidió perdón a Diego. Diego ya no estuvo enfadado.
+Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Lucía ya no estaba herida.
+Lucía y Mateo descansaron en el refugio. Mateo curó a Lucía. Lucía ya no estaba herida. Lucía pidió perdón a Mateo. Mateo ya no estaba enfadado.
+Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Lucía ya no estaba herida.
+Lucía y Valeria descansaron en el refugio. Valeria curó a Lucía. Lucía ya no estaba herida. Lucía pidió perdón a Valeria. Valeria ya no estaba enfadada.
+Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Mateo ya no estaba herido.
+Mateo y Diego descansaron en el refugio. Diego curó a Mateo. Mateo ya no estaba herido. Mateo pidió perdón a Diego. Diego ya no estaba enfadado.
 
 ## PRETÉRITO · La montaña · evento montana
-Diego encontró a Mateo en la montaña. ¡Qué alegría! Mateo y Diego subieron la montaña. Estuvieron cansados y tuvieron hambre.
-Lucía subió la montaña. Estuvo cansada y tuvo hambre.
-Lucía subió la montaña. Estuvo cansada y tuvo hambre. Desde arriba vio el río. ¡Ya no estuvo perdida!
-Lucía y Mateo se encontraron en la montaña. Ya no estuvieron perdidos. Lucía y Mateo subieron la montaña. Estuvieron cansados y tuvieron hambre.
-Lucía y Mateo subieron la montaña. Estuvieron cansados y tuvieron hambre.
-Lucía y Valeria se encontraron en la montaña. Ya no estuvieron perdidas. Lucía y Valeria subieron la montaña. Estuvieron cansadas y tuvieron hambre.
-Lucía y Valeria subieron la montaña. Estuvieron cansadas y tuvieron hambre.
-Mateo encontró a Lucía en la montaña. ¡Qué alegría! Lucía y Mateo subieron la montaña. Estuvieron cansados y tuvieron hambre.
-Mateo subió la montaña. Estuvo cansado y tuvo hambre.
-Mateo subió la montaña. Estuvo cansado y tuvo hambre. Desde arriba vio el río. ¡Ya no estuvo perdido!
-Mateo y Diego se encontraron en la montaña. Ya no estuvieron perdidos. Mateo y Diego subieron la montaña. Estuvieron cansados y tuvieron hambre.
-Mateo y Diego subieron la montaña. Estuvieron cansados y tuvieron hambre.
-Valeria encontró a Lucía en la montaña. ¡Qué alegría! Lucía y Valeria subieron la montaña. Estuvieron cansadas y tuvieron hambre.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego subieron la montaña. Estaban cansados y tenían hambre.
+Lucía subió la montaña. Estaba cansada y tenía hambre.
+Lucía subió la montaña. Estaba cansada y tenía hambre. Desde arriba vio el río. ¡Ya no estaba perdida!
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo subieron la montaña. Estaban cansados y tenían hambre.
+Lucía y Mateo subieron la montaña. Estaban cansados y tenían hambre.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria subieron la montaña. Estaban cansadas y tenían hambre.
+Lucía y Valeria subieron la montaña. Estaban cansadas y tenían hambre.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo subieron la montaña. Estaban cansados y tenían hambre.
+Mateo subió la montaña. Estaba cansado y tenía hambre.
+Mateo subió la montaña. Estaba cansado y tenía hambre. Desde arriba vio el río. ¡Ya no estaba perdido!
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego subieron la montaña. Estaban cansados y tenían hambre.
+Mateo y Diego subieron la montaña. Estaban cansados y tenían hambre.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria subieron la montaña. Estaban cansadas y tenían hambre.
 
 ## PRETÉRITO · La montaña · evento encuentra
-Diego encontró a Mateo en la montaña. ¡Qué alegría! Mateo y Diego subieron la montaña. Estuvieron cansados y tuvieron hambre.
-Mateo encontró a Lucía en la montaña. ¡Qué alegría! Lucía y Mateo subieron la montaña. Estuvieron cansados y tuvieron hambre.
-Valeria encontró a Lucía en la montaña. ¡Qué alegría! Lucía y Valeria subieron la montaña. Estuvieron cansadas y tuvieron hambre.
+Diego encontró a Mateo. ¡Qué alegría! Mateo y Diego subieron la montaña. Estaban cansados y tenían hambre.
+Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo subieron la montaña. Estaban cansados y tenían hambre.
+Valeria encontró a Lucía. ¡Qué alegría! Lucía y Valeria subieron la montaña. Estaban cansadas y tenían hambre.
 
 ## PRETÉRITO · La montaña · evento seEncuentran
-Lucía y Mateo se encontraron en la montaña. Ya no estuvieron perdidos. Lucía y Mateo subieron la montaña. Estuvieron cansados y tuvieron hambre.
-Lucía y Valeria se encontraron en la montaña. Ya no estuvieron perdidas. Lucía y Valeria subieron la montaña. Estuvieron cansadas y tuvieron hambre.
-Mateo y Diego se encontraron en la montaña. Ya no estuvieron perdidos. Mateo y Diego subieron la montaña. Estuvieron cansados y tuvieron hambre.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. Lucía y Mateo subieron la montaña. Estaban cansados y tenían hambre.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. Lucía y Valeria subieron la montaña. Estaban cansadas y tenían hambre.
+Mateo y Diego se encontraron. Ya no estaban perdidos. Mateo y Diego subieron la montaña. Estaban cansados y tenían hambre.
 
 ## PRETÉRITO · El mapa · evento mapa
-Lucía encontró el mapa. ¡Ya no estuvo perdida!
-Lucía encontró un mapa. Lo guardó en la mochila.
-Mateo encontró el mapa. ¡Ya no estuvo perdido!
-Mateo encontró un mapa. Lo guardó en la mochila.
+Lucía encontró el mapa. ¡Ya no estaba perdida!
+Lucía encontró un mapa. Lo guardó.
+Mateo encontró el mapa. ¡Ya no estaba perdido!
+Mateo encontró un mapa. Lo guardó.
 
 ## PRETÉRITO · La mochila · evento mochila
 Lucía encontró una mochila con comida. ¡Qué suerte!
-Lucía encontró una mochila con comida. Comió y ya no tuvo hambre.
+Lucía encontró una mochila con comida. Comió y ya no tenía hambre.
 Mateo encontró una mochila con comida. ¡Qué suerte!
-Mateo encontró una mochila con comida. Comió y ya no tuvo hambre.
+Mateo encontró una mochila con comida. Comió y ya no tenía hambre.
 
 ## PRETÉRITO · La cuerda · evento cuerda
 Lucía encontró una cuerda. La guardó.
@@ -936,45 +936,45 @@ Mateo encontró una cuerda. La guardó.
 
 ## PRETÉRITO · La manta · evento manta
 Lucía encontró una manta. La guardó.
-Lucía encontró una manta. Ya no tuvo frío.
+Lucía encontró una manta. Ya no tenía frío.
 Mateo encontró una manta. La guardó.
-Mateo encontró una manta. Ya no tuvo frío.
+Mateo encontró una manta. Ya no tenía frío.
 
 ## PRETÉRITO · La linterna · evento linterna
 Lucía encontró una linterna. La guardó.
-Lucía encontró una linterna. Ya no tuvo miedo.
+Lucía encontró una linterna. Ya no tenía miedo.
 Mateo encontró una linterna. La guardó.
-Mateo encontró una linterna. Ya no tuvo miedo.
+Mateo encontró una linterna. Ya no tenía miedo.
 
 ## PRETÉRITO · El rescate · evento rescate
-¡El helicóptero! Lucía estuvo a salvo.
-¡El helicóptero! Lucía y Mateo estuvieron a salvo.
-¡El helicóptero! Lucía y Valeria estuvieron a salvo.
-¡El helicóptero! Mateo estuvo a salvo.
-¡El helicóptero! Mateo y Diego estuvieron a salvo.
-Diego encontró a Mateo. ¡Qué alegría! ¡El helicóptero! Mateo y Diego estuvieron a salvo.
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. ¡El helicóptero! Lucía y Mateo estuvieron a salvo.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. ¡El helicóptero! Lucía y Valeria estuvieron a salvo.
-Mateo encontró a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Mateo estuvieron a salvo.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. ¡El helicóptero! Mateo y Diego estuvieron a salvo.
-Valeria encontró a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Valeria estuvieron a salvo.
+¡El helicóptero! Lucía se salvó.
+¡El helicóptero! Lucía y Mateo se salvaron.
+¡El helicóptero! Lucía y Valeria se salvaron.
+¡El helicóptero! Mateo se salvó.
+¡El helicóptero! Mateo y Diego se salvaron.
+Diego encontró a Mateo. ¡Qué alegría! ¡El helicóptero! Mateo y Diego se salvaron.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. ¡El helicóptero! Lucía y Mateo se salvaron.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. ¡El helicóptero! Lucía y Valeria se salvaron.
+Mateo encontró a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Mateo se salvaron.
+Mateo y Diego se encontraron. Ya no estaban perdidos. ¡El helicóptero! Mateo y Diego se salvaron.
+Valeria encontró a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Valeria se salvaron.
 
 ## PRETÉRITO · El rescate · evento rescateNoVe
-El helicóptero no vio a Lucía. Siguió perdida.
-El helicóptero no vio a Mateo. Siguió perdido.
+El helicóptero no vio a Lucía. Lucía todavía estaba perdida.
+El helicóptero no vio a Mateo. Mateo todavía estaba perdido.
 
 ## PRETÉRITO · El rescate · evento encuentra
-Diego encontró a Mateo. ¡Qué alegría! ¡El helicóptero! Mateo y Diego estuvieron a salvo.
-Mateo encontró a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Mateo estuvieron a salvo.
-Valeria encontró a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Valeria estuvieron a salvo.
+Diego encontró a Mateo. ¡Qué alegría! ¡El helicóptero! Mateo y Diego se salvaron.
+Mateo encontró a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Mateo se salvaron.
+Valeria encontró a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Valeria se salvaron.
 
 ## PRETÉRITO · El rescate · evento seEncuentran
-Lucía y Mateo se encontraron. Ya no estuvieron perdidos. ¡El helicóptero! Lucía y Mateo estuvieron a salvo.
-Lucía y Valeria se encontraron. Ya no estuvieron perdidas. ¡El helicóptero! Lucía y Valeria estuvieron a salvo.
-Mateo y Diego se encontraron. Ya no estuvieron perdidos. ¡El helicóptero! Mateo y Diego estuvieron a salvo.
+Lucía y Mateo se encontraron. Ya no estaban perdidos. ¡El helicóptero! Lucía y Mateo se salvaron.
+Lucía y Valeria se encontraron. Ya no estaban perdidas. ¡El helicóptero! Lucía y Valeria se salvaron.
+Mateo y Diego se encontraron. Ya no estaban perdidos. ¡El helicóptero! Mateo y Diego se salvaron.
 
 ## PRETÉRITO · incoherencia
-Pero Lucía ya estuvo a salvo…
+¡Pero Lucía ya estaba a salvo! No podía estar aquí.
 
 ## TÍTULOS · niveles
 Diego pide perdón a Lucía   [c3n3]
@@ -996,56 +996,51 @@ Valeria está a salvo y nunca tiene miedo   [c3n4]
 
 ## PISTAS
 Caminar juntos da hambre.   [c2n3]
+Con el jaguar, Valeria nunca está sola.   [c3n4]
 Con el mapa, Lucía no se pierde.   [c1n5]
 Con la linterna, no tiene miedo.   [c1n3]
-Contento = sin hambre, sin sed, sin frío, sin miedo, sin cansancio.   [c3n6]
+Contento = sin hambre, sin sed, sin frío, sin miedo. Y no está cansado.   [c3n6]
 De noche y sola, Valeria tiene miedo.   [c1n3]
+De noche, Valeria necesita la linterna o un amigo.   [c3n4]
 Desde la montaña se ve el río.   [c1n4]
-Después, Mateo y Lucía juntos.   [c2n1]
+Después, Mateo y Lucía están juntos.   [c2n1]
 El fuego quita el frío. ¡Cuidado con el orden!   [c1n2]
-El helicóptero lleva a dos personas como máximo.   [c3n5]
 El helicóptero no ve a una persona perdida.   [c1n5]
 El helicóptero no ve a una persona perdida.   [c2n5]
-El rescate es para dos personas como máximo.   [c3n6]
+El helicóptero solo lleva a dos personas.   [c3n5]
+El helicóptero solo lleva a dos personas.   [c3n6]
 En el refugio se pide perdón.   [c3n3]
 En el refugio, los amigos curan a los heridos.   [c2n2]
+En el rescate, nadie está perdido.   [c3n5]
 En el río, Lucía bebe agua.   [c1n1]
 Juntos, nadie está perdido.   [c2n5]
 Juntos, no tienen miedo.   [c2n4]
-La tormenta da frío… y miedo si estás solo.   [c2n4]
+La tormenta da frío… y miedo a quien está solo.   [c2n4]
 Las frutas quitan el hambre: ¡cuidado con el orden!   [c2n3]
 Lucía necesita la mochila.   [c3n1]
 Mateo necesita tener hambre.   [c3n1]
 Mateo se moja en el río.   [c1n2]
-Mateo tiene hambre y mira…   [c3n2]
-Nadie perdido en el rescate.   [c3n5]
-Nunca sola con el jaguar.   [c3n4]
+Mateo tiene hambre, pero Lucía no comparte.   [c3n2]
 Primero hace calor… ¿y después?   [c1n1]
-Primero, Diego come solo y Lucía está enfadada.   [c3n3]
+Primero, Diego no comparte y Lucía está enfadada.   [c3n3]
 Primero, Lucía se pierde sola.   [c2n1]
-Si no son amigos, Lucía come sola.   [c3n2]
-Solo en la selva, Diego se pierde.   [c1n4]
+Si Diego está solo, la serpiente le muerde.   [c2n2]
+Si no son amigos, Lucía no comparte.   [c3n2]
+Si va solo por la selva, Diego se pierde.   [c1n4]
 Solo se comparte con los amigos.   [c3n1]
-Solo, la serpiente muerde a Diego.   [c2n2]
-Valeria nunca sola de noche sin linterna.   [c3n4]
 
 ## TÍTULOS · secretos
 Alguien encuentra a un amigo   [c2n5]
 Diego encuentra a Lucía   [c3n5]
 Diego nunca tiene hambre   [c3n3]
 Diego tiene miedo   [c3n4]
-Duermen juntos   [c2n1]
 El jaguar se va   [c2n4]
 Mateo tiene frío   [c3n2]
+Nadie duerme solo   [c2n1]
 Nadie está cansado   [c2n3]
 Nadie está cansado   [c3n1]
-Nadie está perdido nunca   [c3n6]
+Nadie está nunca perdido   [c3n6]
 Valeria está herida   [c2n2]
-
-## TÍTULOS · generados por tituloDe (difieren del explícito)
-Lucía ya no tiene hambre y Mateo ya no tiene hambre   [c2n3]
-Todos están contentos y todos están a salvo   [c3n6]
-Valeria está a salvo y Valeria nunca tiene miedo   [c3n4]
 
 ## TÍTULOS · asistente (estado)
 Lucía está a salvo
@@ -1151,25 +1146,25 @@ Nadie tiene miedo
 Nadie tiene sed
 
 ## TÍTULOS · asistente (nadie nunca)
-Nadie está cansado nunca
-Nadie está herido nunca
-Nadie está perdido nunca
-Nadie tiene frío nunca
-Nadie tiene hambre nunca
-Nadie tiene miedo nunca
-Nadie tiene sed nunca
+Nadie está nunca cansado
+Nadie está nunca herido
+Nadie está nunca perdido
+Nadie tiene nunca frío
+Nadie tiene nunca hambre
+Nadie tiene nunca miedo
+Nadie tiene nunca sed
 
 ## TÍTULOS · asistente (evento)
+¡Un jaguar! Lucía corre
 El jaguar se va
-Lucía come sola
 Lucía comparte la comida con Mateo
-Lucía corre
 Lucía cura a Mateo
 Lucía duerme tranquila
 Lucía encuentra a Mateo
+Lucía no comparte
 Lucía pide perdón a Mateo
 Lucía y Mateo caminan juntos
-Lucía y Mateo duermen juntos
+Lucía y Mateo duermen bien
 Lucía y Mateo se encuentran
 
 ## TÍTULOS · asistente (relación)
@@ -1185,10 +1180,10 @@ Diego está contento.
 Diego está enfadado con Mateo.
 Diego está herido.
 Diego está perdido.
-Diego tiene hambre y está perdido.
 Diego tiene hambre, sed, frío y miedo.
 Diego tiene hambre.
-Diego tiene miedo y está enfadado con Mateo.
+Diego tiene hambre. Está perdido.
+Diego tiene miedo. Está enfadado con Mateo.
 Diego tiene sed y frío.
 Lucía está a salvo.
 Lucía está cansada, herida y perdida.
@@ -1197,37 +1192,37 @@ Lucía está contenta.
 Lucía está enfadada con Mateo.
 Lucía está herida.
 Lucía está perdida.
-Lucía tiene hambre y está perdida.
 Lucía tiene hambre, sed, frío y miedo.
 Lucía tiene hambre.
-Lucía tiene miedo y está enfadada con Mateo.
+Lucía tiene hambre. Está perdida.
+Lucía tiene miedo. Está enfadada con Mateo.
 Lucía tiene sed y frío.
 
 ## RESÚMENES · pretérito
-Diego estuvo a salvo.
-Diego estuvo cansado, herido y perdido.
-Diego estuvo cansado.
-Diego estuvo contento.
-Diego estuvo enfadado con Mateo.
-Diego estuvo herido.
-Diego estuvo perdido.
-Diego tuvo hambre y estuvo perdido.
-Diego tuvo hambre, sed, frío y miedo.
-Diego tuvo hambre.
-Diego tuvo miedo y estuvo enfadado con Mateo.
-Diego tuvo sed y frío.
-Lucía estuvo a salvo.
-Lucía estuvo cansada, herida y perdida.
-Lucía estuvo cansada.
-Lucía estuvo contenta.
-Lucía estuvo enfadada con Mateo.
-Lucía estuvo herida.
-Lucía estuvo perdida.
-Lucía tuvo hambre y estuvo perdida.
-Lucía tuvo hambre, sed, frío y miedo.
-Lucía tuvo hambre.
-Lucía tuvo miedo y estuvo enfadada con Mateo.
-Lucía tuvo sed y frío.
+Diego estaba a salvo.
+Diego estaba cansado, herido y perdido.
+Diego estaba cansado.
+Diego estaba contento.
+Diego estaba enfadado con Mateo.
+Diego estaba herido.
+Diego estaba perdido.
+Diego tenía hambre, sed, frío y miedo.
+Diego tenía hambre.
+Diego tenía hambre. Estaba perdido.
+Diego tenía miedo. Estaba enfadado con Mateo.
+Diego tenía sed y frío.
+Lucía estaba a salvo.
+Lucía estaba cansada, herida y perdida.
+Lucía estaba cansada.
+Lucía estaba contenta.
+Lucía estaba enfadada con Mateo.
+Lucía estaba herida.
+Lucía estaba perdida.
+Lucía tenía hambre, sed, frío y miedo.
+Lucía tenía hambre.
+Lucía tenía hambre. Estaba perdida.
+Lucía tenía miedo. Estaba enfadada con Mateo.
+Lucía tenía sed y frío.
 
 ## PORQUÉ (explicaciones)
 Diego no sale en la historia.   [c2n2]

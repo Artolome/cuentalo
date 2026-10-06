@@ -67,7 +67,7 @@ Cada viñeta = 1 escena + 1 o 2 personajes. Las reglas dependen del estado anter
 | 🐆 **El jaguar** | 1-2 | miedo, corre → **miedo + perdido** | gritan juntos y el jaguar se va (sin efecto) | con mapa: no se pierde |
 | 🐍 **La serpiente** | 1-2 | la serpiente le muerde → **herido/a** | el otro la ve y avisa: nadie está herido | — |
 | 🍌 **El árbol de frutas** | 1-2 | come frutas → **hambre ✗** | igual | — |
-| 🔥 **El fuego** | 1-2 | hace fuego → **frío ✗**; con comida y hambre: come | si solo uno tiene comida y el otro hambre: **amigos → comparte**; **no amigos → come solo/a, el otro está enfadado/a** | comida |
+| 🔥 **El fuego** | 1-2 | hace fuego → **frío ✗**; con comida y hambre: come | si solo uno tiene comida y el otro hambre: **amigos → comparte**; **no amigos → come y no comparte, el otro está enfadado/a** | comida |
 | 🏕️ **El refugio** | 1-2 | descansa → **cansado ✗, miedo ✗** | además: **cura** al herido; **pide perdón** si uno está enfadado | — |
 | ⛰️ **La montaña** | 1-2 | sube → **cansado + hambre**; desde arriba ve el río → **perdido ✗** | igual | — |
 | 🗺️ El mapa | 1 | encuentra el mapa → **perdido ✗** + guarda el mapa | — | +mapa |
@@ -104,7 +104,7 @@ Dificultad medida por el resolvedor exacto (`node test/solver.js`): **soluciones
 | c1n3 | 1 | **Valeria duerme tranquila** | 3 | noche · linterna | Valeria | — | 4 · 50 % |
 | c1n4 | 1 | **Diego ya no está perdido** | 3 | selva · montaña | Diego | — | 3 · 37 % |
 | c1n5 | 1 | **Lucía está a salvo** | 3 | selva · mapa · rescate | Lucía | — | 3 · 11 % |
-| c2n1 | 2 | **Mateo encuentra a Lucía** | 3 | selva · noche · sol | Lucía, Mateo | Duermen juntos | 63 · 8,6 % |
+| c2n1 | 2 | **Mateo encuentra a Lucía** | 3 | selva · noche · sol | Lucía, Mateo | Nadie duerme solo | 63 · 8,6 % |
 | c2n2 | 2 | **Valeria cura a Diego** | 3 | serpiente · refugio | Valeria, Diego | Valeria está herida | 14 · 6,5 % |
 | c2n3 | 2 | **Lucía y Mateo ya no tienen hambre** | 3 | selva · frutas · noche | Lucía, Mateo | Nadie está cansado | 24 · 3,3 % |
 | c2n4 | 2 | **Nadie tiene miedo y todos tienen frío** | 3 | noche · tormenta · jaguar | Valeria, Diego | El jaguar se va | 39 · 5,4 % |
@@ -135,20 +135,21 @@ Una viñeta produce 1-3 frases cortas. Todas las variantes (género, número, pr
 | tormenta (solo) | *Llueve mucho. Diego tiene frío y miedo.* |
 | noche (solo) | *Es de noche. Valeria está sola y tiene miedo.* |
 | noche (linterna) | *Es de noche. Valeria enciende la linterna y duerme tranquila.* |
-| noche (a dos) | *Es de noche. Lucía y Mateo duermen juntos. Ya no están cansados.* |
+| noche (a dos) | *Es de noche. Lucía y Mateo están juntos y duermen bien. Ya no están cansados.* |
 | jaguar (solo) | *¡Un jaguar! Diego tiene miedo y corre. Se pierde.* |
 | jaguar (a dos) | *¡Un jaguar! Valeria y Diego gritan juntos y el jaguar se va.* |
 | serpiente (solo) | *¡Ay! Una serpiente muerde a Diego. Está herido.* |
-| serpiente (a dos) | *Valeria ve una serpiente y avisa a Diego. ¡Cuidado! Nadie está herido.* |
+| serpiente (a dos) | *Valeria ve una serpiente y avisa a Diego. ¡Cuidado! La serpiente no muerde a nadie.* |
 | frutas | *Mateo come frutas. Ya no tiene hambre.* |
-| fuego | *Lucía hace fuego. Ya no tiene frío.* · *Lucía comparte la comida con Mateo. Ya no tienen hambre.* · *Lucía come sola. Mateo tiene hambre y está enfadado con Lucía.* |
-| refugio | *Valeria y Diego descansan en el refugio. Valeria cura a Diego. Ya no está herido.* · *Diego pide perdón a Lucía. Lucía ya no está enfadada.* |
+| fuego | *Lucía hace fuego. Ya no tiene frío.* · *Lucía comparte la comida con Mateo. Ya no tienen hambre.* · *Lucía come y no comparte. Mateo tiene hambre y está enfadado con Lucía.* |
+| refugio | *Valeria y Diego descansan en el refugio. Valeria cura a Diego. Diego ya no está herido.* · *Diego pide perdón a Lucía. Lucía ya no está enfadada.* |
 | montaña | *Diego sube la montaña. Está cansado y tiene hambre. Desde arriba ve el río. ¡Ya no está perdido!* |
 | objetos | *Lucía encuentra el mapa. ¡Ya no está perdida!* · *Mateo encuentra una mochila con comida. Come y ya no tiene hambre.* · *Valeria encuentra una linterna. La guarda.* |
-| rescate | *¡El helicóptero! Lucía y Mateo están a salvo.* · *El helicóptero no ve a Lucía. Sigue perdida.* |
-| resumen final («¿Qué pasa?») | *Lucía tiene hambre y frío y está perdida.* · *Mateo está contento.* · *Valeria está a salvo.* |
+| rescate | *¡El helicóptero! Lucía y Mateo están a salvo.* · *El helicóptero no ve a Lucía. Lucía todavía está perdida.* |
+| incoherencia | *¡Pero Lucía ya está a salvo! No puede estar aquí.* |
+| resumen final («¿Qué pasa?») | *Lucía tiene hambre y frío. Está perdida.* · *Mateo está contento.* · *Valeria está a salvo.* |
 
-**Pretérito** (opción 3e): acciones en indefinido (*caminó, se perdió, encontró, bebió, tuvo, estuvo…*); los marcos impersonales en imperfecto (*Llovía mucho. Hacía mucho calor. Era de noche. Había comida.*) ⚠️ ver DECISIONS §6.
+**Pretérito** (opción 3e): acciones en indefinido (*caminó, se perdió, encontró, bebió, durmió, se salvó…*); estados y marcos en imperfecto (*tenía sed, estaba perdida, ya no estaban cansados · Llovía mucho. Hacía mucho calor. Era de noche. Había comida.*). Ejemplo: *Lucía caminó sola por la selva y se perdió. · Era de noche. Lucía estaba sola y tenía miedo. · Mateo encontró a Lucía. ¡Qué alegría!* ⚠️ ver DECISIONS §6.
 
 ## 7. Léxico
 

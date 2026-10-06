@@ -235,9 +235,9 @@
     const N = ids => L.sujeto(Ps(ids));
     const q = e.quien ? [e.quien] : null, qs = e.quienes || null, a = e.a ? [e.a] : null;
     const yaNo = (ids, k) => k === 'tener' ? `Ya no ${V('tener', ids)}` : `Ya no ${V('estar', ids)}`;
-    const lugar = { selva: ' en la selva', rio: ' en el río', montana: ' en la montaña', refugio: ' en el refugio', frutas: ' bajo el árbol', fuego: ' junto al fuego', noche: ' de noche' }[e.lugar] || '';
+    const lugar = e.lugar === 'selva' ? ' en la selva' : ''; // las demás escenas ya nombran el sitio en su propia frase
     switch (e.tipo) {
-      case 'yaSalvo': return [`Pero ${N(q)} ya ${V('estar', q)} a salvo…`];
+      case 'yaSalvo': return [`¡Pero ${N(q)} ya ${V('estar', q)} a salvo! No ${V('poder', q)} estar aquí.`];
       case 'encuentra': return [`${N(q)} ${V('encontrar', q)} a ${N(a)}${lugar}. ¡Qué alegría!`];
       case 'seEncuentran': return [`${N(qs)} ${V('encontrarse', qs)}${lugar}. ${yaNo(qs, 'estar')} ${A('perdido', qs)}.`];
       case 'pierde': return [`${N(q)} ${V('caminar', q)} ${A('solo', q)} por la selva y ${V('perderse', q)}.`];
@@ -251,11 +251,11 @@
       }
       case 'cruzaMojado': return [`${L.cap(V('cruzar', qs))} el río y ${V('mojarse', qs)}. ${L.cap(V('tener', qs))} frío.`];
       case 'cruzaCuerda': return [`${L.cap(V('cruzar', qs))} el río con la cuerda. No ${V('mojarse', qs)}.`];
-      case 'calor': return [`${L.cap(Vi('hacerImp'))} mucho calor. ${N(qs)} ${V('tener', qs)} sed.`];
+      case 'calor': return [`${L.cap(Vi('hacerImp'))} mucho calor.`, `${N(qs)} ${V('tener', qs)} sed.`];
       case 'tormenta': {
         const ll = `${L.cap(Vi('llover'))} mucho.`;
         if (e.solo) {
-          if (e.manta) return [ll, `${N(qs)} ${V('taparse', qs)} con la manta, pero ${V('estar', qs)} ${A('solo', qs)} y ${V('tener', qs)} miedo.`];
+          if (e.manta) return [ll, `${N(qs)} ${V('taparse', qs)} con la manta y no ${V('tener', qs)} frío.`, `Pero ${V('estar', qs)} ${A('solo', qs)} y ${V('tener', qs)} miedo.`];
           return [ll, `${N(qs)} ${V('tener', qs)} frío y miedo.`];
         }
         if (e.manta) return [ll, `${N(qs)} ${V('taparse', qs)} con la manta. No ${V('tener', qs)} frío.`];
@@ -264,7 +264,7 @@
       case 'nocheSolo': return [`${L.cap(Vi('serImp'))} de noche. ${N(q)} ${V('estar', q)} ${A('solo', q)} y ${V('tener', q)} miedo.`];
       case 'nocheLinterna': return [`${L.cap(Vi('serImp'))} de noche. ${N(q)} ${V('encender', q)} la linterna y ${V('dormir', q)} ${A('tranquilo', q)}.`];
       case 'nocheJuntos': {
-        const f = `${L.cap(Vi('serImp'))} de noche. ${N(qs)} ${V('dormir', qs)} ${A('juntos', qs)}.`;
+        const f = `${L.cap(Vi('serImp'))} de noche. ${N(qs)} ${V('estar', qs)} ${A('juntos', qs)} y ${V('dormir', qs)} bien.`;
         if (e.cansados.length === qs.length) return [f, `${yaNo(qs, 'estar')} ${A('cansado', qs)}.`];
         if (e.cansados.length) return [f, `${N(e.cansados)} ya no ${V('estar', e.cansados)} ${A('cansado', e.cansados)}.`];
         if (e.miedos.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
@@ -276,7 +276,7 @@
       }
       case 'jaguarJuntos': return [`¡Un jaguar! ${N(qs)} ${V('gritar', qs)} ${A('juntos', qs)} y el jaguar ${Vi('irse')}.`];
       case 'serpienteMuerde': return [`¡Ay! Una serpiente ${Vi('morder')} a ${N(q)}. ${L.cap(V('estar', q))} ${A('herido', q)}.`];
-      case 'serpienteAvisa': return [`${N(q)} ${V('ver', q)} una serpiente y ${V('avisar', q)} a ${N(a)}. ¡Cuidado! Nadie ${Vi('estar')} herido.`];
+      case 'serpienteAvisa': return [`${N(q)} ${V('ver', q)} una serpiente y ${V('avisar', q)} a ${N(a)}. ¡Cuidado! La serpiente no ${Vi('morder')} a nadie.`];
       case 'comeFrutas': {
         const f = `${N(qs)} ${V('comer', qs)} frutas.`;
         if (!e.hambre.length) return [f, '¡Qué ricas!'];
@@ -289,10 +289,11 @@
         if (e.frio.length === qs.length) return [f, `${yaNo(qs, 'tener')} frío.`];
         return [f, `${N(e.frio)} ya no ${V('tener', e.frio)} frío.`];
       }
-      case 'comeComida': return [`${N(q)} ${V('comer', q)}. ${yaNo(q, 'tener')} hambre.`];
-      case 'comen': return [`${N(qs)} ${V('comer', qs)}. ${yaNo(qs, 'tener')} hambre.`];
+      // comeComida / comen / seCuran siguen siempre a una frase con el mismo sujeto (fuego, refugio): se omite el sujeto
+      case 'comeComida': return [`${L.cap(V('comer', q))} y ya no ${V('tener', q)} hambre.`];
+      case 'comen': return [`${L.cap(V('comer', qs))} y ya no ${V('tener', qs)} hambre.`];
       case 'comparte': return [`${N(q)} ${V('compartir', q)} la comida con ${N(a)}. ${yaNo([e.quien, e.a], 'tener')} hambre.`];
-      case 'comeSolo': return [`${N(q)} ${V('comer', q)} ${A('solo', q)}. ${N(a)} ${V('tener', a)} hambre y ${V('estar', a)} ${A('enfadado', a)} con ${N(q)}.`];
+      case 'comeSolo': return [`${N(q)} ${V('comer', q)} y no ${V('compartir', q)}. ${N(a)} ${V('tener', a)} hambre y ${V('estar', a)} ${A('enfadado', a)} con ${N(q)}.`];
       case 'descansa': {
         const f = `${N(qs)} ${V('descansar', qs)} en el refugio.`;
         if (e.breve) return [f];
@@ -301,21 +302,21 @@
         if (e.miedos.length) return [f, `${yaNo(qs, 'tener')} miedo.`];
         return [f, `${L.cap(V('estar', qs))} ${A('tranquilo', qs)}.`];
       }
-      case 'cura': return [`${N(q)} ${V('curar', q)} a ${N(a)}. ${yaNo(a, 'estar')} ${A('herido', a)}.`];
-      case 'seCuran': return [`${N(qs)} se ${t === 'pret' ? 'curaron' : 'curan'}. ${yaNo(qs, 'estar')} ${A('herido', qs)}.`];
+      case 'cura': return [`${N(q)} ${V('curar', q)} a ${N(a)}. ${N(a)} ya no ${V('estar', a)} ${A('herido', a)}.`];
+      case 'seCuran': return [`${t === 'pret' ? 'Se curaron' : 'Se curan'}. ${yaNo(qs, 'estar')} ${A('herido', qs)}.`];
       case 'perdon': return [`${N(q)} ${V('pedir', q)} perdón a ${N(a)}. ${N(a)} ya no ${V('estar', a)} ${A('enfadado', a)}.`];
       case 'montana': {
         const f = `${N(qs)} ${V('subir', qs)} la montaña. ${L.cap(V('estar', qs))} ${A('cansado', qs)} y ${V('tener', qs)} hambre.`;
         if (e.perdidos.length) return [f, `Desde arriba ${V('ver', e.perdidos)} el río. ¡Ya no ${V('estar', e.perdidos)} ${A('perdido', e.perdidos)}!`];
         return [f];
       }
-      case 'mapa': return e.perdido ? [`${N(q)} ${V('encontrar', q)} el mapa. ¡Ya no ${V('estar', q)} ${A('perdido', q)}!`] : [`${N(q)} ${V('encontrar', q)} un mapa. Lo ${V('guardar', q)} en la mochila.`];
+      case 'mapa': return e.perdido ? [`${N(q)} ${V('encontrar', q)} el mapa. ¡Ya no ${V('estar', q)} ${A('perdido', q)}!`] : [`${N(q)} ${V('encontrar', q)} un mapa. Lo ${V('guardar', q)}.`];
       case 'mochila': return e.hambre ? [`${N(q)} ${V('encontrar', q)} una mochila con comida. ${L.cap(V('comer', q))} y ya no ${V('tener', q)} hambre.`] : [`${N(q)} ${V('encontrar', q)} una mochila con comida. ¡Qué suerte!`];
       case 'cuerda': return [`${N(q)} ${V('encontrar', q)} una cuerda. La ${V('guardar', q)}.`];
       case 'manta': return e.frio ? [`${N(q)} ${V('encontrar', q)} una manta. ${yaNo(q, 'tener')} frío.`] : [`${N(q)} ${V('encontrar', q)} una manta. La ${V('guardar', q)}.`];
       case 'linterna': return e.miedo ? [`${N(q)} ${V('encontrar', q)} una linterna. ${yaNo(q, 'tener')} miedo.`] : [`${N(q)} ${V('encontrar', q)} una linterna. La ${V('guardar', q)}.`];
-      case 'rescate': return [`¡El helicóptero! ${N(qs)} ${V('estar', qs)} a salvo.`];
-      case 'rescateNoVe': return [`El helicóptero no ${Vi('ver')} a ${N(q)}. ${L.cap(V('seguir', q))} ${A('perdido', q)}.`];
+      case 'rescate': return [t === 'pret' ? `¡El helicóptero! ${N(qs)} ${V('salvarse', qs)}.` : `¡El helicóptero! ${N(qs)} ${V('estar', qs)} a salvo.`];
+      case 'rescateNoVe': return [`El helicóptero no ${Vi('ver')} a ${N(q)}. ${N(q)} todavía ${V('estar', q)} ${A('perdido', q)}.`];
       default: return ['…'];
     }
   }
@@ -373,14 +374,20 @@
     }
   }
 
-  /** Frase verbal de un estado para un grupo: «tiene hambre» · «está perdida» · «están a salvo» */
-  function fraseEstado(estado, ids, tiempo, negar) {
-    const gn = L.gn(Ps(ids)), t = tiempo || 'pres';
+  /** Frase verbal de un estado para un grupo: «tiene hambre» · «está perdida» · «están a salvo».
+      gnForzado permite imponer el plural («Todos están…»); adverbio se intercala tras el verbo («está nunca perdido»). */
+  function fraseEstado(estado, ids, tiempo, negar, gnForzado, adverbio) {
+    const gn = gnForzado || L.gn(Ps(ids)), t = tiempo || 'pres';
     const info = ESTADO_INFO[estado];
-    const no = negar ? 'no ' : '';
-    if (info.tipo === 'tener') return `${no}${L.conj('tener', gn, t)} ${PALABRA[estado]}`;
+    const no = negar ? 'no ' : '', adv = adverbio ? adverbio + ' ' : '';
+    if (info.tipo === 'tener') return `${no}${L.conj('tener', gn, t)} ${adv}${PALABRA[estado]}`;
     const adj = estado === 'salvo' ? 'a salvo' : estado;
-    return `${no}${L.conj('estar', gn, t)} ${L.acuerdo(adj, gn)}`;
+    return `${no}${L.conj('estar', gn, t)} ${adv}${L.acuerdo(adj, gn)}`;
+  }
+  /** Solo el complemento del estado: «hambre» · «perdidos» · «a salvo» (para fusionar títulos) */
+  function complementoEstado(estado, gn) {
+    if (ESTADO_INFO[estado].tipo === 'tener') return PALABRA[estado];
+    return L.acuerdo(estado === 'salvo' ? 'a salvo' : estado, gn);
   }
 
   /* Títulos generados para los eventos. q / a pueden faltar (título secreto genérico). */
@@ -392,12 +399,12 @@
     seEncuentran: (q, a) => q && a ? `${N1(q)} y ${N1(a)} se encuentran` : 'Dos amigos se encuentran',
     cura: (q, a) => `${Nq(q, 'Alguien')} cura a ${Nq(a, 'un amigo')}`,
     comparte: (q, a) => a ? `${Nq(q, 'Alguien')} comparte la comida con ${N1(a)}` : `${Nq(q, 'Alguien')} comparte la comida`,
-    comeSolo: q => `${Nq(q, 'Alguien')} come ${acq('solo', q)}`,
+    comeSolo: q => `${Nq(q, 'Alguien')} no comparte`,
     nocheLinterna: q => `${Nq(q, 'Alguien')} duerme ${acq('tranquilo', q)}`,
     jaguarJuntos: () => 'El jaguar se va',
-    jaguarSolo: q => `${Nq(q, 'Alguien')} corre`,
+    jaguarSolo: q => `¡Un jaguar! ${Nq(q, 'Alguien')} corre`,
     caminanJuntos: (q, a) => q && a ? `${N1(q)} y ${N1(a)} caminan juntos` : 'Caminan juntos',
-    nocheJuntos: (q, a) => q && a ? `${N1(q)} y ${N1(a)} duermen juntos` : 'Duermen juntos',
+    nocheJuntos: (q, a) => q && a ? `${N1(q)} y ${N1(a)} duermen bien` : 'Nadie duerme solo',
     perdon: (q, a) => `${Nq(q, 'Alguien')} pide perdón a ${Nq(a, 'un amigo')}`,
     cruzaCuerda: (q, a) => q && a ? `${N1(q)} y ${N1(a)} cruzan el río con la cuerda` : q ? `${N1(q)} cruza el río con la cuerda` : 'Cruzan el río con la cuerda',
     serpienteAvisa: (q, a) => a ? `¡Cuidado, ${N1(a)}!` : '¡Cuidado con la serpiente!',
@@ -411,16 +418,43 @@
       case 'yaNo': return L.cap(`${N1(obj.quien)} ya no ${fraseEstado(obj.estado, [obj.quien])}`);
       case 'todos': {
         const ids = humanos(nivel), fem = ids.every(id => P(id).genero === 'f');
-        return L.cap(`${fem ? 'Todas' : 'Todos'} ${fraseEstado(obj.estado, ids, 'pres', obj.valor === false)}`);
+        if (ids.length === 1) return tituloDe({ tipo: 'estado', quien: ids[0], estado: obj.estado, valor: obj.valor }, nivel);
+        const gn = { g: fem ? 'f' : 'm', n: 'pl' };
+        if (obj.valor === false) return L.cap(`No ${fem ? 'todas' : 'todos'} ${fraseEstado(obj.estado, ids, 'pres', false, gn)}`);
+        return L.cap(`${fem ? 'Todas' : 'Todos'} ${fraseEstado(obj.estado, ids, 'pres', false, gn)}`);
       }
-      case 'nadie': return L.cap(`Nadie ${fraseEstado(obj.estado, [humanos(nivel).find(id => P(id).genero === 'm') || humanos(nivel)[0]])}`);
-      case 'nunca': return obj.quien ? L.cap(`${N1(obj.quien)} nunca ${fraseEstado(obj.estado, [obj.quien])}`) : L.cap(`Nadie ${fraseEstado(obj.estado, [humanos(nivel).find(id => P(id).genero === 'm') || humanos(nivel)[0]])} nunca`);
+      case 'nadie': return L.cap(`Nadie ${fraseEstado(obj.estado, [], 'pres', false, { g: 'm', n: 'sg' })}`);
+      case 'nunca': return obj.quien ? L.cap(`${N1(obj.quien)} nunca ${fraseEstado(obj.estado, [obj.quien])}`) : L.cap(`Nadie ${fraseEstado(obj.estado, [], 'pres', false, { g: 'm', n: 'sg' }, 'nunca')}`);
       case 'evento': return (TITULO_EVENTO[obj.evento] || (() => obj.evento))(obj.quien, obj.a);
       case 'amigos': return `${N1(obj.a)} y ${N1(obj.b)} son amigos`;
       case 'enfadado': return `${N1(obj.quien)} está ${L.acuerdo('enfadado', L.gn(P(obj.quien)))} con ${N1(obj.con)}`;
-      case 'y': return obj.partes.map((p, i) => { const t = tituloDe(p, nivel); return i && /^(Todos|Todas|Nadie|Nunca) /.test(t) ? t[0].toLowerCase() + t.slice(1) : t; }).join(' y ');
+      case 'y': return tituloY(obj.partes, nivel);
       default: return '';
     }
+  }
+  /* Título compuesto: fusiona lo que se puede para no repetir sujeto ni predicado.
+     «Lucía ya no tiene hambre» + «Mateo ya no tiene hambre» → «Lucía y Mateo ya no tienen hambre»
+     «Valeria está a salvo» + «Valeria nunca tiene miedo» → «Valeria está a salvo y nunca tiene miedo»
+     «Todos están contentos» + «Todos están a salvo» → «Todos están contentos y a salvo» */
+  function tituloY(partes, nivel) {
+    const [a, b] = partes;
+    if (partes.length === 2 && a && b) {
+      const mismoPred = a.tipo === b.tipo && a.estado === b.estado && (a.valor !== false) === (b.valor !== false);
+      if (mismoPred && (a.tipo === 'estado' || a.tipo === 'yaNo' || a.tipo === 'nunca') && a.quien && b.quien && a.quien !== b.quien) {
+        const ids = ordenar([a.quien, b.quien]);
+        const pre = a.tipo === 'yaNo' ? 'ya no ' : a.tipo === 'nunca' ? 'nunca ' : '';
+        return L.cap(`${L.sujeto(Ps(ids))} ${pre}${fraseEstado(a.estado, ids, 'pres', a.tipo === 'estado' && a.valor === false)}`);
+      }
+      if (a.tipo === 'todos' && b.tipo === 'todos' && a.valor !== false && b.valor !== false && ESTADO_INFO[a.estado].tipo === ESTADO_INFO[b.estado].tipo) {
+        const ids = humanos(nivel), fem = ids.every(id => P(id).genero === 'f'), gn = { g: fem ? 'f' : 'm', n: 'pl' };
+        const verbo = L.conj(ESTADO_INFO[a.estado].tipo === 'tener' ? 'tener' : 'estar', gn, 'pres');
+        return L.cap(`${fem ? 'Todas' : 'Todos'} ${verbo} ${complementoEstado(a.estado, gn)} y ${complementoEstado(b.estado, gn)}`);
+      }
+      const ta = tituloDe(a, nivel), tb = tituloDe(b, nivel);
+      const suj = a.quien && b.quien && a.quien === b.quien ? N1(a.quien) + ' ' : null;
+      if (suj && ta.startsWith(suj) && tb.startsWith(suj)) return `${ta} y ${tb.slice(suj.length)}`;
+    }
+    return partes.map((p, i) => { const t = tituloDe(p, nivel); return i && /^(Todos|Todas|Nadie|No todos|No todas) /.test(t) ? t[0].toLowerCase() + t.slice(1) : t; }).join(' y ');
   }
 
   /** Explica en español sencillo por qué el objetivo aún no se cumple. */
@@ -465,11 +499,11 @@
     const tener = ['hambre', 'sed', 'frio', 'miedo'].filter(k => s[k]).map(k => PALABRA[k]);
     const estar = ['cansado', 'herido', 'perdido'].filter(k => s[k]).map(k => L.acuerdo(k, gn));
     for (const x in s.enfadado) estar.push(`${L.acuerdo('enfadado', gn)} con ${N1(x)}`);
-    const partes = [];
-    if (tener.length) partes.push(`${L.conj('tener', gn, t)} ${lista(tener)}`);
-    if (estar.length) partes.push(`${L.conj('estar', gn, t)} ${lista(estar)}`);
-    if (!partes.length) return `${n} ${L.conj('estar', gn, t)} ${L.acuerdo('contento', gn)}.`;
-    return `${n} ${partes.join(' y ')}.`;
+    const vt = L.conj('tener', gn, t), ve = L.conj('estar', gn, t);
+    if (!tener.length && !estar.length) return `${n} ${ve} ${L.acuerdo('contento', gn)}.`;
+    if (tener.length && estar.length) return `${n} ${vt} ${lista(tener)}. ${L.cap(ve)} ${lista(estar)}.`;
+    if (tener.length) return `${n} ${vt} ${lista(tener)}.`;
+    return `${n} ${ve} ${lista(estar)}.`;
   }
   function lista(xs) { return xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1]; }
 
@@ -487,7 +521,14 @@
       const completa = !!(panel.escena && panel.personajes && panel.personajes.length);
       if (!completa) incompleto = true;
       const evs = ctx.hist.invalido || !completa ? [] : paso(ctx, panel, i);
-      const frases = evs.flatMap(e => frasesDe(e, tiempo));
+      const partes = evs.map(e => frasesDe(e, tiempo));
+      // El marco impersonal (Llueve mucho. / Hace mucho calor. / Es de noche.) va delante del encuentro.
+      if (evs.length >= 2 && ['encuentra', 'seEncuentran'].includes(evs[0].tipo) && ['calor', 'tormenta', 'nocheJuntos'].includes(evs[1].tipo)) {
+        const marco = partes[1][0];
+        if (evs[1].tipo === 'nocheJuntos') { const m = marco.match(/^(\S+ de noche\.) (.*)$/); if (m) { partes[1][0] = m[2]; partes.unshift([m[1]]); } }
+        else { partes[1] = partes[1].slice(1); partes.unshift([marco]); }
+      }
+      const frases = partes.flat();
       out.push({ escena: panel.escena || null, personajes: ordenar(panel.personajes || []), eventos: evs, frases, estado: clonar(ctx.S), completa });
     }
     const faltan = nivel.libre ? [] : humanos(nivel).filter(id => !ctx.hist.salen[id]);

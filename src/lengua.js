@@ -51,9 +51,10 @@
   }
 
   /* ---------- verbos ----------
-     Formas de 3.ª persona: [sg, pl] en presente y en pretérito indefinido.
-     'imp' = frases impersonales (llueve, hace calor, es de noche, hay) → pretérito en imperfecto,
-     porque es la forma natural para el decorado del relato (decisión documentada en DECISIONS.md). */
+     Formas de 3.ª persona: [sg, pl] en presente y en «pretérito» (modo relato de 3e).
+     Regla del modo pretérito (DECISIONS.md §6): las ACCIONES van en indefinido (caminó, bebió, encontró…)
+     y los ESTADOS y los MARCOS van en imperfecto (tenía, estaba, seguía, podía · llovía, hacía calor, era de noche, había).
+     Es el contraste passé composé / imparfait que se enseña en A2. */
   const V = {
     caminar: { pres: ['camina', 'caminan'], pret: ['caminó', 'caminaron'] },
     perderse: { pres: ['se pierde', 'se pierden'], pret: ['se perdió', 'se perdieron'] },
@@ -62,10 +63,12 @@
     beber: { pres: ['bebe', 'beben'], pret: ['bebió', 'bebieron'] },
     cruzar: { pres: ['cruza', 'cruzan'], pret: ['cruzó', 'cruzaron'] },
     mojarse: { pres: ['se moja', 'se mojan'], pret: ['se mojó', 'se mojaron'] },
-    tener: { pres: ['tiene', 'tienen'], pret: ['tuvo', 'tuvieron'] },
-    estar: { pres: ['está', 'están'], pret: ['estuvo', 'estuvieron'] },
+    tener: { pres: ['tiene', 'tienen'], pret: ['tenía', 'tenían'], estado: true },
+    estar: { pres: ['está', 'están'], pret: ['estaba', 'estaban'], estado: true },
+    poder: { pres: ['puede', 'pueden'], pret: ['podía', 'podían'], estado: true },
     ser: { pres: ['es', 'son'], pret: ['fue', 'fueron'] },
-    seguir: { pres: ['sigue', 'siguen'], pret: ['siguió', 'siguieron'] },
+    seguir: { pres: ['sigue', 'siguen'], pret: ['seguía', 'seguían'], estado: true },
+    salvarse: { pres: ['se salva', 'se salvan'], pret: ['se salvó', 'se salvaron'] },
     dormir: { pres: ['duerme', 'duermen'], pret: ['durmió', 'durmieron'] },
     comer: { pres: ['come', 'comen'], pret: ['comió', 'comieron'] },
     guardar: { pres: ['guarda', 'guardan'], pret: ['guardó', 'guardaron'] },
