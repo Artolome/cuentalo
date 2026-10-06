@@ -82,6 +82,30 @@ Deux agents relecteurs (bugs du moteur, design pédagogique) puis un vérificate
 - **« ¿Qué pasa? »** explique désormais la condition manquante des titres d'événement (*« Primero Lucía tiene que estar enfadada (el fuego: comer y no compartir). Después, los dos en el refugio. »*).
 - Non retenu : scène supplémentaire, rasgos à effet (Mateo commence affamé — testé : rend c3n1 plus lâche, 68 → 171), interdiction de la retrouvaille dans le rescate.
 
-## 11. Reporté aux phases suivantes
+## 11. Phase 1 — modes et mise en page (validée implicitement : « termine le jeu »)
 
-Modes Pizarra (chrono, tirage au sort, équipes) / Solo (sélecteur ★ ★★ ★★★) / Autor / Profe (touche P) ; modo escritor ; bascule pretérito dans l'UI ; impression A4 ; `GUIA_PROFE.md` ; Kiwi ; verrouillage de progression ; badge 🤝 « amigos » près des visages ; tests 3 navigateurs et hors-ligne.
+- **Écran d'accueil** à trois entrées : Pizarra / Solo / Autor. Le mode choisi est mémorisé (`localStorage`) ; « 🏠 » y ramène. Paramètres d'URL facultatifs pour la profe : `?modo=pizarra|solo&nivel=c2n1&dif=1|2|3`.
+- **Sélecteur ★ ★★ ★★★** (en haut à droite, étoiles seules ; noms « Paso a paso / Estándar / Reto » dans le menu, jamais « facile / difficile »). ★ : niveaux de ≤ 3 cases et ≤ 3 escenas (chapitres 1–2), picto emoji sur chaque escena, pista automatique tous les 2 échecs, phrases visibles. ★★ : tout, une pista au 4ᵉ échec. ★★★ : niveaux de ≥ 4 cases (chapitre 3), modo escritor forcé, titre secret caché tant qu'il n'est pas trouvé. En ★★ le titre secret ne s'affiche qu'après une première réussite du niveau (il devient un second objectif de relecture).
+- **Mise en page 16:9 sans défilement** : les cases sont sur **une seule ligne** (lecture gauche → droite comme une tira de cómic), même à 5–6 cases ; la largeur maximale d'une case est calculée pour que l'image 16:10 et ~3 lignes de phrase tiennent dans la hauteur disponible (`ajustarTira`). Deux rangées ont été essayées et rejetées : à 720p chaque rangée ne laissait que ~120 px d'image. Le stock tient sur une ligne horizontale, défilable quand il déborde (nivel libre).
+- **Pizarra** : polices et contrastes augmentés (`body.pizarra`), barre « Clase » compacte (cronómetro, sorteo de números sans noms, equipos 2–4) **cachée par défaut** et ouverte par « ⏱ Clase », car elle coûte ~130 px de hauteur. Les scores et réglages de la barre sont dans `sobrevives.pizarra.v0`.
+- **Solo** : étoiles par niveau (3 si réussi du premier coup, 2 jusqu'à 3 essais, 1 au-delà), « Borrar mis datos » efface tout (progression, réglages, niveaux de la classe, scores).
+- Pas de verrouillage de progression : la profe choisit les niveaux ; Kiwi reste réservé (aucune règle écrite).
+
+## 12. Phase 2 — escritor, Autor, Profe, impression
+
+- **Modo escritor** : par case, la phrase est masquée ; A1 « elegir » = 3 phrases **générées par le moteur** (variantes de la même case : autre personnage, autre escena, autre état) ; A2 « escribir » = saisie avec comparaison tolérante (tildes, signes ¿¡, majuscules → « Casi: … » mais accepté ; ≤ 2 lettres de travers → « Casi: revisa “…” » refusé ; pista « L____ t____ s__. » dès 2 échecs ; « Ver la frase » au 4ᵉ). Un bouton 🔊 permet d'écouter la phrase (dictée). Le succès du niveau n'est fêté qu'une fois toutes les phrases complétées.
+- **Objectif « historia »** (moteur) : pour un titre libre, le jeu « grabe » la solution jouée = états finaux exacts de chaque personnage (7 négatifs + a salvo) + les événements à titre (encuentra, cura, comparte…). Toute histoire aboutissant au même état final avec les mêmes événements est acceptée.
+- **Codes Autor** : base32 Crockford (pas de I, L, O, U ; `S` + version + charge + contrôle), groupes de 4, insensibles à la casse ; un titre structuré fait ~16 caractères (`S199-H34R-1B2A-1`), un titre libre peut dépasser 60 caractères (il faut encoder le texte du titre) : pour dicter, préférer l'assistant de titres. Même contenu → même code → même id (pas de doublon à l'import).
+- **Profe** (touche P) : mot de passe local par défaut « profe », modifiable (stocké dans les réglages, donc remis à zéro par « Borrar mis datos ») ; réglages (escritor, elegir/escribir, pretérito, barre Clase), solutions du niveau calculées dans un **Web Worker** construit à partir des scripts inlinés (aucun fichier externe ; repli synchrone si le navigateur refuse), bouton « Cargar » qui pose une solution sur le plateau, niveaux de la classe (jouer, supprimer, exporter/importer JSON).
+- **Imprimir mi historia** : A4 paysage, page 1 = la BD résolue (dessins, visages selon l'état, phrases), page 2 = hoja de viñetas vide à 4 cases, page 3 = à 6 cases, avec lignes d'écriture et « Nombre : ____ » à remplir à la main (aucun nom saisi dans le jeu).
+
+## 13. Phase 3 — contrôle qualité
+
+- Tests verts : `solver` (16 niveaux, 0 erreur, 0 avis, chaque secret atteignable), `frases` (1 634 phrases), `escritor` (5 410 contrôles), `autor` (384), `pizarra` (25).
+- Hors-ligne : le fichier ne fait **aucune** requête réseau (vérifié dans l'onglet réseau : la page seule, plus l'URL `blob:` locale du Worker).
+- Trois navigateurs : rendu de `sobrevives.html` ouvert en `file://` vérifié en mode headless dans Chrome, Edge et Firefox installés sur ce PC (écran d'accueil et niveau ouvert) ; jeu complet vérifié à la souris et au clic-clic dans le navigateur intégré à 1280×720 et en bureau.
+- Revue adversariale automatique (4 lentilles : bugs d'interface, moteur et modules, espagnol de l'interface, exactitude de la guía) : voir §14.
+
+## 14. Reporté
+
+Badge 🤝 « amigos » près des visages ; règles pour Kiwi ; verrouillage de progression ; dictée du code lettre par lettre par la synthèse vocale ; test réel sur tableau tactile.

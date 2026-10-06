@@ -39,30 +39,30 @@ ok(r.ok && r.casi && r.mensaje === 'Casi: mira los acentos.', 'sin tildes: ' + r
 r = X.comparar('Lucía tiene sed', F);
 ok(r.ok && r.casi && /puntuación/.test(r.mensaje), 'sin punto final: ' + r.mensaje);
 r = X.comparar('Un jaguar. Diego tiene miedo y corre. Se pierde.', '¡Un jaguar! Diego tiene miedo y corre. Se pierde.');
-ok(r.ok && r.casi && r.mensaje === 'Casi: faltan los signos ¿ ¡ ! ?.', 'faltan ¡ !: ' + r.mensaje);
+ok(r.ok && r.casi && r.mensaje === 'Casi: faltan los signos (¿ ? ¡ !).', 'faltan ¡ !: ' + r.mensaje);
 r = X.comparar('lucía tiene sed.', F);
 ok(r.ok && r.casi && r.mensaje === 'Casi: mira las mayúsculas.', 'mayúsculas: ' + r.mensaje);
 r = X.comparar('lucia tiene sed', F);
 ok(r.ok && r.casi && r.mensaje === 'Casi: mira los acentos, la puntuación y las mayúsculas.', 'todo a la vez: ' + r.mensaje);
 r = X.comparar('Lucía tiene sal.', F);
-ok(!r.ok && r.casi && r.mensaje === 'Casi: revisa “sal”.' && r.diferencias.length === 1 && r.diferencias[0].esperada === 'sed' && r.diferencias[0].escrita === 'sal', 'una letra cambiada: ' + r.mensaje + ' ' + JSON.stringify(r.diferencias));
+ok(!r.ok && r.casi && r.mensaje === 'Casi: revisa «sal».' && r.diferencias.length === 1 && r.diferencias[0].esperada === 'sed' && r.diferencias[0].escrita === 'sal', 'una letra cambiada: ' + r.mensaje + ' ' + JSON.stringify(r.diferencias));
 r = X.comparar('Lucía sed.', F);
 ok(!r.ok && !r.casi && r.mensaje === 'Faltan palabras.' && r.diferencias.length === 1 && r.diferencias[0].esperada === 'tiene' && r.diferencias[0].escrita === '', 'palabra que falta: ' + r.mensaje + ' ' + JSON.stringify(r.diferencias));
 r = X.comparar('Lucía tiene mucha sed.', F);
-ok(!r.ok && !r.casi && r.mensaje === 'Sobran palabras.' && r.diferencias.length === 1 && r.diferencias[0].escrita === 'mucha', 'palabra que sobra: ' + r.mensaje);
+ok(!r.ok && !r.casi && r.mensaje === 'Hay demasiadas palabras.' && r.diferencias.length === 1 && r.diferencias[0].escrita === 'mucha', 'palabra que sobra: ' + r.mensaje);
 r = X.comparar('Mateo come frutas.', F);
 ok(!r.ok && !r.casi && r.mensaje === 'No es la frase. Inténtalo otra vez.' && r.nota < 0.5, 'frase distinta: ' + r.mensaje + ' nota ' + r.nota);
 r = X.comparar('', F);
 ok(!r.ok && !r.casi && r.nota === 0 && r.mensaje === 'Escribe la frase.', 'vacía: ' + r.mensaje);
 const G = 'Lucía y Mateo caminan juntos por la selva. Tienen hambre y están cansados.';
 r = X.comparar('Lucía y Mateo caminan juntos por la selva. Tienen hambre y están cansada.', G);
-ok(!r.ok && r.casi && r.mensaje === 'Casi: revisa “cansada”.', 'acuerdo: ' + r.mensaje);
+ok(!r.ok && r.casi && r.mensaje === 'Casi: revisa «cansada».', 'acuerdo: ' + r.mensaje);
 r = X.comparar('Lucía y Mateo caminan juntos por la selva. Tienen hambre están cansados.', G);
 ok(!r.ok && r.casi && r.mensaje === 'Casi: falta una palabra.', 'falta «y» en frase larga → casi: ' + r.mensaje);
 r = X.comparar('Lucía y Mateo caminan juntos por la selva y tienen hambre y están cansados.', G);
-ok(!r.ok && r.casi && r.mensaje === 'Casi: sobra “y”.', 'sobra «y»: ' + r.mensaje);
+ok(!r.ok && r.casi && r.mensaje === 'Casi: quita «y».', 'sobra «y»: ' + r.mensaje);
 r = X.comparar('Lucía y Mateo caminan juntas por la selva. Tienen hambre y estan cansadas.', G);
-ok(!r.ok && r.casi && r.mensaje === 'Casi: revisa “juntas” y “cansadas”.' && r.diferencias.length === 2, 'dos palabras: ' + r.mensaje);
+ok(!r.ok && r.casi && r.mensaje === 'Casi: revisa «juntas» y «cansadas».' && r.diferencias.length === 2, 'dos palabras: ' + r.mensaje);
 
 /* ---------- opciones: casos límite ---------- */
 console.log('opciones (casos límite)');

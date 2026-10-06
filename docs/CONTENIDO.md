@@ -92,6 +92,7 @@ Cada viñeta = 1 escena + 1 o 2 personajes. Las reglas dependen del estado anter
 | `sinEvento` | *Nadie duerme solo* · *Nadie se pierde en la selva* · *Todos comparten* | el evento no ocurre en ninguna viñeta (se combina con `y`) |
 | `enfadado` / `amigos` | *Mateo está enfadado con Lucía* · *Lucía y Mateo son amigos* | relación final |
 | `y` | *Todos están contentos y a salvo* | las dos partes |
+| `historia` | título libre del modo Autor (*Lucía tiene mucha sed*) | la historia jugada por el autor «se graba»: mismos estados finales de cada personaje (7 negativos + a salvo) y mismos eventos con título (encuentra, cura, comparte…) |
 
 El motor genera también el título desde el predicado (`tituloDe`) — sirve al asistente del modo Autor — y explica **por qué no** se cumple todavía (botón «¿Qué pasa?»): *«Lucía todavía tiene sed.»*, *«Mateo no sale en la historia.»*, *«Valeria tiene miedo en la viñeta 2.»* Para los títulos de evento añade la condición que falta: *«Falta: «Diego pide perdón a Lucía». Primero Lucía tiene que estar enfadada (el fuego: comer y no compartir). Después, los dos en el refugio.»*
 
@@ -166,7 +167,14 @@ Una viñeta produce 1-3 frases cortas (4 la primera vez que dos personajes se ha
 
 **Palabras-herramienta**: y, pero, con, sin, por, de, en, a, ya no, no, nadie, todos, nunca, juntos, solo, desde arriba, ¡Qué…!, ¡Cuidado!, ¡Ay!
 
-## 8. Lo que incluye la maqueta (fase 0)
+## 8. Lo que incluye `sobrevives.html` (fases 0 a 3)
 
-`sobrevives.html`: los 16 niveles jugables (los del capítulo 1 son el objetivo de la fase 0; los demás son borrador para que pruebes la progresión), nivel libre, arrastrar-soltar y clic-clic, frases generadas, caras según el estado, botón «¿Qué pasa?», léxico, pistas, lectura por síntesis de voz (clic en una frase o en el título), estrellas en `localStorage`, «Borrar mis datos».
-No incluye todavía: modos Pizarra / Autor / Profe, modo escritor, pretérito en la interfaz (sí en el motor), impresión, arte definitivo, Kiwi.
+- **Juego**: los 16 niveles + nivel libre, arrastrar-soltar y clic-clic, frases generadas, caras según el estado, «¿Qué pasa?», léxico, pistas, síntesis de voz (clic en una frase, en el título o en una palabra del léxico), estrellas en `localStorage`, «Borrar mis datos».
+- **Modos**: pantalla de inicio Pizarra (letras grandes, barra «⏱ Clase»: cronómetro, sorteo de números, equipos) / Solo / Autor; selector discreto ★ Paso a paso · ★★ Estándar · ★★★ Reto.
+- **Modo escritor**: elegir la frase entre 3 (A1) o escribirla (A2, tolerante a tildes y signos, pista con las iniciales); obligatorio en ★★★, activable por el profe.
+- **Autor**: asistente de títulos (todos los predicados posibles con las cartas elegidas) o título libre grabado (`historia`); código corto para dictar; niveles de la clase en `localStorage`; importación por código.
+- **Profe** (tecla P, contraseña local «profe»): ajustes (escritor, elegir/escribir, pretérito, barra de clase), soluciones de cada nivel con «Cargar», niveles de la clase (jugar, borrar, exportar/importar JSON).
+- **Imprimir mi historia**: A4 apaisado con el cómic resuelto y hojas de viñetas vacías (4 y 6).
+- **Pretérito**: bascule del profe; acciones en indefinido, estados y marcos en imperfecto (§6).
+- Sin red, sin dependencias, sin datos personales; funciona con doble clic en Chrome, Edge y Firefox.
+- Pendiente: Kiwi (definido, sin reglas), arte definitivo opcional.

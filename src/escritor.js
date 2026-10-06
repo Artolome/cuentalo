@@ -25,7 +25,7 @@
   const texto = s => String(s == null ? '' : s);
   const cuenta = (s, re) => (s.match(re) || []).length;
   const lista = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1];
-  const comillas = w => '“' + w + '”';
+  const comillas = w => '«' + w + '»';
 
   /** «  ¡Lucía tiene SED!  » → «lucia tiene sed» */
   function normalizar(s) { return compactar(sinSignos(sinTildes(texto(s).toLowerCase()))); }
@@ -96,11 +96,11 @@
       const mayus = compactar(sinTildes(sinSignos(e))) !== compactar(sinTildes(sinSignos(c)));
       const faltan = signos && cuenta(e, ABRE) < cuenta(c, ABRE);
       let mensaje;
-      if (signos && !acentos && !mayus) mensaje = faltan ? 'Casi: faltan los signos ¿ ¡ ! ?.' : 'Casi: mira la puntuación.';
+      if (signos && !acentos && !mayus) mensaje = faltan ? 'Casi: faltan los signos (¿ ? ¡ !).' : 'Casi: mira la puntuación.';
       else {
         const partes = [];
         if (acentos) partes.push('los acentos');
-        if (signos) partes.push(faltan ? 'los signos ¿ ¡ ! ?' : 'la puntuación');
+        if (signos) partes.push(faltan ? 'los signos (¿ ? ¡ !)' : 'la puntuación');
         if (mayus) partes.push('las mayúsculas');
         mensaje = 'Casi: mira ' + lista(partes.length ? partes : ['la puntuación']) + '.';
       }
@@ -116,12 +116,12 @@
       const partes = [];
       if (cambiadas.length) partes.push('revisa ' + lista(cambiadas.map(d => comillas(d.escrita))));
       if (faltan.length) partes.push(faltan.length > 1 ? 'faltan palabras' : 'falta una palabra');
-      if (sobran.length) partes.push((sobran.length > 1 ? 'sobran ' : 'sobra ') + lista(sobran.map(d => comillas(d.escrita))));
+      if (sobran.length) partes.push('quita ' + lista(sobran.map(d => comillas(d.escrita))));
       return { ok: false, casi: true, nota, diferencias, mensaje: 'Casi: ' + (partes.length ? partes.join(' y ') : 'revisa la frase') + '.' };
     }
     let mensaje = 'No es la frase. Inténtalo otra vez.';
     if (faltan.length && !cambiadas.length && !sobran.length) mensaje = 'Faltan palabras.';
-    else if (sobran.length && !cambiadas.length && !faltan.length) mensaje = 'Sobran palabras.';
+    else if (sobran.length && !cambiadas.length && !faltan.length) mensaje = 'Hay demasiadas palabras.';
     return { ok: false, casi: false, nota, diferencias, mensaje };
   }
 

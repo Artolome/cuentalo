@@ -38,12 +38,14 @@ En haut à droite, un petit sélecteur règle le jeu. Il ne dit jamais « facile
 
 | Bouton | Ce qu'il fait |
 |---|---|
-| « ☰ Niveles » | ouvre la liste des niveaux par chapitre, avec les étoiles déjà obtenues |
+| « 🏠 » | revient à l'écran d'accueil (Pizarra / Solo / Autor) |
+| « ☰ Niveles » | ouvre la liste des niveaux par chapitre, avec les étoiles déjà obtenues ; en bas : « ✎ Crear un nivel », « ⌨ Tengo un código », « Borrar mis datos » |
+| « ⏱ Clase » (Pizarra seulement) | affiche ou cache la barre de classe : cronómetro, sorteo d'un numéro d'élève, marcador des equipos. Elle est cachée par défaut pour laisser la place aux cases |
 | « 💡 Pista » | affiche une pista du niveau (une autre à chaque clic) |
 | « 📖 Léxico » | les mots du niveau, avec un picto ; un clic sur un mot le fait entendre |
 | « ¿Qué pasa? » | relit toute l'histoire case par case, résume l'état final de chaque personnage et explique pourquoi le titre n'est pas encore réalisé (« Lucía todavía tiene sed. ») |
 | « ↺ » | vide toutes les cases |
-| « 🖨 Imprimir » | imprime la BD et la hoja de viñetas (partie 7) |
+| « 🖨 » | imprime la BD et les hojas de viñetas (partie 7) ; actif dès que le niveau est réussi (ou que l'histoire libre est complète) |
 
 ### 2.4 Les gestes
 
@@ -177,7 +179,7 @@ Le niveau « Mi historia » n'a pas de titre : 6 cases, les 17 escenas et les 4 
 Matériel : le vidéoprojecteur, le fichier ouvert en « Pizarra », un niveau choisi à l'avance.
 
 1. **Le titre** (1 min). Lire le titre ensemble ; clic sur le titre pour l'entendre. Faire répéter par deux ou trois élèves, puis par la classe.
-2. **Le sorteo** (1 min). Tirer au sort un numéro d'élève. L'élève vient placer la première case, ou la dicte à la professeure : « la selva, con Lucía ».
+2. **Le sorteo** (1 min). Ouvrir la barre « ⏱ Clase », régler « ¿Cuántos? » sur l'effectif, cliquer « ¡Número! » : un numéro d'élève sort (jamais un nom). L'élève vient placer la première case, ou la dicte à la professeure : « la selva, con Lucía ».
 3. **La phrase** (2 min). Lire la phrase produite à voix haute ; la classe répète. Clic sur la phrase pour la réécouter si besoin. Question rapide : « ¿Cómo está Lucía? » → « Está perdida. »
 4. **La suite** (4 min). Nouveau tirage pour chaque case, jusqu'à la fin. Si le titre n'est pas réalisé : « ¿Qué pasa? », on lit l'explication (« Lucía todavía tiene sed. »), on corrige une case.
 5. **La relecture** (2 min). La classe relit toute l'histoire en chœur, ou un élève la lit seul avec la voix en appui.
@@ -228,9 +230,10 @@ Variante A1 (5e) : 4 cases, phrases recopiées puis une phrase ajoutée par case
 - **Les étoiles** (partie 2.2) sont le premier levier : même niveau, même titre, mais pistas automatiques, phrases toujours visibles et titre lu en ★ ; modo escritor et titre secret en ★★★. Sans mention de niveau de difficulté, l'élève choisit sans se sentir jugé, et peut changer en cours de route.
 - **Les pictos** : chaque escena a son dessin et son emoji, chaque mot du « Léxico » a un picto. Un élève qui ne lit pas encore le mot reconnaît l'image, et le visage du personnage change avec son état (peur, faim, froid…).
 - **La synthèse vocale** : un clic sur une phrase, sur le titre ou sur un mot du Léxico le fait entendre en espagnol. Pour un élève dyslexique ou petit lecteur, c'est la voie d'entrée. Vérifier la voix avant la séance (partie 10).
-- **Le « modo escritor »** : au lieu de lire la phrase produite, l'élève doit la produire.
-  - **A1 : choisir parmi 3.** Trois phrases sont proposées pour la case ; une seule est juste (les autres ont une erreur d'accord, de personnage ou de sens). L'élève choisit.
-  - **A2 : écrire.** L'élève tape la phrase. La correction tolère les accents (« Lucia » pour « Lucía », « rio » pour « río ») et donne un retour simple sur ce qui manque.
+- **Le « modo escritor »** : au lieu de lire la phrase produite, l'élève doit la produire. Il est toujours actif en ★★★ ; la professeure l'active pour tous dans le panneau Profe (touche P), où elle choisit aussi la variante A1 ou A2. Dans chaque case, un bouton 🔊 fait entendre la phrase attendue : en A2 cela devient une dictée.
+  - **A1 : choisir parmi 3.** Trois phrases sont proposées pour la case ; une seule correspond à l'image. Les deux autres sont des phrases vraies pour une autre case (autre personnage, autre escena, autre état du personnage), toutes produites par le moteur, donc toujours correctes : il faut lire l'image et le contexte, pas chercher la faute. Une mauvaise réponse se barre et l'élève réessaie.
+  - **A2 : écrire.** L'élève tape la phrase. La correction tolère les accents, les signes ¿ ¡ et les majuscules (« lucia tiene sed » est accepté avec le message « Casi: mira los acentos… »), signale une ou deux lettres de travers (« Casi: revisa “tiene”. ») et, sinon, dit simplement qu'il manque ou qu'il y a trop de mots. Après 2 échecs, une pista donne les initiales (« L____ t____ s__. ») ; après 4, « Ver la frase » affiche la phrase.
+  - Le niveau n'est fêté (étoiles) qu'une fois toutes les phrases trouvées ou écrites.
 - **Le « pretérito » (3e)** : le jeu peut passer toutes les phrases au passé. La règle est unique et c'est celle du contraste passé composé / imparfait enseigné en A2 (voir `docs/DECISIONS.md` §6) : **les actions à l'indefinido** (« caminó, se perdió, encontró, bebió, durmió »), **les états et les cadres à l'imperfecto** (« tenía sed, estaba perdida, ya no estaban cansados · Llovía mucho. Hacía calor. Era de noche. »). Exemple produit par le moteur pour c2n1 :
   - présent : « Lucía camina sola por la selva y se pierde. Es de noche. Lucía está sola y tiene miedo. Hace mucho calor. Mateo encuentra a Lucía. ¡Qué alegría! Lucía y Mateo tienen sed. Ahora Lucía y Mateo son amigos. »
   - pretérito : « Lucía caminó sola por la selva y se perdió. Era de noche. Lucía estaba sola y tenía miedo. Hacía mucho calor. Mateo encontró a Lucía. ¡Qué alegría! Lucía y Mateo tenían sed. Lucía y Mateo se hicieron amigos. »
@@ -247,9 +250,10 @@ Quel réglage pour quel élève ?
 
 ## 6. Mode « Autor » et codes
 
-- Dans « Autor », l'élève ou la professeure compose un niveau : les escenas disponibles, les personajes, le nombre de cases, le titre.
-- Un niveau se partage par un **code court à dicter** : des lettres et des chiffres, par groupes de 4 (par exemple « AB3K 9ZT2 »). Le code est insensible à la casse : « ab3k 9zt2 » marche aussi. On l'écrit au tableau ou on le dicte.
-- **Importer** : dans « Autor », on tape le code reçu ; le niveau apparaît alors dans « ☰ Niveles » de ce navigateur et se joue comme les autres.
+- « Autor » s'ouvre depuis l'écran d'accueil ou depuis « ☰ Niveles » → « ✎ Crear un nivel ». L'élève ou la professeure compose un niveau en quatre étapes : les personajes (1 à 4), les escenas (1 à 8), le nombre de cases (2 à 6), le titre. Pour le titre, un **assistant** propose tous les titres possibles avec ces cartes (« Valeria cura a Diego », « Nadie tiene miedo »…) ; « Otro título » permet d'écrire le sien.
+- Puis « Jugar la solución → » : l'auteur joue son histoire sur le plateau. Avec un titre de l'assistant, le bouton « 💾 Guardar el nivel » s'active quand l'histoire réalise le titre ; avec un titre libre, dès que l'histoire est complète : le jeu « apprend » alors cette histoire (mêmes états finaux, mêmes événements) et l'exigera des autres joueurs. Le moteur vérifie qu'il existe au moins une solution, puis affiche le code.
+- Un niveau se partage par un **code à dicter** : lettres et chiffres par groupes de 4, par exemple « S199-H34R-1B2A-1 ». Il n'utilise jamais I, L, O ni U (si un élève lit « O », c'est un zéro) et il est insensible à la casse et aux tirets : « s199 h34r 1b2a 1 » marche aussi. Un titre de l'assistant tient en 16 caractères environ ; un titre libre donne un code bien plus long (le texte du titre est dedans) : pour dicter, préférer l'assistant.
+- **Importer** : « ☰ Niveles » → « ⌨ Tengo un código » (ou depuis le panneau Profe) ; on tape le code reçu ; le niveau apparaît dans « ☰ Niveles » sous « Niveles de la clase » et se joue comme les autres. Un code erroné d'une lettre est refusé.
 - **Où sont les niveaux de la classe ?** Dans le `localStorage` du navigateur de chaque poste, c'est-à-dire sur ce poste, dans ce navigateur, et nulle part ailleurs. Un niveau créé sur le poste 3 n'existe pas sur le poste 4 tant qu'on n'y a pas tapé son code.
 - **Export JSON** : le panneau Profe (touche P) permet d'exporter les niveaux de la classe en un fichier JSON, pour les garder d'une année sur l'autre ou les passer sur un autre poste.
 
@@ -261,10 +265,13 @@ Conseils :
 
 ## 7. Impression
 
-« 🖨 Imprimir » → « Imprimir mi historia » produit une page **A4 paysage** avec :
+« 🖨 » (dans la barre du haut, ou « 🖨 Imprimir » dans la fenêtre de réussite) ouvre la boîte d'impression du navigateur avec trois pages **A4 paysage** :
 
-1. la BD résolue : les cases dans l'ordre, avec leurs dessins et les phrases produites ;
-2. une « hoja de viñetas » vide : une grille de 4 cases et une de 6 cases, à remplir à la main (dessin et phrase).
+1. la BD résolue : le titre, les cases dans l'ordre, avec leurs dessins, les visages selon l'état et les phrases produites ; en pied, les personajes et « Nombre : ____ » à remplir à la main (aucun nom n'est saisi dans le jeu) ;
+2. une « hoja de viñetas » vide de 4 cases, avec des lignes d'écriture sous chaque case ;
+3. la même à 6 cases.
+
+Pour n'imprimer que la hoja de viñetas, choisir les pages 2 ou 3 dans la boîte d'impression.
 
 Conseils :
 

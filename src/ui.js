@@ -75,7 +75,7 @@
   function pintarDif() {
     const d = dif();
     $('#btnDif').textContent = '★'.repeat(d);
-    $('#btnDif').title = DIF[d];
+    $('#btnDif').title = 'Modo de juego: ' + DIF[d];
     document.querySelectorAll('#menuDif button').forEach(b => b.classList.toggle('actual', +b.dataset.d === d));
     document.body.classList.toggle('paso', d === 1);
     document.body.classList.toggle('reto', d === 3);
@@ -109,7 +109,7 @@
     pintarDif();
     $('#subcap').textContent = nivel.libre ? 'nivel libre' : nivel.autor ? 'nivel de autor' : `capítulo ${nivel.capitulo}`;
     const tt = $('#tituloTxt');
-    tt.innerHTML = nivel.libre ? 'Mi historia <span class="alt">(sin título: inventa)</span>' : nivel.titulo;
+    tt.innerHTML = nivel.libre ? 'Mi historia <span class="alt">(sin título: ¡inventa uno!)</span>' : nivel.titulo;
     tt.classList.remove('ok');
     // línea «Al principio» + título secreto
     const ini = $('#inicio');
@@ -253,7 +253,7 @@
     // estado del nivel
     const est = $('#estadoNivel'), tt = $('#tituloTxt');
     if (window.SVApp.alSimular) window.SVApp.alSimular(res);
-    if (nivel.libre || nivel.enConstruccion) { est.textContent = res.incompleto ? `${viñetas.filter(v => v.escena && v.personajes.length).length}/${nivel.viñetas} viñetas` : (nivel.enConstruccion && !res.valido ? 'Esta historia no vale' : '¡Historia completa!'); est.className = res.incompleto || !res.valido ? '' : 'ok'; $('#btnImprimir').disabled = res.incompleto; return; }
+    if (nivel.libre || nivel.enConstruccion) { est.textContent = res.incompleto ? `${viñetas.filter(v => v.escena && v.personajes.length).length}/${nivel.viñetas} viñetas` : (nivel.enConstruccion && !res.valido ? 'Hay un problema: mira la frase en rojo' : '¡Historia completa!'); est.className = res.incompleto || !res.valido ? '' : 'ok'; $('#btnImprimir').disabled = res.incompleto; return; }
     tt.classList.toggle('ok', res.resuelto);
     $('#btnImprimir').disabled = !res.resuelto;
     if (res.resuelto) { est.textContent = '✔ ¡Muy bien!' + (res.secreto ? ' 🔑 ¡Título secreto!' : ''); est.className = 'ok'; exito(); }
@@ -281,7 +281,7 @@
     if (res.secreto) p.secreto = true;
     progreso[nivel.id] = p; guardar();
     pintarNiveles();
-    if (escritorPendiente()) { toast('✔ La historia es correcta. Ahora completa las frases.', 4000); return; }
+    if (escritorPendiente()) { toast(ajustes().escritorNivel === 'escribir' ? '✔ La historia es correcta. Ahora escribe la frase de cada viñeta.' : '✔ La historia es correcta. Ahora elige la frase de cada viñeta.', 4500); return; }
     mostrarExito(p);
   }
   function escritorPendiente() { return !!(window.SVApp.escritor && window.SVApp.escritor.activo() && !window.SVApp.escritor.completo()); }
@@ -291,7 +291,7 @@
     const sec = res.secreto ? `<p>🔑 Título secreto: <b>${tituloSecreto(nivel)}</b></p>` : (nivel.secreto ? '<p class="alt">Hay un título secreto en este nivel… ¿lo encuentras?</p>' : '');
     d.innerHTML = `<h2>¡Muy bien!</h2><div class="grande">${'★'.repeat(p.estrellas || 0)}${'☆'.repeat(3 - (p.estrellas || 0))}</div>
       <p><b>${nivel.titulo}</b></p>${sec}
-      <div class="fila"><button class="btn sec" id="btnSeguir">Seguir aquí</button><button class="btn sec" id="btnImprimirDlg">🖨 Imprimir</button><button class="btn" id="btnLeer">Leer la historia</button><button class="btn verde" id="btnSig">Siguiente nivel →</button></div>`;
+      <div class="fila"><button class="btn sec" id="btnSeguir">Cerrar</button><button class="btn sec" id="btnImprimirDlg">🖨 Imprimir</button><button class="btn" id="btnLeer">Leer la historia</button><button class="btn verde" id="btnSig">Siguiente nivel →</button></div>`;
     d.querySelector('#btnSeguir').onclick = () => d.close();
     d.querySelector('#btnLeer').onclick = () => { d.close(); quePasa(); };
     d.querySelector('#btnSig').onclick = () => { d.close(); siguienteNivel(); };
@@ -308,7 +308,7 @@
     const resumen = res.resumen.length ? `<h3>Al final</h3>${res.resumen.map(s => `<p class="res">${s}</p>`).join('')}` : '';
     let juicio = '';
     if (!nivel.libre) {
-      if (res.resuelto) juicio = `<div class="porque ok">✔ La historia cumple el título: «${nivel.titulo}».</div>`;
+      if (res.resuelto) juicio = `<div class="porque ok">✔ ¡Muy bien! Esta historia es: «${nivel.titulo}».</div>`;
       else if (res.porque.length) juicio = `<div class="porque">${res.porque.map(p => `<div>✗ ${p}</div>`).join('')}</div>`;
     }
     d.innerHTML = `<h2>¿Qué pasa?</h2><div class="historia">${partes}${resumen}</div>${juicio}
@@ -360,7 +360,8 @@
   $('#btnQuePasa').onclick = quePasa;
   $('#btnReiniciar').onclick = () => { viñetas = viñetas.map(() => ({ escena: null, personajes: [] })); seleccionar(null); pintarTira(); simular(); };
   $('#btnPista').onclick = () => {
-    if (nivel.libre || !nivel.pistas || !nivel.pistas.length) { toast('Aquí no hay pistas: ¡inventa tu historia!'); return; }
+    if (nivel.libre) { toast('Aquí no hay pistas: ¡inventa tu historia!'); return; }
+    if (!nivel.pistas || !nivel.pistas.length) { toast('Este nivel no tiene pistas. Lee bien el título.'); return; }
     toast('💡 ' + nivel.pistas[pistaIdx % nivel.pistas.length], 6000); pistaIdx++;
   };
   $('#btnClase').onclick = () => { const c = $('#clase'); c.hidden = !c.hidden; ajustes().clase = !c.hidden; guardar(); ajustarTira(); };
@@ -391,6 +392,11 @@
   /* ---------- inicio ---------- */
   function arrancar() {
     if (window.SVApp.iniciarModulos) { try { window.SVApp.iniciarModulos(); } catch (e) { console.error(e); } }
+    // Parámetros opcionales en la URL (para el profe o las pruebas): ?modo=pizarra|solo&nivel=c2n1&dif=1|2|3
+    const q = new URLSearchParams(location.search);
+    if (q.get('dif') && ['1', '2', '3'].includes(q.get('dif'))) ajustes().dif = +q.get('dif');
+    if (q.get('nivel') && todosNiveles().some(n => n.id === q.get('nivel'))) progreso.actual = q.get('nivel');
+    if (q.get('modo') === 'pizarra' || q.get('modo') === 'solo') ajustes().modo = q.get('modo');
     pintarDif();
     if (ajustes().modo) elegirModo(ajustes().modo); else { abrirNivel(progreso.actual || C.NIVELES[0].id); pintarInicio(); }
   }

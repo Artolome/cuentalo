@@ -137,7 +137,7 @@
     const datos = leer();
     const temporizadores = { crono: 0, anim: 0 };
 
-    const barra = el('div', { class: 'sv-pizarra', role: 'region', 'aria-label': 'Herramientas de la pizarra' });
+    const barra = el('div', { class: 'sv-pizarra', role: 'region', 'aria-label': 'Barra de clase: cronómetro, sorteo y equipos' });
 
     /* ===== 1. Cronómetro ===== */
     const wCrono = el('section', { class: 'svp-widget svp-crono' });
@@ -147,7 +147,7 @@
     const btnCero = el('button', { class: 'svp-btn', type: 'button', 'aria-label': 'Poner a cero', title: 'Poner a cero' }, '↺');
     const modos = el('div', { class: 'svp-fila', role: 'group', 'aria-label': 'Modo del cronómetro' });
     const chipsModo = MODOS.map(m => {
-      const c = el('button', { class: 'svp-chip', type: 'button', 'data-modo': String(m), 'aria-pressed': 'false' }, m === 'arriba' ? '▲ Cuenta' : m + ' min');
+      const c = el('button', { class: 'svp-chip', type: 'button', 'data-modo': String(m), 'aria-pressed': 'false' }, m === 'arriba' ? '▲ Libre' : m + ' min');
       c.addEventListener('click', () => { datos.crono = m; guardar(); ponerACero(); pintarModos(); });
       modos.appendChild(c);
       return c;
@@ -218,15 +218,15 @@
     const wSorteo = el('section', { class: 'svp-widget svp-sorteo' });
     wSorteo.appendChild(el('h3', { class: 'svp-titulo' }, 'Sorteo'));
     const bola = el('div', { class: 'svp-num svp-bola', 'aria-live': 'polite', 'aria-label': 'Número que ha salido' }, '?');
-    const campo = el('input', { class: 'svp-campo', type: 'number', min: String(MIN_ALUMNOS), max: String(MAX_ALUMNOS), step: '1', inputmode: 'numeric', 'aria-label': '¿Cuántos?' });
+    const campo = el('input', { class: 'svp-campo', type: 'number', min: String(MIN_ALUMNOS), max: String(MAX_ALUMNOS), step: '1', inputmode: 'numeric', 'aria-label': 'Número de alumnos' });
     campo.value = String(datos.alumnos);
-    const etiqueta = el('label', { class: 'svp-etiqueta' }); etiqueta.appendChild(document.createTextNode('¿Cuántos?')); etiqueta.appendChild(campo);
+    const etiqueta = el('label', { class: 'svp-etiqueta' }); etiqueta.appendChild(document.createTextNode('Alumnos:')); etiqueta.appendChild(campo);
     const btnNumero = el('button', { class: 'svp-btn svp-grande svp-rojo', type: 'button' }, '¡Número!');
     const casilla = el('input', { class: 'svp-casilla', type: 'checkbox' });
     casilla.checked = datos.sinRepetir;
     const etqCasilla = el('label', { class: 'svp-etiqueta' }); etqCasilla.appendChild(casilla); etqCasilla.appendChild(document.createTextNode('sin repetir'));
     const nota = el('span', { class: 'svp-nota', 'aria-live': 'polite' });
-    const btnBolsa = el('button', { class: 'svp-btn', type: 'button', 'aria-label': 'Reiniciar la bolsa', title: 'Reiniciar la bolsa' }, '↺');
+    const btnBolsa = el('button', { class: 'svp-btn', type: 'button', 'aria-label': 'Todos los números otra vez', title: 'Todos los números otra vez' }, '↺');
     let bolsa = [], ultimo = 0, animando = false;
 
     function llenarBolsa() { bolsa = Array.from({ length: datos.alumnos }, (_, i) => i + 1); }
@@ -245,7 +245,7 @@
       const n = datos.alumnos;
       let final;
       if (datos.sinRepetir) {
-        if (!bolsa.length) { llenarBolsa(); toast('Ya han salido todos. ¡Bolsa nueva!'); }
+        if (!bolsa.length) { llenarBolsa(); toast('Ya han salido todos los números. ¡Empezamos otra vez!'); }
         final = bolsa.splice(Math.floor(Math.random() * bolsa.length), 1)[0];
       } else {
         do { final = 1 + Math.floor(Math.random() * n); } while (final === ultimo); // sin repetir el anterior dos veces seguidas
@@ -272,7 +272,7 @@
     campo.addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); fijarAlumnos(); sortear(); } });
     casilla.addEventListener('change', () => { datos.sinRepetir = casilla.checked; guardar(); llenarBolsa(); pintarBolsa(); });
     btnNumero.addEventListener('click', sortear);
-    btnBolsa.addEventListener('click', () => { llenarBolsa(); pintarBolsa(); toast('Bolsa llena otra vez.'); });
+    btnBolsa.addEventListener('click', () => { llenarBolsa(); pintarBolsa(); toast('Todos los números otra vez.'); });
     const fila1 = el('div', { class: 'svp-fila' }); fila1.appendChild(etiqueta); fila1.appendChild(btnNumero);
     const fila2 = el('div', { class: 'svp-fila' }); fila2.appendChild(etqCasilla); fila2.appendChild(nota); fila2.appendChild(btnBolsa);
     wSorteo.appendChild(bola); wSorteo.appendChild(fila1); wSorteo.appendChild(fila2);

@@ -69,7 +69,7 @@
         }
       });
       const ver = f.querySelector('.esc-ver');
-      if (ver) ver.addEventListener('click', ev => { ev.stopPropagation(); s.revelada = true; acierta(i, s, texto, 'Esta es la frase. Léela bien.'); });
+      if (ver) ver.addEventListener('click', ev => { ev.stopPropagation(); s.revelada = true; acierta(i, s, texto, 'Aquí tienes la frase. Léela y escúchala.'); });
     }
     f.querySelector('.oir').addEventListener('click', ev => { ev.stopPropagation(); App.hablar(texto); });
   }
@@ -86,18 +86,24 @@
   /* =====================================================================
      2. IMPRIMIR MI HISTORIA (A4 apaisado): el cómic resuelto + hojas de viñetas vacías (4 y 6)
      ===================================================================== */
+  /** HTML de las tres páginas (cómic resuelto + hojas de 4 y 6 viñetas). Función pura: también la usa test/imprimir.js. */
+  function htmlImpresion(nivel, res, tituloSecreto) {
+    const n = res.viñetas.length, cols = n <= 3 ? n : n === 4 ? 2 : 3;
+    const vin = res.viñetas.map((v, i) => `<div class="imp-vineta"><div class="imp-esc">${v.escena ? AE.escenaSVG(v.escena, { clase: 'fondo' }) : ''}<div class="imp-pjs">${v.personajes.map(id => AP.personajeSVG(PJ[id], v.estado[id] ? E.expresion(v.estado[id]) : 'contento', { clase: 'pj' })).join('')}</div><span class="imp-num">${i + 1}</span></div><p class="imp-frase">${esc(v.frases.join(' '))}</p></div>`).join('');
+    const hoja = k => `<div class="imp-pagina imp-hoja"><h1 class="imp-titulo">Mi historia: <span class="imp-linea"></span></h1><div class="imp-tira" style="--c:${k === 4 ? 2 : 3}">${Array.from({ length: k }, (_, i) => `<div class="imp-vineta"><div class="imp-esc vacia"><span class="imp-num">${i + 1}</span></div><div class="imp-lineas"></div></div>`).join('')}</div><p class="imp-pie">Sobrevives · hoja de viñetas · ${k} viñetas · Nombre o código: ____________________</p></div>`;
+    const titulo = nivel.libre ? 'Mi historia' : nivel.titulo;
+    const secreto = res.secreto && nivel.secreto && tituloSecreto ? ` · 🔑 ${tituloSecreto}` : '';
+    const inicio = res.inicio && res.inicio.length ? `<p class="imp-frase imp-inicio"><b>Al principio:</b> ${esc(res.inicio.join(' '))}</p>` : '';
+    return `<div class="imp-pagina"><h1 class="imp-titulo">${esc(titulo)}</h1>${inicio}<div class="imp-tira" style="--c:${cols}">${vin}</div><p class="imp-pie">Sobrevives · ${esc(nivel.personajes.map(id => PJ[id].nombre).join(', '))}${esc(secreto)} · Nombre o código: ____________________</p></div>${hoja(4)}${hoja(6)}`;
+  }
   function imprimir() {
     const nivel = App.nivel(), res = App.resultado();
     let sec = $('#impresion');
     if (!sec) { sec = el('section', { id: 'impresion', 'aria-hidden': 'true' }); document.body.appendChild(sec); }
-    const n = res.viñetas.length, cols = n <= 3 ? n : n === 4 ? 2 : 3;
-    const vin = res.viñetas.map((v, i) => `<div class="imp-vineta"><div class="imp-esc">${v.escena ? AE.escenaSVG(v.escena, { clase: 'fondo' }) : ''}<div class="imp-pjs">${v.personajes.map(id => AP.personajeSVG(PJ[id], v.estado[id] ? E.expresion(v.estado[id]) : 'contento', { clase: 'pj' })).join('')}</div><span class="imp-num">${i + 1}</span></div><p class="imp-frase">${esc(v.frases.join(' '))}</p></div>`).join('');
-    const hoja = k => `<div class="imp-pagina imp-hoja"><h1 class="imp-titulo">Mi historia: <span class="imp-linea"></span></h1><div class="imp-tira" style="--c:${k === 4 ? 2 : 3}">${Array.from({ length: k }, (_, i) => `<div class="imp-vineta"><div class="imp-esc vacia"><span class="imp-num">${i + 1}</span></div><div class="imp-lineas"></div></div>`).join('')}</div><p class="imp-pie">Sobrevives · hoja de viñetas · ${k} viñetas · Nombre: ____________________</p></div>`;
-    const titulo = nivel.libre ? 'Mi historia' : nivel.titulo;
-    const secreto = res.secreto && nivel.secreto ? ` · 🔑 ${App.tituloSecreto(nivel)}` : '';
-    sec.innerHTML = `<div class="imp-pagina"><h1 class="imp-titulo">${esc(titulo)}</h1><div class="imp-tira" style="--c:${cols}">${vin}</div><p class="imp-pie">Sobrevives · ${esc(nivel.personajes.map(id => PJ[id].nombre).join(', '))}${esc(secreto)} · Nombre: ____________________</p></div>${hoja(4)}${hoja(6)}`;
+    sec.innerHTML = htmlImpresion(nivel, res, nivel.secreto ? App.tituloSecreto(nivel) : '');
     window.print();
   }
+  App.htmlImpresion = htmlImpresion;
 
   /* =====================================================================
      3. MODO AUTOR: crear un nivel, jugar la solución, guardar y compartir con un código
@@ -143,7 +149,7 @@
       const actual = sel.value;
       sel.innerHTML = titulos.map((t, i) => `<option value="${i}">${esc(t.titulo)}</option>`).join('') + `<option value="libre">✎ Otro título (lo escribo yo)</option>`;
       if ([...sel.options].some(o => o.value === actual)) sel.value = actual;
-      nota.textContent = titulos.length ? `${titulos.length} títulos posibles con estas cartas. Con «Otro título», juegas tu historia y el juego la aprende.` : 'Elige personajes y escenas para ver títulos.';
+      nota.textContent = titulos.length ? `${titulos.length} ${titulos.length === 1 ? 'título posible' : 'títulos posibles'} con estos personajes y escenas. Con «Otro título», juegas tu historia y el juego la aprende.` : 'Elige personajes y escenas para ver títulos.';
       libre.hidden = sel.value !== 'libre';
     }
     form.addEventListener('change', ev => { if (ev.target.name === 'pj' || ev.target.name === 'esc') rellenarTitulos(); if (ev.target === sel) libre.hidden = sel.value !== 'libre'; });
@@ -166,7 +172,7 @@
     App.abrirNivel('autor-nuevo');
     if (!barra) { barra = el('div', { id: 'barraAutor', role: 'status' }); $('#titulo').appendChild(barra); }
     barra.hidden = false;
-    barra.innerHTML = `<span>✎ <b>Modo Autor.</b> ${nivel.objetivo ? 'Juega una historia que cumpla el título.' : 'Juega tu historia: el juego la aprende.'}</span>
+    barra.innerHTML = `<span>✎ <b>Modo Autor.</b> ${nivel.objetivo ? 'Haz una historia para este título.' : 'Juega tu historia: el juego la aprende.'}</span>
       <button class="btn verde" id="bGuardar" disabled>💾 Guardar el nivel</button><button class="btn sec" id="bCancelar">✕ Cancelar</button>`;
     barra.querySelector('#bCancelar').addEventListener('click', () => { barra.hidden = true; recargarExtra(); App.abrirNivel(C.NIVELES[0].id); });
     barra.querySelector('#bGuardar').addEventListener('click', () => guardarNivel(nivel));
@@ -193,7 +199,7 @@
       if (barra) barra.hidden = true;
       const d = dialogo(`<h2>¡Nivel guardado!</h2><p><b>${esc(final.titulo)}</b> · ${final.viñetas} viñetas · ${v.total} ${v.total === 1 ? 'solución' : 'soluciones'}${v.desbordado ? ' (o más)' : ''}</p>
         <p>Código para la clase (dictar o escribir en la pizarra):</p><p><span class="codigo" id="codigoTxt">${codigo}</span></p>
-        <p class="nota">Las letras I, L, O y U no se usan: si alguien lee «O», es un cero.</p>
+        <p class="nota">Las letras I, L, O y U no se usan: si lees «O», es un cero; si lees «I» o «L», es un uno.</p>
         <div class="fila"><button class="btn sec" id="bCopiar">Copiar</button><button class="btn sec" id="bOtro">Crear otro</button><button class="btn verde" id="bJugar">Jugar este nivel</button></div>`);
       d.querySelector('#bCopiar').addEventListener('click', () => { try { navigator.clipboard.writeText(codigo); App.toast('Código copiado.'); } catch (_) { App.toast('No se puede copiar aquí: cópialo a mano.'); } });
       d.querySelector('#bOtro').addEventListener('click', () => { d.close(); abrirAutor({ personajes: final.personajes, escenas: final.escenas, viñetas: final.viñetas }); });
@@ -201,7 +207,7 @@
     }, 60);
   }
   function importarCodigo(codigoInicial) {
-    const d = dialogo(`<h2>⌨ Tengo un código</h2><form id="fCodigo"><input type="text" id="cIn" class="codigo-in" autocomplete="off" spellcheck="false" placeholder="S1AB-CDEF-GHJK-M" value="${esc(codigoInicial || '')}" aria-label="Código del nivel"><p class="nota" id="cNota">Escribe el código tal como está en la pizarra. Da igual mayúsculas o guiones.</p>
+    const d = dialogo(`<h2>⌨ Tengo un código</h2><form id="fCodigo"><input type="text" id="cIn" class="codigo-in" autocomplete="off" spellcheck="false" placeholder="S1AB-CDEF-GHJK-M" value="${esc(codigoInicial || '')}" aria-label="Código del nivel"><p class="nota" id="cNota">Copia el código de la pizarra. Puedes escribirlo en minúsculas y sin guiones.</p>
       <div class="fila"><button class="btn sec" type="button" data-cerrar>Cancelar</button><button class="btn verde" type="submit">Abrir el nivel</button></div></form>`);
     const form = d.querySelector('#fCodigo'), input = d.querySelector('#cIn'), nota = d.querySelector('#cNota');
     setTimeout(() => input.focus(), 50);
@@ -224,7 +230,7 @@
   function clave() { return App.ajustes().clave || CLAVE_DEFECTO; }
   function abrirProfe() {
     if (autorizado) { panelProfe(); return; }
-    const d = dialogo(`<h2>Profe</h2><form id="fClave"><label>Contraseña <input type="password" id="pIn" autocomplete="off" aria-label="Contraseña"></label><p class="nota" id="pNota">Por defecto: «profe». Se cambia dentro del panel.</p>
+    const d = dialogo(`<h2>Profe</h2><form id="fClave"><label>Contraseña <input type="password" id="pIn" autocomplete="off" aria-label="Contraseña"></label><p class="nota" id="pNota">Solo para el profe o la profe.</p>
       <div class="fila"><button class="btn sec" type="button" data-cerrar>Cancelar</button><button class="btn" type="submit">Entrar</button></div></form>`);
     const input = d.querySelector('#pIn');
     setTimeout(() => input.focus(), 50);
@@ -262,7 +268,7 @@
       <section><h3>Ajustes</h3>
         <label class="ajuste"><input type="checkbox" id="pEscritor"${a.escritor ? ' checked' : ''}> Modo escritor (frases ocultas)</label>
         <div class="ajuste sub"><label><input type="radio" name="pEscNivel" value="elegir"${a.escritorNivel !== 'escribir' ? ' checked' : ''}> elegir entre 3 (A1)</label> <label><input type="radio" name="pEscNivel" value="escribir"${a.escritorNivel === 'escribir' ? ' checked' : ''}> escribir (A2)</label></div>
-        <label class="ajuste"><input type="checkbox" id="pPret"${a.preterito ? ' checked' : ''}> Pretérito (3e): acciones en indefinido, estados en imperfecto</label>
+        <label class="ajuste"><input type="checkbox" id="pPret"${a.preterito ? ' checked' : ''}> Pretérito (3.º · A2): acciones en indefinido, estados en imperfecto</label>
         <label class="ajuste"><input type="checkbox" id="pClase"${a.clase === true ? ' checked' : ''}> Barra de clase visible (modo Pizarra)</label>
         <p class="nota">En ★★★ Reto el modo escritor está siempre activo.</p>
         <form id="fNuevaClave" class="ajuste"><label>Nueva contraseña <input type="password" id="pNueva" autocomplete="new-password" minlength="3"></label> <button class="btn sec mini" type="submit">Cambiar</button></form>
