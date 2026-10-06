@@ -2683,6 +2683,7 @@ dialog .fila.izq{justify-content:flex-start}
   const C = window.SVContenido, E = window.SVEngine, AP = window.SVArtePersonajes, AE = window.SVArteEscenas;
   const $ = s => document.querySelector(s);
   const el = (tag, attrs, html) => { const n = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === 'class') n.className = attrs[k]; else if (k.startsWith('on')) n.addEventListener(k.slice(2), attrs[k]); else n.setAttribute(k, attrs[k]); } if (html !== undefined) n.innerHTML = html; return n; };
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); // los títulos de autor son texto libre
   const PJ = {}; for (const p of C.PERSONAJES) PJ[p.id] = p;
   const ES = {}; for (const e of C.ESCENAS) ES[e.id] = e;
   const KEY = 'sobrevives.progreso.v0';
@@ -2692,10 +2693,11 @@ dialog .fila.izq{justify-content:flex-start}
   let nivel = null, viñetas = [], res = null, seleccion = null, intentos = 0, pistaIdx = 0;
   let progreso = cargar();
   let extra = []; // niveles de autor (los añade ui-modos.js)
-  function cargar() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (_) { return {}; } }
+  function cargar() { try { const p = JSON.parse(localStorage.getItem(KEY) || '{}'); return p && typeof p === 'object' && !Array.isArray(p) ? p : {}; } catch (_) { return {}; } }
   function guardar() { try { localStorage.setItem(KEY, JSON.stringify(progreso)); } catch (_) { /* sin almacenamiento */ } }
-  function ajustes() { if (!progreso.ajustes) progreso.ajustes = { modo: null, dif: 2, escritor: false, preterito: false }; return progreso.ajustes; }
-  const dif = () => ajustes().dif || 2;
+  function ajustes() { if (!progreso.ajustes || typeof progreso.ajustes !== 'object') progreso.ajustes = { modo: null, dif: 2, escritor: false, preterito: false }; return progreso.ajustes; }
+  const dif = () => [1, 2, 3].includes(ajustes().dif) ? ajustes().dif : 2;
+  const progresoDe = id => (progreso[id] && typeof progreso[id] === 'object') ? progreso[id] : {};
   const tiempo = () => ajustes().preterito ? 'pret' : 'pres';
   const todosNiveles = () => C.NIVELES.concat(extra);
 
