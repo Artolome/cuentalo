@@ -1,4 +1,4 @@
-/* Sobrevives — modo «Pizarra»: herramientas de clase para el videoproyector (sin dependencias).
+/* Cuéntalo — modo «Pizarra»: herramientas de clase para el videoproyector (sin dependencias).
    Tres widgets en una barra: cronómetro, sorteo de números (sin nombres) y marcador de equipos.
    Funciona en el navegador (window.SVPizarra); en Node solo exporta la API (no toca el DOM).
    montar(contenedor, opts) → { destruir(), reiniciar() }
@@ -10,7 +10,7 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const KEY = 'sobrevives.pizarra.v0';
+  const KEY = 'cuentalo.pizarra.v0';
   const W = typeof window !== 'undefined' ? window : null;
   const MODOS = ['arriba', 1, 3, 5, 10]; // cuenta arriba, o cuenta atrás en minutos
   const TOPE = 99 * 60000 + 59000; // 99:59, tope de la cuenta arriba

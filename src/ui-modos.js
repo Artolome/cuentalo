@@ -1,4 +1,4 @@
-/* Sobrevives — módulos de interfaz de la fase 2: modo escritor, Imprimir mi historia, modo Autor, panel Profe.
+/* Cuéntalo — módulos de interfaz de la fase 2: modo escritor, Imprimir mi historia, modo Autor, panel Profe.
    Se engancha a window.SVApp (definido en ui.js). Vanilla JS, sin dependencias, todo en localStorage. */
 (function () {
   'use strict';
@@ -105,11 +105,11 @@
   function htmlImpresion(nivel, res, tituloSecreto) {
     const n = res.viñetas.length, cols = n <= 3 ? n : n === 4 ? 2 : 3;
     const vin = res.viñetas.map((v, i) => `<div class="imp-vineta"><div class="imp-esc">${v.escena ? AE.escenaSVG(v.escena, { clase: 'fondo' }) : ''}<div class="imp-pjs">${v.personajes.map(id => AP.personajeSVG(PJ[id], v.estado[id] ? E.expresion(v.estado[id]) : 'contento', { clase: 'pj' })).join('')}</div><span class="imp-num">${i + 1}</span></div><p class="imp-frase">${esc(v.frases.join(' '))}</p></div>`).join('');
-    const hoja = k => `<div class="imp-pagina imp-hoja"><h1 class="imp-titulo">Mi historia: <span class="imp-linea"></span></h1><div class="imp-tira" style="--c:${k === 4 ? 2 : 3}">${Array.from({ length: k }, (_, i) => `<div class="imp-vineta"><div class="imp-esc vacia"><span class="imp-num">${i + 1}</span></div><div class="imp-lineas"><i></i><i></i><i></i></div></div>`).join('')}</div><p class="imp-pie">Sobrevives · hoja de viñetas · ${k} viñetas · Nombre o código: ____________________</p></div>`;
+    const hoja = k => `<div class="imp-pagina imp-hoja"><h1 class="imp-titulo">Mi historia: <span class="imp-linea"></span></h1><div class="imp-tira" style="--c:${k === 4 ? 2 : 3}">${Array.from({ length: k }, (_, i) => `<div class="imp-vineta"><div class="imp-esc vacia"><span class="imp-num">${i + 1}</span></div><div class="imp-lineas"><i></i><i></i><i></i></div></div>`).join('')}</div><p class="imp-pie">Cuéntalo · hoja de viñetas · ${k} viñetas · Nombre o código: ____________________</p></div>`;
     const titulo = nivel.libre ? 'Mi historia' : nivel.titulo;
     const secreto = res.secreto && nivel.secreto && tituloSecreto ? ` · 🔑 ${tituloSecreto}` : '';
     const inicio = res.inicio && res.inicio.length ? `<p class="imp-frase imp-inicio"><b>Al principio:</b> ${esc(res.inicio.join(' '))}</p>` : '';
-    return `<div class="imp-pagina"><h1 class="imp-titulo">${esc(titulo)}</h1>${inicio}<div class="imp-tira" style="--c:${cols}">${vin}</div><p class="imp-pie">Sobrevives · ${esc(nivel.personajes.map(id => PJ[id].nombre).join(', '))}${esc(secreto)} · Nombre o código: ____________________</p></div>${hoja(4)}${hoja(6)}`;
+    return `<div class="imp-pagina"><h1 class="imp-titulo">${esc(titulo)}</h1>${inicio}<div class="imp-tira" style="--c:${cols}">${vin}</div><p class="imp-pie">Cuéntalo · ${esc(nivel.personajes.map(id => PJ[id].nombre).join(', '))}${esc(secreto)} · Nombre o código: ____________________</p></div>${hoja(4)}${hoja(6)}`;
   }
   function imprimir() {
     const nivel = App.nivel(), res = App.resultado();
@@ -372,7 +372,7 @@
     d.querySelector('#bBorrarTodo').addEventListener('click', () => { if (confirm('¿Borrar TODO lo que el juego guarda en este navegador (estrellas, ajustes, contraseña, niveles de la clase, equipos)?')) { d.close(); App.borrarTodo(); App.toast('Todo borrado.'); } });
     d.querySelector('#bExportar').addEventListener('click', () => {
       const blob = new Blob([almacen.exportarTodo()], { type: 'application/json' });
-      const aEl = el('a', { href: URL.createObjectURL(blob), download: 'sobrevives-niveles.json' });
+      const aEl = el('a', { href: URL.createObjectURL(blob), download: 'cuentalo-niveles.json' });
       document.body.appendChild(aEl); aEl.click(); setTimeout(() => { URL.revokeObjectURL(aEl.href); aEl.remove(); }, 1000);
     });
     d.querySelector('#pImportar').addEventListener('change', ev => {
@@ -402,7 +402,7 @@
     App.abrirProfe = abrirProfe;
     App.imprimir = imprimir;
     App.importarCodigo = importarCodigo;
-    App.borrarDatos = function () { store.removeItem('sobrevives.autor.v0'); store.removeItem('sobrevives.pizarra.v0'); App.escritor.reiniciar(); autorizado = false; };
+    App.borrarDatos = function () { store.removeItem('cuentalo.autor.v0'); store.removeItem('cuentalo.pizarra.v0'); App.escritor.reiniciar(); autorizado = false; };
     App.alSimular = function (res) {
       if (barra && !barra.hidden) { const b = barra.querySelector('#bGuardar'); if (b) b.disabled = !autorListo(res); if (!App.nivel().enConstruccion) barra.hidden = true; }
     };

@@ -1,4 +1,4 @@
-SOBREVIVES — todas las frases generables (1634) — generado por test/frases.js
+CUÉNTALO — todas las frases generables (1634) — generado por test/frases.js
 
 ## PRESENTE · La selva · evento pierde
 Lucía camina sola por la selva y se pierde.

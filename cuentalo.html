@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sobrevives</title>
-<meta name="description" content="Sobrevives — juego de narración visual en español (A1/A2). Un solo fichero, sin conexión.">
+<title>Cuéntalo</title>
+<meta name="description" content="Cuéntalo — juego de narración visual en español (A1/A2). Un solo fichero, sin conexión.">
 <style>
 :root{
   --papel:#fff8ec; --papel2:#f6e9d2; --tinta:#1f1a17; --tinta2:#5b4a3a;
@@ -244,7 +244,7 @@ dialog .fila.izq{justify-content:flex-start}
 <header id="cab">
   <button id="btnInicio" class="btn sec" title="Inicio: Pizarra / Solo / Autor">🏠</button>
   <button id="btnNiveles" class="btn sec" title="Elegir nivel">☰ Niveles</button>
-  <h1>Sobrevives <small id="subcap"></small></h1>
+  <h1>Cuéntalo <small id="subcap"></small></h1>
   <div class="acciones">
     <button id="btnClase" class="btn sec" title="Barra de clase: cronómetro, sorteo y equipos" hidden>⏱ Clase</button>
     <button id="btnPista" class="btn sec">💡 Pista</button>
@@ -282,8 +282,8 @@ dialog .fila.izq{justify-content:flex-start}
 <dialog id="dlgModos"></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <div id="inicioApp" class="inicio-app" hidden>
-  <h1>Sobrevives</h1>
-  <p>Cuenta la historia con las viñetas. ¿Sobrevives en la selva?</p>
+  <h1>Cuéntalo</h1>
+  <p>¿Qué pasa en la selva? ¡Cuéntalo en viñetas!</p>
   <div class="tarjetas">
     <button class="tarjeta" data-modo="pizarra"><span class="ico">🖥️</span><b>Pizarra</b><span>En clase, con el videoproyector</span></button>
     <button class="tarjeta" data-modo="solo"><span class="ico">🎒</span><b>Solo</b><span>Juego yo. Mis estrellas se guardan aquí.</span></button>
@@ -291,9 +291,9 @@ dialog .fila.izq{justify-content:flex-start}
   </div>
   <p class="pie">Sin conexión · ningún dato sale de este ordenador</p>
 </div>
-<footer>Sobrevives · 2026-10-07 · sin conexión · ningún dato sale de este ordenador</footer>
+<footer>Cuéntalo · 2026-10-07 · sin conexión · ningún dato sale de este ordenador</footer>
 <script>/* lengua.js */
-/* Sobrevives — capa de lengua (sin DOM).
+/* Cuéntalo — capa de lengua (sin DOM).
    Acuerdos de género/número, sujetos compuestos, conjugación presente / pretérito.
    Funciona en Node (tests) y en el navegador (window.SVLengua). */
 (function (root, factory) {
@@ -426,7 +426,7 @@ dialog .fila.izq{justify-content:flex-start}
 
 </script>
 <script>/* contenido.js */
-/* Sobrevives — contenido (datos puros, sin DOM).
+/* Cuéntalo — contenido (datos puros, sin DOM).
    Personajes, escenas (metadatos), niveles. Las reglas de las escenas viven en engine.js. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
@@ -605,7 +605,7 @@ dialog .fila.izq{justify-content:flex-start}
 
 </script>
 <script>/* engine.js */
-/* Sobrevives — motor puro y determinista (sin DOM). Funciona en Node y en el navegador (window.SVEngine).
+/* Cuéntalo — motor puro y determinista (sin DOM). Funciona en Node y en el navegador (window.SVEngine).
    simular(nivel, viñetas, opts) → { viñetas:[{frases, eventos}], estado, eventos, resuelto, secreto, porque, valido, incompleto }
    resolver(nivel, opts)        → { total, soluciones:[...], secretas, ambas, estados }
    tituloDe(objetivo, nivel)    → título en español generado desde el predicado
@@ -1388,7 +1388,7 @@ dialog .fila.izq{justify-content:flex-start}
 
 </script>
 <script>/* art/personajes.js */
-/* Sobrevives — arte: personajes SVG paramétricos (ligne claire, fondos lisos).
+/* Cuéntalo — arte: personajes SVG paramétricos (ligne claire, fondos lisos).
    personajeSVG(p, expresion, opts) → string SVG (viewBox 0 0 100 150).
    Expresiones: contento · feliz · miedo · hambre · sed · frio · cansado · herido · perdido · enfadado */
 (function (root, factory) {
@@ -1526,7 +1526,7 @@ dialog .fila.izq{justify-content:flex-start}
 
 </script>
 <script>/* art/escenas.js */
-/* Sobrevives — arte: decorados SVG de las escenas (ligne claire, fondos lisos).
+/* Cuéntalo — arte: decorados SVG de las escenas (ligne claire, fondos lisos).
    escenaSVG(id) → string SVG (viewBox 0 0 160 100). Sirve tanto de fondo de viñeta como de carta en el stock. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
@@ -1568,7 +1568,7 @@ dialog .fila.izq{justify-content:flex-start}
 
 </script>
 <script>/* escritor.js */
-/* Sobrevives — modo escritor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVEscritor).
+/* Cuéntalo — modo escritor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVEscritor).
    En cada viñeta la frase generada se oculta: el alumno elige la frase correcta entre 3 (A1) o la escribe (A2).
    normalizar(s)                          → minúsculas, sin tildes (la ñ se conserva), sin signos ni comillas
    comparar(escrito, correcta)            → { ok, casi, nota, diferencias:[{esperada, escrita}], mensaje }
@@ -1837,7 +1837,7 @@ dialog .fila.izq{justify-content:flex-start}
 
 </script>
 <script>/* autor.js */
-/* Sobrevives — modo Autor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVAutor).
+/* Cuéntalo — modo Autor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVAutor).
    codificar(nivel)                      → código corto para dictar: «S1AB-CDEF-GHJK-M»
    decodificar(codigo)                   → nivel {id:'autor-…', capitulo:0, autor:true, titulo, viñetas, escenas, personajes, objetivo, inicial?}
    asistenteTitulos(personajes, escenas) → [{objetivo, titulo}] títulos posibles con esas cartas
@@ -2303,7 +2303,7 @@ dialog .fila.izq{justify-content:flex-start}
   }
 
   /* ---------- almacén (localStorage inyectado; nunca lanza por falta de almacenamiento) ---------- */
-  const CLAVE = 'sobrevives.autor.v0';
+  const CLAVE = 'cuentalo.autor.v0';
   const copia = x => JSON.parse(JSON.stringify(x));
   function almacen(store) {
     let memoria = []; // repuesto cuando el almacenamiento falla o no existe
@@ -2362,7 +2362,7 @@ dialog .fila.izq{justify-content:flex-start}
 
 </script>
 <script>/* pizarra.js */
-/* Sobrevives — modo «Pizarra»: herramientas de clase para el videoproyector (sin dependencias).
+/* Cuéntalo — modo «Pizarra»: herramientas de clase para el videoproyector (sin dependencias).
    Tres widgets en una barra: cronómetro, sorteo de números (sin nombres) y marcador de equipos.
    Funciona en el navegador (window.SVPizarra); en Node solo exporta la API (no toca el DOM).
    montar(contenedor, opts) → { destruir(), reiniciar() }
@@ -2374,7 +2374,7 @@ dialog .fila.izq{justify-content:flex-start}
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const KEY = 'sobrevives.pizarra.v0';
+  const KEY = 'cuentalo.pizarra.v0';
   const W = typeof window !== 'undefined' ? window : null;
   const MODOS = ['arriba', 1, 3, 5, 10]; // cuenta arriba, o cuenta atrás en minutos
   const TOPE = 99 * 60000 + 59000; // 99:59, tope de la cuenta arriba
@@ -2719,7 +2719,7 @@ dialog .fila.izq{justify-content:flex-start}
 
 </script>
 <script>/* ui.js */
-/* Sobrevives — interfaz principal. Vanilla JS, sin dependencias.
+/* Cuéntalo — interfaz principal. Vanilla JS, sin dependencias.
    Arrastrar-soltar + repliegue clic-clic (clic en la carta, clic en la viñeta). Todo en localStorage.
    Expone window.SVApp (ganchos para los módulos Autor / Profe / Escritor / Imprimir, en src/ui-modos.js). */
 (function () {
@@ -2730,7 +2730,7 @@ dialog .fila.izq{justify-content:flex-start}
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); // los títulos de autor son texto libre
   const PJ = {}; for (const p of C.PERSONAJES) PJ[p.id] = p;
   const ES = {}; for (const e of C.ESCENAS) ES[e.id] = e;
-  const KEY = 'sobrevives.progreso.v0';
+  const KEY = 'cuentalo.progreso.v0';
   const DIF = { 1: 'Paso a paso', 2: 'Estándar', 3: 'Reto' };
 
   /* ---------- estado de la aplicación ---------- */
@@ -3170,7 +3170,7 @@ dialog .fila.izq{justify-content:flex-start}
 
 </script>
 <script>/* ui-modos.js */
-/* Sobrevives — módulos de interfaz de la fase 2: modo escritor, Imprimir mi historia, modo Autor, panel Profe.
+/* Cuéntalo — módulos de interfaz de la fase 2: modo escritor, Imprimir mi historia, modo Autor, panel Profe.
    Se engancha a window.SVApp (definido en ui.js). Vanilla JS, sin dependencias, todo en localStorage. */
 (function () {
   'use strict';
@@ -3277,11 +3277,11 @@ dialog .fila.izq{justify-content:flex-start}
   function htmlImpresion(nivel, res, tituloSecreto) {
     const n = res.viñetas.length, cols = n <= 3 ? n : n === 4 ? 2 : 3;
     const vin = res.viñetas.map((v, i) => `<div class="imp-vineta"><div class="imp-esc">${v.escena ? AE.escenaSVG(v.escena, { clase: 'fondo' }) : ''}<div class="imp-pjs">${v.personajes.map(id => AP.personajeSVG(PJ[id], v.estado[id] ? E.expresion(v.estado[id]) : 'contento', { clase: 'pj' })).join('')}</div><span class="imp-num">${i + 1}</span></div><p class="imp-frase">${esc(v.frases.join(' '))}</p></div>`).join('');
-    const hoja = k => `<div class="imp-pagina imp-hoja"><h1 class="imp-titulo">Mi historia: <span class="imp-linea"></span></h1><div class="imp-tira" style="--c:${k === 4 ? 2 : 3}">${Array.from({ length: k }, (_, i) => `<div class="imp-vineta"><div class="imp-esc vacia"><span class="imp-num">${i + 1}</span></div><div class="imp-lineas"><i></i><i></i><i></i></div></div>`).join('')}</div><p class="imp-pie">Sobrevives · hoja de viñetas · ${k} viñetas · Nombre o código: ____________________</p></div>`;
+    const hoja = k => `<div class="imp-pagina imp-hoja"><h1 class="imp-titulo">Mi historia: <span class="imp-linea"></span></h1><div class="imp-tira" style="--c:${k === 4 ? 2 : 3}">${Array.from({ length: k }, (_, i) => `<div class="imp-vineta"><div class="imp-esc vacia"><span class="imp-num">${i + 1}</span></div><div class="imp-lineas"><i></i><i></i><i></i></div></div>`).join('')}</div><p class="imp-pie">Cuéntalo · hoja de viñetas · ${k} viñetas · Nombre o código: ____________________</p></div>`;
     const titulo = nivel.libre ? 'Mi historia' : nivel.titulo;
     const secreto = res.secreto && nivel.secreto && tituloSecreto ? ` · 🔑 ${tituloSecreto}` : '';
     const inicio = res.inicio && res.inicio.length ? `<p class="imp-frase imp-inicio"><b>Al principio:</b> ${esc(res.inicio.join(' '))}</p>` : '';
-    return `<div class="imp-pagina"><h1 class="imp-titulo">${esc(titulo)}</h1>${inicio}<div class="imp-tira" style="--c:${cols}">${vin}</div><p class="imp-pie">Sobrevives · ${esc(nivel.personajes.map(id => PJ[id].nombre).join(', '))}${esc(secreto)} · Nombre o código: ____________________</p></div>${hoja(4)}${hoja(6)}`;
+    return `<div class="imp-pagina"><h1 class="imp-titulo">${esc(titulo)}</h1>${inicio}<div class="imp-tira" style="--c:${cols}">${vin}</div><p class="imp-pie">Cuéntalo · ${esc(nivel.personajes.map(id => PJ[id].nombre).join(', '))}${esc(secreto)} · Nombre o código: ____________________</p></div>${hoja(4)}${hoja(6)}`;
   }
   function imprimir() {
     const nivel = App.nivel(), res = App.resultado();
@@ -3544,7 +3544,7 @@ dialog .fila.izq{justify-content:flex-start}
     d.querySelector('#bBorrarTodo').addEventListener('click', () => { if (confirm('¿Borrar TODO lo que el juego guarda en este navegador (estrellas, ajustes, contraseña, niveles de la clase, equipos)?')) { d.close(); App.borrarTodo(); App.toast('Todo borrado.'); } });
     d.querySelector('#bExportar').addEventListener('click', () => {
       const blob = new Blob([almacen.exportarTodo()], { type: 'application/json' });
-      const aEl = el('a', { href: URL.createObjectURL(blob), download: 'sobrevives-niveles.json' });
+      const aEl = el('a', { href: URL.createObjectURL(blob), download: 'cuentalo-niveles.json' });
       document.body.appendChild(aEl); aEl.click(); setTimeout(() => { URL.revokeObjectURL(aEl.href); aEl.remove(); }, 1000);
     });
     d.querySelector('#pImportar').addEventListener('change', ev => {
@@ -3574,7 +3574,7 @@ dialog .fila.izq{justify-content:flex-start}
     App.abrirProfe = abrirProfe;
     App.imprimir = imprimir;
     App.importarCodigo = importarCodigo;
-    App.borrarDatos = function () { store.removeItem('sobrevives.autor.v0'); store.removeItem('sobrevives.pizarra.v0'); App.escritor.reiniciar(); autorizado = false; };
+    App.borrarDatos = function () { store.removeItem('cuentalo.autor.v0'); store.removeItem('cuentalo.pizarra.v0'); App.escritor.reiniciar(); autorizado = false; };
     App.alSimular = function (res) {
       if (barra && !barra.hidden) { const b = barra.querySelector('#bGuardar'); if (b) b.disabled = !autorListo(res); if (!App.nivel().enConstruccion) barra.hidden = true; }
     };

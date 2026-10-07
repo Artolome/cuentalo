@@ -1,4 +1,4 @@
-/* Sobrevives — interfaz principal. Vanilla JS, sin dependencias.
+/* Cuéntalo — interfaz principal. Vanilla JS, sin dependencias.
    Arrastrar-soltar + repliegue clic-clic (clic en la carta, clic en la viñeta). Todo en localStorage.
    Expone window.SVApp (ganchos para los módulos Autor / Profe / Escritor / Imprimir, en src/ui-modos.js). */
 (function () {
@@ -9,7 +9,7 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); // los títulos de autor son texto libre
   const PJ = {}; for (const p of C.PERSONAJES) PJ[p.id] = p;
   const ES = {}; for (const e of C.ESCENAS) ES[e.id] = e;
-  const KEY = 'sobrevives.progreso.v0';
+  const KEY = 'cuentalo.progreso.v0';
   const DIF = { 1: 'Paso a paso', 2: 'Estándar', 3: 'Reto' };
 
   /* ---------- estado de la aplicación ---------- */

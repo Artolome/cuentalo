@@ -1,4 +1,4 @@
-/* Sobrevives — arte: decorados SVG de las escenas (ligne claire, fondos lisos).
+/* Cuéntalo — arte: decorados SVG de las escenas (ligne claire, fondos lisos).
    escenaSVG(id) → string SVG (viewBox 0 0 160 100). Sirve tanto de fondo de viñeta como de carta en el stock. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();

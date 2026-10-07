@@ -1,4 +1,4 @@
-/* Sobrevives — motor puro y determinista (sin DOM). Funciona en Node y en el navegador (window.SVEngine).
+/* Cuéntalo — motor puro y determinista (sin DOM). Funciona en Node y en el navegador (window.SVEngine).
    simular(nivel, viñetas, opts) → { viñetas:[{frases, eventos}], estado, eventos, resuelto, secreto, porque, valido, incompleto }
    resolver(nivel, opts)        → { total, soluciones:[...], secretas, ambas, estados }
    tituloDe(objetivo, nivel)    → título en español generado desde el predicado

@@ -1,4 +1,4 @@
-/* Sobrevives — modo escritor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVEscritor).
+/* Cuéntalo — modo escritor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVEscritor).
    En cada viñeta la frase generada se oculta: el alumno elige la frase correcta entre 3 (A1) o la escribe (A2).
    normalizar(s)                          → minúsculas, sin tildes (la ñ se conserva), sin signos ni comillas
    comparar(escrito, correcta)            → { ok, casi, nota, diferencias:[{esperada, escrita}], mensaje }

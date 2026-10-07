@@ -1,4 +1,4 @@
-/* Sobrevives — modo Autor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVAutor).
+/* Cuéntalo — modo Autor (lógica pura, sin DOM). Funciona en Node y en el navegador (window.SVAutor).
    codificar(nivel)                      → código corto para dictar: «S1AB-CDEF-GHJK-M»
    decodificar(codigo)                   → nivel {id:'autor-…', capitulo:0, autor:true, titulo, viñetas, escenas, personajes, objetivo, inicial?}
    asistenteTitulos(personajes, escenas) → [{objetivo, titulo}] títulos posibles con esas cartas
@@ -464,7 +464,7 @@
   }
 
   /* ---------- almacén (localStorage inyectado; nunca lanza por falta de almacenamiento) ---------- */
-  const CLAVE = 'sobrevives.autor.v0';
+  const CLAVE = 'cuentalo.autor.v0';
   const copia = x => JSON.parse(JSON.stringify(x));
   function almacen(store) {
     let memoria = []; // repuesto cuando el almacenamiento falla o no existe

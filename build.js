@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Assemble le jeu en UN seul fichier autonome : src/plantilla.html + src/*.js + src/art/*.js → sobrevives.html
+/* Assemble le jeu en UN seul fichier autonome : src/plantilla.html + src/*.js + src/art/*.js → cuentalo.html
    Zéro dépendance, zéro requête réseau. `node build.js` */
 const fs = require('fs');
 const path = require('path');
@@ -19,7 +19,7 @@ const inline = SCRIPTS.map(f => {
 html = html.replace('<!--SCRIPTS-->', () => inline);
 const version = new Date().toISOString().slice(0, 10);
 html = html.replace('<!--VERSION-->', version);
-const out = path.join(__dirname, 'sobrevives.html');
+const out = path.join(__dirname, 'cuentalo.html');
 fs.writeFileSync(out, html, 'utf8');
 // Contrôles : aucune URL externe
 const externas = (html.match(/(src|href)=["']https?:\/\//g) || []).length + (html.match(/@import\s+url\(\s*["']?https?:/g) || []).length;

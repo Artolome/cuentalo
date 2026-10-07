@@ -182,7 +182,7 @@ console.log('\n6. almacén');
   const n1 = A.decodificar(A.codificar(C.NIVELES[0]));
   const n2 = A.decodificar(A.codificar(C.NIVELES[1]));
   al.guardar(n1); al.guardar(n2);
-  ok(al.listar().length === 2 && mapa.has(A.CLAVE) && A.CLAVE === 'sobrevives.autor.v0', 'guardar dos niveles con la clave correcta');
+  ok(al.listar().length === 2 && mapa.has(A.CLAVE) && A.CLAVE === 'cuentalo.autor.v0', 'guardar dos niveles con la clave correcta');
   al.guardar(Object.assign({}, n1, { titulo: 'Otro título' }));
   ok(al.listar().length === 2 && al.listar().find(x => x.id === n1.id).titulo === 'Otro título', 'guardar con el mismo id reemplaza');
   ok(al.listar().every(x => x.autor === true), 'los niveles guardados llevan autor:true');

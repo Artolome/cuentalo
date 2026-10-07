@@ -1,4 +1,4 @@
-# Sobrevives — modelo de contenido (fases 0 a 3)
+# Cuéntalo — modelo de contenido (fases 0 a 3)
 
 > Documento de validación. Todo lo que está aquí se implementa tal cual en `src/contenido.js` (datos) y `src/engine.js` (reglas).
 > Lo que hay que **verificar o decidir** está marcado con ⚠️ y recogido también en `DECISIONS.md`.
@@ -169,7 +169,7 @@ Una viñeta produce 1-3 frases cortas (4 la primera vez que dos personajes se ha
 
 **Palabras-herramienta**: y, pero, con, sin, por, de, en, a, ya no, no, nadie, todos, nunca, juntos, solo, desde arriba, ¡Qué…!, ¡Cuidado!, ¡Ay!
 
-## 8. Lo que incluye `sobrevives.html` (fases 0 a 3)
+## 8. Lo que incluye `cuentalo.html` (fases 0 a 3)
 
 - **Juego**: los 16 niveles + nivel libre, arrastrar-soltar y clic-clic, frases generadas, caras según el estado, «¿Qué pasa?», léxico, pistas, síntesis de voz (clic en una frase, en el título o en una palabra del léxico), estrellas en `localStorage`, «Borrar mis datos».
 - **Modos**: pantalla de inicio Pizarra (letras grandes, barra «⏱ Clase»: cronómetro, sorteo de números, equipos) / Solo / Autor; selector discreto ★ Paso a paso · ★★ Estándar · ★★★ Reto.

@@ -1,4 +1,4 @@
-/* Sobrevives — contenido (datos puros, sin DOM).
+/* Cuéntalo — contenido (datos puros, sin DOM).
    Personajes, escenas (metadatos), niveles. Las reglas de las escenas viven en engine.js. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();

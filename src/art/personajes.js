@@ -1,4 +1,4 @@
-/* Sobrevives — arte: personajes SVG paramétricos (ligne claire, fondos lisos).
+/* Cuéntalo — arte: personajes SVG paramétricos (ligne claire, fondos lisos).
    personajeSVG(p, expresion, opts) → string SVG (viewBox 0 0 100 150).
    Expresiones: contento · feliz · miedo · hambre · sed · frio · cansado · herido · perdido · enfadado */
 (function (root, factory) {

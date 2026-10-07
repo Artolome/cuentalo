@@ -1,4 +1,4 @@
-/* Sobrevives — capa de lengua (sin DOM).
+/* Cuéntalo — capa de lengua (sin DOM).
    Acuerdos de género/número, sujetos compuestos, conjugación presente / pretérito.
    Funciona en Node (tests) y en el navegador (window.SVLengua). */
 (function (root, factory) {

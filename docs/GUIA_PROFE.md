@@ -1,16 +1,16 @@
-# Sobrevives — Guide de la professeure
+# Cuéntalo — Guide de la professeure
 
-> Document d'accompagnement du jeu « Sobrevives » (espagnol LVB, collège, A1 → A2).
+> Document d'accompagnement du jeu « Cuéntalo » (espagnol LVB, collège, A1 → A2).
 > Les chiffres de la partie 3 (solutions, titres secrets, phrases) sont calculés par le moteur du jeu lui-même
 > (`node test/solver.js`), à partir des données de `src/contenido.js`. Rien n'est écrit de mémoire.
 
 ## 1. Présentation
 
-« Sobrevives » est un jeu de narration visuelle inspiré de *Storyteller*. Chaque niveau donne un titre en espagnol (« Lucía ya no tiene sed »), 3 à 6 cases de BD vides, quelques « escenas » (la selva, el río, la noche…) et un ou plusieurs « personajes » (Lucía, Mateo, Valeria, Diego). L'élève glisse une escena et un personaje dans chaque case. Le moteur écrit aussitôt la phrase de la case : « Lucía bebe agua del río. Ya no tiene sed. » Quand l'histoire réalise le titre, le niveau est réussi.
+« Cuéntalo » est un jeu de narration visuelle inspiré de *Storyteller*. Chaque niveau donne un titre en espagnol (« Lucía ya no tiene sed »), 3 à 6 cases de BD vides, quelques « escenas » (la selva, el río, la noche…) et un ou plusieurs « personajes » (Lucía, Mateo, Valeria, Diego). L'élève glisse une escena et un personaje dans chaque case. Le moteur écrit aussitôt la phrase de la case : « Lucía bebe agua del río. Ya no tiene sed. » Quand l'histoire réalise le titre, le niveau est réussi.
 
 Le cœur pédagogique n'est pas le puzzle, c'est la phrase. Chaque case produit 1 à 3 phrases courtes, que l'élève lit, écoute et compare. Les phrases réemploient le lexique de la survie et font travailler les accords (« cansado / cansada / cansados »), les structures « tiene / está / ya no », puis « encuentra a », « comparte con », « pide perdón a ».
 
-Le fichier `sobrevives.html` contient tout le jeu : un seul fichier, à ouvrir par double-clic, qui fonctionne hors-ligne et n'envoie aucune donnée nulle part. Il se copie sur une clé USB, un ENT ou le réseau du collège.
+Le fichier `cuentalo.html` contient tout le jeu : un seul fichier, à ouvrir par double-clic, qui fonctionne hors-ligne et n'envoie aucune donnée nulle part. Il se copie sur une clé USB, un ENT ou le réseau du collège.
 
 ## 2. Prise en main
 
@@ -26,7 +26,7 @@ Trois entrées :
 
 Le mode choisi est mémorisé sur ce poste : au lancement suivant, le jeu s'ouvre directement en « Pizarra » ou en « Solo » ; « 🏠 » (en haut à gauche) ramène à cet écran pour en changer. Choisir « Autor » sans avoir encore choisi de mode ouvre le jeu en « Solo ».
 
-Astuce pour le poste du vidéoprojecteur : un raccourci vers `sobrevives.html?modo=pizarra&nivel=c1n1&dif=2` ouvre directement le mode, le niveau et le réglage ★ voulus.
+Astuce pour le poste du vidéoprojecteur : un raccourci vers `cuentalo.html?modo=pizarra&nivel=c1n1&dif=2` ouvre directement le mode, le niveau et le réglage ★ voulus.
 
 ### 2.2 Le sélecteur d'étoiles ★ / ★★ / ★★★
 
@@ -64,7 +64,7 @@ Dans tous les réglages, le titre est lu à voix haute à l'ouverture du niveau,
 
 ### 2.5 Avant la première séance
 
-1. Copier `sobrevives.html` sur le poste du vidéoprojecteur et sur les postes élèves (ou sur le réseau). Double-clic : le jeu s'ouvre dans le navigateur par défaut.
+1. Copier `cuentalo.html` sur le poste du vidéoprojecteur et sur les postes élèves (ou sur le réseau). Double-clic : le jeu s'ouvre dans le navigateur par défaut.
 2. Cliquer sur un titre : si aucune voix espagnole ne se fait entendre, voir la partie 10.
 3. Touche P, mot de passe « profe » : changer le mot de passe tout de suite. Les élèves découvrent vite les touches.
 4. Faire soi-même un niveau du chapitre 1 avec glisser-déposer, puis en clic-clic, pour pouvoir montrer les deux gestes.
@@ -263,7 +263,7 @@ Quel réglage pour quel élève ?
 - Un niveau se partage par un **code à dicter** : lettres et chiffres par groupes de 4, par exemple « S199-H34R-1B2A-1 ». Il n'utilise jamais I, L, O ni U (si un élève lit « O », c'est un zéro ; « I » ou « L », un un) et il est insensible à la casse et aux tirets : « s199 h34r 1b2a 1 » marche aussi. Un titre de l'assistant tient en 12 à 32 caractères (tirets compris) ; un titre libre encode le texte du titre (environ 3 caractères de code par lettre : « Una noche en la selva » en donne déjà 64) : pour dicter, préférer l'assistant.
 - **Importer** : « ☰ Niveles » → « ⌨ Tengo un código » (ou depuis le panneau Profe) ; on tape le code reçu ; le niveau apparaît dans « ☰ Niveles » sous « Niveles de la clase » et se joue comme les autres. Un code erroné d'une lettre est refusé.
 - **Où sont les niveaux de la classe ?** Dans le `localStorage` du navigateur de chaque poste, c'est-à-dire sur ce poste, dans ce navigateur, et nulle part ailleurs. Un niveau créé sur le poste 3 n'existe pas sur le poste 4 tant qu'on n'y a pas tapé son code.
-- **Export / import JSON** : le panneau Profe (touche P) liste les niveaux de la classe avec leur code (« Jugar », 🗑 pour supprimer) ; « ⬇ Exportar JSON » les enregistre dans `sobrevives-niveles.json`, pour les garder d'une année sur l'autre ou les passer sur un autre poste ; « ⬆ Importar JSON » les recharge (les niveaux déjà présents ne sont pas dupliqués, un niveau abîmé est écarté et signalé).
+- **Export / import JSON** : le panneau Profe (touche P) liste les niveaux de la classe avec leur code (« Jugar », 🗑 pour supprimer) ; « ⬇ Exportar JSON » les enregistre dans `cuentalo-niveles.json`, pour les garder d'une année sur l'autre ou les passer sur un autre poste ; « ⬆ Importar JSON » les recharge (les niveaux déjà présents ne sont pas dupliqués, un niveau abîmé est écarté et signalé).
 
 Conseils :
 
@@ -294,7 +294,7 @@ Conseils :
 
 - Le jeu ne demande **aucun nom d'élève**, aucune adresse, aucun identifiant. Le tirage au sort en « Pizarra » utilise des numéros, pas des noms.
 - **Aucune télémétrie** : le fichier ne fait aucune requête réseau. Il fonctionne sans Internet. Rien n'est envoyé à qui que ce soit.
-- Tout ce que le jeu retient (étoiles, niveau en cours, réglages — y compris le mot de passe Profe —, niveaux créés en « Autor », scores et noms des equipos de la barre Clase) est dans le **`localStorage`** du navigateur (clés `sobrevives.progreso.v0`, `sobrevives.autor.v0`, `sobrevives.pizarra.v0`) : sur ce poste, dans ce navigateur, uniquement. Donner aux equipos des noms de fantaisie (« Los jaguares »), jamais des noms d'élèves.
+- Tout ce que le jeu retient (étoiles, niveau en cours, réglages — y compris le mot de passe Profe —, niveaux créés en « Autor », scores et noms des equipos de la barre Clase) est dans le **`localStorage`** du navigateur (clés `cuentalo.progreso.v0`, `cuentalo.autor.v0`, `cuentalo.pizarra.v0`) : sur ce poste, dans ce navigateur, uniquement. Donner aux equipos des noms de fantaisie (« Los jaguares »), jamais des noms d'élèves.
 - Le bouton **« Borrar mis datos »** (dans « ☰ Niveles », à la portée des élèves) efface les étoiles, le niveau en cours et le réglage ★ ; il conserve les niveaux de la classe, le mot de passe et les réglages de la professeure.
 - Le bouton **« Borrar todo »** (panneau Profe, touche P) efface tout ce que ce navigateur a retenu : étoiles, réglages, mot de passe (il redevient « profe »), niveaux de la classe, equipos.
 - **Sur un poste partagé** (salle informatique, CDI) : les étoiles restent d'un élève à l'autre. Deux solutions : « Borrar mis datos » en fin de séance, ou considérer que la progression est celle du poste et non de l'élève (c'est le plus simple). Les niveaux « Autor » importants sont à exporter en JSON (partie 6) avant « Borrar todo ».
@@ -344,7 +344,7 @@ Presque tous sont concrets et « dessinables ». « frío, sed, perdido, herido,
 | Problème | Cause probable | Solution |
 |---|---|---|
 | Pas de voix espagnole : un clic sur une phrase ne lit rien, ou lit avec un accent français | aucune voix « es-ES » installée dans Windows | Windows : Paramètres → Heure et langue → Langue et région → Ajouter une langue → Español (España), cocher « Synthèse vocale ». Ou ouvrir le fichier dans Edge ou Chrome, qui ont leurs propres voix espagnoles. |
-| Le fichier s'ouvre, mais rien ne bouge : pas de cartes, pas de phrases | JavaScript bloqué, ou navigateur trop ancien | ouvrir `sobrevives.html` dans Chrome, Edge ou Firefox ; vérifier que JavaScript n'est pas désactivé par une politique du poste. Le fichier n'a besoin d'aucune connexion. |
+| Le fichier s'ouvre, mais rien ne bouge : pas de cartes, pas de phrases | JavaScript bloqué, ou navigateur trop ancien | ouvrir `cuentalo.html` dans Chrome, Edge ou Firefox ; vérifier que JavaScript n'est pas désactivé par une politique du poste. Le fichier n'a besoin d'aucune connexion. |
 | Au vidéoprojecteur (1280 × 720), les cases sont petites ou quelque chose dépasse | fenêtre non maximisée, barre « Clase » ouverte | passer en plein écran avec **F11** ; fermer la barre « ⏱ Clase » quand on ne s'en sert pas (elle prend ~100 px). Tous les niveaux, de 3 à 6 cases, tiennent sur une seule ligne sans défilement ; seul le stock de cartes défile horizontalement quand il déborde (nivel libre). En dessous de 720 px de large, les cases passent en colonne. |
 | Les étoiles ou les niveaux ont disparu | changement de navigateur ou de poste, ou données effacées | normal : tout est dans le `localStorage` de ce navigateur (partie 8). Réimporter les niveaux par leur code ou le fichier JSON. |
 | Il faut repartir de zéro | — | élève : « ☰ Niveles » → « Borrar mis datos » (étoiles) ; professeure : panneau Profe → « Borrar todo » (tout, niveaux de la classe compris). |
@@ -357,4 +357,4 @@ Presque tous sont concrets et « dessinables ». « frío, sed, perdido, herido,
 
 ---
 
-*Fichiers utiles : `sobrevives.html` (le jeu) · `docs/CONTENIDO.md` (modèle de contenu) · `docs/DECISIONS.md` (choix et points à valider) · `docs/frases.txt` (toutes les phrases que le moteur peut produire, pour relecture).*
+*Fichiers utiles : `cuentalo.html` (le jeu) · `docs/CONTENIDO.md` (modèle de contenu) · `docs/DECISIONS.md` (choix et points à valider) · `docs/frases.txt` (toutes les phrases que le moteur peut produire, pour relecture).*

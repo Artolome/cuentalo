@@ -11,7 +11,7 @@ assert.strictEqual(typeof P.montar, 'function', 'exporta montar()');
 assert.strictEqual(typeof P.CSS, 'string', 'exporta CSS (string)');
 assert.ok(P.CSS.includes('.sv-pizarra'), 'el CSS contiene la clase raíz .sv-pizarra');
 assert.strictEqual(typeof P.numeroEnLetras, 'function', 'exporta numeroEnLetras()');
-assert.strictEqual(P.KEY, 'sobrevives.pizarra.v0', 'clave de almacenamiento');
+assert.strictEqual(P.KEY, 'cuentalo.pizarra.v0', 'clave de almacenamiento');
 
 // montar() sin document devuelve un objeto inofensivo
 const m = P.montar(null, {});

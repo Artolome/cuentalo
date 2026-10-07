@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* node test/navegador.js [chrome|edge|firefox] [--ver]
-   Prueba de extremo a extremo SIN servidor: abre sobrevives.html en file:// (como el doble clic de la profe)
+   Prueba de extremo a extremo SIN servidor: abre cuentalo.html en file:// (como el doble clic de la profe)
    sin ventana, y lo pilota: Chrome y Edge con el protocolo DevTools, Firefox con WebDriver BiDi (WebSocket nativo de Node ≥ 22)
    y comprueba los recorridos principales: inicio, juego con clic-clic, ¿Qué pasa?, escritor, Autor + código,
    Profe (soluciones en el Worker), impresión, borrar datos, cero peticiones de red.
@@ -18,7 +18,7 @@ const RUTAS = {
 const nombre = (process.argv[2] || 'chrome').toLowerCase();
 const exe = (RUTAS[nombre] || []).find(p => fs.existsSync(p));
 if (!exe) { console.log(`(${nombre} no está instalado: prueba omitida)`); process.exit(0); }
-const fichero = path.resolve(__dirname, '..', 'sobrevives.html');
+const fichero = path.resolve(__dirname, '..', 'cuentalo.html');
 const url = 'file:///' + fichero.replace(/\\/g, '/');
 const perfil = fs.mkdtempSync(path.join(os.tmpdir(), 'sv-' + nombre + '-'));
 const PUERTO = 9300 + Math.floor(Math.random() * 500);

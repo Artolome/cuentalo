@@ -32,7 +32,7 @@ if (!m) { console.error('✗ no encuentro el bloque @media print en plantilla.ht
 const css = m[0].replace(/^@media print\{/, '').replace(/\}\s*$/, '').replace(/body > \*:not\(#impresion\)\{[^}]*\}/, '');
 const vars = (plantilla.match(/:root\{[\s\S]*?\}/) || [''])[0];
 const salida = process.argv[2] || path.join(__dirname, '..', 'docs', 'ejemplo_impresion.html');
-fs.writeFileSync(salida, `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Sobrevives · impresión · ${nivel.titulo}</title>
+fs.writeFileSync(salida, `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Cuéntalo · impresión · ${nivel.titulo}</title>
 <style>${vars}\nbody{margin:0;background:#fff}\n${css}\n#impresion{display:block}\n.imp-pagina{break-after:page}</style></head>
 <body><section id="impresion">${html}</section></body></html>`, 'utf8');
 const controles = [

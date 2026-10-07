@@ -105,7 +105,7 @@ for (const n of C.NIVELES) {
 // Escribir
 const porSeccion = new Map();
 for (const [s, f] of out) { if (!porSeccion.has(s)) porSeccion.set(s, []); porSeccion.get(s).push(f); }
-const lineas = [`SOBREVIVES — todas las frases generables (${out.length}) — generado por test/frases.js`, ''];
+const lineas = [`CUÉNTALO — todas las frases generables (${out.length}) — generado por test/frases.js`, ''];
 for (const [s, fs_] of porSeccion) { lineas.push(`## ${s}`); for (const f of fs_.sort((a, b) => a.localeCompare(b, 'es'))) lineas.push(f); lineas.push(''); }
 const dest = path.join(__dirname, '..', 'docs', 'frases.txt');
 fs.writeFileSync(dest, lineas.join('\n'), 'utf8');
