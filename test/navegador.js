@@ -1,0 +1,198 @@
+#!/usr/bin/env node
+/* node test/navegador.js [chrome|edge|firefox] [--ver]
+   Prueba de extremo a extremo SIN servidor: abre sobrevives.html en file:// (como el doble clic de la profe)
+   sin ventana, y lo pilota: Chrome y Edge con el protocolo DevTools, Firefox con WebDriver BiDi (WebSocket nativo de Node ≥ 22)
+   y comprueba los recorridos principales: inicio, juego con clic-clic, ¿Qué pasa?, escritor, Autor + código,
+   Profe (soluciones en el Worker), impresión, borrar datos, cero peticiones de red.
+   Solo desarrollo: no forma parte del juego. */
+const { spawn } = require('child_process');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+
+const RUTAS = {
+  chrome: ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'],
+  edge: ['C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', 'C:/Program Files/Microsoft/Edge/Application/msedge.exe', '/usr/bin/microsoft-edge'],
+  firefox: ['C:/Program Files/Mozilla Firefox/firefox.exe', 'C:/Program Files (x86)/Mozilla Firefox/firefox.exe', '/usr/bin/firefox', '/Applications/Firefox.app/Contents/MacOS/firefox']
+};
+const nombre = (process.argv[2] || 'chrome').toLowerCase();
+const exe = (RUTAS[nombre] || []).find(p => fs.existsSync(p));
+if (!exe) { console.log(`(${nombre} no está instalado: prueba omitida)`); process.exit(0); }
+const fichero = path.resolve(__dirname, '..', 'sobrevives.html');
+const url = 'file:///' + fichero.replace(/\\/g, '/');
+const perfil = fs.mkdtempSync(path.join(os.tmpdir(), 'sv-' + nombre + '-'));
+const PUERTO = 9300 + Math.floor(Math.random() * 500);
+const W = 1280, H = 720;
+
+const espera = ms => new Promise(r => setTimeout(r, ms));
+/* ---------- pilote 1: protocolo DevTools (Chrome, Edge) ---------- */
+async function abrirCDP() {
+  const proc = spawn(exe, ['--headless=new', '--disable-gpu', '--no-first-run', '--no-default-browser-check', `--remote-debugging-port=${PUERTO}`, `--user-data-dir=${perfil}`, `--window-size=${W},${H}`, 'about:blank'], { stdio: 'ignore' });
+  let destino = null;
+  for (let k = 0; k < 50 && !destino; k++) {
+    await espera(200);
+    try { const l = await (await fetch(`http://127.0.0.1:${PUERTO}/json/list`)).json(); destino = l.find(t => t.type === 'page'); } catch (_) { /* aún no */ }
+  }
+  if (!destino) throw new Error('el navegador no responde');
+  const ws = new WebSocket(destino.webSocketDebuggerUrl);
+  await new Promise((ok, ko) => { ws.onopen = ok; ws.onerror = ko; });
+  let id = 0; const pend = new Map(); const red = []; const errores = [];
+  ws.onmessage = ev => {
+    const m = JSON.parse(ev.data);
+    if (m.id && pend.has(m.id)) { const { ok, ko } = pend.get(m.id); pend.delete(m.id); m.error ? ko(new Error(m.error.message)) : ok(m.result); }
+    else if (m.method === 'Network.requestWillBeSent') red.push(m.params.request.url);
+    else if (m.method === 'Runtime.exceptionThrown') errores.push(m.params.exceptionDetails.exception ? m.params.exceptionDetails.exception.description : m.params.exceptionDetails.text);
+    else if (m.method === 'Runtime.consoleAPICalled' && m.params.type === 'error') errores.push(m.params.args.map(a => a.value || a.description).join(' '));
+  };
+  const cdp = (method, params) => new Promise((ok, ko) => { const i = ++id; pend.set(i, { ok, ko }); ws.send(JSON.stringify({ id: i, method, params: params || {} })); });
+  await cdp('Network.enable'); await cdp('Runtime.enable'); await cdp('Page.enable');
+  await cdp('Emulation.setDeviceMetricsOverride', { width: W, height: H, deviceScaleFactor: 1, mobile: false });
+  await cdp('Page.navigate', { url });
+  return {
+    red, errores,
+    async evalua(expr) {
+      const r = await cdp('Runtime.evaluate', { expression: `(async () => { ${expr} })()`, awaitPromise: true, returnByValue: true });
+      if (r.exceptionDetails) throw new Error((r.exceptionDetails.exception && r.exceptionDetails.exception.description) || r.exceptionDetails.text);
+      return r.result.value;
+    },
+    async captura() { const r = await cdp('Page.captureScreenshot', { format: 'png' }); return r.data; },
+    cerrar() { try { ws.close(); } catch (_) { /* nada */ } proc.kill(); }
+  };
+}
+/* ---------- pilote 2: WebDriver BiDi (Firefox) ---------- */
+async function abrirBiDi() {
+  const proc = spawn(exe, ['--headless', '--no-remote', '--remote-debugging-port', String(PUERTO), '--profile', perfil, `--width=${W}`, `--height=${H}`, 'about:blank'], { stdio: 'ignore' });
+  let ws = null;
+  for (let k = 0; k < 75 && !ws; k++) {
+    await espera(200);
+    try {
+      const w = new WebSocket(`ws://127.0.0.1:${PUERTO}/session`);
+      await new Promise((ok, ko) => { w.onopen = ok; w.onerror = ko; });
+      ws = w;
+    } catch (_) { /* aún no */ }
+  }
+  if (!ws) throw new Error('Firefox no responde');
+  let id = 0; const pend = new Map(); const red = []; const errores = [];
+  ws.onmessage = ev => {
+    const m = JSON.parse(ev.data);
+    if (m.id && pend.has(m.id)) { const { ok, ko } = pend.get(m.id); pend.delete(m.id); m.type === 'error' ? ko(new Error(m.error + ': ' + m.message)) : ok(m.result); }
+    else if (m.method === 'network.beforeRequestSent') red.push(m.params.request.url);
+    else if (m.method === 'log.entryAdded' && m.params.level === 'error') errores.push(m.params.text);
+  };
+  const bidi = (method, params) => new Promise((ok, ko) => { const i = ++id; pend.set(i, { ok, ko }); ws.send(JSON.stringify({ id: i, method, params: params || {} })); });
+  await bidi('session.new', { capabilities: {} });
+  const arbol = await bidi('browsingContext.getTree', {});
+  const ctx = arbol.contexts[0].context;
+  await bidi('session.subscribe', { events: ['network.beforeRequestSent', 'log.entryAdded'] });
+  await bidi('browsingContext.setViewport', { context: ctx, viewport: { width: W, height: H } });
+  await bidi('browsingContext.navigate', { context: ctx, url, wait: 'complete' });
+  return {
+    red, errores,
+    async evalua(expr) {
+      // BiDi serializa con tipos propios: se devuelve JSON en una cadena
+      const r = await bidi('script.evaluate', { expression: `(async () => JSON.stringify(await (async () => { ${expr} })()))()`, target: { context: ctx }, awaitPromise: true, resultOwnership: 'none' });
+      if (r.type === 'exception') throw new Error(r.exceptionDetails && r.exceptionDetails.text || 'excepción');
+      const v = r.result && r.result.value;
+      return v === undefined ? undefined : JSON.parse(v);
+    },
+    async captura() { const r = await bidi('browsingContext.captureScreenshot', { context: ctx }); return r.data; },
+    cerrar() { try { bidi('browser.close', {}).catch(() => {}); ws.close(); } catch (_) { /* nada */ } setTimeout(() => proc.kill(), 300); }
+  };
+}
+
+async function main() {
+  const nav = nombre === 'firefox' ? await abrirBiDi() : await abrirCDP();
+  const { red, errores } = nav;
+  const evalua = nav.evalua;
+  await espera(1500);
+
+  const resultados = [];
+  const prueba = async (titulo, expr, comprobar) => {
+    try { const v = await evalua(expr); const ok = comprobar(v); resultados.push([ok, titulo, ok ? '' : JSON.stringify(v).slice(0, 300)]); return v; }
+    catch (e) { resultados.push([false, titulo, e.message.slice(0, 300)]); return null; }
+  };
+  const AYUDA = `const dormir = ms => new Promise(r => setTimeout(r, ms));
+    const pon = (i, tipo, id) => { document.querySelector('.carta[data-tipo="' + tipo + '"][data-id="' + id + '"]').click(); document.querySelector('.escena-caja[data-i="' + i + '"]').click(); };
+    const cerrar = () => document.querySelectorAll('dialog[open]').forEach(d => d.close());`;
+
+  await prueba('pantalla de inicio visible', `return !document.querySelector('#inicioApp').hidden && !document.querySelector('#cardAutor').hidden;`, v => v === true);
+  await prueba('modo Solo: c1n1 resuelto con clic-clic, frases y estrellas', `${AYUDA}
+    document.querySelector('[data-modo="solo"]').click(); await dormir(200);
+    SVApp.abrirNivel('c1n1'); pon(0,'escena','sol'); pon(0,'personaje','lucia'); pon(1,'escena','rio'); pon(1,'personaje','lucia'); pon(2,'escena','fuego'); pon(2,'personaje','lucia');
+    await dormir(600); const exito = document.querySelector('#dlgExito').open; cerrar();
+    return { estado: document.querySelector('#estadoNivel').textContent, frase: document.querySelector('.frase').textContent, exito, estrellas: SVApp.progreso().c1n1 && SVApp.progreso().c1n1.estrellas };`,
+    v => v && /Muy bien/.test(v.estado) && /calor/.test(v.frase) && v.exito && v.estrellas === 3);
+  await prueba('un texto arrastrado que no es una carta se ignora', `${AYUDA}
+    SVApp.abrirNivel('c1n1'); pon(0,'escena','sol');
+    const dt = new DataTransfer(); dt.setData('text/plain', 'Lucía bebe agua del río.');
+    document.querySelector('.escena-caja[data-i="0"]').dispatchEvent(new DragEvent('drop', { dataTransfer: dt, bubbles: true, cancelable: true }));
+    await dormir(100); return SVApp.viñetas()[0].personajes.length;`, v => v === 0);
+  await prueba('¿Qué pasa? explica lo que falta', `${AYUDA}
+    SVApp.abrirNivel('c2n4'); pon(0,'escena','jaguar'); pon(0,'personaje','valeria'); pon(1,'escena','tormenta'); pon(1,'personaje','valeria'); pon(1,'personaje','diego'); pon(2,'escena','noche'); pon(2,'personaje','diego');
+    await dormir(200); document.querySelector('#btnQuePasa').click(); await dormir(200);
+    const t = document.querySelector('#dlgQuePasa').innerText; cerrar(); return t;`, v => /✗/.test(v) && /miedo/.test(v));
+  await prueba('modo escritor: ¿Qué pasa? e imprimir no revelan las frases', `${AYUDA}
+    SVApp.ajustes().escritor = true; SVApp.ajustes().escritorNivel = 'elegir'; SVApp.guardar();
+    SVApp.abrirNivel('c1n1'); pon(0,'escena','sol'); pon(0,'personaje','lucia'); pon(1,'escena','rio'); pon(1,'personaje','lucia'); pon(2,'escena','fuego'); pon(2,'personaje','lucia');
+    await dormir(400); document.querySelector('#btnQuePasa').click(); await dormir(150);
+    const t = document.querySelector('#dlgQuePasa').innerText; cerrar();
+    return { revela: /Lucía bebe agua/.test(t), imprimir: document.querySelector('#btnImprimir').disabled, estrellasAntes: !!(SVApp.progreso().c1n1 && SVApp.progreso().c1n1.estrellas), opciones: document.querySelectorAll('.vineta[data-i="0"] .esc-op').length };`,
+    v => v && !v.revela && v.imprimir === true && v.opciones === 3);
+  await prueba('modo escritor: elegir las 3 frases da el éxito', `${AYUDA}
+    for (const i of [0, 1, 2]) { const texto = SVApp.resultado().viñetas[i].frases.join(' '); const b = [...document.querySelectorAll('.vineta[data-i="' + i + '"] .esc-op')].find(x => x.textContent === texto); b.click(); await dormir(150); }
+    await dormir(700); const ok = document.querySelector('#dlgExito').open; cerrar();
+    SVApp.ajustes().escritor = false; SVApp.guardar(); return ok;`, v => v === true);
+  const codigo = await prueba('Autor: crear «Valeria cura a Diego», jugar, guardar, obtener un código', `${AYUDA}
+    SVApp.abrirAutor(); await dormir(100);
+    const d = document.querySelector('#dlgModos'), form = d.querySelector('#fAutor');
+    form.querySelectorAll('input[name="pj"]').forEach(i => { i.checked = ['valeria','diego'].includes(i.value); });
+    form.querySelectorAll('input[name="esc"]').forEach(i => { i.checked = ['serpiente','refugio','rescate'].includes(i.value); });
+    form.querySelector('input[name="pj"]').dispatchEvent(new Event('change', { bubbles: true }));
+    const sel = d.querySelector('#aTitulo'); sel.value = [...sel.options].find(o => o.textContent === 'Valeria cura a Diego').value;
+    form.requestSubmit(); await dormir(300);
+    pon(0,'escena','serpiente'); pon(0,'personaje','diego'); pon(1,'escena','serpiente'); pon(1,'personaje','diego'); pon(2,'escena','refugio'); pon(2,'personaje','valeria'); pon(2,'personaje','diego');
+    await dormir(300); document.querySelector('#bGuardar').click();
+    for (let k = 0; k < 100 && !(d.querySelector('#codigoTxt')); k++) await dormir(100);
+    const c = d.querySelector('#codigoTxt').textContent;
+    for (let k = 0; k < 150 && /Calculando/.test(d.textContent); k++) await dormir(100);
+    const info = d.querySelector('#aInfo') ? d.querySelector('#aInfo').textContent : '';
+    cerrar(); return { codigo: c, info, nivel: SVApp.nivel().id };`, v => v && /^S1[0-9A-Z-]+$/.test(v.codigo) && /soluci/.test(v.info) && v.nivel.startsWith('autor-'));
+  await prueba('importar ese código en minúsculas y sin guiones', `${AYUDA}
+    SVApp.importarCodigo(${JSON.stringify(codigo && codigo.codigo ? codigo.codigo.toLowerCase().replace(/-/g, ' ') : 'xx')}); await dormir(100);
+    document.querySelector('#fCodigo').requestSubmit(); await dormir(300); return SVApp.nivel().titulo;`, v => v === 'Valeria cura a Diego');
+  await prueba('Profe (tecla P): contraseña y soluciones calculadas en el Worker', `${AYUDA}
+    cerrar(); SVApp.abrirNivel('c3n6');
+    document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 'p', bubbles: true })); await dormir(100);
+    const d = document.querySelector('#dlgModos'); d.querySelector('#pIn').value = 'profe'; d.querySelector('#fClave').requestSubmit(); await dormir(200);
+    const t0 = performance.now(); let maxBloqueo = 0, ult = performance.now();
+    const latido = setInterval(() => { const a = performance.now(); maxBloqueo = Math.max(maxBloqueo, a - ult); ult = a; }, 50);
+    d.querySelector('#bSol').click();
+    for (let k = 0; k < 600 && !d.querySelector('[data-sol]') && !/No se pudo/.test(d.querySelector('#pSol').textContent); k++) await dormir(100);
+    clearInterval(latido);
+    const nota = d.querySelector('#pSol').textContent.slice(0, 120); const n = d.querySelectorAll('[data-sol]').length;
+    if (n) { d.querySelector('[data-sol]').click(); await dormir(300); }
+    const estado = document.querySelector('#estadoNivel').textContent, exito = document.querySelector('#dlgExito').open; cerrar();
+    return { n, nota, ms: Math.round(performance.now() - t0), maxBloqueo: Math.round(maxBloqueo), estado, exito };`,
+    v => v && v.n > 0 && /Muy bien/.test(v.estado) && !v.exito && v.maxBloqueo < 1500);
+  await prueba('imprimir: 3 páginas A4 (cómic + hojas de 4 y 6)', `${AYUDA}
+    const pr = window.print; window.print = () => {}; SVApp.imprimir(); window.print = pr;
+    const s = document.querySelector('#impresion'); return [s.querySelectorAll('.imp-pagina').length, ...[...s.querySelectorAll('.imp-hoja')].map(h => h.querySelectorAll('.imp-vineta').length)].join(',');`, v => v === '3,4,6');
+  await prueba('Borrar mis datos conserva los niveles de la clase', `${AYUDA}
+    window.confirm = () => true; document.querySelector('#btnNiveles').click(); document.querySelector('#btnBorrarDatos').click(); await dormir(200);
+    cerrar(); SVApp.cerrarPaneles(); return { extra: SVApp.extra().length, c1n1: !!SVApp.progreso().c1n1 };`, v => v && v.extra >= 1 && !v.c1n1);
+  await prueba('modo Pizarra: letra grande, sin desplazamiento a 1280×720', `${AYUDA}
+    SVApp.elegirModo('pizarra'); SVApp.abrirNivel('c3n6'); await dormir(200);
+    return { rem: getComputedStyle(document.documentElement).fontSize, alto: document.documentElement.scrollHeight, ancho: document.documentElement.scrollWidth };`,
+    v => v && parseFloat(v.rem) >= 18 && v.alto <= H && v.ancho <= W);
+  await espera(300);
+  const externas = red.filter(u => !u.startsWith('file:') && !u.startsWith('blob:') && !u.startsWith('data:') && !u.startsWith('about:'));
+  resultados.push([externas.length === 0, 'cero peticiones de red', externas.slice(0, 3).join(' ')]);
+  resultados.push([errores.length === 0, 'sin errores en la consola', errores.slice(0, 3).join(' | ')]);
+  if (process.argv.includes('--ver')) { const data = await nav.captura(); const dest = path.join(__dirname, '..', 'docs', `captura_${nombre}.png`); fs.writeFileSync(dest, Buffer.from(data, 'base64')); console.log('captura: ' + dest); }
+  nav.cerrar();
+  let fallos = 0;
+  for (const [ok, t, info] of resultados) { if (!ok) fallos++; console.log(`  ${ok ? '✔' : '✗'} ${t}${info ? ' → ' + info : ''}`); }
+  console.log(`${nombre} (file://): ${resultados.length - fallos}/${resultados.length} pruebas superadas`);
+  setTimeout(() => { try { fs.rmSync(perfil, { recursive: true, force: true }); } catch (_) { /* Windows puede tardar en soltar el perfil */ } process.exit(fallos ? 1 : 0); }, 500);
+}
+main().catch(e => { console.error('✗ ' + e.message); process.exit(1); });

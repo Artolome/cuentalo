@@ -29,10 +29,13 @@
     if (!s || s.firma !== texto) s = estadosEsc[i] = { firma: texto, malas: [], intentos: 0, hecho: false, revelada: false, escrito: '' };
     return s;
   }
-  function escCompleto() {
-    const res = App.resultado();
-    return res.viñetas.every((v, i) => !v.frases.length || (estadosEsc[i] && estadosEsc[i].firma === v.frases.join(' ') && estadosEsc[i].hecho));
+  const esAviso = v => v.eventos.some(e => e.tipo === 'yaSalvo' || e.tipo === 'demasiados');
+  function escHecha(i) {
+    const v = App.resultado().viñetas[i], s = estadosEsc[i];
+    if (!v || !v.frases.length || esAviso(v)) return true;
+    return !!(s && s.hecho && s.firma === v.frases.join(' '));
   }
+  function escCompleto() { return App.resultado().viñetas.every((v, i) => escHecha(i)); }
   function escPintar(f, i, texto, res) {
     const s = estadoDe(i, texto);
     f.classList.add('esc');
@@ -77,11 +80,9 @@
     s.hecho = true;
     App.toast(mensaje || '¡Muy bien!', 2500);
     App.hablar(texto);
-    App.simular();
-    const res = App.resultado();
-    if (res.resuelto && escCompleto()) setTimeout(() => App.mostrarExito(), 500);
+    App.simular(); // si era la última frase, simular() concede las estrellas y abre el diálogo de éxito
   }
-  App.escritor = { activo: escActivo, pintar: escPintar, completo: escCompleto, reiniciar() { for (const k in estadosEsc) delete estadosEsc[k]; } };
+  App.escritor = { activo: escActivo, pintar: escPintar, completo: escCompleto, hecha: escHecha, reiniciar() { for (const k in estadosEsc) delete estadosEsc[k]; } };
 
   /* =====================================================================
      2. IMPRIMIR MI HISTORIA (A4 apaisado): el cómic resuelto + hojas de viñetas vacías (4 y 6)
@@ -109,7 +110,22 @@
      3. MODO AUTOR: crear un nivel, jugar la solución, guardar y compartir con un código
      ===================================================================== */
   let barra = null;
-  function recargarExtra() { App.añadirNiveles(almacen.listar()); }
+  const HUMANOS = C.PERSONAJES.filter(p => !p.animal).map(p => p.id);
+  const OFICIALES = new Set(C.NIVELES.map(n => n.id));
+  /** ¿Es un nivel de autor jugable? (estructura mínima, cartas conocidas, objetivo válido) */
+  function nivelValido(n) {
+    try {
+      if (!n || typeof n !== 'object' || typeof n.id !== 'string' || !n.id.startsWith('autor-') || OFICIALES.has(n.id)) return false;
+      if (typeof n.titulo !== 'string' || !n.titulo.trim() || n.titulo.length > 120) return false;
+      if (!Number.isInteger(n.viñetas) || n.viñetas < 1 || n.viñetas > 6) return false;
+      if (!Array.isArray(n.escenas) || !n.escenas.length || n.escenas.length > 8 || !n.escenas.every(id => ES[id])) return false;
+      if (!Array.isArray(n.personajes) || !n.personajes.length || n.personajes.length > 4 || !n.personajes.every(id => HUMANOS.includes(id)) || new Set(n.personajes).size !== n.personajes.length) return false;
+      if (!E.objetivoValido(n.objetivo)) return false;
+      E.simular(n, []); // debe poder simularse sin lanzar
+      return true;
+    } catch (_) { return false; }
+  }
+  function recargarExtra() { App.añadirNiveles(almacen.listar().filter(nivelValido)); }
   function dialogo(html, clase) {
     const d = $('#dlgModos');
     d.className = clase || '';
@@ -187,24 +203,30 @@
     let final = Object.assign({}, nivel);
     delete final.enConstruccion;
     try { if (!final.objetivo) final = AU.grabar(final, App.viñetas()); } catch (e) { App.toast(e.message, 4000); return; }
-    App.toast('Comprobando el nivel…', 8000);
-    setTimeout(() => {
-      const v = AU.validar(final, { limite: 1.5e6 });
-      if (!v.ok) { dialogo(`<h2>Todavía no</h2><div class="porque">${v.errores.map(e => `<div>✗ ${esc(e)}</div>`).join('')}</div><div class="fila"><button class="btn" data-cerrar>Cerrar</button></div>`); return; }
+    // Comprobación inmediata con la historia jugada (sin buscar todas las soluciones)
+    const jugada = E.simular(final, App.viñetas());
+    if (!jugada.resuelto || !nivelValido(Object.assign({}, final, { id: 'autor-x' }))) { dialogo(`<h2>Todavía no</h2><div class="porque">${(jugada.porque.length ? jugada.porque : ['Este nivel no se puede guardar.']).map(e => `<div>✗ ${esc(e)}</div>`).join('')}</div><div class="fila"><button class="btn" data-cerrar>Cerrar</button></div>`); return; }
+    {
       const codigo = AU.codificar(final);
       final.id = 'autor-' + codigo.replace(/[^0-9A-Z]/g, '').toLowerCase();
       final.codigo = codigo;
       almacen.guardar(final);
       recargarExtra();
       if (barra) barra.hidden = true;
-      const d = dialogo(`<h2>¡Nivel guardado!</h2><p><b>${esc(final.titulo)}</b> · ${final.viñetas} viñetas · ${v.total} ${v.total === 1 ? 'solución' : 'soluciones'}${v.desbordado ? ' (o más)' : ''}</p>
+      App.abrirNivel(final.id);
+      const d = dialogo(`<h2>¡Nivel guardado!</h2><p><b>${esc(final.titulo)}</b> · ${final.viñetas} viñetas · <span id="aInfo">Calculando las soluciones…</span></p>
         <p>Código para la clase (dictar o escribir en la pizarra):</p><p><span class="codigo" id="codigoTxt">${codigo}</span></p>
         <p class="nota">Las letras I, L, O y U no se usan: si lees «O», es un cero; si lees «I» o «L», es un uno.</p>
         <div class="fila"><button class="btn sec" id="bCopiar">Copiar</button><button class="btn sec" id="bOtro">Crear otro</button><button class="btn verde" id="bJugar">Jugar este nivel</button></div>`);
       d.querySelector('#bCopiar').addEventListener('click', () => { try { navigator.clipboard.writeText(codigo); App.toast('Código copiado.'); } catch (_) { App.toast('No se puede copiar aquí: cópialo a mano.'); } });
       d.querySelector('#bOtro').addEventListener('click', () => { d.close(); abrirAutor({ personajes: final.personajes, escenas: final.escenas, viñetas: final.viñetas }); });
       d.querySelector('#bJugar').addEventListener('click', () => { d.close(); App.abrirNivel(final.id); });
-    }, 60);
+      resolverAsync(final, { max: 1, limite: 3e5 }, 20000).then(r => {
+        const info = d.querySelector('#aInfo'); if (!info) return;
+        if (!r || r.desbordado) info.textContent = 'muchas soluciones posibles';
+        else info.textContent = `${r.total} ${r.total === 1 ? 'solución' : 'soluciones'}`;
+      });
+    }
   }
   function importarCodigo(codigoInicial) {
     const d = dialogo(`<h2>⌨ Tengo un código</h2><form id="fCodigo"><input type="text" id="cIn" class="codigo-in" autocomplete="off" spellcheck="false" placeholder="S1AB-CDEF-GHJK-M" value="${esc(codigoInicial || '')}" aria-label="Código del nivel"><p class="nota" id="cNota">Copia el código de la pizarra. Puedes escribirlo en minúsculas y sin guiones.</p>
@@ -243,8 +265,14 @@
   /* Resolver en segundo plano con un Worker construido a partir de los propios <script> inlinados (sin ficheros externos);
      si el navegador no lo permite (file:// en algún navegador), se calcula en el hilo principal. */
   let workerURL = null;
-  function resolverAsync(nivel, opts) {
+  /** Resuelve en un Worker. Devuelve null si no se pudo (tiempo agotado, Worker imposible y nivel demasiado grande). */
+  function resolverAsync(nivel, opts, ms) {
     return new Promise(resolve => {
+      const sincrono = () => {
+        const posibles = Math.pow(E.opcionesDe(nivel).length, nivel.viñetas);
+        try { resolve(posibles <= 2e6 ? E.resolver(nivel, opts) : null); } catch (_) { resolve(null); }
+      };
+      let w;
       try {
         if (!workerURL) {
           const fuentes = [...document.scripts].filter(s => /\/\* (lengua|contenido|engine)\.js \*\//.test(s.textContent.slice(0, 80))).map(s => s.textContent);
@@ -252,12 +280,12 @@
           const code = fuentes.join('\n') + '\nself.onmessage = function (ev) { const r = self.SVEngine.resolver(ev.data.nivel, ev.data.opts); self.postMessage({ total: r.total, secretas: r.secretas, ambas: r.ambas, soluciones: r.soluciones, densidad: r.densidad, desbordado: r.desbordado }); };';
           workerURL = URL.createObjectURL(new Blob([code], { type: 'text/javascript' }));
         }
-        const w = new Worker(workerURL);
-        const t = setTimeout(() => { w.terminate(); resolve(E.resolver(nivel, opts)); }, 40000);
-        w.onmessage = ev => { clearTimeout(t); w.terminate(); resolve(ev.data); };
-        w.onerror = () => { clearTimeout(t); w.terminate(); resolve(E.resolver(nivel, opts)); };
-        w.postMessage({ nivel: JSON.parse(JSON.stringify(nivel)), opts });
-      } catch (_) { resolve(E.resolver(nivel, opts)); }
+        w = new Worker(workerURL);
+      } catch (_) { sincrono(); return; }
+      const t = setTimeout(() => { w.terminate(); resolve(null); }, ms || 45000);
+      w.onmessage = ev => { clearTimeout(t); w.terminate(); resolve(ev.data); };
+      w.onerror = ev => { clearTimeout(t); w.terminate(); if (ev && ev.preventDefault) ev.preventDefault(); sincrono(); };
+      w.postMessage({ nivel: JSON.parse(JSON.stringify(nivel)), opts });
     });
   }
   function panelProfe() {
@@ -269,7 +297,7 @@
         <label class="ajuste"><input type="checkbox" id="pEscritor"${a.escritor ? ' checked' : ''}> Modo escritor (frases ocultas)</label>
         <div class="ajuste sub"><label><input type="radio" name="pEscNivel" value="elegir"${a.escritorNivel !== 'escribir' ? ' checked' : ''}> elegir entre 3 (A1)</label> <label><input type="radio" name="pEscNivel" value="escribir"${a.escritorNivel === 'escribir' ? ' checked' : ''}> escribir (A2)</label></div>
         <label class="ajuste"><input type="checkbox" id="pPret"${a.preterito ? ' checked' : ''}> Pretérito (3.º · A2): acciones en indefinido, estados en imperfecto</label>
-        <label class="ajuste"><input type="checkbox" id="pClase"${a.clase === true ? ' checked' : ''}> Barra de clase visible (modo Pizarra)</label>
+        <label class="ajuste"><input type="checkbox" id="pClase"${a.clase === true ? ' checked' : ''}${a.modo === 'pizarra' ? '' : ' disabled'}> Barra de clase visible (solo en modo Pizarra)</label>
         <p class="nota">En ★★★ Reto el modo escritor está siempre activo.</p>
         <form id="fNuevaClave" class="ajuste"><label>Nueva contraseña <input type="password" id="pNueva" autocomplete="new-password" minlength="3"></label> <button class="btn sec mini" type="submit">Cambiar</button></form>
       </section>
@@ -280,18 +308,23 @@
         <ul class="lista-niv">${niveles.map(n => `<li><span class="cnt">${n.viñetas} ▭</span><span class="tit">${esc(n.titulo)}</span><code>${esc(n.codigo || AU.codificar(n))}</code><button class="btn sec mini" data-abrir="${n.id}">Jugar</button><button class="btn sec mini" data-borrar="${n.id}" aria-label="Borrar">🗑</button></li>`).join('') || '<li class="nota">Todavía no hay niveles creados en este navegador.</li>'}</ul>
         <div class="fila izq"><button class="btn sec" id="bCrear">✎ Crear un nivel</button><button class="btn sec" id="bCodigo">⌨ Importar un código</button><button class="btn sec" id="bExportar"${niveles.length ? '' : ' disabled'}>⬇ Exportar JSON</button><label class="btn sec" for="pImportar">⬆ Importar JSON</label><input type="file" id="pImportar" accept=".json,application/json" hidden></div>
       </section>
+      <section><h3>Datos de este navegador</h3>
+        <p class="nota">«Borrar mis datos» (en ☰ Niveles) solo borra las estrellas del alumno. Aquí se borra todo: estrellas, ajustes, contraseña, niveles de la clase y equipos.</p>
+        <button class="btn rojo" id="bBorrarTodo">Borrar todo</button>
+      </section>
       </div>
       <div class="fila"><button class="btn" data-cerrar>Cerrar</button></div>`, 'grande');
-    d.querySelector('#pEscritor').addEventListener('change', ev => { a.escritor = ev.target.checked; App.guardar(); App.escritor.reiniciar(); App.simular(); });
-    d.querySelectorAll('input[name="pEscNivel"]').forEach(r => r.addEventListener('change', ev => { a.escritorNivel = ev.target.value; App.guardar(); App.escritor.reiniciar(); App.simular(); }));
+    d.querySelector('#pEscritor').addEventListener('change', ev => { a.escritor = ev.target.checked; App.guardar(); App.escritor.reiniciar(); App.pintarTodo(); });
+    d.querySelectorAll('input[name="pEscNivel"]').forEach(r => r.addEventListener('change', ev => { a.escritorNivel = ev.target.value; App.guardar(); App.escritor.reiniciar(); App.pintarTodo(); }));
     d.querySelector('#pPret').addEventListener('change', ev => { a.preterito = ev.target.checked; App.guardar(); App.escritor.reiniciar(); App.pintarTodo(); });
-    d.querySelector('#pClase').addEventListener('change', ev => { a.clase = ev.target.checked; App.guardar(); const c = $('#clase'); if (c.dataset.montado) c.hidden = !a.clase; });
+    d.querySelector('#pClase').addEventListener('change', ev => { a.clase = ev.target.checked; App.guardar(); const c = $('#clase'); if (c.dataset.montado && a.modo === 'pizarra') c.hidden = !a.clase; App.ajustarTira(); });
     d.querySelector('#fNuevaClave').addEventListener('submit', ev => { ev.preventDefault(); const v = d.querySelector('#pNueva').value.trim(); if (v.length < 3) { App.toast('Mínimo 3 caracteres.'); return; } a.clave = v; App.guardar(); d.querySelector('#pNueva').value = ''; App.toast('Contraseña cambiada.'); });
     const bSol = d.querySelector('#bSol');
     if (bSol) bSol.addEventListener('click', async () => {
       const caja = d.querySelector('#pSol');
       caja.innerHTML = '<p class="nota">Calculando…</p>';
       const r = await resolverAsync(nivel, { max: 60 });
+      if (!r) { caja.innerHTML = '<p class="nota">No se pudo calcular aquí (nivel muy grande o navegador sin Worker). Las soluciones de los niveles del juego están en la guía del profe.</p>'; return; }
       const cumpleSecreto = s => !!nivel.secreto && E.simular(nivel, s).secreto;
       const fila = s => `<div class="sol"><button class="btn sec mini" data-sol="${esc(JSON.stringify(s))}">Cargar</button><span>${cumpleSecreto(s) ? '<b title="Cumple también el título secreto">🔑</b> ' : ''}${esc(E.textoSolucion(s))}</span></div>`;
       const primeras = r.soluciones.slice(0, 6);
@@ -299,12 +332,13 @@
       caja.innerHTML = `<p class="nota">${r.total} ${r.total === 1 ? 'solución' : 'soluciones'}${r.desbordado ? ' (o más)' : ''}${nivel.secreto ? ` · ${r.ambas} con el título secreto 🔑` : ''} · densidad ${(r.densidad * 100).toFixed(2)} %</p>` +
         primeras.map(fila).join('') + (conSecreto ? fila(conSecreto) : '') +
         (nivel.secreto && !primeras.some(cumpleSecreto) && !conSecreto ? '<p class="nota">Ninguna de las primeras 60 soluciones cumple el secreto.</p>' : '');
-      caja.querySelectorAll('[data-sol]').forEach(b => b.addEventListener('click', () => { d.close(); App.ponerViñetas(JSON.parse(b.dataset.sol)); }));
+      caja.querySelectorAll('[data-sol]').forEach(b => b.addEventListener('click', () => { d.close(); App.ponerViñetas(JSON.parse(b.dataset.sol), { silencio: true }); }));
     });
     d.querySelectorAll('[data-abrir]').forEach(b => b.addEventListener('click', () => { d.close(); App.abrirNivel(b.dataset.abrir); }));
     d.querySelectorAll('[data-borrar]').forEach(b => b.addEventListener('click', () => { if (confirm('¿Borrar este nivel de la clase?')) { almacen.borrar(b.dataset.borrar); recargarExtra(); if (App.nivel().id === b.dataset.borrar) App.abrirNivel(C.NIVELES[0].id); panelProfe(); } }));
     d.querySelector('#bCrear').addEventListener('click', () => { d.close(); abrirAutor(); });
     d.querySelector('#bCodigo').addEventListener('click', () => { d.close(); importarCodigo(); });
+    d.querySelector('#bBorrarTodo').addEventListener('click', () => { if (confirm('¿Borrar TODO lo que el juego guarda en este navegador (estrellas, ajustes, contraseña, niveles de la clase, equipos)?')) { d.close(); App.borrarTodo(); App.toast('Todo borrado.'); } });
     d.querySelector('#bExportar').addEventListener('click', () => {
       const blob = new Blob([almacen.exportarTodo()], { type: 'application/json' });
       const aEl = el('a', { href: URL.createObjectURL(blob), download: 'sobrevives-niveles.json' });
@@ -313,7 +347,17 @@
     d.querySelector('#pImportar').addEventListener('change', ev => {
       const f = ev.target.files && ev.target.files[0]; if (!f) return;
       const lector = new FileReader();
-      lector.onload = () => { try { const k = almacen.importarTodo(String(lector.result)); recargarExtra(); App.toast(`${k} ${k === 1 ? 'nivel importado' : 'niveles importados'}.`); panelProfe(); } catch (e) { App.toast('Este fichero no vale.'); } };
+      lector.onload = () => {
+        try {
+          const datos = JSON.parse(String(lector.result));
+          const lista = Array.isArray(datos) ? datos : (datos && Array.isArray(datos.niveles) ? datos.niveles : []);
+          const validos = lista.filter(nivelValido), descartados = lista.length - validos.length;
+          const k = validos.length ? almacen.importarTodo(JSON.stringify(validos)) : 0;
+          recargarExtra();
+          App.toast(`${k} ${k === 1 ? 'nivel importado' : 'niveles importados'}${descartados ? ` · ${descartados} no válidos` : ''}.`, 4000);
+          panelProfe();
+        } catch (e) { App.toast('Este fichero no vale.'); }
+      };
       lector.readAsText(f);
     });
   }
