@@ -2,7 +2,9 @@
 
 Jeu de narration visuelle en espagnol (A1 → A2) inspiré de *Storyteller* : un titre en espagnol, 3 à 6 cases de BD, des **escenas** et des **personajes** à glisser ; chaque case produit une phrase en espagnol générée par le moteur. Quand l'histoire réalise le titre, le niveau est réussi.
 
-**Jouer :** ouvrir `sobrevives.html` (un seul fichier, hors-ligne, aucune donnée envoyée ; Chrome, Edge ou Firefox).
+**Jouer en ligne :** https://artolome.github.io/sobrevives/
+
+**Jouer hors-ligne :** télécharger [`sobrevives.html`](sobrevives.html) (bouton « Download raw file ») et l'ouvrir par double-clic : un seul fichier, aucune donnée envoyée ; Chrome, Edge ou Firefox. Guide de la professeure : [`docs/GUIA_PROFE.md`](docs/GUIA_PROFE.md).
 Écran d'accueil : **Pizarra** (classe, vidéoprojecteur) · **Solo** (élève) · **Autor** (créer un niveau). Sélecteur ★ / ★★ / ★★★ en haut à droite. Touche **P** : panneau Profe (mot de passe par défaut `profe`).
 Paramètres d'URL facultatifs : `sobrevives.html?modo=pizarra&nivel=c2n1&dif=2`.
 
