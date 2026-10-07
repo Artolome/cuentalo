@@ -48,6 +48,20 @@ node test/pizarra.js
 node test/imprimir.js
 ```
 
+Test de bout en bout sans serveur (le jeu ouvert en `file://`, comme au double-clic), dans chaque navigateur installé :
+
+```bash
+node test/navegador.js chrome
+```
+
+```bash
+node test/navegador.js edge
+```
+
+```bash
+node test/navegador.js firefox
+```
+
 ```bash
 node test/serve.js 4173
 ```

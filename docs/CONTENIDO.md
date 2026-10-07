@@ -1,4 +1,4 @@
-# Sobrevives — modelo de contenido (fase 0, para validar)
+# Sobrevives — modelo de contenido (fases 0 a 3)
 
 > Documento de validación. Todo lo que está aquí se implementa tal cual en `src/contenido.js` (datos) y `src/engine.js` (reglas).
 > Lo que hay que **verificar o decidir** está marcado con ⚠️ y recogido también en `DECISIONS.md`.
@@ -57,6 +57,7 @@ Cada viñeta = 1 escena + 1 o 2 personajes. Las reglas dependen del estado anter
 3. Un personaje **a salvo** no puede aparecer en una viñeta posterior (*«¡Pero Lucía ya está a salvo! No puede estar aquí.»* → historia incoherente).
 4. **Todos los personajes del nivel tienen que salir** al menos una vez (si no: *«Mateo no sale en la historia.»*). ⚠️ Regla añadida para que el segundo personaje no sea decorativo; se puede quitar.
 5. Un nivel puede empezar con un **estado inicial** (`inicial`), que se lee bajo el título: *«Al principio: Lucía tiene hambre y está cansada.»* (usado en c3n6).
+6. Dos personajes en una escena de **1 plaza** (los objetos) → *«Aquí solo cabe una persona.»* e historia inválida; la interfaz lo evita sustituyendo al personaje.
 
 | escena | slots | solo/a | a dos | objetos |
 |---|---|---|---|---|
@@ -119,6 +120,7 @@ Dificultad medida por el resolvedor exacto (`node test/solver.js`): **soluciones
 | c3n5 | 3 | **Diego encuentra a Lucía y todos están a salvo** | 5 | selva · jaguar · noche · mapa · rescate | Lucía, Mateo, Diego | Mateo nunca tiene miedo | 6 256 · 0,04 % |
 | c3n6 | 3 | **Todos están contentos y a salvo** (al principio todos tienen hambre y están cansados) | 6 | selva · río · noche · frutas · refugio · rescate | Lucía, Mateo, Valeria | Lucía y Valeria duermen bien | 20 088 · 0,001 % |
 | libre | — | *Mi historia* (sin título) | 6 | todas | los 4 | — | — |
+| autor-… | 0 | título del asistente o libre (`historia`) | 2–6 | 1–8 elegidas | 1–4 | — | guardado tras jugar una solución · se muestran en «Niveles de la clase» en los tres ★ |
 
 Progresión: cap. 1 = 1 personaje, 3 viñetas, 2-3 escenas, estructuras *tiene / está / ya no* (la tercera escena cierra el arco: *sol → río → fuego*); cap. 2 = 2 personajes, 3 viñetas, *encuentra a, cura a, todos / nadie, plural, son amigos*; cap. 3 = 4-6 viñetas, 2-3 personajes, *comparte con, enfadado con, pide perdón a, nunca, y*, estado inicial. Los tres niveles finales exigen una historia real (ya no se ganan con «frutas ×4 + dos helicópteros»).
 
@@ -126,7 +128,7 @@ Progresión: cap. 1 = 1 personaje, 3 viñetas, 2-3 escenas, estructuras *tiene /
 
 ## 6. Gabarits de frases (presente) — la capa pedagógica
 
-Una viñeta produce 1-3 frases cortas (4 la primera vez que dos personajes se hacen amigos). Todas las variantes (género, número, presente/pretérito) están en `docs/frases.txt` (≈1 600 líneas). Muestra:
+Una viñeta produce 1-3 frases cortas (4 la primera vez que dos personajes se hacen amigos). Todas las variantes (género, número, presente/pretérito) están en `docs/frases.txt` (1 634 frases, generadas por `test/frases.js`). Muestra:
 
 | escena | frase(s) |
 |---|---|
@@ -159,7 +161,7 @@ Una viñeta produce 1-3 frases cortas (4 la primera vez que dos personajes se ha
 
 **Estructuras** (A1/A2): *X tiene hambre / sed / frío / miedo* · *X está cansado/a, herido/a, perdido/a, a salvo, contento/a, solo/a* · *X y Y están…* (plural y acuerdo) · *ya no…* · *nadie / todos* · *nunca* · *X encuentra a Y* (a personal) · *X cura a Y* · *X comparte la comida con Y* · *X pide perdón a Y* · *X está enfadado/a con Y* · *¡Qué + sustantivo!* · *Hace calor · Llueve · Es de noche · Hay*.
 
-**Palabras de las escenas** (panel «Léxico», generado automáticamente desde las plantillas de cada nivel): selva, río, agua, sol, calor, tormenta, lluvia/llover, noche, jaguar, serpiente, frutas, fuego, refugio, montaña, mapa, mochila, comida, cuerda, manta, linterna, helicóptero · caminar, perderse, encontrar(se), beber, cruzar, mojarse, dormir, comer, guardar, compartir, descansar, curar, subir, ver, gritar, correr, morder, avisar, encender, taparse, pedir perdón · hambre, sed, frío, miedo, cansado, herido, perdido, a salvo, solo, juntos, amigos, enfadado, contento, tranquilo.
+**Palabras de las escenas** (panel «Léxico», generado automáticamente desde `LEXICO_ESCENA` según las escenas del nivel; 56 lemas en el nivel libre, todos con picto): selva, río, agua, sol, hacer calor, tormenta, llover, noche, jaguar, serpiente, frutas, fuego, refugio, montaña, mapa, mochila, comida, cuerda, manta, linterna, helicóptero · caminar, perderse, encontrar, beber, cruzar, mojarse, dormir, comer, guardar, compartir, descansar, curar, subir, ver, gritar, correr, morder, avisar, encender, taparse, pedir perdón · hambre, sed, frío, miedo, cansado, herido, perdido, a salvo, solo, juntos, amigos, enfadado, contento, tranquilo.
 
 **Palabras ya presentes en los decks de ¡Sobrevive!** (verificado en `docs/lexico_fuente.md`, 1 060 lemas): *hambre, miedo, cansado, contento, triste, tranquilo, solo (adv.), noche, sol, lluvia, llover, montaña, mochila, mapa, manta, comida, comer, beber, dormir, descansar, curar, perdón, cruzar, subir, caminar, correr, gritar, avisar, guardar, ver, hacer, seguir, llegar, amigo, alegría*.
 

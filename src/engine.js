@@ -343,23 +343,23 @@
 
   /* Léxico que puede aparecer en cada escena (lemas), para el panel «Léxico». */
   const LEXICO_ESCENA = {
-    selva: ['selva', 'caminar', 'solo', 'perdido', 'encontrar', 'juntos', 'hambre', 'cansado', 'amigos'],
-    rio: ['río', 'agua', 'beber', 'sed', 'cruzar', 'frío', 'cuerda'],
+    selva: ['selva', 'caminar', 'solo', 'perderse', 'perdido', 'encontrar', 'juntos', 'hambre', 'cansado', 'amigos'],
+    rio: ['río', 'agua', 'beber', 'sed', 'cruzar', 'mojarse', 'frío', 'cuerda'],
     sol: ['sol', 'hacer calor', 'sed'],
-    tormenta: ['tormenta', 'llover', 'frío', 'miedo', 'manta', 'solo'],
-    noche: ['noche', 'solo', 'miedo', 'linterna', 'dormir', 'juntos', 'cansado'],
-    jaguar: ['jaguar', 'miedo', 'correr', 'perdido', 'gritar', 'juntos'],
+    tormenta: ['tormenta', 'llover', 'frío', 'miedo', 'manta', 'taparse', 'solo'],
+    noche: ['noche', 'solo', 'miedo', 'linterna', 'encender', 'dormir', 'tranquilo', 'juntos', 'cansado'],
+    jaguar: ['jaguar', 'miedo', 'correr', 'perderse', 'perdido', 'gritar', 'juntos'],
     serpiente: ['serpiente', 'morder', 'herido', 'ver', 'avisar'],
     frutas: ['frutas', 'comer', 'hambre'],
     fuego: ['fuego', 'frío', 'comer', 'hambre', 'comida', 'compartir', 'solo', 'enfadado', 'amigos'],
-    refugio: ['refugio', 'descansar', 'cansado', 'miedo', 'curar', 'herido', 'pedir perdón', 'enfadado'],
+    refugio: ['refugio', 'descansar', 'tranquilo', 'cansado', 'miedo', 'curar', 'herido', 'pedir perdón', 'enfadado'],
     montana: ['montaña', 'subir', 'cansado', 'hambre', 'ver', 'río', 'perdido'],
     mapa: ['mapa', 'encontrar', 'perdido', 'guardar', 'mochila'],
     mochila: ['mochila', 'comida', 'encontrar', 'comer', 'hambre'],
     cuerda: ['cuerda', 'encontrar', 'guardar'],
-    manta: ['manta', 'encontrar', 'frío', 'guardar'],
-    linterna: ['linterna', 'encontrar', 'miedo', 'guardar'],
-    rescate: ['helicóptero', 'a salvo', 'ver', 'perdido']
+    manta: ['manta', 'encontrar', 'taparse', 'frío', 'guardar'],
+    linterna: ['linterna', 'encontrar', 'encender', 'miedo', 'guardar'],
+    rescate: ['helicóptero', 'a salvo', 'contento', 'ver', 'perdido']
   };
   function lexicoDe(nivel) {
     const set = new Set();

@@ -225,7 +225,9 @@ dialog .fila.izq{justify-content:flex-start}
   .imp-pjs svg{height:78%;width:auto}
   .imp-num{position:absolute;left:2mm;top:2mm;width:7mm;height:7mm;border:.5mm solid #000;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10pt}
   .imp-frase{margin:0;padding:2.5mm 3mm;font-size:11.5pt;line-height:1.3}
-  .imp-lineas{flex:1;min-height:22mm;margin:2mm 3mm 3mm;background:repeating-linear-gradient(to bottom,transparent 0 7mm,#777 7mm 7.3mm)}
+  /* líneas de escritura con bordes (siempre se imprimen; un degradado de fondo exigiría «gráficos de fondo») */
+  .imp-lineas{flex:1;min-height:22mm;margin:2mm 3mm 3mm;display:flex;flex-direction:column;justify-content:space-evenly}
+  .imp-lineas i{display:block;border-bottom:.3mm solid #777}
   .imp-pie{margin:3mm 0 0;font-size:9pt;color:#444;text-align:center}
 }
 </style>
@@ -407,7 +409,8 @@ dialog .fila.izq{justify-content:flex-start}
     'a salvo': '🛟', amigos: '🤝', enfadado: '😠', contento: '😊', triste: '😢', solo: '🧍', juntos: '🧑‍🤝‍🧑', tranquilo: '😌',
     caminar: '🚶', beber: '🥤', comer: '🍴', dormir: '💤', encontrar: '🔍', cruzar: '🌉', correr: '🏃',
     gritar: '📣', compartir: '🤲', curar: '🩹', descansar: '🛌', subir: '🧗', ver: '👀', llover: '🌧️',
-    'hacer calor': '🌡️', 'pedir perdón': '🙏', guardar: '📦', encender: '💡', morder: '🦷', avisar: '✋'
+    'hacer calor': '🌡️', 'pedir perdón': '🙏', guardar: '📦', encender: '💡', morder: '🦷', avisar: '✋',
+    perderse: '🧭', mojarse: '💦', taparse: '🧥'
   };
 
   return { ADJ, V, PICTOS, acuerdo, gn, sujeto, conj, cap, unir };
@@ -939,23 +942,23 @@ dialog .fila.izq{justify-content:flex-start}
 
   /* Léxico que puede aparecer en cada escena (lemas), para el panel «Léxico». */
   const LEXICO_ESCENA = {
-    selva: ['selva', 'caminar', 'solo', 'perdido', 'encontrar', 'juntos', 'hambre', 'cansado', 'amigos'],
-    rio: ['río', 'agua', 'beber', 'sed', 'cruzar', 'frío', 'cuerda'],
+    selva: ['selva', 'caminar', 'solo', 'perderse', 'perdido', 'encontrar', 'juntos', 'hambre', 'cansado', 'amigos'],
+    rio: ['río', 'agua', 'beber', 'sed', 'cruzar', 'mojarse', 'frío', 'cuerda'],
     sol: ['sol', 'hacer calor', 'sed'],
-    tormenta: ['tormenta', 'llover', 'frío', 'miedo', 'manta', 'solo'],
-    noche: ['noche', 'solo', 'miedo', 'linterna', 'dormir', 'juntos', 'cansado'],
-    jaguar: ['jaguar', 'miedo', 'correr', 'perdido', 'gritar', 'juntos'],
+    tormenta: ['tormenta', 'llover', 'frío', 'miedo', 'manta', 'taparse', 'solo'],
+    noche: ['noche', 'solo', 'miedo', 'linterna', 'encender', 'dormir', 'tranquilo', 'juntos', 'cansado'],
+    jaguar: ['jaguar', 'miedo', 'correr', 'perderse', 'perdido', 'gritar', 'juntos'],
     serpiente: ['serpiente', 'morder', 'herido', 'ver', 'avisar'],
     frutas: ['frutas', 'comer', 'hambre'],
     fuego: ['fuego', 'frío', 'comer', 'hambre', 'comida', 'compartir', 'solo', 'enfadado', 'amigos'],
-    refugio: ['refugio', 'descansar', 'cansado', 'miedo', 'curar', 'herido', 'pedir perdón', 'enfadado'],
+    refugio: ['refugio', 'descansar', 'tranquilo', 'cansado', 'miedo', 'curar', 'herido', 'pedir perdón', 'enfadado'],
     montana: ['montaña', 'subir', 'cansado', 'hambre', 'ver', 'río', 'perdido'],
     mapa: ['mapa', 'encontrar', 'perdido', 'guardar', 'mochila'],
     mochila: ['mochila', 'comida', 'encontrar', 'comer', 'hambre'],
     cuerda: ['cuerda', 'encontrar', 'guardar'],
-    manta: ['manta', 'encontrar', 'frío', 'guardar'],
-    linterna: ['linterna', 'encontrar', 'miedo', 'guardar'],
-    rescate: ['helicóptero', 'a salvo', 'ver', 'perdido']
+    manta: ['manta', 'encontrar', 'taparse', 'frío', 'guardar'],
+    linterna: ['linterna', 'encontrar', 'encender', 'miedo', 'guardar'],
+    rescate: ['helicóptero', 'a salvo', 'contento', 'ver', 'perdido']
   };
   function lexicoDe(nivel) {
     const set = new Set();
@@ -3218,7 +3221,7 @@ dialog .fila.izq{justify-content:flex-start}
   function htmlImpresion(nivel, res, tituloSecreto) {
     const n = res.viñetas.length, cols = n <= 3 ? n : n === 4 ? 2 : 3;
     const vin = res.viñetas.map((v, i) => `<div class="imp-vineta"><div class="imp-esc">${v.escena ? AE.escenaSVG(v.escena, { clase: 'fondo' }) : ''}<div class="imp-pjs">${v.personajes.map(id => AP.personajeSVG(PJ[id], v.estado[id] ? E.expresion(v.estado[id]) : 'contento', { clase: 'pj' })).join('')}</div><span class="imp-num">${i + 1}</span></div><p class="imp-frase">${esc(v.frases.join(' '))}</p></div>`).join('');
-    const hoja = k => `<div class="imp-pagina imp-hoja"><h1 class="imp-titulo">Mi historia: <span class="imp-linea"></span></h1><div class="imp-tira" style="--c:${k === 4 ? 2 : 3}">${Array.from({ length: k }, (_, i) => `<div class="imp-vineta"><div class="imp-esc vacia"><span class="imp-num">${i + 1}</span></div><div class="imp-lineas"></div></div>`).join('')}</div><p class="imp-pie">Sobrevives · hoja de viñetas · ${k} viñetas · Nombre o código: ____________________</p></div>`;
+    const hoja = k => `<div class="imp-pagina imp-hoja"><h1 class="imp-titulo">Mi historia: <span class="imp-linea"></span></h1><div class="imp-tira" style="--c:${k === 4 ? 2 : 3}">${Array.from({ length: k }, (_, i) => `<div class="imp-vineta"><div class="imp-esc vacia"><span class="imp-num">${i + 1}</span></div><div class="imp-lineas"><i></i><i></i><i></i></div></div>`).join('')}</div><p class="imp-pie">Sobrevives · hoja de viñetas · ${k} viñetas · Nombre o código: ____________________</p></div>`;
     const titulo = nivel.libre ? 'Mi historia' : nivel.titulo;
     const secreto = res.secreto && nivel.secreto && tituloSecreto ? ` · 🔑 ${tituloSecreto}` : '';
     const inicio = res.inicio && res.inicio.length ? `<p class="imp-frase imp-inicio"><b>Al principio:</b> ${esc(res.inicio.join(' '))}</p>` : '';

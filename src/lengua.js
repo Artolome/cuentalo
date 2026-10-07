@@ -122,7 +122,8 @@
     'a salvo': '🛟', amigos: '🤝', enfadado: '😠', contento: '😊', triste: '😢', solo: '🧍', juntos: '🧑‍🤝‍🧑', tranquilo: '😌',
     caminar: '🚶', beber: '🥤', comer: '🍴', dormir: '💤', encontrar: '🔍', cruzar: '🌉', correr: '🏃',
     gritar: '📣', compartir: '🤲', curar: '🩹', descansar: '🛌', subir: '🧗', ver: '👀', llover: '🌧️',
-    'hacer calor': '🌡️', 'pedir perdón': '🙏', guardar: '📦', encender: '💡', morder: '🦷', avisar: '✋'
+    'hacer calor': '🌡️', 'pedir perdón': '🙏', guardar: '📦', encender: '💡', morder: '🦷', avisar: '✋',
+    perderse: '🧭', mojarse: '💦', taparse: '🧥'
   };
 
   return { ADJ, V, PICTOS, acuerdo, gn, sujeto, conj, cap, unir };
