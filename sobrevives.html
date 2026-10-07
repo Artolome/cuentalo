@@ -2929,7 +2929,8 @@ dialog .fila.izq{justify-content:flex-start}
           const ex = r.estado[id] ? E.expresion(r.estado[id]) : 'contento';
           const w = el('div', { class: 'pj-wrap', title: `${PJ[id].nombre} — clic para quitar` });
           w.innerHTML = AP.personajeSVG(PJ[id], ex, { clase: 'pj' });
-          w.addEventListener('click', ev => { ev.stopPropagation(); quitarPersonaje(i, id); });
+          // Con una carta seleccionada, el clic va a la viñeta (poner la carta); sin selección, quita al personaje.
+          w.addEventListener('click', ev => { if (seleccion) return; ev.stopPropagation(); quitarPersonaje(i, id); });
           pjs.appendChild(w);
         }
       }

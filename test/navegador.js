@@ -56,6 +56,11 @@ async function abrirCDP() {
       return r.result.value;
     },
     async captura() { const r = await cdp('Page.captureScreenshot', { format: 'png' }); return r.data; },
+    async raton(x, y) { // clic izquierdo de verdad (el navegador decide qué elemento recibe el clic)
+      await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', x, y });
+      await cdp('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', clickCount: 1 });
+      await cdp('Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'left', clickCount: 1 });
+    },
     cerrar() { try { ws.close(); } catch (_) { /* nada */ } proc.kill(); }
   };
 }
@@ -96,6 +101,9 @@ async function abrirBiDi() {
       return v === undefined ? undefined : JSON.parse(v);
     },
     async captura() { const r = await bidi('browsingContext.captureScreenshot', { context: ctx }); return r.data; },
+    async raton(x, y) {
+      await bidi('input.performActions', { context: ctx, actions: [{ type: 'pointer', id: 'raton', parameters: { pointerType: 'mouse' }, actions: [{ type: 'pointerMove', x: Math.round(x), y: Math.round(y) }, { type: 'pointerDown', button: 0 }, { type: 'pointerUp', button: 0 }] }] });
+    },
     cerrar() { try { bidi('browser.close', {}).catch(() => {}); ws.close(); } catch (_) { /* nada */ } setTimeout(() => proc.kill(), 300); }
   };
 }
@@ -104,6 +112,13 @@ async function main() {
   const nav = nombre === 'firefox' ? await abrirBiDi() : await abrirCDP();
   const { red, errores } = nav;
   const evalua = nav.evalua;
+  /* Clic de ratón real en el centro de un elemento (sin llamar a .click() desde JavaScript). */
+  const clicEn = async sel => {
+    const c = await evalua(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return null; const b = e.getBoundingClientRect(); return [b.x + b.width / 2, b.y + b.height / 2];`);
+    if (!c) throw new Error('no existe ' + sel);
+    await nav.raton(Math.round(c[0]), Math.round(c[1]));
+    await espera(150);
+  };
   await espera(1500);
 
   const resultados = [];
@@ -122,6 +137,25 @@ async function main() {
     await dormir(600); const exito = document.querySelector('#dlgExito').open; cerrar();
     return { estado: document.querySelector('#estadoNivel').textContent, frase: document.querySelector('.frase').textContent, exito, estrellas: SVApp.progreso().c1n1 && SVApp.progreso().c1n1.estrellas };`,
     v => v && /Muy bien/.test(v.estado) && /calor/.test(v.frase) && v.exito && v.estrellas === 3);
+  {
+    // Solo ratón, como en clase: clic en la carta, clic en la viñeta (clics reales, el navegador hace el «hit-testing»)
+    let ok = false, info = '';
+    try {
+      await evalua(`document.querySelectorAll('dialog[open]').forEach(d => d.close()); SVApp.ajustes().escritor = false; SVApp.guardar(); SVApp.abrirNivel('c2n1'); return 1;`);
+      for (const [carta, v] of [['selva', 0], ['lucia', 0], ['noche', 1], ['mateo', 1], ['sol', 2], ['lucia', 2]]) { await clicEn(`.carta[data-id="${carta}"]`); await clicEn(`.escena-caja[data-i="${v}"]`); }
+      // segundo personaje: clic ENCIMA de Lucía ya colocada (debe poner a Mateo, no quitar a Lucía)
+      await clicEn('.carta[data-id="mateo"]'); await clicEn('.vineta[data-i="2"] .pj-wrap');
+      await espera(600);
+      const r1 = await evalua(`return { estado: document.querySelector('#estadoNivel').textContent, v2: SVApp.viñetas()[2].personajes.join('+'), exito: document.querySelector('#dlgExito').open };`);
+      if (r1.exito) await clicEn('#btnSeguir');
+      // sin carta seleccionada, un clic en un personaje lo quita
+      await clicEn('.vineta[data-i="0"] .pj-wrap');
+      const r2 = await evalua(`return { v0: SVApp.viñetas()[0].personajes.length, dialogo: !!document.querySelector('dialog[open]') };`);
+      ok = /Muy bien/.test(r1.estado) && r1.v2 === 'lucia+mateo' && r1.exito && r2.v0 === 0 && !r2.dialogo;
+      info = ok ? '' : JSON.stringify({ r1, r2 });
+    } catch (e) { info = e.message; }
+    resultados.push([ok, 'solo ratón (clics reales): c2n1 resuelto, 2.º personaje encima del 1.º, quitar con un clic', info]);
+  }
   await prueba('un texto arrastrado que no es una carta se ignora', `${AYUDA}
     SVApp.abrirNivel('c1n1'); pon(0,'escena','sol');
     const dt = new DataTransfer(); dt.setData('text/plain', 'Lucía bebe agua del río.');

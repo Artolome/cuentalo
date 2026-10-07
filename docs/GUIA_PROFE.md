@@ -57,7 +57,7 @@ Dans tous les réglages, le titre est lu à voix haute à l'ouverture du niveau,
 
 - **Glisser-déposer** : on tire une carte escena ou une carte personaje vers une case.
 - **Repli clic-clic** : clic sur la carte, puis clic sur la case (au clavier : Entrée ou Espace sur la carte, puis sur la case). Utile sur tablette, avec une souris capricieuse, ou pour un élève gêné par le glisser. Si la case refuse la carte (un personaje sans escena), la carte reste sélectionnée.
-- **Corriger une case** : un clic sur un personnage placé le retire ; le « × » en haut à droite de la case enlève l'escena et ses personnages ; « ↺ » vide tout.
+- **Corriger une case** : un clic sur un personnage placé le retire (sauf si une carte est sélectionnée : le clic pose alors la carte dans la case) ; le « × » en haut à droite de la case enlève l'escena et ses personnages ; « ↺ » vide tout.
 - **Clic sur une phrase** (ou sur le titre) : la synthèse vocale la lit en espagnol. En « modo escritor », la phrase cachée s'écoute avec le bouton 🔊 de la case.
 - **Touche P** : ouvre le panneau Profe. Mot de passe par défaut : « profe » (3 caractères minimum pour le nouveau). Il se change dans le panneau lui-même et reste stocké dans ce navigateur : c'est un verrou de confort, pas une protection. La touche ne répond pas quand le curseur est dans un champ de saisie ou qu'une fenêtre est ouverte : cliquer d'abord ailleurs.
 - **Touche Échap** : ferme les panneaux ouverts et désélectionne la carte en cours.
