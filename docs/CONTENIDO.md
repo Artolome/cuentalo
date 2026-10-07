@@ -93,7 +93,7 @@ Cada viñeta = 1 escena + 1 o 2 personajes. Las reglas dependen del estado anter
 | `sinEvento` | *Nadie duerme solo* · *Nadie se pierde en la selva* · *Todos comparten* | el evento no ocurre en ninguna viñeta (se combina con `y`) |
 | `enfadado` / `amigos` | *Mateo está enfadado con Lucía* · *Lucía y Mateo son amigos* | relación final |
 | `y` | *Todos están contentos y a salvo* | las dos partes |
-| `historia` | título libre del modo Autor (*Lucía tiene mucha sed*) | la historia jugada por el autor «se graba»: mismos estados finales de cada personaje (7 negativos + a salvo) y mismos eventos con título (encuentra, cura, comparte…) |
+| `historia` | título libre del modo Autor (*Lucía tiene mucha sed*) | la historia jugada por el autor «se graba»: mismos estados finales de cada personaje (7 negativos + a salvo) y mismos eventos, cada uno una vez y con el sentido de la acción (encuentra, cura, comparte, calor, tormenta, la mordedura…); el orden de las viñetas no cuenta |
 
 El motor genera también el título desde el predicado (`tituloDe`) — sirve al asistente del modo Autor — y explica **por qué no** se cumple todavía (botón «¿Qué pasa?»): *«Lucía todavía tiene sed.»*, *«Mateo no sale en la historia.»*, *«Valeria tiene miedo en la viñeta 2.»* Para los títulos de evento añade la condición que falta: *«Falta: «Diego pide perdón a Lucía». Primero Lucía tiene que estar enfadada (el fuego: comer y no compartir). Después, los dos en el refugio.»*
 

@@ -48,11 +48,17 @@
       f.querySelector('.esc-abrir').addEventListener('click', ev => { ev.stopPropagation(); elegirFrase(i, s, texto, res); });
     } else {
       f.innerHTML = `<div class="esc-cab"><b>Escribe la frase</b>${oir}</div>
-        <form class="esc-form"><input type="text" class="esc-in" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Escribe aquí…" value="${esc(s.escrito)}" aria-label="Escribe la frase de la viñeta ${i + 1}"><button class="btn mini" type="submit" title="Comprobar">✔</button></form>
+        <form class="esc-form"><input type="text" class="esc-in" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Escribe aquí…" value="${esc(s.escrito)}" aria-label="Escribe la frase de la viñeta ${i + 1}"><button class="btn sec mini enie" type="button" title="Escribir ñ">ñ</button><button class="btn mini" type="submit" title="Comprobar">✔</button></form>
         ${s.intentos >= 2 ? `<div class="esc-pista" title="Pista: la primera letra de cada palabra">${esc(ESC.pista(texto))}</div>` : ''}
         ${s.intentos >= 4 ? `<button type="button" class="btn sec mini esc-ver">Ver la frase</button>` : ''}`;
       const form = f.querySelector('form'), input = f.querySelector('input');
       input.addEventListener('input', () => { s.escrito = input.value; });
+      f.querySelector('.enie').addEventListener('click', ev => { // inserta «ñ» donde está el cursor
+        ev.stopPropagation();
+        const a = input.selectionStart == null ? input.value.length : input.selectionStart, b = input.selectionEnd == null ? a : input.selectionEnd;
+        input.value = input.value.slice(0, a) + 'ñ' + input.value.slice(b); s.escrito = input.value;
+        input.focus(); input.setSelectionRange(a + 1, a + 1);
+      });
       form.addEventListener('submit', ev => {
         ev.preventDefault(); ev.stopPropagation();
         const r = ESC.comparar(input.value, texto);
@@ -173,12 +179,16 @@
       const actual = sel.value;
       sel.innerHTML = titulos.map((t, i) => `<option value="${i}">${esc(t.titulo)}</option>`).join('') + `<option value="libre">✎ Otro título (lo escribo yo)</option>`;
       if ([...sel.options].some(o => o.value === actual)) sel.value = actual;
-      nota.textContent = titulos.length ? `${titulos.length} ${titulos.length === 1 ? 'título posible' : 'títulos posibles'} con estos personajes y escenas. Con «Otro título», juegas tu historia y el juego la aprende.` : 'Elige personajes y escenas para ver títulos.';
+      nota.classList.remove('error');
+      nota.textContent = titulos.length ? `${titulos.length} ${titulos.length === 1 ? 'título' : 'títulos'} con estos personajes y escenas. Con «Otro título», juegas tu historia y el juego la aprende.` : 'Elige personajes y escenas para ver títulos.';
       libre.hidden = sel.value !== 'libre';
     }
-    form.addEventListener('change', ev => { if (ev.target.name === 'pj' || ev.target.name === 'esc') rellenarTitulos(); if (ev.target === sel) libre.hidden = sel.value !== 'libre'; });
+    form.addEventListener('change', ev => {
+      if (ev.target.name === 'pj' || ev.target.name === 'esc' || ev.target.name === 'vin') rellenarTitulos();
+      if (ev.target === sel) { libre.hidden = sel.value !== 'libre'; nota.classList.remove('error'); if (!libre.hidden) nota.textContent = 'Con tu propio título, el código es largo: es mejor copiarlo que dictarlo.'; }
+    });
     rellenarTitulos();
-    form.addEventListener('submit', ev => {
+    form.addEventListener('submit', async ev => {
       ev.preventDefault();
       const pjs = elegidos('pj'), escs = elegidos('esc'), vin = +(form.querySelector('input[name="vin"]:checked') || {}).value || 3;
       if (!pjs.length || pjs.length > 4) { App.toast('Elige de 1 a 4 personajes.'); return; }
@@ -186,7 +196,18 @@
       let titulo, objetivo = null;
       if (sel.value === 'libre') { titulo = libre.value.trim(); if (!titulo) { App.toast('Escribe tu título.'); libre.focus(); return; } }
       else { const t = titulos[+sel.value]; if (!t) { App.toast('Elige un título.'); return; } titulo = t.titulo; objetivo = t.objetivo; }
-      const nivel = { id: 'autor-nuevo', capitulo: 0, autor: true, enConstruccion: true, titulo, viñetas: vin, escenas: E.ordenar ? escs : escs, personajes: pjs, objetivo, pistas: [] };
+      const nivel = { id: 'autor-nuevo', capitulo: 0, autor: true, enConstruccion: true, titulo, viñetas: vin, escenas: escs, personajes: pjs, objetivo, pistas: [] };
+      if (objetivo) { // el asistente mira las cartas, no el número de viñetas: se comprueba que el título tenga solución
+        const boton = form.querySelector('button[type="submit"]');
+        boton.disabled = true; nota.classList.remove('error'); nota.textContent = 'Comprobando el título…';
+        const r = await resolverAsync(nivel, { max: 1, limite: 3e5 }, 4000); // null = tiempo agotado: se deja pasar
+        boton.disabled = false;
+        if (r && !r.desbordado && !r.total) {
+          nota.textContent = `«${titulo}» no tiene solución con estas cartas y ${vin} viñetas. Elige otro título, más viñetas u otras cartas.`;
+          nota.classList.add('error');
+          return;
+        }
+      }
       d.close();
       jugarSolucion(nivel);
     });
@@ -215,7 +236,8 @@
     const jugada = E.simular(final, App.viñetas());
     if (!jugada.resuelto || !nivelValido(Object.assign({}, final, { id: 'autor-x' }))) { dialogo(`<h2>Todavía no</h2><div class="porque">${(jugada.porque.length ? jugada.porque : ['Este nivel no se puede guardar.']).map(e => `<div>✗ ${esc(e)}</div>`).join('')}</div><div class="fila"><button class="btn" data-cerrar>Cerrar</button></div>`); return; }
     {
-      const codigo = AU.codificar(final);
+      let codigo;
+      try { codigo = AU.codificar(final); } catch (e) { dialogo(`<h2>Todavía no</h2><div class="porque"><div>✗ Esta historia es demasiado larga para un código. Usa menos viñetas o menos personajes.</div></div><div class="fila"><button class="btn" data-cerrar>Cerrar</button></div>`); return; }
       final.id = 'autor-' + codigo.replace(/[^0-9A-Z]/g, '').toLowerCase();
       final.codigo = codigo;
       almacen.guardar(final);
@@ -231,7 +253,7 @@
       d.querySelector('#bJugar').addEventListener('click', () => { d.close(); App.abrirNivel(final.id); });
       resolverAsync(final, { max: 1, limite: 3e5 }, 20000).then(r => {
         const info = d.querySelector('#aInfo'); if (!info) return;
-        if (!r || r.desbordado) info.textContent = 'muchas soluciones posibles';
+        if (!r || r.desbordado) { const k = Math.max(1, r ? r.total : 0); info.textContent = `al menos ${k} ${k === 1 ? 'solución (la tuya)' : 'soluciones'}: demasiadas combinaciones para contarlas todas`; }
         else info.textContent = `${r.total} ${r.total === 1 ? 'solución' : 'soluciones'}`;
       });
     }
@@ -247,6 +269,7 @@
         const n = AU.decodificar(input.value);
         n.codigo = AU.codificar(n);
         n.id = 'autor-' + n.codigo.replace(/[^0-9A-Z]/g, '').toLowerCase();
+        if (!nivelValido(n)) throw new Error('Este código no es válido. Revísalo letra por letra.');
         almacen.guardar(n); recargarExtra();
         d.close(); App.abrirNivel(n.id); App.toast(`Nivel «${n.titulo}» abierto.`, 3000);
       } catch (e) { nota.textContent = e.message || 'Este código no es válido. Revísalo letra por letra.'; nota.classList.add('error'); input.focus(); }

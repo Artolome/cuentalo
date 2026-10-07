@@ -1008,16 +1008,22 @@ dialog .fila.izq{justify-content:flex-start}
   }
   function mismoEvento(e, ev) {
     if (e.tipo !== ev.tipo) return false;
-    const tiene = (x, id) => x.quien === id || x.a === id || (x.quienes && x.quienes.includes(id));
-    if (ev.quien && !tiene(e, ev.quien)) return false;
-    if (ev.a && !tiene(e, ev.a)) return false;
-    return true;
+    // Mismo sentido que evaluar() → 'evento': «Valeria cura a Diego» ≠ «Diego cura a Valeria».
+    // (Los ids de una viñeta van siempre en el orden de C.PERSONAJES, así que los eventos simétricos son estables.)
+    const en = (papel, id) => (e[papel] ? e[papel] === id : !!(e.quienes && e.quienes.includes(id)));
+    return (!ev.quien || en('quien', ev.quien)) && (!ev.a || en('a', ev.a));
   }
   /** Construye un objetivo «historia» a partir de una simulación resuelta (modo Autor, título libre). */
   function objetivoDeHistoria(nivel, res) {
     const finales = {};
     for (const id of humanos(nivel)) { finales[id] = {}; for (const k of NEGATIVOS.concat(['salvo'])) finales[id][k] = !!valor(res.estado[id], k); }
-    const eventos = res.eventos.filter(e => TITULO_EVENTO[e.tipo]).map(e => ({ tipo: e.tipo, quien: e.quien || (e.quienes ? e.quienes[0] : undefined), a: e.a || (e.quienes ? e.quienes[1] : undefined) }));
+    const eventos = [], vistos = new Set(); // sin repetidos: el orden y el número no cuentan (mismoEvento usa some)
+    for (const e of res.eventos) {
+      if (!TITULO_EVENTO[e.tipo]) continue; // fuera solo yaSalvo / demasiados (historia inválida)
+      const o = { tipo: e.tipo, quien: e.quien || (e.quienes ? e.quienes[0] : undefined), a: e.a || (e.quienes ? e.quienes[1] : undefined) };
+      const k = o.tipo + '|' + o.quien + '|' + o.a;
+      if (!vistos.has(k)) { vistos.add(k); eventos.push(o); }
+    }
     return { tipo: 'historia', finales, eventos };
   }
 
@@ -1069,7 +1075,16 @@ dialog .fila.izq{justify-content:flex-start}
     descansa: q => `${Nq(q, 'Alguien')} descansa en el refugio`,
     montana: q => `${Nq(q, 'Alguien')} sube la montaña`,
     rescate: q => `${Nq(q, 'Alguien')} vuelve a casa`,
-    amigos: (q, a) => q && a ? `${N1(q)} y ${N1(a)} son amigos` : 'Dos personas se hacen amigas'
+    amigos: (q, a) => q && a ? `${N1(q)} y ${N1(a)} son amigos` : 'Dos personas se hacen amigas',
+    // sin título en el asistente, pero grabados en el objetivo «historia» (título libre) y usados por «¿Qué pasa?»
+    calor: (q, a) => q && a ? `${N1(q)} y ${N1(a)} pasan mucho calor` : `${Nq(q, 'Alguien')} pasa mucho calor`,
+    tormenta: (q, a) => q && a ? `${N1(q)} y ${N1(a)} están en la tormenta` : `${Nq(q, 'Alguien')} está en la tormenta`,
+    cruzaMojado: (q, a) => q && a ? `${N1(q)} y ${N1(a)} cruzan el río y se mojan` : `${Nq(q, 'Alguien')} cruza el río y se moja`,
+    serpienteMuerde: q => `Una serpiente muerde a ${Nq(q, 'alguien')}`,
+    noPierde: q => `${Nq(q, 'Alguien')} tiene el mapa y no se pierde`,
+    comeComida: q => `${Nq(q, 'Alguien')} come la comida de la mochila`,
+    comen: (q, a) => q && a ? `${N1(q)} y ${N1(a)} comen juntos` : 'Comen juntos',
+    seCuran: (q, a) => q && a ? `${N1(q)} y ${N1(a)} se curan` : 'Se curan'
   };
   /* Títulos para «nunca ocurre el evento» (tipo sinEvento) */
   const TITULO_SIN = {
@@ -1148,6 +1163,7 @@ dialog .fila.izq{justify-content:flex-start}
     if ((obj.tipo === 'yaNo' || obj.tipo === 'nunca') && !NEGATIVOS.includes(obj.estado)) return false;
     if ((obj.tipo === 'estado' || obj.tipo === 'todos' || obj.tipo === 'nadie') && !ESTADO_INFO[obj.estado]) return false;
     if ((obj.tipo === 'evento' || obj.tipo === 'sinEvento') && !obj.evento) return false;
+    if (obj.tipo === 'todos' && obj.valor === false) return false; // «No todos…» no coincide con lo que evalúa (nadie)
     if (obj.tipo === 'historia' && (!obj.finales || !Object.keys(obj.finales).length)) return false;
     return true;
   }
@@ -1580,6 +1596,7 @@ dialog .fila.izq{justify-content:flex-start}
   const cuenta = (s, re) => (s.match(re) || []).length;
   const lista = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1];
   const comillas = w => '«' + w + '»';
+  const plana = s => s.replace(/ñ/g, 'n').replace(/Ñ/g, 'N'); // la ñ no está en el teclado francés: se tolera como las tildes
 
   /** «  ¡Lucía tiene SED!  » → «lucia tiene sed» */
   function normalizar(s) { return compactar(sinSignos(sinTildes(texto(s).toLowerCase()))); }
@@ -1637,22 +1654,38 @@ dialog .fila.izq{justify-content:flex-start}
      casi = con ok: solo fallan tildes / signos / mayúsculas; sin ok: pocos errores (≤ 1 por cada 8 letras, mínimo 1).
      nota = 1 exacta · 0,9 correcta con fallos de superficie · ≤ 0,8 según la distancia de edición.
      El mensaje señala las palabras del alumno que debe revisar, sin dar la solución (la UI tiene «diferencias» y pista()). */
+  /* Sujeto coordinado: el motor escribe «Lucía y Mateo» en el orden de C.PERSONAJES, pero «Mateo y Lucía» es la misma frase. */
+  const NOMBRES = C.PERSONAJES.map(p => p.nombre).join('|');
+  const PAREJAS = new RegExp('(?<!\\p{L})(' + NOMBRES + ') y (' + NOMBRES + ')(?!\\p{L})', 'gu');
+  /** La frase con cada pareja «X y Y» en los dos órdenes (2^k variantes; la primera es la original). */
+  function variantes(c) {
+    const p = c.split(PAREJAS); // [texto, X, Y, texto, X, Y, …, texto]
+    let vs = [p[0]];
+    for (let k = 1; k < p.length; k += 3) vs = vs.flatMap(v => [v + p[k] + ' y ' + p[k + 1] + p[k + 2], v + p[k + 1] + ' y ' + p[k] + p[k + 2]]);
+    return vs;
+  }
   function comparar(escrito, correcta) {
-    const e = compactar(texto(escrito)), c = compactar(texto(correcta));
+    const nE = plana(normalizar(escrito));
+    const alt = nE && variantes(compactar(texto(correcta))).find(v => plana(normalizar(v)) === nE);
+    return compararUna(escrito, alt || correcta); // tildes, ñ, signos y mayúsculas se comprueban contra esa variante
+  }
+  function compararUna(escrito, correcta) {
+    const e = compactar(texto(escrito).normalize('NFC')), c = compactar(texto(correcta).normalize('NFC'));
     const nE = normalizar(e), nC = normalizar(c);
     const diferencias = alinear(palabras(c), palabras(e));
     if (!nE) return { ok: false, casi: false, nota: 0, diferencias, mensaje: 'Escribe la frase.' };
-    if (nE === nC) {
+    if (plana(nE) === plana(nC)) {
       if (e === c) return { ok: true, casi: false, nota: 1, diferencias, mensaje: '¡Muy bien!' };
-      const bajo = s => s.toLowerCase();
-      const acentos = compactar(sinSignos(bajo(e))) !== compactar(sinSignos(bajo(c)));
-      const signos = compactar(sinTildes(bajo(e))) !== compactar(sinTildes(bajo(c)));
-      const mayus = compactar(sinTildes(sinSignos(e))) !== compactar(sinTildes(sinSignos(c)));
+      const bajo = s => s.toLowerCase(), enie = nE !== nC, pe = plana(e), pc = plana(c);
+      const acentos = compactar(sinSignos(bajo(pe))) !== compactar(sinSignos(bajo(pc)));
+      const signos = compactar(sinTildes(bajo(pe))) !== compactar(sinTildes(bajo(pc)));
+      const mayus = compactar(sinTildes(sinSignos(pe))) !== compactar(sinTildes(sinSignos(pc)));
       const faltan = signos && cuenta(e, ABRE) < cuenta(c, ABRE);
       let mensaje;
-      if (signos && !acentos && !mayus) mensaje = faltan ? 'Casi: faltan los signos (¿ ? ¡ !).' : 'Casi: mira la puntuación.';
+      if (signos && !acentos && !mayus && !enie) mensaje = faltan ? 'Casi: faltan los signos (¿ ? ¡ !).' : 'Casi: mira la puntuación.';
       else {
         const partes = [];
+        if (enie) partes.push('la ñ');
         if (acentos) partes.push('los acentos');
         if (signos) partes.push(faltan ? 'los signos (¿ ? ¡ !)' : 'la puntuación');
         if (mayus) partes.push('las mayúsculas');
@@ -3187,11 +3220,17 @@ dialog .fila.izq{justify-content:flex-start}
       f.querySelector('.esc-abrir').addEventListener('click', ev => { ev.stopPropagation(); elegirFrase(i, s, texto, res); });
     } else {
       f.innerHTML = `<div class="esc-cab"><b>Escribe la frase</b>${oir}</div>
-        <form class="esc-form"><input type="text" class="esc-in" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Escribe aquí…" value="${esc(s.escrito)}" aria-label="Escribe la frase de la viñeta ${i + 1}"><button class="btn mini" type="submit" title="Comprobar">✔</button></form>
+        <form class="esc-form"><input type="text" class="esc-in" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Escribe aquí…" value="${esc(s.escrito)}" aria-label="Escribe la frase de la viñeta ${i + 1}"><button class="btn sec mini enie" type="button" title="Escribir ñ">ñ</button><button class="btn mini" type="submit" title="Comprobar">✔</button></form>
         ${s.intentos >= 2 ? `<div class="esc-pista" title="Pista: la primera letra de cada palabra">${esc(ESC.pista(texto))}</div>` : ''}
         ${s.intentos >= 4 ? `<button type="button" class="btn sec mini esc-ver">Ver la frase</button>` : ''}`;
       const form = f.querySelector('form'), input = f.querySelector('input');
       input.addEventListener('input', () => { s.escrito = input.value; });
+      f.querySelector('.enie').addEventListener('click', ev => { // inserta «ñ» donde está el cursor
+        ev.stopPropagation();
+        const a = input.selectionStart == null ? input.value.length : input.selectionStart, b = input.selectionEnd == null ? a : input.selectionEnd;
+        input.value = input.value.slice(0, a) + 'ñ' + input.value.slice(b); s.escrito = input.value;
+        input.focus(); input.setSelectionRange(a + 1, a + 1);
+      });
       form.addEventListener('submit', ev => {
         ev.preventDefault(); ev.stopPropagation();
         const r = ESC.comparar(input.value, texto);
@@ -3312,12 +3351,16 @@ dialog .fila.izq{justify-content:flex-start}
       const actual = sel.value;
       sel.innerHTML = titulos.map((t, i) => `<option value="${i}">${esc(t.titulo)}</option>`).join('') + `<option value="libre">✎ Otro título (lo escribo yo)</option>`;
       if ([...sel.options].some(o => o.value === actual)) sel.value = actual;
-      nota.textContent = titulos.length ? `${titulos.length} ${titulos.length === 1 ? 'título posible' : 'títulos posibles'} con estos personajes y escenas. Con «Otro título», juegas tu historia y el juego la aprende.` : 'Elige personajes y escenas para ver títulos.';
+      nota.classList.remove('error');
+      nota.textContent = titulos.length ? `${titulos.length} ${titulos.length === 1 ? 'título' : 'títulos'} con estos personajes y escenas. Con «Otro título», juegas tu historia y el juego la aprende.` : 'Elige personajes y escenas para ver títulos.';
       libre.hidden = sel.value !== 'libre';
     }
-    form.addEventListener('change', ev => { if (ev.target.name === 'pj' || ev.target.name === 'esc') rellenarTitulos(); if (ev.target === sel) libre.hidden = sel.value !== 'libre'; });
+    form.addEventListener('change', ev => {
+      if (ev.target.name === 'pj' || ev.target.name === 'esc' || ev.target.name === 'vin') rellenarTitulos();
+      if (ev.target === sel) { libre.hidden = sel.value !== 'libre'; nota.classList.remove('error'); if (!libre.hidden) nota.textContent = 'Con tu propio título, el código es largo: es mejor copiarlo que dictarlo.'; }
+    });
     rellenarTitulos();
-    form.addEventListener('submit', ev => {
+    form.addEventListener('submit', async ev => {
       ev.preventDefault();
       const pjs = elegidos('pj'), escs = elegidos('esc'), vin = +(form.querySelector('input[name="vin"]:checked') || {}).value || 3;
       if (!pjs.length || pjs.length > 4) { App.toast('Elige de 1 a 4 personajes.'); return; }
@@ -3325,7 +3368,18 @@ dialog .fila.izq{justify-content:flex-start}
       let titulo, objetivo = null;
       if (sel.value === 'libre') { titulo = libre.value.trim(); if (!titulo) { App.toast('Escribe tu título.'); libre.focus(); return; } }
       else { const t = titulos[+sel.value]; if (!t) { App.toast('Elige un título.'); return; } titulo = t.titulo; objetivo = t.objetivo; }
-      const nivel = { id: 'autor-nuevo', capitulo: 0, autor: true, enConstruccion: true, titulo, viñetas: vin, escenas: E.ordenar ? escs : escs, personajes: pjs, objetivo, pistas: [] };
+      const nivel = { id: 'autor-nuevo', capitulo: 0, autor: true, enConstruccion: true, titulo, viñetas: vin, escenas: escs, personajes: pjs, objetivo, pistas: [] };
+      if (objetivo) { // el asistente mira las cartas, no el número de viñetas: se comprueba que el título tenga solución
+        const boton = form.querySelector('button[type="submit"]');
+        boton.disabled = true; nota.classList.remove('error'); nota.textContent = 'Comprobando el título…';
+        const r = await resolverAsync(nivel, { max: 1, limite: 3e5 }, 4000); // null = tiempo agotado: se deja pasar
+        boton.disabled = false;
+        if (r && !r.desbordado && !r.total) {
+          nota.textContent = `«${titulo}» no tiene solución con estas cartas y ${vin} viñetas. Elige otro título, más viñetas u otras cartas.`;
+          nota.classList.add('error');
+          return;
+        }
+      }
       d.close();
       jugarSolucion(nivel);
     });
@@ -3354,7 +3408,8 @@ dialog .fila.izq{justify-content:flex-start}
     const jugada = E.simular(final, App.viñetas());
     if (!jugada.resuelto || !nivelValido(Object.assign({}, final, { id: 'autor-x' }))) { dialogo(`<h2>Todavía no</h2><div class="porque">${(jugada.porque.length ? jugada.porque : ['Este nivel no se puede guardar.']).map(e => `<div>✗ ${esc(e)}</div>`).join('')}</div><div class="fila"><button class="btn" data-cerrar>Cerrar</button></div>`); return; }
     {
-      const codigo = AU.codificar(final);
+      let codigo;
+      try { codigo = AU.codificar(final); } catch (e) { dialogo(`<h2>Todavía no</h2><div class="porque"><div>✗ Esta historia es demasiado larga para un código. Usa menos viñetas o menos personajes.</div></div><div class="fila"><button class="btn" data-cerrar>Cerrar</button></div>`); return; }
       final.id = 'autor-' + codigo.replace(/[^0-9A-Z]/g, '').toLowerCase();
       final.codigo = codigo;
       almacen.guardar(final);
@@ -3370,7 +3425,7 @@ dialog .fila.izq{justify-content:flex-start}
       d.querySelector('#bJugar').addEventListener('click', () => { d.close(); App.abrirNivel(final.id); });
       resolverAsync(final, { max: 1, limite: 3e5 }, 20000).then(r => {
         const info = d.querySelector('#aInfo'); if (!info) return;
-        if (!r || r.desbordado) info.textContent = 'muchas soluciones posibles';
+        if (!r || r.desbordado) { const k = Math.max(1, r ? r.total : 0); info.textContent = `al menos ${k} ${k === 1 ? 'solución (la tuya)' : 'soluciones'}: demasiadas combinaciones para contarlas todas`; }
         else info.textContent = `${r.total} ${r.total === 1 ? 'solución' : 'soluciones'}`;
       });
     }
@@ -3386,6 +3441,7 @@ dialog .fila.izq{justify-content:flex-start}
         const n = AU.decodificar(input.value);
         n.codigo = AU.codificar(n);
         n.id = 'autor-' + n.codigo.replace(/[^0-9A-Z]/g, '').toLowerCase();
+        if (!nivelValido(n)) throw new Error('Este código no es válido. Revísalo letra por letra.');
         almacen.guardar(n); recargarExtra();
         d.close(); App.abrirNivel(n.id); App.toast(`Nivel «${n.titulo}» abierto.`, 3000);
       } catch (e) { nota.textContent = e.message || 'Este código no es válido. Revísalo letra por letra.'; nota.classList.add('error'); input.focus(); }

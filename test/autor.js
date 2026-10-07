@@ -205,5 +205,23 @@ console.log('\n6. almacén');
   ok(nulo.listar().length === 1, 'almacén sin store funciona en memoria');
 }
 
+// 7. Objetivo «historia»: se respeta quién hace la acción y se graban también los eventos sin título de asistente
+console.log('\n7. Historia grabada');
+{
+  const base = { id: 't-cura', titulo: 'Una serpiente en la selva', viñetas: 2, escenas: ['serpiente', 'refugio'], personajes: ['valeria', 'diego'], objetivo: null };
+  const jugada = [{ escena: 'serpiente', personajes: ['diego'] }, { escena: 'refugio', personajes: ['valeria', 'diego'] }];
+  const grabado = A.grabar(base, jugada);
+  ok(E.simular(grabado, jugada).resuelto, 'la historia grabada se cumple');
+  const alReves = [{ escena: 'serpiente', personajes: ['valeria'] }, { escena: 'refugio', personajes: ['valeria', 'diego'] }];
+  ok(!E.simular(grabado, alReves).resuelto, 'la historia al revés (Diego cura a Valeria) no vale');
+  ok(grabado.objetivo.eventos.some(e => e.tipo === 'serpienteMuerde'), 'la mordedura se graba');
+  const tipos = grabado.objetivo.eventos.map(e => e.tipo + e.quien + e.a);
+  ok(new Set(tipos).size === tipos.length, 'sin eventos repetidos');
+  const vuelta = A.decodificar(A.codificar(grabado));
+  ok(E.simular(vuelta, jugada).resuelto && !E.simular(vuelta, alReves).resuelto, 'ida y vuelta por el código conserva el sentido');
+  console.log('  eventos grabados: ' + grabado.objetivo.eventos.map(e => e.tipo).join(', '));
+}
+ok(!E.objetivoValido({ tipo: 'todos', estado: 'sed', valor: false }), '«No todos…» ya no es un objetivo válido');
+
 console.log(`\n${pruebas} comprobaciones · ${fallos} fallos`);
 process.exit(fallos ? 1 : 0);

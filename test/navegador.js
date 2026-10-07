@@ -199,6 +199,14 @@ async function main() {
     for (let k = 0; k < 150 && /Calculando/.test(d.textContent); k++) await dormir(100);
     const info = d.querySelector('#aInfo') ? d.querySelector('#aInfo').textContent : '';
     cerrar(); return { codigo: c, info, nivel: SVApp.nivel().id };`, v => v && /^S1[0-9A-Z-]+$/.test(v.codigo) && /soluci/.test(v.info) && v.nivel.startsWith('autor-'));
+  await prueba('Autor: un título sin solución con 2 viñetas se avisa y no se juega', `${AYUDA}
+    cerrar(); SVApp.abrirAutor({ personajes: ['lucia','mateo'], escenas: ['selva','rio','noche'], viñetas: 2 }); await dormir(100);
+    const d = document.querySelector('#dlgModos'), form = d.querySelector('#fAutor'), sel = d.querySelector('#aTitulo');
+    sel.value = [...sel.options].find(o => o.textContent === 'Lucía y Mateo se encuentran').value;
+    form.requestSubmit();
+    for (let k = 0; k < 60 && /Comprobando/.test(d.querySelector('#aNota').textContent); k++) await dormir(100);
+    const r = { abierto: d.open, error: d.querySelector('#aNota').classList.contains('error'), nota: d.querySelector('#aNota').textContent, nivel: SVApp.nivel().id };
+    cerrar(); return r;`, v => v && v.abierto && v.error && /no tiene solución/.test(v.nota) && v.nivel !== 'autor-nuevo');
   await prueba('importar ese código en minúsculas y sin guiones', `${AYUDA}
     SVApp.importarCodigo(${JSON.stringify(codigo && codigo.codigo ? codigo.codigo.toLowerCase().replace(/-/g, ' ') : 'xx')}); await dormir(100);
     document.querySelector('#fCodigo').requestSubmit(); await dormir(300); return SVApp.nivel().titulo;`, v => v === 'Valeria cura a Diego');

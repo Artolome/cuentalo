@@ -26,6 +26,7 @@
   const cuenta = (s, re) => (s.match(re) || []).length;
   const lista = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1];
   const comillas = w => '«' + w + '»';
+  const plana = s => s.replace(/ñ/g, 'n').replace(/Ñ/g, 'N'); // la ñ no está en el teclado francés: se tolera como las tildes
 
   /** «  ¡Lucía tiene SED!  » → «lucia tiene sed» */
   function normalizar(s) { return compactar(sinSignos(sinTildes(texto(s).toLowerCase()))); }
@@ -83,22 +84,38 @@
      casi = con ok: solo fallan tildes / signos / mayúsculas; sin ok: pocos errores (≤ 1 por cada 8 letras, mínimo 1).
      nota = 1 exacta · 0,9 correcta con fallos de superficie · ≤ 0,8 según la distancia de edición.
      El mensaje señala las palabras del alumno que debe revisar, sin dar la solución (la UI tiene «diferencias» y pista()). */
+  /* Sujeto coordinado: el motor escribe «Lucía y Mateo» en el orden de C.PERSONAJES, pero «Mateo y Lucía» es la misma frase. */
+  const NOMBRES = C.PERSONAJES.map(p => p.nombre).join('|');
+  const PAREJAS = new RegExp('(?<!\\p{L})(' + NOMBRES + ') y (' + NOMBRES + ')(?!\\p{L})', 'gu');
+  /** La frase con cada pareja «X y Y» en los dos órdenes (2^k variantes; la primera es la original). */
+  function variantes(c) {
+    const p = c.split(PAREJAS); // [texto, X, Y, texto, X, Y, …, texto]
+    let vs = [p[0]];
+    for (let k = 1; k < p.length; k += 3) vs = vs.flatMap(v => [v + p[k] + ' y ' + p[k + 1] + p[k + 2], v + p[k + 1] + ' y ' + p[k] + p[k + 2]]);
+    return vs;
+  }
   function comparar(escrito, correcta) {
-    const e = compactar(texto(escrito)), c = compactar(texto(correcta));
+    const nE = plana(normalizar(escrito));
+    const alt = nE && variantes(compactar(texto(correcta))).find(v => plana(normalizar(v)) === nE);
+    return compararUna(escrito, alt || correcta); // tildes, ñ, signos y mayúsculas se comprueban contra esa variante
+  }
+  function compararUna(escrito, correcta) {
+    const e = compactar(texto(escrito).normalize('NFC')), c = compactar(texto(correcta).normalize('NFC'));
     const nE = normalizar(e), nC = normalizar(c);
     const diferencias = alinear(palabras(c), palabras(e));
     if (!nE) return { ok: false, casi: false, nota: 0, diferencias, mensaje: 'Escribe la frase.' };
-    if (nE === nC) {
+    if (plana(nE) === plana(nC)) {
       if (e === c) return { ok: true, casi: false, nota: 1, diferencias, mensaje: '¡Muy bien!' };
-      const bajo = s => s.toLowerCase();
-      const acentos = compactar(sinSignos(bajo(e))) !== compactar(sinSignos(bajo(c)));
-      const signos = compactar(sinTildes(bajo(e))) !== compactar(sinTildes(bajo(c)));
-      const mayus = compactar(sinTildes(sinSignos(e))) !== compactar(sinTildes(sinSignos(c)));
+      const bajo = s => s.toLowerCase(), enie = nE !== nC, pe = plana(e), pc = plana(c);
+      const acentos = compactar(sinSignos(bajo(pe))) !== compactar(sinSignos(bajo(pc)));
+      const signos = compactar(sinTildes(bajo(pe))) !== compactar(sinTildes(bajo(pc)));
+      const mayus = compactar(sinTildes(sinSignos(pe))) !== compactar(sinTildes(sinSignos(pc)));
       const faltan = signos && cuenta(e, ABRE) < cuenta(c, ABRE);
       let mensaje;
-      if (signos && !acentos && !mayus) mensaje = faltan ? 'Casi: faltan los signos (¿ ? ¡ !).' : 'Casi: mira la puntuación.';
+      if (signos && !acentos && !mayus && !enie) mensaje = faltan ? 'Casi: faltan los signos (¿ ? ¡ !).' : 'Casi: mira la puntuación.';
       else {
         const partes = [];
+        if (enie) partes.push('la ñ');
         if (acentos) partes.push('los acentos');
         if (signos) partes.push(faltan ? 'los signos (¿ ? ¡ !)' : 'la puntuación');
         if (mayus) partes.push('las mayúsculas');

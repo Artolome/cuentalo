@@ -401,16 +401,22 @@
   }
   function mismoEvento(e, ev) {
     if (e.tipo !== ev.tipo) return false;
-    const tiene = (x, id) => x.quien === id || x.a === id || (x.quienes && x.quienes.includes(id));
-    if (ev.quien && !tiene(e, ev.quien)) return false;
-    if (ev.a && !tiene(e, ev.a)) return false;
-    return true;
+    // Mismo sentido que evaluar() → 'evento': «Valeria cura a Diego» ≠ «Diego cura a Valeria».
+    // (Los ids de una viñeta van siempre en el orden de C.PERSONAJES, así que los eventos simétricos son estables.)
+    const en = (papel, id) => (e[papel] ? e[papel] === id : !!(e.quienes && e.quienes.includes(id)));
+    return (!ev.quien || en('quien', ev.quien)) && (!ev.a || en('a', ev.a));
   }
   /** Construye un objetivo «historia» a partir de una simulación resuelta (modo Autor, título libre). */
   function objetivoDeHistoria(nivel, res) {
     const finales = {};
     for (const id of humanos(nivel)) { finales[id] = {}; for (const k of NEGATIVOS.concat(['salvo'])) finales[id][k] = !!valor(res.estado[id], k); }
-    const eventos = res.eventos.filter(e => TITULO_EVENTO[e.tipo]).map(e => ({ tipo: e.tipo, quien: e.quien || (e.quienes ? e.quienes[0] : undefined), a: e.a || (e.quienes ? e.quienes[1] : undefined) }));
+    const eventos = [], vistos = new Set(); // sin repetidos: el orden y el número no cuentan (mismoEvento usa some)
+    for (const e of res.eventos) {
+      if (!TITULO_EVENTO[e.tipo]) continue; // fuera solo yaSalvo / demasiados (historia inválida)
+      const o = { tipo: e.tipo, quien: e.quien || (e.quienes ? e.quienes[0] : undefined), a: e.a || (e.quienes ? e.quienes[1] : undefined) };
+      const k = o.tipo + '|' + o.quien + '|' + o.a;
+      if (!vistos.has(k)) { vistos.add(k); eventos.push(o); }
+    }
     return { tipo: 'historia', finales, eventos };
   }
 
@@ -462,7 +468,16 @@
     descansa: q => `${Nq(q, 'Alguien')} descansa en el refugio`,
     montana: q => `${Nq(q, 'Alguien')} sube la montaña`,
     rescate: q => `${Nq(q, 'Alguien')} vuelve a casa`,
-    amigos: (q, a) => q && a ? `${N1(q)} y ${N1(a)} son amigos` : 'Dos personas se hacen amigas'
+    amigos: (q, a) => q && a ? `${N1(q)} y ${N1(a)} son amigos` : 'Dos personas se hacen amigas',
+    // sin título en el asistente, pero grabados en el objetivo «historia» (título libre) y usados por «¿Qué pasa?»
+    calor: (q, a) => q && a ? `${N1(q)} y ${N1(a)} pasan mucho calor` : `${Nq(q, 'Alguien')} pasa mucho calor`,
+    tormenta: (q, a) => q && a ? `${N1(q)} y ${N1(a)} están en la tormenta` : `${Nq(q, 'Alguien')} está en la tormenta`,
+    cruzaMojado: (q, a) => q && a ? `${N1(q)} y ${N1(a)} cruzan el río y se mojan` : `${Nq(q, 'Alguien')} cruza el río y se moja`,
+    serpienteMuerde: q => `Una serpiente muerde a ${Nq(q, 'alguien')}`,
+    noPierde: q => `${Nq(q, 'Alguien')} tiene el mapa y no se pierde`,
+    comeComida: q => `${Nq(q, 'Alguien')} come la comida de la mochila`,
+    comen: (q, a) => q && a ? `${N1(q)} y ${N1(a)} comen juntos` : 'Comen juntos',
+    seCuran: (q, a) => q && a ? `${N1(q)} y ${N1(a)} se curan` : 'Se curan'
   };
   /* Títulos para «nunca ocurre el evento» (tipo sinEvento) */
   const TITULO_SIN = {
@@ -541,6 +556,7 @@
     if ((obj.tipo === 'yaNo' || obj.tipo === 'nunca') && !NEGATIVOS.includes(obj.estado)) return false;
     if ((obj.tipo === 'estado' || obj.tipo === 'todos' || obj.tipo === 'nadie') && !ESTADO_INFO[obj.estado]) return false;
     if ((obj.tipo === 'evento' || obj.tipo === 'sinEvento') && !obj.evento) return false;
+    if (obj.tipo === 'todos' && obj.valor === false) return false; // «No todos…» no coincide con lo que evalúa (nadie)
     if (obj.tipo === 'historia' && (!obj.finales || !Object.keys(obj.finales).length)) return false;
     return true;
   }
