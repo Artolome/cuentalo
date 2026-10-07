@@ -43,14 +43,9 @@
     f.dataset.texto = ''; // no se lee al hacer clic: solo con el botón 🔊
     const oir = `<button class="btn sec mini oir" type="button" title="Escuchar la frase">🔊</button>`;
     if (escModo() === 'elegir') {
-      const op = ESC.opciones(App.nivel(), App.viñetas(), i, res, { tiempo: App.tiempo() });
-      f.innerHTML = `<div class="esc-cab"><b>¿Qué frase es?</b>${oir}</div>` + op.opciones.map((t, k) => `<button type="button" class="esc-op${s.malas.includes(k) ? ' mal' : ''}" data-k="${k}"${s.malas.includes(k) ? ' disabled' : ''}>${esc(t)}</button>`).join('');
-      f.querySelectorAll('.esc-op').forEach(b => b.addEventListener('click', ev => {
-        ev.stopPropagation();
-        const k = +b.dataset.k;
-        if (k === op.indice) acierta(i, s, texto, '¡Muy bien!');
-        else { s.malas.push(k); s.intentos++; b.classList.add('mal'); b.disabled = true; App.toast('No es esa frase. Mira bien la viñeta.', 3000); }
-      }));
+      // En la viñeta solo hay un botón: las 3 frases se leen en grande en una ventana (en una viñeta estrecha aplastaban la imagen).
+      f.innerHTML = `<div class="esc-cab"><b>¿Qué frase es?</b>${oir}</div><button type="button" class="btn esc-abrir">Elegir la frase</button>`;
+      f.querySelector('.esc-abrir').addEventListener('click', ev => { ev.stopPropagation(); elegirFrase(i, s, texto, res); });
     } else {
       f.innerHTML = `<div class="esc-cab"><b>Escribe la frase</b>${oir}</div>
         <form class="esc-form"><input type="text" class="esc-in" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Escribe aquí…" value="${esc(s.escrito)}" aria-label="Escribe la frase de la viñeta ${i + 1}"><button class="btn mini" type="submit" title="Comprobar">✔</button></form>
@@ -75,6 +70,19 @@
       if (ver) ver.addEventListener('click', ev => { ev.stopPropagation(); s.revelada = true; acierta(i, s, texto, 'Aquí tienes la frase. Léela y escúchala.'); });
     }
     f.querySelector('.oir').addEventListener('click', ev => { ev.stopPropagation(); App.hablar(texto); });
+  }
+  function elegirFrase(i, s, texto, res) {
+    const op = ESC.opciones(App.nivel(), App.viñetas(), i, res, { tiempo: App.tiempo() });
+    const v = res.viñetas[i];
+    const dibujo = `<div class="esc-dibujo">${AE.escenaSVG(v.escena, { clase: 'fondo' })}<div class="pjs">${v.personajes.map(id => AP.personajeSVG(PJ[id], v.estado[id] ? E.expresion(v.estado[id]) : 'contento', { clase: 'pj' })).join('')}</div></div>`;
+    const d = dialogo(`<h2>Viñeta ${i + 1}: ¿qué frase es?</h2>${dibujo}<div class="esc-ops">${op.opciones.map((t, k) => `<button type="button" class="esc-op${s.malas.includes(k) ? ' mal' : ''}" data-k="${k}"${s.malas.includes(k) ? ' disabled' : ''}>${esc(t)}</button>`).join('')}</div>
+      <div class="fila"><button class="btn sec" id="eOir" type="button">🔊 Escuchar</button><button class="btn" type="button" data-cerrar>Cerrar</button></div>`, 'escritor');
+    d.querySelector('#eOir').addEventListener('click', () => App.hablar(texto));
+    d.querySelectorAll('.esc-op').forEach(b => b.addEventListener('click', () => {
+      const k = +b.dataset.k;
+      if (k === op.indice) { d.close(); acierta(i, s, texto, '¡Muy bien!'); }
+      else { s.malas.push(k); s.intentos++; b.classList.add('mal'); b.disabled = true; App.toast('No es esa frase. Mira bien la viñeta.', 3000); }
+    }));
   }
   function acierta(i, s, texto, mensaje) {
     s.hecho = true;

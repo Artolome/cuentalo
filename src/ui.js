@@ -205,7 +205,7 @@
     const linea = f ? parseFloat(getComputedStyle(f).fontSize) * 1.3 : 20;
     const escritor = !!(window.SVApp && window.SVApp.escritor && window.SVApp.escritor.activo());
     // en modo escritor hacen falta 3 frases (elegir) o un campo con su pista (escribir) bajo cada imagen
-    const lineas = !escritor ? 3.4 : ajustes().escritorNivel === 'escribir' ? 4.6 : 7;
+    const lineas = !escritor ? 3.4 : ajustes().escritorNivel === 'escribir' ? 4.6 : 3.8;
     const wmax = Math.max(220, Math.floor((h - linea * lineas - 6) * 1.6));
     tira.style.setProperty('--wmax', wmax + 'px');
   }

@@ -170,10 +170,18 @@ async function main() {
     SVApp.abrirNivel('c1n1'); pon(0,'escena','sol'); pon(0,'personaje','lucia'); pon(1,'escena','rio'); pon(1,'personaje','lucia'); pon(2,'escena','fuego'); pon(2,'personaje','lucia');
     await dormir(400); document.querySelector('#btnQuePasa').click(); await dormir(150);
     const t = document.querySelector('#dlgQuePasa').innerText; cerrar();
-    return { revela: /Lucía bebe agua/.test(t), imprimir: document.querySelector('#btnImprimir').disabled, estrellasAntes: !!(SVApp.progreso().c1n1 && SVApp.progreso().c1n1.estrellas), opciones: document.querySelectorAll('.vineta[data-i="0"] .esc-op').length };`,
+    document.querySelector('.vineta[data-i="0"] .esc-abrir').click(); await dormir(150);
+    const opciones = document.querySelectorAll('#dlgModos .esc-op').length; cerrar();
+    return { revela: /Lucía bebe agua/.test(t), imprimir: document.querySelector('#btnImprimir').disabled, estrellasAntes: !!(SVApp.progreso().c1n1 && SVApp.progreso().c1n1.estrellas), opciones };`,
     v => v && !v.revela && v.imprimir === true && v.opciones === 3);
   await prueba('modo escritor: elegir las 3 frases da el éxito', `${AYUDA}
-    for (const i of [0, 1, 2]) { const texto = SVApp.resultado().viñetas[i].frases.join(' '); const b = [...document.querySelectorAll('.vineta[data-i="' + i + '"] .esc-op')].find(x => x.textContent === texto); b.click(); await dormir(150); }
+    for (const i of [0, 1, 2]) {
+      document.querySelector('.vineta[data-i="' + i + '"] .esc-abrir').click(); await dormir(120);
+      const texto = SVApp.resultado().viñetas[i].frases.join(' ');
+      const mala = [...document.querySelectorAll('#dlgModos .esc-op')].find(x => x.textContent !== texto); mala.click(); await dormir(80);
+      if (!mala.disabled || !document.querySelector('#dlgModos').open) return 'la opción mala no se marcó';
+      [...document.querySelectorAll('#dlgModos .esc-op')].find(x => x.textContent === texto).click(); await dormir(200);
+    }
     await dormir(700); const ok = document.querySelector('#dlgExito').open; cerrar();
     SVApp.ajustes().escritor = false; SVApp.guardar(); return ok;`, v => v === true);
   const codigo = await prueba('Autor: crear «Valeria cura a Diego», jugar, guardar, obtener un código', `${AYUDA}
