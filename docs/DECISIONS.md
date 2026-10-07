@@ -6,8 +6,8 @@ Format : **Décision** → pourquoi → ⚠️ ce que tu dois vérifier / tranch
 
 - **Pas de `./fuentes/`** dans le brief déposé ; `Downloads/sobrevives.pdf` est une capture d'écran d'une carte du monde Frida (1 page, aucun contenu de séquence). J'ai donc pris comme « séquence » le jeu GitHub **Artolome/Sobrevive** (univers, niveau A1, lexique des 5 decks, style graphique) et le dépôt **Artolome/Charlemos** pour les fiches personnages (Mateo, Valeria, Diego, Lucía, mascotte Kiwi). Le lexique réel des decks est extrait dans `docs/lexico_fuente.md`.
   ⚠️ Si la vraie séquence « Sobrevives » existe (fiche de séquence, liste de lexique, documents), dépose-la dans `fuentes/` : j'alignerai le lexique et les gabarits dessus en phase 1.
-- Le projet vit dans un **nouveau dépôt** `C:\Users\ameli\dev\sobrevives` (pluriel), séparé de `dev/sobrevive` (le jeu de cartes), pour ne rien casser dans le jeu publié.
-- **Nom du jeu** : « Sobrevives » pendant le développement, renommé **« Cuéntalo »** le 2026-10-07 à la demande de la profe, pour ne pas le confondre avec le jeu de cartes « ¡Sobrevive! ». Fichier `cuentalo.html`, clés `localStorage` `cuentalo.*`, dépôt `Artolome/cuentalo`, site https://artolome.github.io/cuentalo/. Le dossier local garde le nom `dev/sobrevives` ; le préfixe « S » des codes Autor est un simple numéro de format et ne change pas.
+- Le projet vit dans un **nouveau dépôt** `C:\Users\ameli\dev\cuentalo` (nommé `dev\sobrevives` jusqu'au 2026-10-07), séparé de `dev/sobrevive` (le jeu de cartes), pour ne rien casser dans le jeu publié.
+- **Nom du jeu** : « Sobrevives » pendant le développement, renommé **« Cuéntalo »** le 2026-10-07 à la demande de la profe, pour ne pas le confondre avec le jeu de cartes « ¡Sobrevive! ». Fichier `cuentalo.html`, clés `localStorage` `cuentalo.*`, dépôt `Artolome/cuentalo`, site https://artolome.github.io/cuentalo/. Le dossier local est devenu `dev\cuentalo` (copie vérifiée fichier par fichier, historique Git compris) ; le préfixe « S » des codes Autor est un simple numéro de format et ne change pas.
 
 ## 2. Distribution (personajes)
 
