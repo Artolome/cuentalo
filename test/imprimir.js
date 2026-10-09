@@ -11,9 +11,8 @@ const SRC = path.join(__dirname, '..', 'src');
 const L = require(path.join(SRC, 'lengua.js')), C = require(path.join(SRC, 'contenido.js')), E = require(path.join(SRC, 'engine.js'));
 const AP = require(path.join(SRC, 'art', 'personajes.js')), AE = require(path.join(SRC, 'art', 'escenas.js'));
 const ESC = require(path.join(SRC, 'escritor.js')), AU = require(path.join(SRC, 'autor.js'));
-const fondos = Object.fromEntries(['bosque-dia', 'rio', 'bosque-noche'].map(nombre => [nombre,
-  'data:image/webp;base64,' + fs.readFileSync(path.join(SRC, 'art', 'assets', nombre + '.webp')).toString('base64')]));
-global.window = { SVFondos: fondos, SVLengua: L, SVContenido: C, SVEngine: E, SVArtePersonajes: AP, SVArteEscenas: AE, SVEscritor: ESC, SVAutor: AU, SVApp: {} };
+const { fondos, personajes } = require('../scripts/load-art')();
+global.window = { SVFondos: fondos, SVPersonajesCartoon: personajes, SVLengua: L, SVContenido: C, SVEngine: E, SVArtePersonajes: AP, SVArteEscenas: AE, SVEscritor: ESC, SVAutor: AU, SVApp: {} };
 global.document = { querySelector: () => null, querySelectorAll: () => [], createElement: () => ({ setAttribute() {}, appendChild() {}, style: {} }), body: { appendChild() {} }, head: { appendChild() {} }, scripts: [] };
 new Function('window', 'document', fs.readFileSync(path.join(SRC, 'ui-modos.js'), 'utf8'))(global.window, global.document);
 const App = global.window.SVApp;
@@ -39,7 +38,8 @@ fs.writeFileSync(salida, `<!DOCTYPE html><html lang="es"><head><meta charset="ut
 <body><section id="impresion">${html}</section></body></html>`.replace(/[ \t]+$/gm, ''), 'utf8');
 const controles = [
   [/imp-pagina/g, 3, 'páginas'], [/imp-hoja/g, 2, 'hojas vacías'], [/<p class="imp-frase">/g, nivel.viñetas, 'frases'],
-  [/imp-lineas/g, 10, 'bloques de líneas'], [/Nombre o código: _/g, 3, 'campos de nombre o código']
+  [/imp-lineas/g, 10, 'bloques de líneas'], [/Nombre o código: _/g, 3, 'campos de nombre o código'],
+  [/<image href="data:image\/webp;base64,/g, res.viñetas.reduce((n, v) => n + (v.escena ? 1 : 0) + v.personajes.length, 0), 'ilustraciones integradas en la impresión']
 ];
 let errores = 0;
 for (const [re, n, nombre] of controles) { const k = (html.match(re) || []).length; if (k !== n) { console.log(`  ✗ ${nombre}: ${k} (esperados ${n})`); errores++; } }

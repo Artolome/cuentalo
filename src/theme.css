@@ -2,8 +2,8 @@
    Screen-only overrides preserve the classroom A4 print layout. */
 @media screen {
   :root {
-    --papel:#faf7ec; --papel2:#ede9d9; --tinta:#293e35; --tinta2:#5d6b5b;
-    --borde:#91a18a; --verde:#42624d; --ok:#3a6549; --rojo:#a64d38;
+    --papel:#fff9e9; --papel2:#ede9d9; --tinta:#293e35; --tinta2:#5d6b5b;
+    --borde:#71875a; --verde:#42624d; --ok:#3a6549; --rojo:#a64d38;
     --amarillo:#caa663; --azul:#466d79; --f-titulo:Georgia,"Palatino Linotype",serif;
     --f-texto:"Segoe UI",Verdana,sans-serif; --carta:clamp(78px,6.8vw,102px);
     --base:clamp(15px,1.15vw,18px); --gap:clamp(10px,1.2vw,18px);
@@ -31,7 +31,7 @@
   .titulo.ok { background:transparent; color:var(--ok); }
   #estadoNivel { font-size:.85rem; min-width:0; }
   #estadoNivel.ok { background:#dce8d7; border:1px solid #b5c9ac; padding:.35em .7em; border-radius:100px; }
-  .vineta { border:1px solid #a5b49b; border-radius:12px; box-shadow:0 5px 18px #32433316; padding:5px; background:#fffdf4; }
+  .vineta { border:2px solid #82946e; border-radius:15px; box-shadow:0 4px 0 #82946e30,0 5px 18px #32433316; padding:5px; background:#fffdf4; }
   .vineta .num { top:12px; left:12px; width:1.65em; height:1.65em; border:1px solid #fffff3a8; font-family:var(--f-titulo); background:#faf9eae8; font-weight:400; box-shadow:0 2px 5px #213c2720; }
   .escena-caja { border-bottom:0; border-radius:8px; background:#e3e8d7; }
   .escena-caja.vacia { background:radial-gradient(ellipse at 50% 52%,#fcfbef70,#e1e8d77a),linear-gradient(135deg,#e4ead7,#f1ecdc); border:1px dashed #a5b69b; }
@@ -39,12 +39,12 @@
   .vineta .frase { padding:.65em .6em .55em; background:#fffdf4; font-size:calc(1.04rem * var(--fz,1)); line-height:1.38; }
   .vineta .frase:hover { background:#f4f6e9; }
   .escena-caja .quitar { border:1px solid #a1b199; background:#fffcf2e8; color:#42523d; width:1.6em; height:1.6em; top:8px; right:8px; font-weight:400; }
-  .pj { filter:drop-shadow(0 3px 2px #1529192a); }
+  .pj { filter:drop-shadow(0 3px 2px #15291935); }
   .seleccion .escena-caja::before { outline-width:3px; outline-offset:-3px; border-radius:8px; }
   .escena-caja .pic-esc { border-width:1px; }
   #stock { border:1px solid #bac6ae; border-radius:16px; background:#faf9eff2; box-shadow:0 4px 18px #3243330c; padding:10px 16px; gap:20px; scroll-padding:16px; }
   #stockPersonajes { padding-left:20px; border-left:1px solid #c7cfbb; }
-  .carta { border:1px solid #b5c0a6; border-radius:9px; padding:4px; box-shadow:0 2px 5px #243f2910; gap:5px; background:#fffdf4; }
+  .carta { border:2px solid #a9ba91; border-radius:11px; padding:4px; box-shadow:0 2px 0 #a9ba9138; gap:5px; background:#fffdf4; }
   .carta svg { border:0; border-radius:5px; }
   .carta .nom { font-size:.82rem; font-weight:600; padding:1px 0 3px; }
   .carta.sel { outline:3px solid #ad8444; outline-offset:1px; background:#fff3cf; }

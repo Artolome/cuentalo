@@ -11,13 +11,9 @@ const SCRIPTS = ['lengua.js', 'contenido.js', 'engine.js', path.join('art', 'per
   .filter(f => !OPCIONALES.includes(f) || fs.existsSync(path.join(SRC, f)));
 let html = fs.readFileSync(path.join(SRC, 'plantilla.html'), 'utf8');
 html = html.replace('/*THEME*/', () => fs.readFileSync(path.join(SRC, 'theme.css'), 'utf8'));
-// Each painting is embedded once; scene SVGs reuse the same data URI at runtime.
-const fondos = {};
-for (const nombre of ['bosque-dia', 'rio', 'bosque-noche']) {
-  const archivo = path.join(SRC, 'art', 'assets', nombre + '.webp');
-  fondos[nombre] = 'data:image/webp;base64,' + fs.readFileSync(archivo).toString('base64');
-}
-const arte = `<script>window.SVFondos=${JSON.stringify(fondos)};document.documentElement.style.setProperty('--bosque-portada','url("'+window.SVFondos['bosque-dia']+'")');</script>`;
+// Each asset is embedded once; scene and character SVGs reuse the data URI.
+const { fondos, personajes } = require('./scripts/load-art')();
+const arte = `<script>window.SVFondos=${JSON.stringify(fondos)};window.SVPersonajesCartoon=${JSON.stringify(personajes)};document.documentElement.style.setProperty('--bosque-portada','url("'+window.SVFondos.selva+'")');</script>`;
 const LS = new RegExp('[' + String.fromCharCode(0x2028) + String.fromCharCode(0x2029) + ']', 'g');
 const inline = SCRIPTS.map(f => {
   const code = fs.readFileSync(path.join(SRC, f), 'utf8').replace(LS, '');

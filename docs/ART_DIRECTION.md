@@ -1,4 +1,25 @@
-# Dirección artística: un pequeño mundo para contar
+# Dirección artística: el cuaderno cartoon
+
+La versión actual conserva la calidez del cuaderno de aventuras y adopta un cartoon más expresivo: siluetas claras, contornos color chocolate, ojos grandes, sombras suaves y colores más diferenciados.
+
+## Recursos actuales
+
+- **Cinco personajes**: Lucía, Mateo, Valeria, Diego y Kiwi, el loro verde. Cada plancha contiene doce poses en una cuadrícula de cuatro columnas y tres filas. Once estados son distintos; la última celda repite la pose contenta. El motor elige la pose que corresponde al relato y el retrato utiliza la primera celda.
+- **Diecisiete escenas**: cada escena posee su propia ilustración. Ya no se reutiliza el mismo bosque para representar el sol, una tormenta, una cabaña o un objeto. Los elementos narrativos son grandes y el primer plano central queda disponible para los personajes.
+- Las fuentes PNG se conservan en `src/art/assets/personajes-cartoon/` y `src/art/assets/escenas-cartoon/`. Los WebP son los archivos de distribución. `scripts/load-art.js` verifica su presencia al compilar y los integra en el HTML, sin descargas durante el juego.
+- El fondo de portada utiliza la nueva selva. Las cartas y viñetas tienen marcos más nítidos; el papel cálido sigue dejando protagonismo a las ilustraciones.
+
+Prompts exactos, referencias, método y parámetros de exportación:
+
+- [Personajes y estados](CHARACTERS_CARTOON.md)
+- [Paisajes, luz y refugios](SCENES_CARTOON_A.md)
+- [Animales, objetos y rescate](SCENES_CARTOON_B.md)
+
+La galería de control se genera con `node scripts/galeria-art.js ruta/de/salida.html`. Incluye todos los escenarios, retratos y estados. Se abre directamente en el navegador, sin servidor.
+
+## Primera exploración visual: bosque pintado
+
+Los tres recursos y prompts siguientes documentan la primera exploración de esta dirección artística. La versión cartoon usa los recursos actuales descritos arriba.
 
 Cuéntalo adopta paisajes originales de bosque tropical pintado: fondos de acuarela y gouache, luz cálida, verdes de salvia y musgo, perspectiva atmosférica y claros abiertos. La referencia solicitada es la sensibilidad de los fondos de animación de Studio Ghibli. No se utilizan fotogramas, personajes ni marcas de sus películas.
 

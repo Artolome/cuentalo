@@ -1,5 +1,5 @@
-/* Cuéntalo — silhouettes de carnet d'aventure, dessinées en SVG.
-   Contours bruns, aplats gouachés et visages expressifs ; aucun fichier externe.
+/* Cuéntalo — personnages cartoon illustrés, avec repli vectoriel autonome.
+   SVPersonajesCartoon associe chaque ID à l'URI de son atlas transparent 4 × 3.
    personajeSVG(p, expresion, opts) → string SVG (viewBox 0 0 100 150).
    Les états du moteur restent lisibles sur les décors peints. */
 (function (root, factory) {
@@ -171,15 +171,439 @@
 
   function personajeSVG(p, expresion, opts) {
     opts = opts || {};
-    const ex = expresion || 'contento';
+    const ex = ESTADOS_CARTOON.includes(expresion) ? expresion : 'contento';
+    const ilustrado = cartoonSVG(p, ex, opts, false);
+    if (ilustrado) return ilustrado;
     const cuerpo = p.animal ? toucan(p, ex) : humano(p, ex);
     const cls = opts.clase ? ` class="${opts.clase}"` : '';
     return `<svg${cls} viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg" aria-label="${p.nombre}" role="img">${cuerpo}</svg>`;
   }
   function retratoSVG(p) {
+    const ilustrado = cartoonSVG(p, 'contento', {}, true);
+    if (ilustrado) return ilustrado;
     const inner = p.animal ? toucan(p, 'contento') : humano(p, 'contento');
     const box = p.animal ? '23 25 74 69' : '22 11 57 64';
     return `<svg viewBox="${box}" xmlns="http://www.w3.org/2000/svg" aria-label="${p.nombre}" role="img">${inner}</svg>`;
+  }
+
+  const ESTADOS_CARTOON = ['contento', 'feliz', 'miedo', 'hambre', 'sed', 'frio', 'cansado', 'herido', 'perdido', 'enfadado', 'triste'];
+  // Fenêtres en pixels de manifest.json ; les fichiers raster restent inchangés.
+  const CARTOON_FRAMES = {
+    "lucia": {
+      "width": 1182,
+      "height": 1330,
+      "frames": [
+        [
+          73,
+          16,
+          196,
+          414
+        ],
+        [
+          331,
+          18,
+          246,
+          412
+        ],
+        [
+          622,
+          20,
+          196,
+          412
+        ],
+        [
+          908,
+          16,
+          193,
+          414
+        ],
+        [
+          63,
+          457,
+          215,
+          410
+        ],
+        [
+          349,
+          458,
+          200,
+          407
+        ],
+        [
+          629,
+          468,
+          201,
+          400
+        ],
+        [
+          917,
+          462,
+          203,
+          406
+        ],
+        [
+          51,
+          891,
+          233,
+          413
+        ],
+        [
+          361,
+          893,
+          194,
+          412
+        ],
+        [
+          636,
+          893,
+          200,
+          409
+        ],
+        [
+          929,
+          891,
+          195,
+          411
+        ]
+      ],
+      "scale": 0.3236715
+    },
+    "mateo": {
+      "width": 1182,
+      "height": 1330,
+      "frames": [
+        [
+          79,
+          76,
+          154,
+          361
+        ],
+        [
+          348,
+          72,
+          218,
+          365
+        ],
+        [
+          657,
+          79,
+          151,
+          357
+        ],
+        [
+          962,
+          74,
+          157,
+          363
+        ],
+        [
+          68,
+          504,
+          174,
+          355
+        ],
+        [
+          384,
+          499,
+          151,
+          361
+        ],
+        [
+          664,
+          513,
+          154,
+          346
+        ],
+        [
+          961,
+          501,
+          152,
+          359
+        ],
+        [
+          66,
+          903,
+          211,
+          360
+        ],
+        [
+          370,
+          900,
+          173,
+          363
+        ],
+        [
+          673,
+          911,
+          143,
+          350
+        ],
+        [
+          955,
+          909,
+          162,
+          354
+        ]
+      ],
+      "scale": 0.3671233
+    },
+    "valeria": {
+      "width": 1182,
+      "height": 1330,
+      "frames": [
+        [
+          91,
+          82,
+          159,
+          345
+        ],
+        [
+          358,
+          84,
+          211,
+          343
+        ],
+        [
+          668,
+          88,
+          147,
+          339
+        ],
+        [
+          942,
+          84,
+          157,
+          343
+        ],
+        [
+          75,
+          502,
+          177,
+          339
+        ],
+        [
+          390,
+          500,
+          148,
+          341
+        ],
+        [
+          671,
+          503,
+          149,
+          338
+        ],
+        [
+          949,
+          502,
+          152,
+          339
+        ],
+        [
+          73,
+          916,
+          211,
+          341
+        ],
+        [
+          386,
+          916,
+          166,
+          341
+        ],
+        [
+          674,
+          917,
+          143,
+          340
+        ],
+        [
+          947,
+          917,
+          158,
+          340
+        ]
+      ],
+      "scale": 0.3884058
+    },
+    "diego": {
+      "width": 1182,
+      "height": 1330,
+      "frames": [
+        [
+          95,
+          86,
+          147,
+          363
+        ],
+        [
+          362,
+          90,
+          200,
+          359
+        ],
+        [
+          661,
+          91,
+          138,
+          358
+        ],
+        [
+          942,
+          91,
+          154,
+          358
+        ],
+        [
+          80,
+          511,
+          168,
+          348
+        ],
+        [
+          392,
+          512,
+          145,
+          347
+        ],
+        [
+          657,
+          518,
+          154,
+          341
+        ],
+        [
+          956,
+          511,
+          141,
+          349
+        ],
+        [
+          77,
+          914,
+          180,
+          343
+        ],
+        [
+          380,
+          915,
+          173,
+          342
+        ],
+        [
+          670,
+          925,
+          130,
+          332
+        ],
+        [
+          950,
+          915,
+          154,
+          344
+        ]
+      ],
+      "scale": 0.369146
+    },
+    "kiwi": {
+      "width": 1182,
+      "height": 1330,
+      "frames": [
+        [
+          105,
+          117,
+          171,
+          290
+        ],
+        [
+          330,
+          118,
+          242,
+          285
+        ],
+        [
+          625,
+          122,
+          171,
+          284
+        ],
+        [
+          928,
+          118,
+          161,
+          290
+        ],
+        [
+          75,
+          515,
+          207,
+          282
+        ],
+        [
+          369,
+          515,
+          185,
+          283
+        ],
+        [
+          665,
+          527,
+          160,
+          274
+        ],
+        [
+          929,
+          517,
+          167,
+          285
+        ],
+        [
+          78,
+          905,
+          218,
+          279
+        ],
+        [
+          367,
+          898,
+          190,
+          285
+        ],
+        [
+          643,
+          915,
+          173,
+          270
+        ],
+        [
+          955,
+          906,
+          168,
+          280
+        ]
+      ],
+      "scale": 0.3801653
+    }
+  };
+
+  const xmlAttr = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  function cartoonSVG(p, ex, opts, retrato) {
+    const atlas = (typeof window !== 'undefined' && window.SVPersonajesCartoon)
+      || (typeof globalThis !== 'undefined' && globalThis.SVPersonajesCartoon);
+    const source = atlas && atlas[p.id];
+    if (typeof source !== 'string' || !source) return '';
+    const index = Math.max(0, ESTADOS_CARTOON.indexOf(ex));
+    const meta = CARTOON_FRAMES[p.id];
+    if (!meta) return '';
+    const [left, top, width, height] = meta.frames[index];
+    const displayWidth = width * meta.scale, displayHeight = height * meta.scale;
+    const x = (100 - displayWidth) / 2, y = 144 - displayHeight;
+    const cls = opts.clase ? ` class="${xmlAttr(opts.clase)}"` : '';
+    const portraitBox = p.animal ? '9 30 82 91' : '14 3 72 83';
+    const box = retrato ? portraitBox : '0 0 100 150';
+    /* Une fenêtre SVG par cellule : aucun ID de clipPath partagé entre les cases.
+       L'atlas reste intact et le navigateur ne décode qu'une image par personnage. */
+    return `<svg${cls} viewBox="${box}" xmlns="http://www.w3.org/2000/svg" aria-label="${xmlAttr(p.nombre)}" role="img" data-personaje="${xmlAttr(p.id)}" data-expresion="${ex}"><svg x="${x}" y="${y}" width="${displayWidth}" height="${displayHeight}" viewBox="${left} ${top} ${width} ${height}" overflow="hidden"><image href="${xmlAttr(source)}" x="0" y="0" width="${meta.width}" height="${meta.height}" preserveAspectRatio="none"/></svg></svg>`;
   }
   return { personajeSVG, retratoSVG };
 });

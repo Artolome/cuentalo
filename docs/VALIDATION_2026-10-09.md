@@ -1,5 +1,7 @@
 # Vérification de la version forêt et récits
 
+Ce rapport concerne la première proposition. Les illustrations ont ensuite été remplacées par la [révision cartoon](VALIDATION_CARTOON_2026-10-09.md), dont les contrôles et le poids du fichier sont documentés séparément.
+
 Le jeu reste un fichier HTML autonome, incluant trois décors WebP et tous les scripts. Aucun service d'IA ni compte n'est requis pendant le jeu.
 
 ## Vérifications exécutées

@@ -2,7 +2,7 @@
 
 Jeu de narration visuelle en espagnol (A1 → A2) inspiré de *Storyteller* : un titre en espagnol, 3 à 6 cases de BD, des **escenas** et des **personajes** à glisser ; chaque case produit une phrase en espagnol générée par le moteur. Quand l'histoire réalise le titre, le niveau est réussi.
 
-Un carnet d'aventure dans une forêt peinte : lumière douce, verts mousse, ocres et roses fanés, personnages aux contours bruns et aux expressions animées. La direction visuelle s'inspire de l'animation japonaise dessinée à la main. Lucía garde sa casquette, Mateo son maillot, Valeria son appareil photo et Diego son carnet ; leurs visages et leurs gestes montrent toujours la soif, le froid, la peur ou la joie.
+Un carnet d'aventure **cartoon** : cinq compagnons détaillés, de grands yeux expressifs, des contours bruns et dix-sept décors aux ambiances distinctes. Rivière turquoise, savane ocre, orage violet, nuit indigo et campement orangé se reconnaissent dès la petite carte. Lucía garde sa casquette, Mateo son maillot, Valeria son appareil photo et Diego son carnet ; Kiwi est un perroquet vert. Leurs visages et leurs poses montrent la soif, le froid, la peur ou la joie.
 
 **Jouer en ligne :** https://artolome.github.io/cuentalo/
 
@@ -20,7 +20,8 @@ Paramètres d'URL facultatifs : `cuentalo.html?modo=pizarra&nivel=c2n1&dif=2`.
 - `src/escritor.js` — modo escritor sans DOM : options générées par le moteur, comparaison tolérante, pista
 - `src/autor.js` — modo Autor sans DOM : codes (base32 Crockford), assistant de titres, validation, stockage local
 - `src/pizarra.js` — barre de classe : cronómetro, sorteo de numéros, equipos
-- `src/art/personajes.js`, `src/art/escenas.js` — SVG paramétriques
+- `src/art/personajes.js`, `src/art/escenas.js` — rendu SVG : portraits, découpe des planches d'expressions et décors illustrés ; dessin vectoriel de secours
+- `src/art/assets/personajes-cartoon/`, `src/art/assets/escenas-cartoon/` — sources PNG et WebP intégrés au fichier autonome par `scripts/load-art.js`
 - `src/ui.js` (jeu, modes, ★), `src/ui-modos.js` (escritor, Autor, Profe, impression), `src/plantilla.html` — interface
 - `build.js` → `cuentalo.html`
 
@@ -80,3 +81,5 @@ node test/serve.js 4173
 - `docs/frases.txt` — toutes les phrases générables (relecture linguistique)
 - `docs/ejemplo_impresion.html` — aperçu de « Imprimir mi historia » (BD résolue + hojas de viñetas), généré par `node test/imprimir.js`
 - `docs/lexico_fuente.md` — lexique réel des decks de ¡Sobrevive!
+- `docs/ART_DIRECTION.md` — direction visuelle, ressources et prompts de génération
+- `scripts/galeria-art.js` — génère une planche HTML autonome des personnages, émotions et décors pour contrôle visuel

@@ -1,4 +1,4 @@
-/* Cuéntalo — arte: fondos pintados y pequeños objetos dibujados a mano.
+/* Cuéntalo — arte: un paisaje cartoon distinto para cada escena.
    escenaSVG(id) → string SVG (viewBox 0 0 160 100). Sirve tanto de fondo de viñeta como de carta en el stock. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
@@ -56,8 +56,11 @@
     const cls = opts.clase ? ` class="${opts.clase}"` : '';
     const fondos = typeof window !== 'undefined' && window.SVFondos;
     const nombre = ['noche', 'fuego', 'linterna'].includes(id) ? 'bosque-noche' : id === 'rio' ? 'rio' : 'bosque-dia';
+    const especifica = fondos && fondos[id];
     const pintura = fondos && fondos[nombre];
-    const arte = pintura && Object.prototype.hasOwnProperty.call(P, id)
+    const arte = especifica
+      ? `<image href="${especifica}" width="160" height="100" preserveAspectRatio="xMidYMid slice"/>`
+      : pintura && Object.prototype.hasOwnProperty.call(P, id)
       ? `<image href="${pintura}" width="160" height="100" preserveAspectRatio="xMidYMid slice"/>${id === 'sol' ? '<rect width="160" height="100" fill="#f6d489" opacity=".13"/>' : ''}${P[id]}`
       : f ? f() : '<rect width="160" height="100" fill="#d8e1ce"/>';
     return `<svg${cls} viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">${arte}</svg>`;
