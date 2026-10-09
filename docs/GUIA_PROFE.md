@@ -10,6 +10,10 @@
 
 Le cœur pédagogique n'est pas le puzzle, c'est la phrase. Chaque case produit 1 à 3 phrases courtes, que l'élève lit, écoute et compare. Les phrases réemploient le lexique de la survie et font travailler les accords (« cansado / cansada / cansados »), les structures « tiene / está / ya no », puis « encuentra a », « comparte con », « pide perdón a ».
 
+L'univers visuel prend la forme d'un carnet d'aventure dans une forêt peinte, inspiré de l'animation japonaise dessinée à la main : lumière douce, verts mousse, ocres et roses fanés. Les personnages ont des silhouettes plus naturelles et des contours bruns fins. Leurs accessoires restent des repères stables — la casquette de Lucía, le maillot de Mateo, l'appareil photo de Valeria, le carnet de Diego. Les expressions et les gestes changent avec les états du récit : bras croisés quand il fait froid, yeux écarquillés quand le personnage a peur, pansement quand il est blessé. Ces indices invitent à formuler une hypothèse avant de lire la phrase, sans remplacer les mots espagnols.
+
+Pour découvrir ce nouvel univers, montrer une case et demander « ¿Cómo está? », puis faire lire ou écouter la phrase pour vérifier. Faire ensuite changer une seule scène : qu'est-ce qui a changé dans le visage, dans l'histoire et dans la phrase ? Cette comparaison relie directement l'image au sens de « tiene », « está » et « ya no ».
+
 Le fichier `cuentalo.html` contient tout le jeu : un seul fichier, à ouvrir par double-clic, qui fonctionne hors-ligne et n'envoie aucune donnée nulle part. Il se copie sur une clé USB, un ENT ou le réseau du collège.
 
 ## 2. Prise en main
@@ -48,10 +52,16 @@ Dans tous les réglages, le titre est lu à voix haute à l'ouverture du niveau,
 | « ☰ Niveles » | ouvre la liste des niveaux par chapitre, avec les étoiles déjà obtenues ; en bas : « ✎ Crear un nivel », « ⌨ Tengo un código », « Borrar mis datos » |
 | « ⏱ Clase » (Pizarra seulement) | affiche ou cache la barre de classe : cronómetro, sorteo d'un numéro d'élève, marcador des equipos. Elle est cachée par défaut pour laisser la place aux cases |
 | « 💡 Pista » | affiche une pista du niveau (une autre à chaque clic) |
+| « ? Ayuda » | ouvre ou ferme une aide aux premiers gestes : poser une escena, ajouter un personaje, compléter les cases, puis vérifier le titre |
 | « 📖 Léxico » | les mots du niveau, avec un picto ; un clic sur un mot le fait entendre |
 | « ¿Qué pasa? » | relit toute l'histoire case par case, résume l'état final de chaque personnage et explique pourquoi le titre n'est pas encore réalisé (« Lucía todavía tiene sed. ») |
 | « ↺ » | vide toutes les cases |
 | « 🖨 » | imprime la BD et les hojas de viñetas (partie 7) ; actif dès que le niveau est réussi (ou que l'histoire libre est complète) |
+| « ✎ Contar » | après la réussite d'un niveau, ouvre le récit personnel en trois étapes (partie 4.4) |
+
+L'aide apparaît à la première visite. Elle suit l'avancement du plateau et laisse les cartes accessibles ; « Entendido × » la referme. « ? Ayuda » permet de la retrouver à tout moment. Elle est masquée pendant la construction d'un niveau dans « Autor ».
+
+**Reprendre une histoire.** Les cases se sauvegardent au fil des manipulations, niveau par niveau. Fermer la page ou passer à un autre niveau ne fait plus perdre la BD en cours ; les tentatives et les indices déjà parcourus sont également conservés. En mode écrivain, les réponses se retrouvent si le temps verbal et le mode n'ont pas changé. La reprise fonctionne sur le même poste et dans le même navigateur, y compris pour les niveaux de la classe déjà enregistrés. Un niveau encore en construction dans « Autor » doit toujours être enregistré avec « Guardar el nivel ».
 
 ### 2.4 Les gestes
 
@@ -69,6 +79,7 @@ Dans tous les réglages, le titre est lu à voix haute à l'ouverture du niveau,
 3. Touche P, mot de passe « profe » : changer le mot de passe tout de suite. Les élèves découvrent vite les touches.
 4. Faire soi-même un niveau du chapitre 1 avec glisser-déposer, puis en clic-clic, pour pouvoir montrer les deux gestes.
 5. Ouvrir « 📖 Léxico » sur un niveau du chapitre 1 et regarder quels mots sont nouveaux pour la classe (partie 9).
+6. Montrer « ? Ayuda », puis fermer et rouvrir un niveau commencé pour faire découvrir la reprise automatique.
 
 ## 3. Les niveaux
 
@@ -232,6 +243,14 @@ Différenciation par les étoiles : le réglage change le jeu, pas l'exercice. T
 
 Variante A1 (5e) : 4 cases, phrases recopiées puis une phrase ajoutée par case. Variante A2 (4e-3e) : 6 cases, phrases réécrites au « pretérito », un titre inventé. Le code du niveau (partie 6) peut être noté sur la copie : la professeure rejoue l'histoire de l'élève pour corriger. Avec un titre inventé, le code est long (60 caractères et plus) : le faire recopier soigneusement, ou retrouver le niveau dans la liste du panneau Profe, qui affiche le code de chaque niveau de la classe.
 
+### 4.4 Après la réussite : raconter avec ses propres mots
+
+La fenêtre de réussite propose « ✎ Contar con mis palabras ». Le bouton « ✎ Contar » du plateau permet aussi de retrouver cette activité. Trois amorces structurent un petit récit : **« Primero… »**, **« Después… »**, **« Al final… »**. L'élève peut raconter oralement à un camarade ou écrire dans les trois champs (500 caractères maximum par champ).
+
+Cette étape est facultative et ne modifie pas les étoiles. Elle ne compare pas le texte de l'élève à la phrase du moteur : une reformulation, un détail ou un dialogue peuvent y trouver leur place. Il n'y a pas de correction automatique ; l'enseignante ou un camarade aide à relire. En A1, demander une phrase par étape ; en A2, faire expliciter une cause ou ajouter un dialogue. On peut s'appuyer sur la BD pour vérifier que le récit conserve le sens de l'histoire.
+
+Le brouillon se sauvegarde automatiquement avec le niveau sur ce navigateur. Il reste à recopier si une trace sur papier est souhaitée : « 🖨 » imprime la BD et les feuilles de cases, pas les trois champs du récit personnel.
+
 ## 5. Différenciation et inclusion
 
 - **Les étoiles** (partie 2.2) sont le premier levier : même niveau, même titre, mais pictos sur les escenas et pistas automatiques en ★ ; modo escritor et titre secret en ★★★. Sans mention de niveau de difficulté, l'élève choisit sans se sentir jugé, et peut changer en cours de route.
@@ -294,11 +313,11 @@ Conseils :
 
 - Le jeu ne demande **aucun nom d'élève**, aucune adresse, aucun identifiant. Le tirage au sort en « Pizarra » utilise des numéros, pas des noms.
 - **Aucune télémétrie** : le fichier ne fait aucune requête réseau. Il fonctionne sans Internet. Rien n'est envoyé à qui que ce soit.
-- Tout ce que le jeu retient (étoiles, niveau en cours, réglages — y compris le mot de passe Profe —, niveaux créés en « Autor », scores et noms des equipos de la barre Clase) est dans le **`localStorage`** du navigateur (clés `cuentalo.progreso.v0`, `cuentalo.autor.v0`, `cuentalo.pizarra.v0`) : sur ce poste, dans ce navigateur, uniquement. Donner aux equipos des noms de fantaisie (« Los jaguares »), jamais des noms d'élèves.
-- Le bouton **« Borrar mis datos »** (dans « ☰ Niveles », à la portée des élèves) efface les étoiles, le niveau en cours et le réglage ★ ; il conserve les niveaux de la classe, le mot de passe et les réglages de la professeure.
+- Tout ce que le jeu retient (étoiles, niveau en cours, cases des histoires commencées, réponses du mode écrivain, récits personnels, réglages — y compris le mot de passe Profe —, niveaux créés en « Autor », scores et noms des equipos de la barre Clase) est dans le **`localStorage`** du navigateur (clés `cuentalo.progreso.v0`, `cuentalo.partidas.v1`, `cuentalo.autor.v0`, `cuentalo.pizarra.v0`) : sur ce poste, dans ce navigateur, uniquement. Donner aux equipos des noms de fantaisie (« Los jaguares »), jamais des noms d'élèves.
+- Le bouton **« Borrar mis datos »** (dans « ☰ Niveles », à la portée des élèves) efface les étoiles, le niveau en cours, le réglage ★, les histoires commencées et les brouillons de récit ; il conserve les niveaux de la classe, le mot de passe et les réglages de la professeure.
 - Le bouton **« Borrar todo »** (panneau Profe, touche P) efface tout ce que ce navigateur a retenu : étoiles, réglages, mot de passe (il redevient « profe »), niveaux de la classe, equipos.
-- **Sur un poste partagé** (salle informatique, CDI) : les étoiles restent d'un élève à l'autre. Deux solutions : « Borrar mis datos » en fin de séance, ou considérer que la progression est celle du poste et non de l'élève (c'est le plus simple). Les niveaux « Autor » importants sont à exporter en JSON (partie 6) avant « Borrar todo ».
-- Rien à déclarer au registre des traitements : aucune donnée personnelle n'est collectée ni stockée.
+- **Sur un poste partagé** (salle informatique, CDI) : les étoiles, les BD en cours et les récits restent d'un élève à l'autre. Deux solutions : « Borrar mis datos » en fin de séance, ou considérer que la progression est celle du poste et non de l'élève (c'est le plus simple). Les niveaux « Autor » importants sont à exporter en JSON (partie 6) avant « Borrar todo ».
+- Les champs de récit sont destinés aux aventures des personnages fictifs : faire utiliser leurs noms. Le texte saisi reste visible par la personne suivante qui ouvre le même niveau sur ce navigateur, jusqu'à son effacement.
 
 ## 9. Lexique ajouté par le jeu
 

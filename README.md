@@ -2,11 +2,15 @@
 
 Jeu de narration visuelle en espagnol (A1 → A2) inspiré de *Storyteller* : un titre en espagnol, 3 à 6 cases de BD, des **escenas** et des **personajes** à glisser ; chaque case produit une phrase en espagnol générée par le moteur. Quand l'histoire réalise le titre, le niveau est réussi.
 
+Un carnet d'aventure dans une forêt peinte : lumière douce, verts mousse, ocres et roses fanés, personnages aux contours bruns et aux expressions animées. La direction visuelle s'inspire de l'animation japonaise dessinée à la main. Lucía garde sa casquette, Mateo son maillot, Valeria son appareil photo et Diego son carnet ; leurs visages et leurs gestes montrent toujours la soif, le froid, la peur ou la joie.
+
 **Jouer en ligne :** https://artolome.github.io/cuentalo/
 
 **Jouer hors-ligne :** télécharger [`cuentalo.html`](cuentalo.html) (bouton « Download raw file ») et l'ouvrir par double-clic : un seul fichier, aucune donnée envoyée ; Chrome, Edge ou Firefox. Guide de la professeure : [`docs/GUIA_PROFE.md`](docs/GUIA_PROFE.md).
 Écran d'accueil : **Pizarra** (classe, vidéoprojecteur) · **Solo** (élève) · **Autor** (créer un niveau). Sélecteur ★ / ★★ / ★★★ en haut à droite. Touche **P** : panneau Profe (mot de passe par défaut `profe`).
 Paramètres d'URL facultatifs : `cuentalo.html?modo=pizarra&nivel=c2n1&dif=2`.
+
+**Pour commencer :** « ? Ayuda » accompagne les premiers gestes (escena → personaje → suite de l'histoire → titre). Les histoires en cours se sauvegardent automatiquement sur ce navigateur et se reprennent après fermeture ou changement de niveau. Une fois un niveau réussi, « ✎ Contar » propose de raconter avec ses propres mots en trois étapes : « Primero… », « Después… », « Al final… », à l'oral ou à l'écrit. Ce récit personnel ne reçoit pas de correction automatique ; son brouillon reste sur le poste.
 
 ## Sources
 

@@ -3,7 +3,8 @@
    Prueba de extremo a extremo SIN servidor: abre cuentalo.html en file:// (como el doble clic de la profe)
    sin ventana, y lo pilota: Chrome y Edge con el protocolo DevTools, Firefox con WebDriver BiDi (WebSocket nativo de Node ≥ 22)
    y comprueba los recorridos principales: inicio, juego con clic-clic, ¿Qué pasa?, escritor, Autor + código,
-   Profe (soluciones en el Worker), impresión, borrar datos, cero peticiones de red.
+   Profe (soluciones en el Worker), reanudación al cambiar/recargar, relato libre, impresión, borrar datos,
+   cero peticiones de red.
    Solo desarrollo: no forma parte del juego. */
 const { spawn } = require('child_process');
 const fs = require('fs');
@@ -55,6 +56,7 @@ async function abrirCDP() {
       if (r.exceptionDetails) throw new Error((r.exceptionDetails.exception && r.exceptionDetails.exception.description) || r.exceptionDetails.text);
       return r.result.value;
     },
+    async recargar() { await cdp('Page.reload', { ignoreCache: true }); },
     async captura() { const r = await cdp('Page.captureScreenshot', { format: 'png' }); return r.data; },
     async raton(x, y) { // clic izquierdo de verdad (el navegador decide qué elemento recibe el clic)
       await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', x, y });
@@ -100,6 +102,7 @@ async function abrirBiDi() {
       const v = r.result && r.result.value;
       return v === undefined ? undefined : JSON.parse(v);
     },
+    async recargar() { await bidi('browsingContext.reload', { context: ctx, ignoreCache: true, wait: 'complete' }); },
     async captura() { const r = await bidi('browsingContext.captureScreenshot', { context: ctx }); return r.data; },
     async raton(x, y) {
       await bidi('input.performActions', { context: ctx, actions: [{ type: 'pointer', id: 'raton', parameters: { pointerType: 'mouse' }, actions: [{ type: 'pointerMove', x: Math.round(x), y: Math.round(y) }, { type: 'pointerDown', button: 0 }, { type: 'pointerUp', button: 0 }] }] });
@@ -126,22 +129,68 @@ async function main() {
     try { const v = await evalua(expr); const ok = comprobar(v); resultados.push([ok, titulo, ok ? '' : JSON.stringify(v).slice(0, 300)]); return v; }
     catch (e) { resultados.push([false, titulo, e.message.slice(0, 300)]); return null; }
   };
+  // Una recarga real, no una segunda llamada a arrancar(). La marca DOM impide aceptar
+  // el documento anterior mientras Page.reload todavía está iniciando la navegación.
+  const recargarJuego = async () => {
+    await evalua(`document.documentElement.dataset.pruebaRecarga = 'anterior'; return true;`);
+    await nav.recargar();
+    for (let k = 0; k < 60; k++) {
+      await espera(100);
+      try {
+        const listo = await evalua(`return !document.documentElement.dataset.pruebaRecarga && document.readyState === 'complete' && !!document.querySelector('#tira .vineta');`);
+        if (listo) { await espera(600); return; }
+      } catch (_) { /* contexto destruido durante la navegación */ }
+    }
+    throw new Error('el juego no terminó de recargarse');
+  };
+  const pruebaTrasRecarga = async (titulo, expr, comprobar) => {
+    try { await recargarJuego(); }
+    catch (e) { resultados.push([false, titulo, e.message]); return null; }
+    return prueba(titulo, expr, comprobar);
+  };
   const AYUDA = `const dormir = ms => new Promise(r => setTimeout(r, ms));
     const pon = (i, tipo, id) => { document.querySelector('.carta[data-tipo="' + tipo + '"][data-id="' + id + '"]').click(); document.querySelector('.escena-caja[data-i="' + i + '"]').click(); };
-    const cerrar = () => document.querySelectorAll('dialog[open]').forEach(d => d.close());`;
+    const cerrar = () => document.querySelectorAll('dialog[open]').forEach(d => d.close());
+    // Abrir ahora reanuda. Solo las fixtures que construyen una historia nueva pulsan ↺.
+    const nuevo = id => { cerrar(); SVApp.abrirNivel(id); document.querySelector('#btnReiniciar').click(); };`;
 
   await prueba('pantalla de inicio visible', `return !document.querySelector('#inicioApp').hidden && !document.querySelector('#cardAutor').hidden;`, v => v === true);
   await prueba('modo Solo: c1n1 resuelto con clic-clic, frases y estrellas', `${AYUDA}
     document.querySelector('[data-modo="solo"]').click(); await dormir(200);
-    SVApp.abrirNivel('c1n1'); pon(0,'escena','sol'); pon(0,'personaje','lucia'); pon(1,'escena','rio'); pon(1,'personaje','lucia'); pon(2,'escena','fuego'); pon(2,'personaje','lucia');
+    nuevo('c1n1'); pon(0,'escena','sol'); pon(0,'personaje','lucia'); pon(1,'escena','rio'); pon(1,'personaje','lucia'); pon(2,'escena','fuego'); pon(2,'personaje','lucia');
     await dormir(600); const exito = document.querySelector('#dlgExito').open; cerrar();
     return { estado: document.querySelector('#estadoNivel').textContent, frase: document.querySelector('.frase').textContent, exito, estrellas: SVApp.progreso().c1n1 && SVApp.progreso().c1n1.estrellas };`,
     v => v && /Muy bien/.test(v.estado) && /calor/.test(v.frase) && v.exito && v.estrellas === 3);
+  const frasesLibres = ['Primero Lucía tiene sed.', 'Después bebe agua del río.', 'Al final hace fuego.'];
+  await prueba('relato libre: tres frases opcionales sin cambiar las estrellas', `${AYUDA}
+    const b = document.querySelector('#btnContar'); if (b.hidden) return null;
+    const antes = SVApp.progreso().c1n1.estrellas; b.click();
+    const d = document.querySelector('#dlgRelato'), campos = [...d.querySelectorAll('textarea')];
+    campos.forEach((input, i) => { input.value = ${JSON.stringify(frasesLibres)}[i]; input.dispatchEvent(new Event('input', { bubbles: true })); });
+    const r = { abierto: d.open, campos: campos.length, opcional: /opcional/.test(d.textContent), sinCorreccion: /no corrige/.test(d.textContent), guardado: /Borrador guardado/.test(d.querySelector('.relato-estado').textContent), estrellas: SVApp.progreso().c1n1.estrellas === antes };
+    document.querySelector('#cerrarRelato').click(); return r;`,
+    v => v && v.abierto && v.campos === 3 && v.opcional && v.sinCorreccion && v.guardado && v.estrellas);
+  await pruebaTrasRecarga('recargar: BD ganada y relato conservados, sin otra celebración', `${AYUDA}
+    const otraFiesta = document.querySelector('#dlgExito').open;
+    const frases = [...document.querySelectorAll('#tira .frase')].map(e => e.textContent);
+    const b = document.querySelector('#btnContar'); if (b.hidden) return null; b.click();
+    const valores = [...document.querySelectorAll('#dlgRelato textarea')].map(e => e.value);
+    const r = { titulo: document.querySelector('#tituloTxt').textContent, personajes: document.querySelectorAll('#tira .pj-wrap').length, frases, otraFiesta, valores, estrellas: SVApp.progreso().c1n1.estrellas };
+    document.querySelector('#cerrarRelato').click(); return r;`,
+    v => v && /Lucía ya no tiene sed/.test(v.titulo) && v.personajes === 3 && /calor/.test(v.frases[0]) && /bebe agua/.test(v.frases[1]) && /fuego/.test(v.frases[2]) && !v.otraFiesta && v.estrellas === 3 && JSON.stringify(v.valores) === JSON.stringify(frasesLibres));
+  await prueba('cambiar de nivel: se conserva una BD incompleta', `${AYUDA}
+    nuevo('c1n2'); pon(0,'escena','rio'); pon(0,'personaje','mateo');
+    document.querySelector('#btnNiveles').click(); document.querySelector('.niv[data-id="c1n4"]').click();
+    document.querySelector('#btnNiveles').click(); document.querySelector('.niv[data-id="c1n2"]').click();
+    return { titulo: document.querySelector('#tituloTxt').textContent, personajes: document.querySelectorAll('#tira .pj-wrap').length, vacias: document.querySelectorAll('#tira .escena-caja.vacia').length, frase: document.querySelector('#tira .frase').textContent };`,
+    v => v && /Mateo ya no tiene frío/.test(v.titulo) && v.personajes === 1 && v.vacias === 2 && /Mateo bebe agua/.test(v.frase));
+  await pruebaTrasRecarga('recargar: también se conserva una BD incompleta', `return { titulo: document.querySelector('#tituloTxt').textContent, personajes: document.querySelectorAll('#tira .pj-wrap').length, vacias: document.querySelectorAll('#tira .escena-caja.vacia').length, frase: document.querySelector('#tira .frase').textContent, exito: document.querySelector('#dlgExito').open };`,
+    v => v && /Mateo ya no tiene frío/.test(v.titulo) && v.personajes === 1 && v.vacias === 2 && /Mateo bebe agua/.test(v.frase) && !v.exito);
   {
     // Solo ratón, como en clase: clic en la carta, clic en la viñeta (clics reales, el navegador hace el «hit-testing»)
     let ok = false, info = '';
     try {
-      await evalua(`document.querySelectorAll('dialog[open]').forEach(d => d.close()); SVApp.ajustes().escritor = false; SVApp.guardar(); SVApp.abrirNivel('c2n1'); return 1;`);
+      await evalua(`${AYUDA} SVApp.ajustes().escritor = false; SVApp.guardar(); nuevo('c2n1'); return 1;`);
       for (const [carta, v] of [['selva', 0], ['lucia', 0], ['noche', 1], ['mateo', 1], ['sol', 2], ['lucia', 2]]) { await clicEn(`.carta[data-id="${carta}"]`); await clicEn(`.escena-caja[data-i="${v}"]`); }
       // segundo personaje: clic ENCIMA de Lucía ya colocada (debe poner a Mateo, no quitar a Lucía)
       await clicEn('.carta[data-id="mateo"]'); await clicEn('.vineta[data-i="2"] .pj-wrap');
@@ -157,17 +206,17 @@ async function main() {
     resultados.push([ok, 'solo ratón (clics reales): c2n1 resuelto, 2.º personaje encima del 1.º, quitar con un clic', info]);
   }
   await prueba('un texto arrastrado que no es una carta se ignora', `${AYUDA}
-    SVApp.abrirNivel('c1n1'); pon(0,'escena','sol');
+    nuevo('c1n1'); pon(0,'escena','sol');
     const dt = new DataTransfer(); dt.setData('text/plain', 'Lucía bebe agua del río.');
     document.querySelector('.escena-caja[data-i="0"]').dispatchEvent(new DragEvent('drop', { dataTransfer: dt, bubbles: true, cancelable: true }));
     await dormir(100); return SVApp.viñetas()[0].personajes.length;`, v => v === 0);
   await prueba('¿Qué pasa? explica lo que falta', `${AYUDA}
-    SVApp.abrirNivel('c2n4'); pon(0,'escena','jaguar'); pon(0,'personaje','valeria'); pon(1,'escena','tormenta'); pon(1,'personaje','valeria'); pon(1,'personaje','diego'); pon(2,'escena','noche'); pon(2,'personaje','diego');
+    nuevo('c2n4'); pon(0,'escena','jaguar'); pon(0,'personaje','valeria'); pon(1,'escena','tormenta'); pon(1,'personaje','valeria'); pon(1,'personaje','diego'); pon(2,'escena','noche'); pon(2,'personaje','diego');
     await dormir(200); document.querySelector('#btnQuePasa').click(); await dormir(200);
     const t = document.querySelector('#dlgQuePasa').innerText; cerrar(); return t;`, v => /✗/.test(v) && /miedo/.test(v));
   await prueba('modo escritor: ¿Qué pasa? e imprimir no revelan las frases', `${AYUDA}
     SVApp.ajustes().escritor = true; SVApp.ajustes().escritorNivel = 'elegir'; SVApp.guardar();
-    SVApp.abrirNivel('c1n1'); pon(0,'escena','sol'); pon(0,'personaje','lucia'); pon(1,'escena','rio'); pon(1,'personaje','lucia'); pon(2,'escena','fuego'); pon(2,'personaje','lucia');
+    nuevo('c1n1'); pon(0,'escena','sol'); pon(0,'personaje','lucia'); pon(1,'escena','rio'); pon(1,'personaje','lucia'); pon(2,'escena','fuego'); pon(2,'personaje','lucia');
     await dormir(400); document.querySelector('#btnQuePasa').click(); await dormir(150);
     const t = document.querySelector('#dlgQuePasa').innerText; cerrar();
     document.querySelector('.vineta[data-i="0"] .esc-abrir').click(); await dormir(150);

@@ -52,11 +52,11 @@
         ${s.intentos >= 2 ? `<div class="esc-pista" title="Pista: la primera letra de cada palabra">${esc(ESC.pista(texto))}</div>` : ''}
         ${s.intentos >= 4 ? `<button type="button" class="btn sec mini esc-ver">Ver la frase</button>` : ''}`;
       const form = f.querySelector('form'), input = f.querySelector('input');
-      input.addEventListener('input', () => { s.escrito = input.value; });
+      input.addEventListener('input', () => { s.escrito = input.value; App.guardarPartida(); });
       f.querySelector('.enie').addEventListener('click', ev => { // inserta «ñ» donde está el cursor
         ev.stopPropagation();
         const a = input.selectionStart == null ? input.value.length : input.selectionStart, b = input.selectionEnd == null ? a : input.selectionEnd;
-        input.value = input.value.slice(0, a) + 'ñ' + input.value.slice(b); s.escrito = input.value;
+        input.value = input.value.slice(0, a) + 'ñ' + input.value.slice(b); s.escrito = input.value; App.guardarPartida();
         input.focus(); input.setSelectionRange(a + 1, a + 1);
       });
       form.addEventListener('submit', ev => {
@@ -87,7 +87,7 @@
     d.querySelectorAll('.esc-op').forEach(b => b.addEventListener('click', () => {
       const k = +b.dataset.k;
       if (k === op.indice) { d.close(); acierta(i, s, texto, '¡Muy bien!'); }
-      else { s.malas.push(k); s.intentos++; b.classList.add('mal'); b.disabled = true; App.toast('No es esa frase. Mira bien la viñeta.', 3000); }
+      else { s.malas.push(k); s.intentos++; b.classList.add('mal'); b.disabled = true; App.toast('No es esa frase. Mira bien la viñeta.', 3000); App.guardarPartida(); }
     }));
   }
   function acierta(i, s, texto, mensaje) {
@@ -96,7 +96,16 @@
     App.hablar(texto);
     App.simular(); // si era la última frase, simular() concede las estrellas y abre el diálogo de éxito
   }
-  App.escritor = { activo: escActivo, pintar: escPintar, completo: escCompleto, hecha: escHecha, reiniciar() { for (const k in estadosEsc) delete estadosEsc[k]; } };
+  App.escritor = {
+    activo: escActivo, pintar: escPintar, completo: escCompleto, hecha: escHecha,
+    reiniciar() { for (const k in estadosEsc) delete estadosEsc[k]; },
+    exportar() { return { tiempo: App.tiempo(), modo: escModo(), estados: estadosEsc }; },
+    restaurar(valor) {
+      const v = window.SVPartidas.limpiarEscritor(valor);
+      if (v.tiempo !== App.tiempo() || v.modo !== escModo()) return;
+      Object.assign(estadosEsc, v.estados); // estadoDe/escHecha también comprueban la frase del motor
+    }
+  };
 
   /* =====================================================================
      2. IMPRIMIR MI HISTORIA (A4 apaisado): el cómic resuelto + hojas de viñetas vacías (4 y 6)
@@ -340,7 +349,7 @@
         <div class="fila izq"><button class="btn sec" id="bCrear">✎ Crear un nivel</button><button class="btn sec" id="bCodigo">⌨ Importar un código</button><button class="btn sec" id="bExportar"${niveles.length ? '' : ' disabled'}>⬇ Exportar JSON</button><label class="btn sec" for="pImportar">⬆ Importar JSON</label><input type="file" id="pImportar" accept=".json,application/json" hidden></div>
       </section>
       <section><h3>Datos de este navegador</h3>
-        <p class="nota">«Borrar mis datos» (en ☰ Niveles) solo borra las estrellas del alumno. Aquí se borra todo: estrellas, ajustes, contraseña, niveles de la clase y equipos.</p>
+        <p class="nota">«Borrar mis datos» (en ☰ Niveles) borra las estrellas, partidas y borradores del alumno. Aquí se borra todo: estrellas, partidas, borradores, ajustes, contraseña, niveles de la clase y equipos.</p>
         <button class="btn rojo" id="bBorrarTodo">Borrar todo</button>
       </section>
       </div>

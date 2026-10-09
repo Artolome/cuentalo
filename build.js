@@ -7,16 +7,24 @@ const SRC = path.join(__dirname, 'src');
 // Orden de carga: lengua → contenido → motor → arte → módulos sin DOM (escritor, autor) → pizarra → ui → ui-modos.
 // Los módulos marcados como opcionales se incluyen solo si existen (se añaden en la fase 2).
 const OPCIONALES = ['escritor.js', 'autor.js', 'pizarra.js', 'ui-modos.js'];
-const SCRIPTS = ['lengua.js', 'contenido.js', 'engine.js', path.join('art', 'personajes.js'), path.join('art', 'escenas.js'), 'escritor.js', 'autor.js', 'pizarra.js', 'ui.js', 'ui-modos.js']
+const SCRIPTS = ['lengua.js', 'contenido.js', 'engine.js', path.join('art', 'personajes.js'), path.join('art', 'escenas.js'), 'escritor.js', 'autor.js', 'pizarra.js', 'partidas.js', 'ui.js', 'ui-modos.js']
   .filter(f => !OPCIONALES.includes(f) || fs.existsSync(path.join(SRC, f)));
 let html = fs.readFileSync(path.join(SRC, 'plantilla.html'), 'utf8');
+html = html.replace('/*THEME*/', () => fs.readFileSync(path.join(SRC, 'theme.css'), 'utf8'));
+// Each painting is embedded once; scene SVGs reuse the same data URI at runtime.
+const fondos = {};
+for (const nombre of ['bosque-dia', 'rio', 'bosque-noche']) {
+  const archivo = path.join(SRC, 'art', 'assets', nombre + '.webp');
+  fondos[nombre] = 'data:image/webp;base64,' + fs.readFileSync(archivo).toString('base64');
+}
+const arte = `<script>window.SVFondos=${JSON.stringify(fondos)};document.documentElement.style.setProperty('--bosque-portada','url("'+window.SVFondos['bosque-dia']+'")');</script>`;
 const LS = new RegExp('[' + String.fromCharCode(0x2028) + String.fromCharCode(0x2029) + ']', 'g');
 const inline = SCRIPTS.map(f => {
   const code = fs.readFileSync(path.join(SRC, f), 'utf8').replace(LS, '');
   if (/<\/script/i.test(code)) throw new Error(f + ' contient "</script"');
   return `<script>/* ${f.replace(/\\/g, '/')} */\n${code}\n</script>`;
 }).join('\n');
-html = html.replace('<!--SCRIPTS-->', () => inline);
+html = html.replace('<!--SCRIPTS-->', () => arte + '\n' + inline);
 const version = new Date().toISOString().slice(0, 10);
 html = html.replace('<!--VERSION-->', version);
 const out = path.join(__dirname, 'cuentalo.html');

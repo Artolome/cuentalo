@@ -238,11 +238,12 @@ dialog .fila.izq{justify-content:flex-start}
   .imp-lineas i{display:block;border-bottom:.3mm solid #777}
   .imp-pie{margin:3mm 0 0;font-size:9pt;color:#444;text-align:center}
 }
+/*THEME*/
 </style>
 </head>
 <body>
 <header id="cab">
-  <button id="btnInicio" class="btn sec" title="Inicio: Pizarra / Solo / Autor">🏠</button>
+  <button id="btnInicio" class="btn sec" title="Inicio: Pizarra / Solo / Autor" aria-label="Inicio">⌂</button>
   <button id="btnNiveles" class="btn sec" title="Elegir nivel">☰ Niveles</button>
   <h1>Cuéntalo <small id="subcap"></small></h1>
   <div class="acciones">
@@ -282,14 +283,17 @@ dialog .fila.izq{justify-content:flex-start}
 <dialog id="dlgModos"></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <div id="inicioApp" class="inicio-app" hidden>
-  <h1>Cuéntalo</h1>
-  <p>¿Qué pasa en la selva? ¡Cuéntalo en viñetas!</p>
+  <div class="portada-marca" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M36 57C5 40 15 13 54 10c8 31-4 47-18 47Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M23 65 49 23M34 47l-7-18m12 9 14-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+  <p class="portada-ceja">UN CUADERNO DE HISTORIAS</p>
+  <h1>Cuéntalo<span aria-hidden="true">.</span></h1>
+  <p class="portada-subtitulo">Imagina. Explora. Cuéntalo.</p>
+  <p class="portada-descripcion">Un título, unas viñetas y una historia que solo tú puedes contar.</p>
   <div class="tarjetas">
-    <button class="tarjeta" data-modo="pizarra"><span class="ico">🖥️</span><b>Pizarra</b><span>En clase, con el videoproyector</span></button>
-    <button class="tarjeta" data-modo="solo"><span class="ico">🎒</span><b>Solo</b><span>Juego yo. Mis estrellas se guardan aquí.</span></button>
-    <button class="tarjeta" id="cardAutor" hidden><span class="ico">✎</span><b>Autor</b><span>Creo un nivel para la clase</span></button>
+    <button class="tarjeta tarjeta-principal" data-modo="solo"><span class="ico" aria-hidden="true">❧</span><b>Solo</b><span>Mi pequeña aventura</span><span class="tarjeta-ir" aria-hidden="true">Empezar →</span></button>
+    <button class="tarjeta" data-modo="pizarra"><span class="ico" aria-hidden="true">☀</span><b>Pizarra</b><span>Una historia, toda la clase</span><span class="tarjeta-ir" aria-hidden="true">Explorar juntos →</span></button>
+    <button class="tarjeta" id="cardAutor" hidden><span class="ico" aria-hidden="true">✎</span><b>Autor</b><span>Sembrar una nueva historia</span><span class="tarjeta-ir" aria-hidden="true">Crear →</span></button>
   </div>
-  <p class="pie">Sin conexión · ningún dato sale de este ordenador</p>
+  <p class="pie">Español A1–A2 · A tu ritmo · Sin conexión</p>
 </div>
 <footer>Cuéntalo · <!--VERSION--> · sin conexión · ningún dato sale de este ordenador</footer>
 <!--SCRIPTS-->
