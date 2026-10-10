@@ -1,12 +1,12 @@
-/* Cuéntalo — arte: decorados SVG de las escenas (ligne claire, fondos lisos).
+/* Cuéntalo — arte: un paisaje cartoon distinto para cada escena.
    escenaSVG(id) → string SVG (viewBox 0 0 160 100). Sirve tanto de fondo de viñeta como de carta en el stock. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
   else root.SVArteEscenas = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
-  const INK = '#1f1a17', BLANCO = '#fbf6ea';
-  const S = `stroke="${INK}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"`;
+  const INK = '#4d5040', BLANCO = '#fbf6ea';
+  const S = `stroke="${INK}" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"`;
   const arbol = (x, y, k, c) => `<g transform="translate(${x} ${y}) scale(${k})"><rect x="-4" y="0" width="8" height="30" fill="#8b5a3c" ${S}/><path d="M0 2 Q-26 -4 -30 -22 Q-10 -18 0 -2 Q10 -18 30 -22 Q26 -4 0 2 Z" fill="${c || '#4c8748'}" ${S}/><path d="M0 0 Q-4 -22 -20 -34 M0 0 Q4 -22 20 -34 M0 0 V-38" fill="none" ${S}/><path d="M0 -4 Q-24 -10 -22 -30 Q-6 -26 0 -8 Q6 -26 22 -30 Q24 -10 0 -4 Z" fill="${c || '#4c8748'}" stroke="none"/></g>`;
   const suelo = (c) => `<path d="M0 82 Q40 76 80 82 T160 80 V100 H0 Z" fill="${c || '#8bb843'}" ${S}/>`;
   const sol = (x, y, r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#dfa92c" ${S}/>${[0, 45, 90, 135, 180, 225, 270, 315].map(a => `<path d="M${x + Math.cos(a * Math.PI / 180) * (r + 4)} ${y + Math.sin(a * Math.PI / 180) * (r + 4)} L${x + Math.cos(a * Math.PI / 180) * (r + 11)} ${y + Math.sin(a * Math.PI / 180) * (r + 11)}" ${S}/>`).join('')}`;
@@ -29,11 +29,41 @@
     linterna: () => `<rect width="160" height="100" fill="#2a2f45"/>${suelo('#3a4435')}<path d="M86 42 L160 10 V90 L86 58 Z" fill="#fff2b0" fill-opacity=".85"/><rect x="30" y="38" width="46" height="24" rx="6" fill="#dfa92c" ${S}/><rect x="70" y="32" width="18" height="36" rx="4" fill="#7d8a99" ${S}/><rect x="36" y="44" width="10" height="12" rx="2" fill="#c4432e" ${S} stroke-width="1.8"/>`,
     rescate: () => `<rect width="160" height="100" fill="#bfe3f5"/>${suelo('#6aa84f')}${arbol(18, 56, .8)}${arbol(146, 58, .75)}<path d="M60 18 H130" ${S} stroke-width="4"/><rect x="92" y="18" width="6" height="12" fill="#7d8a99" ${S}/><path d="M66 30 H118 Q134 30 134 44 Q134 58 118 58 H78 Q62 58 62 44 Z" fill="#c4432e" ${S}/><path d="M66 36 H30 l6 -8 h30" fill="#c4432e" ${S}/><rect x="104" y="36" width="18" height="14" rx="3" fill="#86b3d4" ${S}/><path d="M72 64 H126 M80 58 V64 M118 58 V64" ${S} stroke-width="3"/>`
   };
+  // Props stay independent from the painted backgrounds: meaningful objects must
+  // remain easy to recognise in small cards and never depend on generated text.
+  const P = {
+    selva: '',
+    rio: '<path d="M6 57q12-2 24 0m78 4q16-2 31 0M18 69q9-2 18 0" fill="none" stroke="#e7f2d6" stroke-width=".65" opacity=".65"/>',
+    sol: '<circle cx="124" cy="22" r="18" fill="#ffdf8f" opacity=".12"/><circle cx="124" cy="22" r="12" fill="#fff0ae" opacity=".6"/><circle cx="124" cy="22" r="7" fill="#fff5c7"/>',
+    noche: '<path d="M131 13a9 9 0 1 0 7 14 7 7 0 0 1-7-14Z" fill="#f5edbd" opacity=".9"/>',
+    tormenta: '<rect width="160" height="100" fill="#344b61" opacity=".35"/><path d="M95 15q6-13 15-5 13-9 17 3 16-3 17 10H91q-6-5 4-8" fill="#425b63"/><path d="m116 22-8 14h8l-5 13 17-20h-9l8-7" fill="#f5d998"/><path d="m20 8-4 12m27-6-4 13m27-19-4 13m-30 21-4 13m35-7-4 13m60-15-4 13m-84 13-4 13m82-12-4 13m35-33-4 13" stroke="#c7e0df" stroke-width=".8" opacity=".7"/>',
+    fuego: `<ellipse cx="125" cy="79" rx="28" ry="17" fill="#ffd478" opacity=".15"/><path d="m110 85 31-6m-30 0 28 7" stroke="#674f39" stroke-width="4" stroke-linecap="round"/><path d="M122 83q-15-9-9-23 2 7 6 7-2-16 10-27-2 15 5 21 4-7 5-5 11 17-10 27Z" fill="#e1a656" ${S}/><path d="M123 81q-7-8-3-16 2 5 5 6l5-13q8 17-4 23" fill="#ffe2a0"/><circle cx="118" cy="47" r=".9" fill="#eec579"/><circle cx="136" cy="34" r="1" fill="#eec579"/>`,
+    frutas: `<g ${S}><path d="M116 71q7-28 5-47" fill="none" stroke="#827355" stroke-width="3"/><path d="M123 44q-20-14-27-3 9 14 26 3m1-13q20-16 26-4-5 12-26 4" fill="#6e9252"/><ellipse cx="113" cy="48" rx="6" ry="8" fill="#d8aa55"/><ellipse cx="130" cy="35" rx="6" ry="8" fill="#d29452"/><ellipse cx="132" cy="59" rx="6" ry="8" fill="#ddad59"/><path d="m112 41 3-5m14-9 3-4m-1 29 2-5" fill="none"/></g>`,
+    refugio: `<g ${S}><path d="M101 81V50h43v31" fill="#947954"/><path d="m96 51 26-23 27 24Z" fill="#697e4d"/><path d="m97 52 25-21 25 22M105 48l19-15m-12 16 16-13" fill="none" stroke="#a3aa70"/><path d="M117 81V58q7-3 12 0v23" fill="#3f4e3b"/><path d="M105 55v20m31-20v20" fill="none" stroke="#b3a07c"/></g>`,
+    jaguar: `<g ${S}><path d="M112 76q-11 9-16-3" fill="none" stroke="#ae8452" stroke-width="3"/><ellipse cx="127" cy="70" rx="15" ry="9" fill="#c19b60"/><path d="m117 76-2 8h5l3-8m11-1 2 9h5l-1-12" fill="#c19b60"/><path d="M133 65q-7-13 2-16l4 4q7-5 9 2l-2 5q5 11-13 5" fill="#c9a66b"/><path d="m133 55 3-3m8 5 1-3" stroke="#896941"/><circle cx="138" cy="60" r="1" fill="#373c33"/><path d="m146 63-4 1"/><path d="m119 69 2-2m5 7 2-2m3-7 2 2m-12 5 2 2" stroke="#706341" stroke-width="2"/></g>`,
+    serpiente: `<path d="M109 83q-17-16-7-19t20 10q9 8 14-4" fill="none" stroke="#42563d" stroke-width="5" stroke-linecap="round"/><path d="M109 83q-17-16-7-19t20 10q9 8 14-4" fill="none" stroke="#87a270" stroke-width="3" stroke-linecap="round"/><ellipse cx="138" cy="68" rx="5" ry="3" fill="#96ac77" ${S}/><circle cx="140" cy="67" r=".7" fill="#26372b"/><path d="m142 69 5 1-2 1" fill="none" stroke="#aa7060" stroke-width=".65"/>`,
+    montana: `<path d="M85 56 114 12l36 43Z" fill="#809f9a" opacity=".9"/><path d="m102 31 12-19 16 20-11-5-5 4-5-4Z" fill="#e6ecda"/><path d="m86 56 36-10 38 13V70H86" fill="#5c7b69" opacity=".6"/>`,
+    mapa: `<g transform="translate(101 30) rotate(-8 22 20)" ${S}><path d="m0 4 14-4 14 4 16-4v37l-16 4-14-4-14 4Z" fill="#eee1b3"/><path d="M14 0v37M28 4v37" stroke="#b5a87f"/><path d="M5 29q13-22 29-14" fill="none" stroke="#8d8a62" stroke-dasharray="2 2"/><path d="m31 11 7 7m0-7-7 7" stroke="#b37456"/><path d="m4 12 4-5 5 6" fill="#9dac88"/></g>`,
+    mochila: `<g transform="translate(105 31)" ${S}><path d="M10 7q0-12 11-11T32 7" fill="none" stroke="#8d6c4e" stroke-width="3"/><path d="M4 10q17-8 34 0v39H4Z" fill="#ab7357"/><path d="M2 12q18 10 38 0v13q-19 9-38 0Z" fill="#c3966a"/><rect x="9" y="30" width="22" height="17" rx="3" fill="#b88561"/><path d="M0 15q-9 12 1 23m40-23q9 11-1 24" fill="none" stroke="#79664d" stroke-width="2"/><rect x="17" y="19" width="7" height="8" rx="1" fill="#d3b46e"/></g>`,
+    cuerda: `<g fill="none" stroke-linecap="round"><ellipse cx="126" cy="58" rx="20" ry="15" stroke="#8b7451" stroke-width="8"/><ellipse cx="126" cy="58" rx="20" ry="15" stroke="#c6ad78" stroke-width="5"/><ellipse cx="126" cy="58" rx="20" ry="15" stroke="#a88c5d" stroke-width="1" stroke-dasharray="2 2"/><path d="M145 57q11 18 0 28" stroke="#c6ad78" stroke-width="4"/></g>`,
+    manta: `<g ${S}><path d="M101 42h43v39h-43Z" fill="#b57b6f"/><path d="M101 41q-3-8 7-8h31q8 0 5 9Z" fill="#c68c7b"/><path d="M102 53h41m-41 14h41" stroke="#d9bd87" stroke-width="4"/><path d="m103 81 0 5m8-5v5m8-5v5m8-5v5m8-5v5m8-5v5" stroke="#b57b6f"/></g>`,
+    linterna: `<path d="m126 57 34-39v77l-34-25Z" fill="#f5e6ad" opacity=".3"/><g transform="translate(105 48) rotate(-16 18 16)" ${S}><rect x="0" y="6" width="28" height="17" rx="4" fill="#b59d60"/><path d="m25 3 8-3v28l-8-2Z" fill="#9caa92"/><path d="M33 1v27" stroke="#ffefb4" stroke-width="3"/><rect x="6" y="9" width="6" height="3" rx="1" fill="#6f7757"/></g>`,
+    rescate: `<g transform="translate(100 10)" ${S}><path d="M-6 8h47M19 8v8" fill="none"/><path d="M4 17h25q13 0 14 9 1 9-14 9H11L1 29h-17l-4-6H3Z" fill="#c28a65"/><path d="M27 20h6q8 1 8 7h-14Z" fill="#c5d6c4"/><path d="M10 36v5m20-5v5M4 41h33" fill="none"/></g>`
+  };
   function escenaSVG(id, opts) {
     opts = opts || {};
     const f = D[id];
     const cls = opts.clase ? ` class="${opts.clase}"` : '';
-    return `<svg${cls} viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">${f ? f() : `<rect width="160" height="100" fill="#ccc"/>`}</svg>`;
+    const fondos = typeof window !== 'undefined' && window.SVFondos;
+    const nombre = ['noche', 'fuego', 'linterna'].includes(id) ? 'bosque-noche' : id === 'rio' ? 'rio' : 'bosque-dia';
+    const especifica = fondos && fondos[id];
+    const pintura = fondos && fondos[nombre];
+    const arte = especifica
+      ? `<image href="${especifica}" width="160" height="100" preserveAspectRatio="xMidYMid slice"/>`
+      : pintura && Object.prototype.hasOwnProperty.call(P, id)
+      ? `<image href="${pintura}" width="160" height="100" preserveAspectRatio="xMidYMid slice"/>${id === 'sol' ? '<rect width="160" height="100" fill="#f6d489" opacity=".13"/>' : ''}${P[id]}`
+      : f ? f() : '<rect width="160" height="100" fill="#d8e1ce"/>';
+    return `<svg${cls} viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">${arte}</svg>`;
   }
   return { escenaSVG };
 });

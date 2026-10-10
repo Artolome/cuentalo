@@ -11,7 +11,8 @@ const SRC = path.join(__dirname, '..', 'src');
 const L = require(path.join(SRC, 'lengua.js')), C = require(path.join(SRC, 'contenido.js')), E = require(path.join(SRC, 'engine.js'));
 const AP = require(path.join(SRC, 'art', 'personajes.js')), AE = require(path.join(SRC, 'art', 'escenas.js'));
 const ESC = require(path.join(SRC, 'escritor.js')), AU = require(path.join(SRC, 'autor.js'));
-global.window = { SVLengua: L, SVContenido: C, SVEngine: E, SVArtePersonajes: AP, SVArteEscenas: AE, SVEscritor: ESC, SVAutor: AU, SVApp: {} };
+const { fondos, personajes } = require('../scripts/load-art')();
+global.window = { SVFondos: fondos, SVPersonajesCartoon: personajes, SVLengua: L, SVContenido: C, SVEngine: E, SVArtePersonajes: AP, SVArteEscenas: AE, SVEscritor: ESC, SVAutor: AU, SVApp: {} };
 global.document = { querySelector: () => null, querySelectorAll: () => [], createElement: () => ({ setAttribute() {}, appendChild() {}, style: {} }), body: { appendChild() {} }, head: { appendChild() {} }, scripts: [] };
 new Function('window', 'document', fs.readFileSync(path.join(SRC, 'ui-modos.js'), 'utf8'))(global.window, global.document);
 const App = global.window.SVApp;
@@ -34,10 +35,11 @@ const vars = (plantilla.match(/:root\{[\s\S]*?\}/) || [''])[0];
 const salida = process.argv[2] || path.join(__dirname, '..', 'docs', 'ejemplo_impresion.html');
 fs.writeFileSync(salida, `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Cuéntalo · impresión · ${nivel.titulo}</title>
 <style>${vars}\nbody{margin:0;background:#fff}\n${css}\n#impresion{display:block}\n.imp-pagina{break-after:page}</style></head>
-<body><section id="impresion">${html}</section></body></html>`, 'utf8');
+<body><section id="impresion">${html}</section></body></html>`.replace(/[ \t]+$/gm, ''), 'utf8');
 const controles = [
   [/imp-pagina/g, 3, 'páginas'], [/imp-hoja/g, 2, 'hojas vacías'], [/<p class="imp-frase">/g, nivel.viñetas, 'frases'],
-  [/imp-lineas/g, 10, 'bloques de líneas'], [/Nombre o código: _/g, 3, 'campos de nombre o código']
+  [/imp-lineas/g, 10, 'bloques de líneas'], [/Nombre o código: _/g, 3, 'campos de nombre o código'],
+  [/<image href="data:image\/webp;base64,/g, res.viñetas.reduce((n, v) => n + (v.escena ? 1 : 0) + v.personajes.length, 0), 'ilustraciones integradas en la impresión']
 ];
 let errores = 0;
 for (const [re, n, nombre] of controles) { const k = (html.match(re) || []).length; if (k !== n) { console.log(`  ✗ ${nombre}: ${k} (esperados ${n})`); errores++; } }

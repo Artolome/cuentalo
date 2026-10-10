@@ -11,19 +11,33 @@
   const ES = {}; for (const e of C.ESCENAS) ES[e.id] = e;
   const KEY = 'cuentalo.progreso.v0';
   const DIF = { 1: 'Paso a paso', 2: 'Estándar', 3: 'Reto' };
+  const partidas = window.SVPartidas.crear({
+    getItem: k => localStorage.getItem(k), setItem: (k, v) => localStorage.setItem(k, v), removeItem: k => localStorage.removeItem(k)
+  });
 
   /* ---------- estado de la aplicación ---------- */
   let nivel = null, viñetas = [], res = null, seleccion = null, intentos = 0, pistaIdx = 0;
   let progreso = cargar();
   let extra = []; // niveles de autor (los añade ui-modos.js)
   let pizarraApi = null; // barra de clase montada (cronómetro, sorteo, equipos)
+  let relato = ['', '', ''], ayudaActiva = true, exitoTimer = 0;
   function cargar() { try { const p = JSON.parse(localStorage.getItem(KEY) || '{}'); return p && typeof p === 'object' && !Array.isArray(p) ? p : {}; } catch (_) { return {}; } }
   function guardar() { try { localStorage.setItem(KEY, JSON.stringify(progreso)); } catch (_) { /* sin almacenamiento */ } }
-  function ajustes() { if (!progreso.ajustes || typeof progreso.ajustes !== 'object') progreso.ajustes = { modo: null, dif: 2, escritor: false, preterito: false }; return progreso.ajustes; }
+  function ajustes() { if (!progreso.ajustes || typeof progreso.ajustes !== 'object' || Array.isArray(progreso.ajustes)) progreso.ajustes = { modo: null, dif: 2, escritor: false, preterito: false }; return progreso.ajustes; }
   const dif = () => [1, 2, 3].includes(ajustes().dif) ? ajustes().dif : 2;
-  const progresoDe = id => (progreso[id] && typeof progreso[id] === 'object') ? progreso[id] : {};
+  const progresoDe = id => {
+    const p = progreso[id] && typeof progreso[id] === 'object' && !Array.isArray(progreso[id]) ? progreso[id] : {};
+    p.estrellas = Number.isInteger(p.estrellas) && p.estrellas >= 0 && p.estrellas <= 3 ? p.estrellas : 0;
+    return p;
+  };
   const tiempo = () => ajustes().preterito ? 'pret' : 'pres';
   const todosNiveles = () => C.NIVELES.concat(extra);
+
+  function guardarPartida() {
+    if (!nivel || nivel.enConstruccion) return false;
+    return partidas.guardar(nivel, { viñetas, intentos, pistaIdx, ultimoFallo, celebrada: exitoMostrado, relato,
+      escritor: window.SVApp.escritor && window.SVApp.escritor.exportar ? window.SVApp.escritor.exportar() : null });
+  }
 
   /* ---------- voz ---------- */
   let voz = null;
@@ -95,10 +109,16 @@
 
   /* ---------- niveles ---------- */
   function abrirNivel(id) {
+    clearTimeout(exitoTimer);
+    if ($('#dlgExito').open) $('#dlgExito').close();
+    if ($('#dlgRelato') && $('#dlgRelato').open) $('#dlgRelato').close();
     nivel = todosNiveles().find(n => n.id === id) || C.NIVELES[0];
-    viñetas = Array.from({ length: nivel.viñetas }, () => ({ escena: null, personajes: [] }));
-    seleccion = null; intentos = 0; pistaIdx = 0; ultimoFallo = ''; exitoMostrado = ''; avisoEscritor = '';
+    const partida = partidas.leer(nivel);
+    viñetas = partida.viñetas; relato = partida.relato;
+    seleccion = null; intentos = partida.intentos; pistaIdx = partida.pistaIdx;
+    ultimoFallo = partida.ultimoFallo; exitoMostrado = partida.celebrada; avisoEscritor = '';
     if (window.SVApp.escritor) window.SVApp.escritor.reiniciar();
+    if (window.SVApp.escritor && window.SVApp.escritor.restaurar) window.SVApp.escritor.restaurar(partida.escritor);
     progreso.actual = nivel.id; guardar();
     pintarTodo();
     hablar(nivel.libre ? 'Mi historia' : nivel.titulo);
@@ -164,6 +184,7 @@
     document.querySelectorAll('.carta').forEach(c => c.classList.toggle('sel', !!s && c.dataset.tipo === s.tipo && c.dataset.id === s.id));
     document.body.classList.toggle('seleccion', !!s);
     if (s) toast(s.tipo === 'escena' ? `Ahora haz clic en una viñeta para poner «${ES[s.id].nombre}»` : `Ahora haz clic en una viñeta para poner a ${PJ[s.id].nombre}`, 3500);
+    pintarAyuda();
   }
   function pintarTira() {
     const tira = $('#tira'); tira.innerHTML = '';
@@ -271,12 +292,13 @@
     // estado del nivel
     const est = $('#estadoNivel'), tt = $('#tituloTxt');
     if (window.SVApp.alSimular) window.SVApp.alSimular(res);
-    if (nivel.libre || nivel.enConstruccion) { est.textContent = res.incompleto ? `${viñetas.filter(v => v.escena && v.personajes.length).length}/${nivel.viñetas} viñetas` : (nivel.enConstruccion && !res.valido ? 'Hay un problema: mira la frase en rojo' : '¡Historia completa!'); est.className = res.incompleto || !res.valido ? '' : 'ok'; $('#btnImprimir').disabled = res.incompleto; return; }
+    if (nivel.libre || nivel.enConstruccion) { est.textContent = res.incompleto ? `${viñetas.filter(v => v.escena && v.personajes.length).length}/${nivel.viñetas} viñetas` : (nivel.enConstruccion && !res.valido ? 'Hay un problema: mira la frase en rojo' : '¡Historia completa!'); est.className = res.incompleto || !res.valido ? '' : 'ok'; $('#btnImprimir').disabled = res.incompleto; guardarPartida(); pintarAyuda(); pintarContar(); return; }
     tt.classList.toggle('ok', res.resuelto);
     $('#btnImprimir').disabled = !res.resuelto || escritorPendiente(); // en modo escritor, imprimir revelaría las frases
     if (res.resuelto) { est.textContent = '✔ ¡Muy bien!' + (res.secreto ? ' 🔑 ¡Título secreto!' : ''); est.className = 'ok'; exito(); }
     else if (res.incompleto || res.faltan.length) { est.textContent = ''; est.className = ''; }
     else { est.textContent = 'Todavía no…'; est.className = ''; fallo(); }
+    guardarPartida(); pintarAyuda(); pintarContar();
   }
   let ultimoFallo = '';
   function fallo() {
@@ -303,6 +325,7 @@
     p.estrellas = Math.max(p.estrellas || 0, intentos <= 1 ? 3 : intentos <= 3 ? 2 : 1);
     if (res.secreto) p.secreto = true;
     progreso[nivel.id] = p; guardar();
+    if (ayudaActiva && !ajustes().ayudaVista) cerrarAyuda(false);
     pintarNiveles();
     mostrarExito(p);
   }
@@ -313,14 +336,84 @@
     const sec = res.secreto ? `<p>🔑 Título secreto: <b>${esc(tituloSecreto(nivel))}</b></p>` : (nivel.secreto ? '<p class="alt">Hay un título secreto en este nivel… ¿lo encuentras?</p>' : '');
     d.innerHTML = `<h2>¡Muy bien!</h2><div class="grande">${'★'.repeat(p.estrellas || 0)}${'☆'.repeat(3 - (p.estrellas || 0))}</div>
       <p><b>${esc(nivel.titulo)}</b></p>${sec}
-      <div class="fila"><button class="btn sec" id="btnSeguir">Cerrar</button><button class="btn sec" id="btnImprimirDlg">🖨 Imprimir</button><button class="btn" id="btnLeer">Leer la historia</button><button class="btn verde" id="btnSig">Siguiente nivel →</button></div>`;
+      <p class="relato-invitacion">¿La cuentas con tus palabras? Di o escribe tres frases. Es opcional.</p>
+      <div class="fila"><button class="btn sec" id="btnSeguir">Cerrar</button><button class="btn sec" id="btnImprimirDlg">🖨 Imprimir</button><button class="btn" id="btnLeer">Leer la historia</button><button class="btn sec" id="btnRelatoExito">✎ Contar con mis palabras</button><button class="btn verde" id="btnSig">Siguiente nivel →</button></div>`;
     d.querySelector('#btnSeguir').onclick = () => d.close();
     d.querySelector('#btnLeer').onclick = () => { d.close(); quePasa(); };
     d.querySelector('#btnSig').onclick = () => { d.close(); siguienteNivel(); };
+    d.querySelector('#btnRelatoExito').onclick = () => { d.close(); abrirRelato(); };
     const bi = d.querySelector('#btnImprimirDlg');
     if (window.SVApp.imprimir) bi.onclick = () => { d.close(); window.SVApp.imprimir(); }; else bi.hidden = true;
-    setTimeout(() => { if (!d.open) d.showModal(); }, 350);
+    clearTimeout(exitoTimer);
+    const firma = nivel.id + '|' + JSON.stringify(viñetas);
+    exitoTimer = setTimeout(() => { if (!d.open && res.resuelto && !escritorPendiente() && firma === nivel.id + '|' + JSON.stringify(viñetas)) d.showModal(); }, 350);
     hablar(res.frasesTodas.join(' '));
+  }
+
+  /* ---------- primeras acciones: ayuda breve, sin bloquear el juego ---------- */
+  function montarAyuda() {
+    const ayuda = el('section', { id: 'ayudaJuego', class: 'ayuda-juego', 'aria-label': 'Cómo jugar' });
+    ayuda.innerHTML = '<div class="ayuda-texto" role="status" aria-live="polite" aria-atomic="true"><b class="ayuda-paso"></b> <span></span></div><button type="button" id="btnCerrarAyuda" class="btn sec mini" aria-label="Cerrar la ayuda">Entendido ×</button>';
+    $('#titulo').appendChild(ayuda);
+    const boton = el('button', { id: 'btnAyuda', class: 'btn sec', type: 'button', 'aria-controls': 'ayudaJuego', 'aria-expanded': 'false' }, '? Ayuda');
+    $('#cab .acciones').insertBefore(boton, $('#btnPista'));
+    boton.onclick = () => { ayudaActiva = !ayudaActiva; if (!ayudaActiva) { ajustes().ayudaVista = true; guardar(); } pintarAyuda(); ajustarTira(); };
+    $('#btnCerrarAyuda').onclick = () => cerrarAyuda(true);
+    ayudaActiva = !ajustes().ayudaVista;
+  }
+  function cerrarAyuda(foco) {
+    ayudaActiva = false; ajustes().ayudaVista = true; guardar(); pintarAyuda(); ajustarTira();
+    if (foco) $('#btnAyuda').focus();
+  }
+  function pintarAyuda() {
+    const a = $('#ayudaJuego'); if (!a || !nivel) return;
+    const visible = ayudaActiva && !nivel.enConstruccion;
+    a.hidden = !visible; $('#btnAyuda').hidden = !!nivel.enConstruccion;
+    $('#btnAyuda').setAttribute('aria-expanded', String(visible));
+    if (!visible) return;
+    let paso, texto;
+    if (!viñetas.some(v => v.escena)) {
+      paso = '1 · Elige el lugar.';
+      texto = seleccion && seleccion.tipo === 'escena' ? 'Ahora pulsa una viñeta vacía para poner la escena.' : 'Pulsa una carta de escena en la bandeja y luego una viñeta vacía. También puedes arrastrarla.';
+    } else if (!viñetas.some(v => v.personajes.length)) {
+      paso = '2 · Añade un personaje.';
+      texto = seleccion && seleccion.tipo === 'personaje' ? 'Ahora pulsa la viñeta que tiene una escena.' : 'Pulsa una carta de personaje y después la escena que has colocado.';
+    } else if (res && res.incompleto) {
+      paso = '3 · Construye la historia.';
+      texto = 'Completa las viñetas de izquierda a derecha. Lee las frases: las acciones cambian cómo están los personajes.';
+    } else {
+      paso = '4 · Mira el título.';
+      texto = '¿Tu historia cumple el título? Puedes cambiar las cartas. «¿Qué pasa?» explica el resultado y «Pista» te ayuda.';
+    }
+    const b = a.querySelector('.ayuda-paso'), t = a.querySelector('.ayuda-texto span');
+    if (b.textContent !== paso) b.textContent = paso;
+    if (t.textContent !== texto) t.textContent = texto;
+  }
+
+  /* ---------- producción libre después del juego: sin nota automática ---------- */
+  function puedeContar() { return !!nivel && !nivel.enConstruccion && !!res && (nivel.libre ? !res.incompleto && res.valido : res.resuelto && !escritorPendiente()); }
+  function pintarContar() { const b = $('#btnContar'); if (b) b.hidden = !puedeContar(); }
+  function montarRelato() {
+    const boton = el('button', { id: 'btnContar', class: 'btn sec', type: 'button', hidden: '', 'aria-haspopup': 'dialog' }, '✎ Contar');
+    $('#cab .acciones').insertBefore(boton, $('#btnImprimir'));
+    boton.onclick = abrirRelato;
+    const d = el('dialog', { id: 'dlgRelato', class: 'relato-dialog', 'aria-labelledby': 'relatoTitulo' });
+    document.body.appendChild(d);
+  }
+  function abrirRelato() {
+    if (!puedeContar()) return;
+    const d = $('#dlgRelato'), id = nivel.id;
+    d.innerHTML = `<h2 id="relatoTitulo">Cuéntalo con tus palabras</h2><p class="relato-intro">Cuenta tu historia en tres frases, en voz alta o por escrito. Puedes usar «primero», «después» y «al final».</p><p class="nota">Es opcional. El juego no corrige estas frases ni cambia tus estrellas. Puedes revisarlas con tu profe.</p>
+      <div class="relato-campos">${['Primero…', 'Después…', 'Al final…'].map((t, i) => `<label for="relato${i}">${i + 1}. ${t}<textarea id="relato${i}" rows="2" maxlength="500" lang="es" placeholder="Tu frase…">${esc(relato[i])}</textarea></label>`).join('')}</div>
+      <p class="relato-estado nota" role="status" aria-live="polite">Tu borrador se guarda solo en este navegador.</p><div class="fila"><button type="button" class="btn" id="cerrarRelato">Volver a la historia</button></div>`;
+    d.querySelectorAll('textarea').forEach((input, i) => input.addEventListener('input', () => {
+      if (nivel.id !== id) return;
+      relato[i] = input.value.slice(0, 500);
+      const guardado = guardarPartida();
+      d.querySelector('.relato-estado').textContent = guardado ? 'Borrador guardado en este navegador.' : 'El navegador no permite guardar: copia tus frases antes de cerrar la página.';
+    }));
+    d.querySelector('#cerrarRelato').onclick = () => { d.close(); $('#btnContar').focus(); };
+    d.showModal();
   }
 
   /* ---------- ¿Qué pasa? ---------- */
@@ -362,17 +455,18 @@
       }
     }
     if (window.SVApp.abrirAutor) html += `<h3>Crear</h3><button class="btn sec" id="btnIrAutor">✎ Crear un nivel</button> <button class="btn sec" id="btnImportar">⌨ Tengo un código</button>`;
-    html += `<h3>Datos</h3><button class="btn sec" id="btnBorrarDatos">Borrar mis datos</button><p class="nota">Borra las estrellas y los ajustes del juego de este navegador. Los niveles de la clase se quedan. Ningún dato sale de este ordenador.</p>`;
+    html += `<h3>Datos</h3><button class="btn sec" id="btnBorrarDatos">Borrar mis datos</button><p class="nota">Borra tus estrellas, partidas y borradores de frases de este navegador. Los niveles de la clase y los ajustes del profe se quedan. Ningún dato sale de este ordenador.</p>`;
     p.innerHTML = html;
     p.querySelector('.cerrar').onclick = () => { p.hidden = true; };
     p.querySelectorAll('.niv').forEach(b => b.onclick = () => { p.hidden = true; abrirNivel(b.dataset.id); });
-    p.querySelector('#btnBorrarDatos').onclick = () => { if (confirm('¿Borrar tus estrellas y los ajustes del juego en este navegador?')) { borrarMisDatos(); toast('Datos borrados.'); } };
+    p.querySelector('#btnBorrarDatos').onclick = () => { if (confirm('¿Borrar tus estrellas, partidas y borradores de frases de este navegador?')) { borrarMisDatos(); toast('Datos borrados.'); } };
     const ia = p.querySelector('#btnIrAutor'); if (ia) ia.onclick = () => { p.hidden = true; window.SVApp.abrirAutor(); };
     const im = p.querySelector('#btnImportar'); if (im) im.onclick = () => { p.hidden = true; window.SVApp.importarCodigo(); };
   }
   /* Alumno: estrellas, nivel actual y ajustes de juego. Se conservan el modo, la contraseña del profe y los niveles de la clase. */
   function borrarMisDatos() {
     const a = ajustes(), conservar = { modo: a.modo, clave: a.clave, escritor: a.escritor, escritorNivel: a.escritorNivel, preterito: a.preterito };
+    partidas.borrarTodo(); ayudaActiva = true;
     progreso = { ajustes: Object.assign({ dif: 2 }, conservar) }; guardar();
     if (window.SVApp.escritor) window.SVApp.escritor.reiniciar();
     abrirNivel(nivel && !nivel.enConstruccion ? nivel.id : C.NIVELES[0].id);
@@ -382,6 +476,7 @@
     // la barra de clase se desmonta antes de borrar su almacenamiento (si no, volvería a guardar nombres y puntos)
     if (pizarraApi) { try { pizarraApi.destruir(); } catch (_) { /* nada */ } pizarraApi = null; delete $('#clase').dataset.montado; }
     progreso = {}; guardar();
+    partidas.borrarTodo(); ayudaActiva = true;
     if (window.SVApp.borrarDatos) window.SVApp.borrarDatos();
     extra = [];
     document.body.classList.remove('pizarra'); document.documentElement.classList.remove('pizarra');
@@ -401,11 +496,11 @@
   $('#btnNiveles').onclick = () => { const p = $('#panelNiveles'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
   $('#btnLexico').onclick = () => { const p = $('#panelLexico'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
   $('#btnQuePasa').onclick = quePasa;
-  $('#btnReiniciar').onclick = () => { viñetas = viñetas.map(() => ({ escena: null, personajes: [] })); seleccionar(null); pintarTira(); simular(); };
+  $('#btnReiniciar').onclick = () => { clearTimeout(exitoTimer); viñetas = viñetas.map(() => ({ escena: null, personajes: [] })); if (window.SVApp.escritor) window.SVApp.escritor.reiniciar(); seleccionar(null); pintarTira(); simular(); };
   $('#btnPista').onclick = () => {
     if (nivel.libre) { toast('Aquí no hay pistas: ¡inventa tu historia!'); return; }
     if (!nivel.pistas || !nivel.pistas.length) { toast('Este nivel no tiene pistas. Lee bien el título.'); return; }
-    toast('💡 ' + nivel.pistas[pistaIdx % nivel.pistas.length], 6000); pistaIdx++;
+    toast('💡 ' + nivel.pistas[pistaIdx % nivel.pistas.length], 6000); pistaIdx++; guardarPartida();
   };
   $('#btnClase').onclick = () => { const c = $('#clase'); c.hidden = !c.hidden; ajustes().clase = !c.hidden; guardar(); ajustarTira(); };
   $('#btnDif').onclick = ev => { ev.stopPropagation(); const m = $('#menuDif'); const h = m.hidden; cerrarPaneles(); m.hidden = !h; };
@@ -423,18 +518,19 @@
 
   /* ---------- ganchos para los módulos (ui-modos.js) ---------- */
   window.SVApp = {
-    nivel: () => nivel, viñetas: () => viñetas, resultado: () => res, progreso: () => progreso, ajustes, guardar, hablar, toast,
+    nivel: () => nivel, viñetas: () => viñetas, resultado: () => res, progreso: () => progreso, ajustes, guardar, guardarPartida, hablar, toast,
     abrirNivel, pintarTodo, simular, elegirModo, pintarInicio, nivelesVisibles, tiempo, dif, tituloSecreto, mostrarExito,
     añadirNiveles(ns) { extra = ns.slice(); },
     extra: () => extra,
-    ponerViñetas(vs, opts) { viñetas = Array.from({ length: nivel.viñetas }, (_, i) => ({ escena: vs[i] ? vs[i].escena : null, personajes: vs[i] ? vs[i].personajes.slice() : [] })); if (opts && opts.silencio) exitoMostrado = avisoEscritor = nivel.id + '|' + JSON.stringify(viñetas); seleccionar(null); pintarTira(); simular(); },
+    ponerViñetas(vs, opts) { viñetas = window.SVPartidas.limpiarViñetas(nivel, vs); if (opts && opts.silencio) exitoMostrado = avisoEscritor = nivel.id + '|' + JSON.stringify(viñetas); seleccionar(null); pintarTira(); simular(); },
     reiniciarIntentos() { intentos = 0; ultimoFallo = ''; exitoMostrado = ''; avisoEscritor = ''; },
-    ajustarTira, esc, cerrarPaneles, borrarTodo,
+    ajustarTira, esc, cerrarPaneles, borrarTodo, abrirRelato,
     escritor: null, abrirAutor: null, abrirProfe: null, imprimir: null, importarCodigo: null, borrarDatos: null, alPintar: null
   };
 
   /* ---------- inicio ---------- */
   function arrancar() {
+    montarAyuda(); montarRelato();
     if (window.SVApp.iniciarModulos) { try { window.SVApp.iniciarModulos(); } catch (e) { console.error(e); } }
     // Parámetros opcionales en la URL (para el profe o las pruebas): ?modo=pizarra|solo&nivel=c2n1&dif=1|2|3
     const q = new URLSearchParams(location.search);
