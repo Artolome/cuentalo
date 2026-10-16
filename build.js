@@ -7,13 +7,14 @@ const SRC = path.join(__dirname, 'src');
 // Orden de carga: lengua → contenido → motor → arte → módulos sin DOM (escritor, autor) → pizarra → ui → ui-modos.
 // Los módulos marcados como opcionales se incluyen solo si existen (se añaden en la fase 2).
 const OPCIONALES = ['escritor.js', 'autor.js', 'pizarra.js', 'ui-modos.js'];
-const SCRIPTS = ['lengua.js', 'contenido.js', 'engine.js', path.join('art', 'personajes.js'), path.join('art', 'escenas.js'), 'escritor.js', 'autor.js', 'pizarra.js', 'partidas.js', 'ui.js', 'ui-modos.js']
+const SCRIPTS = ['lengua.js', 'contenido.js', 'engine.js', path.join('art', 'personajes.js'), path.join('art', 'escenas.js'), 'escritor.js', 'autor.js', 'pizarra.js', 'partidas.js', 'ui.js', 'ui-modos.js', 'historias-data.js', 'historias-state.js', 'historias-ui.js']
   .filter(f => !OPCIONALES.includes(f) || fs.existsSync(path.join(SRC, f)));
 let html = fs.readFileSync(path.join(SRC, 'plantilla.html'), 'utf8');
-html = html.replace('/*THEME*/', () => fs.readFileSync(path.join(SRC, 'theme.css'), 'utf8'));
+html = html.replace('/*THEME*/', () => fs.readFileSync(path.join(SRC, 'theme.css'), 'utf8') + '\n' + fs.readFileSync(path.join(SRC, 'historias.css'), 'utf8'));
 // Each asset is embedded once; scene and character SVGs reuse the data URI.
 const { fondos, personajes } = require('./scripts/load-art')();
-const arte = `<script>window.SVFondos=${JSON.stringify(fondos)};window.SVPersonajesCartoon=${JSON.stringify(personajes)};document.documentElement.style.setProperty('--bosque-portada','url("'+window.SVFondos.selva+'")');</script>`;
+const cubiertas = Object.fromEntries(['don_quijote', 'macondo', 'biblioteca_borges', 'casa_azul'].map(id => [id, 'data:image/webp;base64,' + fs.readFileSync(path.join(SRC, 'art', 'assets', 'historias', id + '.webp')).toString('base64')]));
+const arte = `<script>window.SVFondos=${JSON.stringify(fondos)};window.SVCubiertas=${JSON.stringify(cubiertas)};window.SVPersonajesCartoon=${JSON.stringify(personajes)};document.documentElement.style.setProperty('--bosque-portada','url("'+window.SVFondos.selva+'")');</script>`;
 const LS = new RegExp('[' + String.fromCharCode(0x2028) + String.fromCharCode(0x2029) + ']', 'g');
 const inline = SCRIPTS.map(f => {
   const code = fs.readFileSync(path.join(SRC, f), 'utf8').replace(LS, '');

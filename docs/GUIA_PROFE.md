@@ -20,7 +20,9 @@ Le fichier `cuentalo.html` contient tout le jeu : un seul fichier, à ouvrir par
 
 ### 2.1 L'écran d'accueil
 
-Trois entrées :
+L'accueil est une **bibliothèque de quatre histoires en cinq chapitres** : Don Quichotte, Macondo, une quête inspirée de Borges et la vie de Frida. L'élève choisit un livre, découvre ses personnages et suit le récit jusqu'au dénouement. À chaque chapitre, deux choix invitent à observer ou interpréter ; il n'y a pas de réponse fausse et les faits biographiques ne changent pas. L'avancement se sauvegarde par histoire. Les chapitres déjà parcourus restent accessibles, puis un carnet permet d'écrire et de télécharger sa réflexion. Ces récits sont plus longs que les phrases de l'atelier : une lecture accompagnée peut être utile. Voir [le guide des histoires](../HISTORIAS.md).
+
+Le bouton **Taller de viñetas** ouvre trois entrées :
 
 | Entrée | Pour qui | Usage |
 |---|---|---|
@@ -28,9 +30,9 @@ Trois entrées :
 | « Solo » | un élève en autonomie | sur poste ou tablette, seul ou en binôme |
 | « Autor » | un élève ou la professeure | créer un niveau : choisir les escenas, les personajes, le titre, puis le partager par un code (partie 6) |
 
-Le mode choisi est mémorisé sur ce poste : au lancement suivant, le jeu s'ouvre directement en « Pizarra » ou en « Solo » ; « 🏠 » (en haut à gauche) ramène à cet écran pour en changer. Choisir « Autor » sans avoir encore choisi de mode ouvre le jeu en « Solo ».
+Le mode choisi est mémorisé pour l'atelier. Le lien général ouvre la bibliothèque ; les liens directs vers un niveau ou un mode conservent leur comportement. « 🏠 » (en haut à gauche du jeu de viñetas) ramène à l'accueil de l'atelier. Choisir « Autor » sans avoir encore choisi de mode ouvre l'atelier en « Solo ».
 
-Deux accès supplémentaires ouvrent les nouveaux chapitres : **Viajes y culturas** et **Libros y artistas**. Le mode Pizarra est conservé s'il est déjà actif. Les mêmes niveaux sont aussi disponibles dans « Niveles ». Dans chaque nouvelle aventure, cliquer sur **Descubrir**, sous le titre, ouvre une fiche sur le lieu, l'œuvre ou l'artiste, accompagnée de mots utiles. Le repère culturel figure également sur la BD imprimée. Voir [les dix nouvelles aventures et leurs solutions](CULTURAS.md).
+Deux accès supplémentaires sont proposés : **Viajes y culturas** ouvre les énigmes culturelles ; **Elegir una historia completa** ramène à la bibliothèque. Les vingt-six énigmes, y compris « Libros y artistas », restent dans « Niveles ». Dans chaque énigme culturelle, **Descubrir** ouvre une fiche sur le lieu, l'œuvre ou l'artiste. Ce repère figure aussi sur la BD imprimée. Voir [les dix énigmes culturelles et leurs solutions](CULTURAS.md).
 
 Astuce pour le poste du vidéoprojecteur : un raccourci vers `cuentalo.html?modo=pizarra&nivel=c1n1&dif=2` ouvre directement le mode, le niveau et le réglage ★ voulus.
 
