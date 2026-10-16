@@ -131,7 +131,10 @@
   const EVENTOS = ['encuentra', 'seEncuentran', 'pierde', 'noPierde', 'caminanJuntos', 'bebe', 'cruzaCuerda', 'cruzaMojado', 'calor', 'tormenta',
     'nocheSolo', 'nocheLinterna', 'nocheJuntos', 'jaguarSolo', 'jaguarJuntos', 'serpienteMuerde', 'serpienteAvisa', 'comeFrutas', 'fuego', 'comeComida',
     'comen', 'comparte', 'comeSolo', 'descansa', 'cura', 'seCuran', 'perdon', 'montana', 'mapa', 'mochila', 'cuerda', 'manta', 'linterna', 'rescate',
-    'rescateNoVe', 'amigos', 'yaSalvo', 'demasiados'];
+    'rescateNoVe', 'amigos', 'yaSalvo', 'demasiados',
+    'eligeLibro', 'comparteLibro', 'visitaCentro', 'visitaPatios', 'preparaPapel', 'recuerdaFamilia', 'preparaOfrenda', 'paseaPlaza',
+    'compraMercado', 'comparteMercado', 'ensayaTango', 'bailaTango', 'construyeBarrilete', 'exponeBarrilete', 'observaCultura',
+    'imaginaGigantes', 'reconoceMolinos', 'olvidaNombres', 'etiquetaRecuerdos', 'entraLaberinto', 'saleLaberinto', 'observaAutorretrato', 'pintaAutorretrato'];
 
   /** Quita las claves undefined (para que el objetivo decodificado sea igual al original). */
   function limpio(o) { for (const k in o) if (o[k] === undefined) delete o[k]; return o; }
@@ -140,7 +143,7 @@
     const ref = id => { const i = nivel.personajes.indexOf(id); if (i < 0 || i > 3) throw noGuardable(`el título habla de «${nombre(id)}», que no está en el nivel`); w.u(2, i); };
     const refOpc = id => { if (id) { w.u(1, 1); ref(id); } else w.u(1, 0); };
     const est = e => { const i = ESTADOS.indexOf(e); if (i < 0) throw noGuardable(`estado desconocido «${e}»`); w.u(4, i); };
-    const evt = e => { const i = EVENTOS.indexOf(e); if (i < 0) throw noGuardable(`evento desconocido «${e}»`); w.u(6, i); };
+    const evt = e => { const i = EVENTOS.indexOf(e); if (i < 0 || i >= 64) throw noGuardable(`evento desconocido o fuera del formato «${e}»`); w.u(6, i); };
     if (!obj || !obj.tipo) throw noGuardable('el nivel todavía no tiene título u objetivo');
     const t = TIPOS.indexOf(obj.tipo);
     if (t < 0) throw noGuardable(`tipo de objetivo desconocido «${obj.tipo}»`);
@@ -314,23 +317,23 @@
      Requisitos leídos en paso() de engine.js. Cada entrada es una lista de alternativas; una alternativa exige TODAS
      sus escenas, un mínimo de personajes y, si «dos», alguna escena de 2 plazas. */
   const CONSIGUE = { // cómo aparece un estado
-    hambre: [{ escenas: ['selva'], personajes: 2 }, { escenas: ['montana'] }],      // selva a dos (caminan juntos) · montaña
+    hambre: [{ escenas: ['selva'], personajes: 2 }, { escenas: ['montana'] }, { escenas: ['plaza_cultural'] }],
     sed: [{ escenas: ['sol'] }],                                                     // el sol
     frio: [{ escenas: ['rio'] }, { escenas: ['tormenta'] }],                         // río sin cuerda · tormenta sin manta
-    miedo: [{ escenas: ['tormenta'] }, { escenas: ['noche'] }, { escenas: ['jaguar'] }], // solo/a en la tormenta, la noche (sin linterna) o con el jaguar
-    cansado: [{ escenas: ['selva'], personajes: 2 }, { escenas: ['montana'] }],     // selva a dos · montaña
+    miedo: [{ escenas: ['tormenta'] }, { escenas: ['noche'] }, { escenas: ['jaguar'] }, { escenas: ['don_quijote'] }],
+    cansado: [{ escenas: ['selva'], personajes: 2 }, { escenas: ['montana'] }, { escenas: ['plaza_cultural'] }, { escenas: ['tango'] }],
     herido: [{ escenas: ['serpiente'] }],                                            // la serpiente, solo/a
-    perdido: [{ escenas: ['selva'] }, { escenas: ['jaguar'] }],                      // solo/a sin mapa en la selva o con el jaguar
+    perdido: [{ escenas: ['selva'] }, { escenas: ['jaguar'] }, { escenas: ['alhambra'] }, { escenas: ['biblioteca_borges'] }],
     salvo: [{ escenas: ['rescate'] }]                                                // el rescate (sin estar perdido)
   };
   const QUITA = { // cómo desaparece un estado
-    hambre: [{ escenas: ['frutas'] }, { escenas: ['mochila'] }],                     // frutas · mochila (y el fuego con la comida de la mochila)
+    hambre: [{ escenas: ['frutas'] }, { escenas: ['mochila'] }, { escenas: ['mercado_cusco'], personajes: 2 }],
     sed: [{ escenas: ['rio'] }],                                                     // bebe agua
     frio: [{ escenas: ['fuego'] }, { escenas: ['manta'] }],                          // fuego · manta
-    miedo: [{ escenas: ['noche'], personajes: 2 }, { escenas: ['noche', 'linterna'] }, { escenas: ['refugio'] }, { escenas: ['linterna'] }],
-    cansado: [{ escenas: ['noche'], personajes: 2 }, { escenas: ['refugio'] }],     // noche a dos · refugio
+    miedo: [{ escenas: ['noche'], personajes: 2 }, { escenas: ['noche', 'linterna'] }, { escenas: ['refugio'] }, { escenas: ['linterna'] }, { escenas: ['don_quijote', 'centro_cultural'], personajes: 2 }],
+    cansado: [{ escenas: ['noche'], personajes: 2 }, { escenas: ['refugio'] }, { escenas: ['centro_cultural'] }],
     herido: [{ escenas: ['refugio'], personajes: 2 }],                               // el otro lo cura en el refugio
-    perdido: [{ escenas: ['mapa'] }, { escenas: ['montana'] }, { dos: true, personajes: 2 }] // mapa · montaña · alguien lo encuentra (cualquier escena a dos)
+    perdido: [{ escenas: ['mapa'] }, { escenas: ['montana'] }, { encuentro: true, personajes: 2 }, { escenas: ['centro_cultural'] }]
   };
   const REQ_EVENTO = {
     encuentra: [{ escenas: ['selva'], personajes: 2 }, { escenas: ['jaguar'], personajes: 2 }],      // uno se pierde solo; después, los dos juntos (la misma escena vale)
@@ -342,19 +345,37 @@
     nocheJuntos: [{ escenas: ['noche'], personajes: 2 }],
     jaguarJuntos: [{ escenas: ['jaguar'], personajes: 2 }],
     caminanJuntos: [{ escenas: ['selva'], personajes: 2 }],
-    nocheLinterna: [{ escenas: ['noche', 'linterna'] }]                                                 // linterna antes de la noche, solo/a
+    nocheLinterna: [{ escenas: ['noche', 'linterna'] }],
+    eligeLibro: [{ escenas: ['sant_jordi'] }],
+    comparteLibro: [{ escenas: ['sant_jordi'], personajes: 2 }],
+    visitaPatios: [{ escenas: ['alhambra', 'centro_cultural'], personajes: 2 }],
+    preparaOfrenda: [{ escenas: ['ofrenda', 'taller_cultural'], personajes: 2 }],
+    comparteMercado: [{ escenas: ['mercado_cusco', 'plaza_cultural'], personajes: 2 }, { escenas: ['mercado_cusco', 'montana'], personajes: 2 }, { escenas: ['mercado_cusco', 'selva'], personajes: 2 }],
+    bailaTango: [{ escenas: ['tango', 'centro_cultural'], personajes: 2 }, { escenas: ['tango', 'refugio'], personajes: 2 }, { escenas: ['tango', 'noche'], personajes: 2 }],
+    construyeBarrilete: [{ escenas: ['barriletes', 'taller_cultural'], personajes: 2 }],
+    exponeBarrilete: [{ escenas: ['barriletes', 'taller_cultural'], personajes: 2 }],
+    reconoceMolinos: [{ escenas: ['don_quijote', 'centro_cultural'], personajes: 2 }],
+    etiquetaRecuerdos: [{ escenas: ['macondo', 'taller_cultural'], personajes: 2 }],
+    saleLaberinto: [{ escenas: ['biblioteca_borges', 'centro_cultural'], personajes: 2 }],
+    pintaAutorretrato: [{ escenas: ['casa_azul', 'taller_cultural'], personajes: 2 }]
   };
   const REQ_RELACION = {
     amigos: [{ dos: true, personajes: 2 }], // compartir cualquier viñeta de 2 plazas
     enfadado: REQ_EVENTO.comeSolo
   };
   // Orden pedagógico de los eventos propuestos y cómo se nombran sus participantes
-  const EVENTOS_ASISTENTE = ['encuentra', 'cura', 'comparte', 'perdon', 'seEncuentran', 'nocheJuntos', 'jaguarJuntos', 'caminanJuntos', 'nocheLinterna', 'comeSolo'];
+  const EVENTOS_ASISTENTE = ['encuentra', 'cura', 'comparte', 'perdon', 'seEncuentran', 'nocheJuntos', 'jaguarJuntos', 'caminanJuntos', 'nocheLinterna', 'comeSolo',
+    'eligeLibro', 'comparteLibro', 'visitaPatios', 'preparaOfrenda', 'comparteMercado', 'bailaTango', 'construyeBarrilete', 'exponeBarrilete',
+    'reconoceMolinos', 'etiquetaRecuerdos', 'saleLaberinto', 'pintaAutorretrato'];
   const FORMA_EVENTO = { encuentra: 'ordenado', cura: 'ordenado', comparte: 'ordenado', perdon: 'ordenado', seEncuentran: 'pareja', nocheJuntos: 'pareja',
-    caminanJuntos: 'pareja', jaguarJuntos: 'generico', nocheLinterna: 'uno', comeSolo: 'uno' };
+    caminanJuntos: 'pareja', jaguarJuntos: 'generico', nocheLinterna: 'uno', comeSolo: 'uno', eligeLibro: 'uno', comparteLibro: 'ordenado',
+    visitaPatios: 'ordenado', preparaOfrenda: 'pareja', comparteMercado: 'ordenado', bailaTango: 'pareja', construyeBarrilete: 'pareja',
+    exponeBarrilete: 'pareja', reconoceMolinos: 'ordenado', etiquetaRecuerdos: 'ordenado', saleLaberinto: 'ordenado', pintaAutorretrato: 'ordenado' };
 
   function cumple(alternativas, escenas, nP) {
-    return (alternativas || []).some(alt => (alt.escenas || []).every(e => escenas.includes(e)) && nP >= (alt.personajes || 1) && (!alt.dos || escenas.some(e => ESCENA[e].slots >= 2)));
+    return (alternativas || []).some(alt => (alt.escenas || []).every(e => escenas.includes(e)) && nP >= (alt.personajes || 1)
+      && (!alt.dos || escenas.some(e => ESCENA[e].slots >= 2))
+      && (!alt.encuentro || escenas.some(e => ESCENA[e].slots >= 2 && !ESCENA[e].cultural)));
   }
 
   function asistenteTitulos(personajes, escenas) {

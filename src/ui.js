@@ -133,7 +133,8 @@
   /* ---------- pintar ---------- */
   function pintarTodo() {
     pintarDif();
-    $('#subcap').textContent = nivel.libre ? 'nivel libre' : nivel.autor ? 'nivel de autor' : `capítulo ${nivel.capitulo}`;
+    document.body.classList.toggle('cultural', !!nivel.cultura);
+    $('#subcap').textContent = nivel.libre ? 'nivel libre' : nivel.autor ? 'nivel de autor' : nivel.capitulo === 4 ? 'viajes y culturas' : nivel.capitulo === 5 ? 'libros y artistas' : `capítulo ${nivel.capitulo}`;
     const tt = $('#tituloTxt');
     tt.innerHTML = nivel.libre ? 'Mi historia <span class="alt">(sin título: ¡inventa uno!)</span>' : esc(nivel.titulo);
     tt.classList.remove('ok');
@@ -147,12 +148,26 @@
     }
     ini.hidden = !lineas.length && !sec;
     ini.innerHTML = (lineas.length ? `<span><b>Al principio:</b> ${lineas.join(' ')}</span>` : '') + (sec ? `<span class="sec">${sec}</span>` : '');
+    pintarCultura();
     pintarStock();
     pintarTira();
     simular();
     pintarNiveles();
     pintarLexico();
     if (window.SVApp.alPintar) window.SVApp.alPintar();
+  }
+  function pintarCultura() {
+    const ficha = $('#culturaNivel');
+    const entrada = nivel.cultura;
+    const c = entrada && typeof entrada === 'object' && ['lugar', 'pais', 'dato'].every(k => typeof entrada[k] === 'string') ? entrada : null;
+    ficha.hidden = !c;
+    if (!c) { ficha.innerHTML = ''; ficha.removeAttribute('data-nivel'); return; }
+    if (ficha.dataset.nivel !== nivel.id) ficha.open = false;
+    ficha.dataset.nivel = nivel.id;
+    const nombre = c.obra || c.artista || c.autor || c.lugar;
+    const referencia = nivel.capitulo === 5 ? `<p class="cultura-referencia">${esc([c.autor, c.lugar].filter(Boolean).join(' · '))}</p>` : '';
+    const palabras = Array.isArray(c.palabras) ? c.palabras.map(w => typeof w === 'string' ? w : w && w.palabra).filter(w => typeof w === 'string' && w.trim()) : [];
+    ficha.innerHTML = `<summary><span class="cultura-sello">${nivel.capitulo === 5 ? 'Libros y artistas' : 'Nuestro viaje'}</span><strong>${esc(nombre)}</strong><span class="cultura-pais">${esc(c.pais)}</span><span class="cultura-descubrir">Descubrir</span></summary><div class="cultura-contenido">${referencia}<p>${esc(c.dato)}</p>${palabras.length ? `<p class="cultura-palabras"><b>Palabras para contar:</b> ${palabras.map(esc).join(' · ')}</p>` : ''}</div>`;
   }
   function pintarStock() {
     const se = $('#stockEscenas'); se.innerHTML = '';
@@ -181,6 +196,7 @@
   }
   function seleccionar(s) {
     seleccion = s;
+    if (s && window.matchMedia('(max-height:800px) and (min-width:721px)').matches) $('#culturaNivel').open = false;
     document.querySelectorAll('.carta').forEach(c => c.classList.toggle('sel', !!s && c.dataset.tipo === s.tipo && c.dataset.id === s.id));
     document.body.classList.toggle('seleccion', !!s);
     if (s) toast(s.tipo === 'escena' ? `Ahora haz clic en una viñeta para poner «${ES[s.id].nombre}»` : `Ahora haz clic en una viñeta para poner a ${PJ[s.id].nombre}`, 3500);
@@ -441,17 +457,17 @@
   function cerrarPaneles() { $('#panelNiveles').hidden = true; $('#panelLexico').hidden = true; $('#menuDif').hidden = true; }
   function pintarNiveles() {
     const p = $('#panelNiveles');
-    const caps = { 1: 'Capítulo 1 · Solo en la selva', 2: 'Capítulo 2 · Juntos', 3: 'Capítulo 3 · El grupo', 0: 'Nivel libre', 9: 'Niveles de la clase' };
+    const caps = { 1: 'Capítulo 1 · Solo en la selva', 2: 'Capítulo 2 · Juntos', 3: 'Capítulo 3 · El grupo', 4: 'Capítulo 4 · Viajes y culturas', 5: 'Capítulo 5 · Libros y artistas', 0: 'Nivel libre', 9: 'Niveles de la clase' };
     const vis = nivelesVisibles();
     let html = `<h2>Niveles <button class="btn sec cerrar" aria-label="Cerrar">×</button></h2>`;
-    for (const c of [1, 2, 3, 0, 9]) {
+    for (const c of [1, 2, 3, 4, 5, 0, 9]) {
       const lista = vis.filter(n => (c === 9 ? n.autor : n.capitulo === c && !n.autor));
       if (!lista.length) continue;
       html += `<h3>${caps[c]}</h3>`;
       for (const n of lista) {
         const pr = progresoDe(n.id);
         const est = n.libre ? '' : `<span class="estrellas">${'★'.repeat(pr.estrellas || 0)}${'☆'.repeat(3 - (pr.estrellas || 0))}${pr.secreto ? ' 🔑' : ''}</span>`;
-        html += `<button class="niv${esActual(n) ? ' actual' : ''}${pr.estrellas ? ' hecho' : ''}" data-id="${esc(n.id)}"><span class="cnt">${n.libre ? '✎' : n.viñetas + ' ▭'}</span><span>${esc(n.titulo)}</span>${est}</button>`;
+        html += `<button class="niv${esActual(n) ? ' actual' : ''}${pr.estrellas ? ' hecho' : ''}" data-id="${esc(n.id)}"><span class="cnt">${n.libre ? '✎' : n.viñetas + ' ▭'}</span><span>${esc(n.titulo)}${n.cultura ? `<small class="niv-lugar">${esc(n.cultura.pais)} · ${esc(n.cultura.obra || n.cultura.artista || n.cultura.autor || n.cultura.lugar)}</small>` : ''}</span>${est}</button>`;
       }
     }
     if (window.SVApp.abrirAutor) html += `<h3>Crear</h3><button class="btn sec" id="btnIrAutor">✎ Crear un nivel</button> <button class="btn sec" id="btnImportar">⌨ Tengo un código</button>`;
@@ -486,13 +502,23 @@
   function pintarLexico() {
     const p = $('#panelLexico');
     const lex = E.lexicoDe(nivel);
-    p.innerHTML = `<h2>Léxico <button class="btn sec cerrar" aria-label="Cerrar">×</button></h2><p class="nota">Palabras de este nivel. Haz clic para escuchar.</p><div class="lex">${lex.map(w => `<button data-w="${w.palabra}"><span>${w.picto}</span><span>${w.palabra}</span></button>`).join('')}</div>`;
+    p.innerHTML = `<h2>Léxico <button class="btn sec cerrar" aria-label="Cerrar">×</button></h2><p class="nota">Palabras de este nivel. Haz clic para escuchar.</p><div class="lex">${lex.map(w => `<button data-w="${esc(w.palabra)}"><span>${esc(w.picto)}</span><span>${esc(w.palabra)}</span></button>`).join('')}</div>`;
     p.querySelector('.cerrar').onclick = () => { p.hidden = true; };
     p.querySelectorAll('.lex button').forEach(b => b.onclick = () => hablar(b.dataset.w));
   }
 
   /* ---------- botones ---------- */
   $('#btnInicio').onclick = pintarInicio;
+  function abrirCapitulo(capitulo) {
+    const primero = nivelesVisibles().find(n => n.capitulo === capitulo) || C.NIVELES.find(n => n.capitulo === capitulo);
+    if (!primero) return;
+    if (!nivelesVisibles().some(n => n.id === primero.id)) ajustes().dif = 2;
+    elegirModo(ajustes().modo === 'pizarra' ? 'pizarra' : 'solo');
+    abrirNivel(primero.id);
+  }
+  $('#btnCulturas').onclick = () => abrirCapitulo(4);
+  $('#btnLibros').onclick = () => abrirCapitulo(5);
+  $('#culturaNivel').addEventListener('toggle', ajustarTira);
   $('#btnNiveles').onclick = () => { const p = $('#panelNiveles'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
   $('#btnLexico').onclick = () => { const p = $('#panelLexico'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
   $('#btnQuePasa').onclick = quePasa;
