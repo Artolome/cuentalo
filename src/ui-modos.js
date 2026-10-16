@@ -118,7 +118,8 @@
     const titulo = nivel.libre ? 'Mi historia' : nivel.titulo;
     const secreto = res.secreto && nivel.secreto && tituloSecreto ? ` · 🔑 ${tituloSecreto}` : '';
     const inicio = res.inicio && res.inicio.length ? `<p class="imp-frase imp-inicio"><b>Al principio:</b> ${esc(res.inicio.join(' '))}</p>` : '';
-    return `<div class="imp-pagina"><h1 class="imp-titulo">${esc(titulo)}</h1>${inicio}<div class="imp-tira" style="--c:${cols}">${vin}</div><p class="imp-pie">Cuéntalo · ${esc(nivel.personajes.map(id => PJ[id].nombre).join(', '))}${esc(secreto)} · Nombre o código: ____________________</p></div>${hoja(4)}${hoja(6)}`;
+    const cultura = nivel.cultura ? `<p class="imp-frase imp-inicio"><b>${esc(nivel.cultura.lugar)} · ${esc(nivel.cultura.pais)}.</b> ${esc(nivel.cultura.dato)}</p>` : '';
+    return `<div class="imp-pagina"><h1 class="imp-titulo">${esc(titulo)}</h1>${cultura}${inicio}<div class="imp-tira" style="--c:${cols}">${vin}</div><p class="imp-pie">Cuéntalo · ${esc(nivel.personajes.map(id => PJ[id].nombre).join(', '))}${esc(secreto)} · Nombre o código: ____________________</p></div>${hoja(4)}${hoja(6)}`;
   }
   function imprimir() {
     const nivel = App.nivel(), res = App.resultado();

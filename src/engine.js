@@ -10,6 +10,9 @@
   'use strict';
 
   const NEGATIVOS = ['hambre', 'sed', 'frio', 'miedo', 'cansado', 'herido', 'perdido'];
+  // Mémoire d'actions, distincte des cinq objets sérialisés par les codes Auteur v1.
+  const CULTURA = { libro: 1, plano: 2, papel: 4, recuerdo: 8, ensayo: 16, barrilete: 32,
+    gigantes: 64, olvido: 128, laberinto: 256, retrato: 512 };
   const POR_ID = {};
   for (const p of C.PERSONAJES) POR_ID[p.id] = p;
   const ESCENA = {};
@@ -26,7 +29,7 @@
     const S = {};
     for (const id of nivel.personajes) {
       S[id] = { hambre: false, sed: false, frio: false, miedo: false, cansado: false, herido: false, perdido: false, salvo: false,
-        objetos: {}, amigos: {}, enfadado: {} };
+        objetos: {}, amigos: {}, enfadado: {}, cultura: 0 };
       const ini = nivel.inicial && nivel.inicial[id];
       if (ini) {
         for (const k in ini) {
@@ -90,6 +93,10 @@
     const tiene = (id, o) => !!S[id].objetos[o];
     const alguienTiene = o => ids.some(id => tiene(id, o));
     const quienes = k => ids.filter(id => S[id][k]);
+    const recuerda = (id, k) => !!((S[id].cultura || 0) & CULTURA[k]);
+    const aprende = (id, k) => { S[id].cultura = (S[id].cultura || 0) | CULTURA[k]; };
+    const olvida = (id, k) => { S[id].cultura = (S[id].cultura || 0) & ~CULTURA[k]; };
+    const observa = motivo => ev('observaCultura', { quienes: ids, motivo });
 
     if (!esc || !ids.length) return evs; // viñeta incompleta
     if (ESCENA[esc] && ids.length > ESCENA[esc].slots) { ctx.hist.invalido = true; ev('demasiados', { quienes: ids }); return evs; }
@@ -100,7 +107,7 @@
     if (yaSalvo.length) { ctx.hist.invalido = true; for (const id of yaSalvo) ev('yaSalvo', { quien: id }); return evs; }
 
     // 1. Juntos: el que no está perdido encuentra al perdido.
-    if (ids.length === 2) {
+    if (ids.length === 2 && !ESCENA[esc].cultural) {
       const perdidos = quienes('perdido');
       if (perdidos.length === 1) {
         const a = perdidos[0], q = ids.find(id => id !== a);
@@ -235,6 +242,111 @@
         else { for (const id of ids) set(id, 'salvo', true); ev('rescate', { quienes: ids }); }
         break;
       }
+      case 'sant_jordi': {
+        if (ids.length === 1) { aprende(ids[0], 'libro'); ev('eligeLibro', { quien: ids[0] }); }
+        else {
+          const libros = ids.filter(id => recuerda(id, 'libro'));
+          if (libros.length === 1) {
+            const q = libros[0], a = ids.find(id => id !== q); aprende(a, 'libro');
+            ev('comparteLibro', { quien: q, a });
+          } else observa('libros');
+        }
+        break;
+      }
+      case 'centro_cultural': {
+        const cansados = ids.filter(id => S[id].cansado);
+        for (const id of ids) { aprende(id, 'plano'); set(id, 'perdido', false); set(id, 'cansado', false); }
+        ev('visitaCentro', { quienes: ids, cansados }); break;
+      }
+      case 'plaza_cultural': {
+        for (const id of ids) { set(id, 'hambre', true); set(id, 'cansado', true); }
+        ev('paseaPlaza', { quienes: ids }); break;
+      }
+      case 'taller_cultural': {
+        for (const id of ids) aprende(id, 'papel');
+        ev('preparaPapel', { quienes: ids }); break;
+      }
+      case 'alhambra': {
+        const q = ids.find(id => recuerda(id, 'plano'));
+        const a = q && ids.find(id => id !== q && S[id].perdido);
+        if (q && a) { for (const id of ids) set(id, 'perdido', false); ev('visitaPatios', { quien: q, a }); }
+        else if (!q) { for (const id of ids) set(id, 'perdido', true); observa('sinPlano'); }
+        else observa('patios');
+        break;
+      }
+      case 'ofrenda': {
+        if (ids.length === 1) { aprende(ids[0], 'recuerdo'); ev('recuerdaFamilia', { quien: ids[0] }); }
+        else if (ids.some(id => recuerda(id, 'recuerdo')) && ids.every(id => recuerda(id, 'papel'))) ev('preparaOfrenda', { quienes: ids });
+        else observa('ofrenda');
+        break;
+      }
+      case 'mercado_cusco': {
+        if (ids.length === 1) { S[ids[0]].objetos.comida = true; ev('compraMercado', { quien: ids[0] }); }
+        else {
+          const con = ids.filter(id => tiene(id, 'comida'));
+          const q = con.length === 1 && con[0], a = q && ids.find(id => id !== q && S[id].hambre);
+          if (q && a) {
+            const hambrientos = ids.filter(id => S[id].hambre);
+            for (const id of ids) set(id, 'hambre', false);
+            delete S[q].objetos.comida; ev('comparteMercado', { quien: q, a, hambrientos });
+          }
+          else observa('mercado');
+        }
+        break;
+      }
+      case 'tango': {
+        if (ids.length === 2 && ids.every(id => recuerda(id, 'ensayo') && !S[id].cansado)) ev('bailaTango', { quienes: ids });
+        else { for (const id of ids) { aprende(id, 'ensayo'); set(id, 'cansado', true); } ev('ensayaTango', { quienes: ids }); }
+        break;
+      }
+      case 'barriletes': {
+        if (ids.length === 2 && ids.every(id => recuerda(id, 'barrilete'))) ev('exponeBarrilete', { quienes: ids });
+        else if (ids.length === 2 && ids.every(id => recuerda(id, 'papel'))) {
+          for (const id of ids) aprende(id, 'barrilete');
+          ev('construyeBarrilete', { quienes: ids });
+        } else observa('barriletes');
+        break;
+      }
+      case 'don_quijote': {
+        if (ids.length === 1) { aprende(ids[0], 'gigantes'); set(ids[0], 'miedo', true); ev('imaginaGigantes', { quien: ids[0] }); }
+        else {
+          const a = ids.find(id => recuerda(id, 'gigantes'));
+          const q = a && ids.find(id => id !== a && recuerda(id, 'plano'));
+          if (q) { set(a, 'miedo', false); olvida(a, 'gigantes'); ev('reconoceMolinos', { quien: q, a }); }
+          else observa('molinos');
+        }
+        break;
+      }
+      case 'macondo': {
+        if (ids.length === 1) { aprende(ids[0], 'olvido'); ev('olvidaNombres', { quien: ids[0] }); }
+        else {
+          const a = ids.find(id => recuerda(id, 'olvido'));
+          const q = a && ids.find(id => id !== a && recuerda(id, 'papel'));
+          if (q) { olvida(a, 'olvido'); ev('etiquetaRecuerdos', { quien: q, a }); }
+          else observa('macondo');
+        }
+        break;
+      }
+      case 'biblioteca_borges': {
+        if (ids.length === 1 && !recuerda(ids[0], 'plano')) {
+          aprende(ids[0], 'laberinto'); set(ids[0], 'perdido', true); ev('entraLaberinto', { quien: ids[0] });
+        } else {
+          const a = ids.find(id => recuerda(id, 'laberinto') && S[id].perdido);
+          const q = a && ids.find(id => id !== a && recuerda(id, 'plano'));
+          if (q) { set(a, 'perdido', false); olvida(a, 'laberinto'); ev('saleLaberinto', { quien: q, a }); }
+          else observa('biblioteca');
+        }
+        break;
+      }
+      case 'casa_azul': {
+        if (ids.length === 1) { aprende(ids[0], 'retrato'); ev('observaAutorretrato', { quien: ids[0] }); }
+        else {
+          const q = ids.find(id => recuerda(id, 'retrato') && recuerda(id, 'papel'));
+          if (q) ev('pintaAutorretrato', { quien: q, a: ids.find(id => id !== q) });
+          else observa('casaAzul');
+        }
+        break;
+      }
       default: throw new Error('escena desconocida: ' + esc);
     }
     if (amigos) haceAmigos();
@@ -337,6 +449,42 @@
       case 'rescateNoVe': return [`El helicóptero no ${Vi('ver')} a ${N(q)}. ${N(q)} todavía ${V('estar', q)} ${A('perdido', q)}.`];
       case 'amigos': return [t === 'pret' ? `${N(qs)} se hicieron ${A('amigo', qs)}.` : `Ahora ${N(qs)} ${V('ser', qs)} ${A('amigo', qs)}.`];
       case 'demasiados': return ['Aquí solo cabe una persona.'];
+      case 'eligeLibro': return [`${N(q)} ${V('elegir', q)} un libro en un puesto de Sant Jordi.`];
+      case 'comparteLibro': return [`${N(q)} ${V('compartir', q)} un libro con ${N(a)}.`, `${N([e.quien, e.a])} ${V('leer', [e.quien, e.a])} ${A('juntos', [e.quien, e.a])}.`];
+      case 'visitaCentro': {
+        const frases = [`${N(qs)} ${V('consultar', qs)} un plano en el centro cultural.`, `${L.cap(V('descansar', qs))} un poco.`];
+        if (e.cansados && e.cansados.length) frases.push(`${N(e.cansados)} ya no ${V('estar', e.cansados)} ${A('cansado', e.cansados)}.`);
+        return frases;
+      }
+      case 'paseaPlaza': return [`${N(qs)} ${V('caminar', qs)} por la plaza.`, `${L.cap(V('tener', qs))} hambre y ${V('estar', qs)} ${A('cansado', qs)}.`];
+      case 'preparaPapel': return [`${N(qs)} ${V('preparar', qs)} papel y ${V('dibujar', qs)} en el taller.`, `${L.cap(V('guardar', qs))} el papel para su proyecto.`];
+      case 'visitaPatios': return [`Con el plano, ${N(q)} ${V('guiar', q)} a ${N(a)} por los patios de la Alhambra.`, `${N(a)} ya no ${V('estar', a)} ${A('perdido', a)}.`];
+      case 'recuerdaFamilia': return [`${N(q)} ${V('recordar', q)} con cariño a un ser querido ante la ofrenda.`];
+      case 'preparaOfrenda': return [`${N(qs)} ${V('preparar', qs)} una ofrenda con flores y papel decorado.`, `${L.cap(V('recordar', qs))} a sus seres queridos con respeto.`];
+      case 'compraMercado': return [`${N(q)} ${V('comprar', q)} comida en el mercado de San Pedro.`, `La ${V('guardar', q)} para compartir.`];
+      case 'comparteMercado': {
+        const ids = e.hambrientos && e.hambrientos.length ? e.hambrientos : a;
+        return [`${N(q)} ${V('compartir', q)} un almuerzo con ${N(a)} en el mercado.`, `${N(ids)} ya no ${V('tener', ids)} hambre.`];
+      }
+      case 'ensayaTango': return [`${N(qs)} ${V('ensayar', qs)} los pasos del tango.`, `Después ${V('estar', qs)} ${A('cansado', qs)}: ${V('necesitar', qs)} descansar.`];
+      case 'bailaTango': return [`Después del ensayo y del descanso, ${N(qs)} ${V('bailar', qs)} el tango ${A('juntos', qs)}.`];
+      case 'construyeBarrilete': return [`${N(qs)} ${V('construir', qs)} un barrilete con el papel del taller.`, `${L.cap(V('decorar', qs))} el barrilete con dibujos y colores.`];
+      case 'exponeBarrilete': return [`${N(qs)} ${V('exponer', qs)} su barrilete decorado.`, `${L.cap(V('mostrar', qs))} su trabajo a la comunidad.`];
+      case 'imaginaGigantes': return [`En esta aventura de ficción, ${N(q)} ${V('imaginar', q)} que los molinos ${t === 'pret' ? 'eran' : 'son'} gigantes.`, `${L.cap(V('tener', q))} miedo.`];
+      case 'reconoceMolinos': return [`${N(q)} ${V('mostrar', q)} el plano a ${N(a)}.`, `${N(a)} ${V('reconocer', a)} los molinos y ya no ${V('tener', a)} miedo.`];
+      case 'olvidaNombres': return [`En el pueblo imaginario de Macondo, ${N(q)} ${V('olvidar', q)} los nombres de las cosas.`];
+      case 'etiquetaRecuerdos': return [`${N(q)} ${V('ayudar', q)} a ${N(a)} a escribir etiquetas.`, `Con los nombres escritos, ${N(a)} ${V('recordar', a)} las cosas.`];
+      case 'entraLaberinto': return [`En esta biblioteca de ficción, ${N(q)} ${V('caminar', q)} entre los libros y ${V('perderse', q)}.`];
+      case 'saleLaberinto': return [`Con el plano, ${N(q)} ${V('guiar', q)} a ${N(a)} hasta la salida de la biblioteca.`, `${N(a)} ya no ${V('estar', a)} ${A('perdido', a)}.`];
+      case 'observaAutorretrato': return [`${N(q)} ${V('observar', q)} un autorretrato en el museo de la Casa Azul.`, `${L.cap(V('mirar', q))} los colores y la expresión.`];
+      case 'pintaAutorretrato': return [`${N(q)} ${V('mirar', q)} su propia cara en un espejo y ${V('pintar', q)} un autorretrato.`, `${N(a)} ${V('ayudar', a)} con los colores en el taller del museo.`];
+      case 'observaCultura': {
+        const lugares = { libros: 'los puestos de libros', sinPlano: 'los caminos de la Alhambra', patios: 'los patios de la Alhambra',
+          ofrenda: 'las flores de la ofrenda', mercado: 'los puestos del mercado', barriletes: 'los barriletes de colores',
+          molinos: 'los molinos de viento', macondo: 'las casas de Macondo', biblioteca: 'los estantes de la biblioteca', casaAzul: 'los cuadros del museo' };
+        const f = `${N(qs)} ${V('mirar', qs)} ${lugares[e.motivo] || 'el lugar'}.`;
+        return e.motivo === 'sinPlano' ? [f, `Sin un plano, ${V('estar', qs)} ${A('perdido', qs)}.`] : [f];
+      }
       default: return ['…'];
     }
   }
@@ -359,12 +507,37 @@
     cuerda: ['cuerda', 'encontrar', 'guardar'],
     manta: ['manta', 'encontrar', 'taparse', 'frío', 'guardar'],
     linterna: ['linterna', 'encontrar', 'encender', 'miedo', 'guardar'],
-    rescate: ['helicóptero', 'a salvo', 'contento', 'ver', 'perdido']
+    rescate: ['helicóptero', 'a salvo', 'contento', 'ver', 'perdido'],
+    sant_jordi: ['libro', 'rosa', 'elegir', 'leer', 'compartir'],
+    alhambra: ['patio', 'palacio', 'plano', 'guiar', 'perdido'],
+    ofrenda: ['ofrenda', 'flor', 'recuerdo', 'recordar', 'papel'],
+    mercado_cusco: ['mercado', 'almuerzo', 'comida', 'comprar', 'compartir'],
+    tango: ['tango', 'música', 'ensayar', 'bailar', 'cansado'],
+    barriletes: ['barrilete', 'papel', 'color', 'construir', 'exponer'],
+    plaza_cultural: ['plaza', 'caminar', 'hambre', 'cansado'],
+    taller_cultural: ['taller', 'papel', 'dibujar', 'preparar'],
+    centro_cultural: ['centro cultural', 'plano', 'consultar', 'descansar'],
+    don_quijote: ['molino', 'gigante', 'imaginar', 'reconocer', 'miedo'],
+    macondo: ['nombre', 'etiqueta', 'olvidar', 'recordar', 'escribir'],
+    biblioteca_borges: ['biblioteca', 'laberinto', 'salida', 'libro', 'perderse'],
+    casa_azul: ['autorretrato', 'espejo', 'observar', 'pintar', 'color']
   };
   function lexicoDe(nivel) {
     const set = new Set();
     for (const e of nivel.escenas) for (const w of LEXICO_ESCENA[e] || []) set.add(w);
-    return [...set].map(w => ({ palabra: w, picto: L.PICTOS[w] || '' }));
+    const extras = new Map();
+    const cultura = nivel.cultura;
+    const palabras = cultura && typeof cultura === 'object' && !Array.isArray(cultura) && Array.isArray(cultura.palabras) ? cultura.palabras : [];
+    for (const item of palabras) {
+      const ficha = item && typeof item === 'object' && !Array.isArray(item) ? item : null;
+      const texto = typeof item === 'string' ? item : ficha && ficha.palabra;
+      if (typeof texto !== 'string') continue;
+      const palabra = texto.trim();
+      if (!palabra) continue;
+      set.add(palabra);
+      if (ficha && typeof ficha.picto === 'string' && ficha.picto.trim()) extras.set(palabra, ficha.picto.trim());
+    }
+    return [...set].map(w => ({ palabra: w, picto: extras.get(w) || L.PICTOS[w] || '' }));
   }
 
   /* ---------- objetivos ---------- */
@@ -440,6 +613,7 @@
   const N1 = id => P(id).nombre;
   const Nq = (q, defecto) => q ? N1(q) : defecto;
   const acq = (adj, q) => q ? L.acuerdo(adj, L.gn(P(q))) : adj;
+  const accionCultural = (q, a, sg, pl, fin) => `${q && a ? N1(q) + ' y ' + N1(a) : Nq(q, 'Alguien')} ${q && a ? pl : sg} ${fin}`;
   const TITULO_EVENTO = {
     encuentra: (q, a) => `${Nq(q, 'Alguien')} encuentra a ${Nq(a, 'un amigo')}`,
     seEncuentran: (q, a) => q && a ? `${N1(q)} y ${N1(a)} se encuentran` : 'Dos amigos se encuentran',
@@ -477,7 +651,30 @@
     noPierde: q => `${Nq(q, 'Alguien')} tiene el mapa y no se pierde`,
     comeComida: q => `${Nq(q, 'Alguien')} come la comida de la mochila`,
     comen: (q, a) => q && a ? `${N1(q)} y ${N1(a)} comen juntos` : 'Comen juntos',
-    seCuran: (q, a) => q && a ? `${N1(q)} y ${N1(a)} se curan` : 'Se curan'
+    seCuran: (q, a) => q && a ? `${N1(q)} y ${N1(a)} se curan` : 'Se curan',
+    eligeLibro: q => `${Nq(q, 'Alguien')} elige un libro`,
+    comparteLibro: (q, a) => `${Nq(q, 'Alguien')} comparte un libro con ${Nq(a, 'un amigo')}`,
+    visitaCentro: (q, a) => accionCultural(q, a, 'consulta', 'consultan', 'un plano en el centro cultural'),
+    visitaPatios: (q, a) => `${Nq(q, 'Alguien')} guía a ${Nq(a, 'un amigo')} por los patios de la Alhambra`,
+    preparaPapel: (q, a) => accionCultural(q, a, 'prepara', 'preparan', 'papel en el taller'),
+    recuerdaFamilia: q => `${Nq(q, 'Alguien')} recuerda a un ser querido`,
+    preparaOfrenda: (q, a) => accionCultural(q, a, 'prepara', 'preparan', 'una ofrenda'),
+    paseaPlaza: (q, a) => accionCultural(q, a, 'camina', 'caminan', 'por la plaza'),
+    compraMercado: q => `${Nq(q, 'Alguien')} compra comida en el mercado`,
+    comparteMercado: (q, a) => `${Nq(q, 'Alguien')} comparte un almuerzo con ${Nq(a, 'un amigo')}`,
+    ensayaTango: (q, a) => accionCultural(q, a, 'ensaya', 'ensayan', 'el tango'),
+    bailaTango: (q, a) => accionCultural(q, a, 'baila', 'bailan', 'el tango'),
+    construyeBarrilete: (q, a) => accionCultural(q, a, 'construye', 'construyen', 'un barrilete'),
+    exponeBarrilete: (q, a) => accionCultural(q, a, 'expone', 'exponen', 'un barrilete'),
+    observaCultura: (q, a) => accionCultural(q, a, 'observa', 'observan', 'el lugar'),
+    imaginaGigantes: q => `${Nq(q, 'Alguien')} imagina gigantes`,
+    reconoceMolinos: (q, a) => `${Nq(q, 'Alguien')} ayuda a ${Nq(a, 'un amigo')} a reconocer los molinos`,
+    olvidaNombres: q => `${Nq(q, 'Alguien')} olvida los nombres`,
+    etiquetaRecuerdos: (q, a) => `${Nq(q, 'Alguien')} ayuda a ${Nq(a, 'un amigo')} a recordar los nombres`,
+    entraLaberinto: q => `${Nq(q, 'Alguien')} se pierde en la biblioteca`,
+    saleLaberinto: (q, a) => `${Nq(q, 'Alguien')} guía a ${Nq(a, 'un amigo')} hasta la salida de la biblioteca`,
+    observaAutorretrato: q => `${Nq(q, 'Alguien')} observa un autorretrato`,
+    pintaAutorretrato: (q, a) => `${Nq(q, 'Alguien')} pinta un autorretrato con ${Nq(a, 'un amigo')}`
   };
   /* Títulos para «nunca ocurre el evento» (tipo sinEvento) */
   const TITULO_SIN = {
@@ -498,7 +695,18 @@
     jaguarJuntos: () => 'Los dos juntos con el jaguar.',
     caminanJuntos: () => 'Los dos juntos en la selva, sin estar perdidos.',
     cruzaCuerda: () => 'Alguien necesita la cuerda antes del río.',
-    amigos: () => 'Los dos juntos en una viñeta (y nadie come sin compartir).'
+    amigos: () => 'Los dos juntos en una viñeta (y nadie come sin compartir).',
+    comparteLibro: o => `${Nq(o.quien, 'Alguien')} elige un libro a solas; después lo comparte con ${Nq(o.a, 'otra persona')} en Sant Jordi.`,
+    visitaPatios: o => `${Nq(o.a, 'Alguien')} se pierde sin un plano. ${Nq(o.quien, 'Otra persona')} consulta el plano en el centro; después se reúnen en la Alhambra para visitar los patios.`,
+    preparaOfrenda: () => 'Primero, alguien recuerda a un ser querido ante la ofrenda. Los dos preparan papel en el taller y vuelven juntos.',
+    comparteMercado: o => `${Nq(o.quien, 'Alguien')} compra comida a solas. ${Nq(o.a, 'Otra persona')} tiene hambre después de caminar. Se reúnen en el mercado.`,
+    bailaTango: () => 'Primero ensayan en pareja. Después descansan antes de volver al tango para bailar.',
+    construyeBarrilete: () => 'Los dos preparan papel en el taller; después construyen juntos el barrilete.',
+    exponeBarrilete: () => 'Primero preparan papel y construyen un barrilete juntos. Después vuelven juntos para exponerlo.',
+    reconoceMolinos: o => `${Nq(o.a, 'Alguien')} imagina gigantes a solas. ${Nq(o.quien, 'Otra persona')} consulta un plano; después se reúnen para mirar los molinos.`,
+    etiquetaRecuerdos: o => `${Nq(o.a, 'Alguien')} olvida los nombres. ${Nq(o.quien, 'Otra persona')} prepara papel; después se reúnen para escribir etiquetas en Macondo.`,
+    saleLaberinto: o => `${Nq(o.a, 'Alguien')} se pierde en la biblioteca. ${Nq(o.quien, 'Otra persona')} consulta un plano; después se reúnen para buscar la salida.`,
+    pintaAutorretrato: o => `${Nq(o.quien, 'Alguien')} observa un autorretrato, prepara papel en el taller y vuelve con ${Nq(o.a, 'otra persona')} para pintar.`
   };
 
   function tituloDe(obj, nivel) {
@@ -708,7 +916,7 @@
       ids.forEach((o, i) => { if (s.amigos[o]) b |= 1 << (13 + i); if (s.enfadado[o]) b |= 1 << (18 + i); });
       NEGATIVOS.forEach((k, i) => { if (rel.alguna.has(k) && ctx.hist.alguna[id][k]) b |= 1 << (23 + i); });
       if (ctx.hist.salen[id]) b |= 1 << 30;
-      out += b.toString(36) + '.';
+      out += b.toString(36) + ':' + (s.cultura || 0).toString(36) + '.';
     }
     if (rel.eventos.size) {
       const evs = new Set();

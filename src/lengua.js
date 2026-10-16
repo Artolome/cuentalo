@@ -91,7 +91,29 @@
     llover: { pres: ['llueve', 'llueve'], pret: ['llovía', 'llovía'], imp: true },
     hacerImp: { pres: ['hace', 'hace'], pret: ['hacía', 'hacía'], imp: true },
     serImp: { pres: ['es', 'es'], pret: ['era', 'era'], imp: true },
-    haber: { pres: ['hay', 'hay'], pret: ['había', 'había'], imp: true }
+    haber: { pres: ['hay', 'hay'], pret: ['había', 'había'], imp: true },
+    elegir: { pres: ['elige', 'eligen'], pret: ['eligió', 'eligieron'] },
+    leer: { pres: ['lee', 'leen'], pret: ['leyó', 'leyeron'] },
+    consultar: { pres: ['consulta', 'consultan'], pret: ['consultó', 'consultaron'] },
+    preparar: { pres: ['prepara', 'preparan'], pret: ['preparó', 'prepararon'] },
+    dibujar: { pres: ['dibuja', 'dibujan'], pret: ['dibujó', 'dibujaron'] },
+    guiar: { pres: ['guía', 'guían'], pret: ['guio', 'guiaron'] },
+    recordar: { pres: ['recuerda', 'recuerdan'], pret: ['recordó', 'recordaron'] },
+    comprar: { pres: ['compra', 'compran'], pret: ['compró', 'compraron'] },
+    ensayar: { pres: ['ensaya', 'ensayan'], pret: ['ensayó', 'ensayaron'] },
+    necesitar: { pres: ['necesita', 'necesitan'], pret: ['necesitaba', 'necesitaban'], estado: true },
+    bailar: { pres: ['baila', 'bailan'], pret: ['bailó', 'bailaron'] },
+    construir: { pres: ['construye', 'construyen'], pret: ['construyó', 'construyeron'] },
+    decorar: { pres: ['decora', 'decoran'], pret: ['decoró', 'decoraron'] },
+    exponer: { pres: ['expone', 'exponen'], pret: ['expuso', 'expusieron'] },
+    mostrar: { pres: ['muestra', 'muestran'], pret: ['mostró', 'mostraron'] },
+    imaginar: { pres: ['imagina', 'imaginan'], pret: ['imaginó', 'imaginaron'] },
+    reconocer: { pres: ['reconoce', 'reconocen'], pret: ['reconoció', 'reconocieron'] },
+    olvidar: { pres: ['olvida', 'olvidan'], pret: ['olvidó', 'olvidaron'] },
+    ayudar: { pres: ['ayuda', 'ayudan'], pret: ['ayudó', 'ayudaron'] },
+    observar: { pres: ['observa', 'observan'], pret: ['observó', 'observaron'] },
+    mirar: { pres: ['mira', 'miran'], pret: ['miró', 'miraron'] },
+    pintar: { pres: ['pinta', 'pintan'], pret: ['pintó', 'pintaron'] }
   };
 
   /** conj('tener', {n:'pl'}, 'pret') → 'tuvieron' */
@@ -123,7 +145,13 @@
     caminar: '🚶', beber: '🥤', comer: '🍴', dormir: '💤', encontrar: '🔍', cruzar: '🌉', correr: '🏃',
     gritar: '📣', compartir: '🤲', curar: '🩹', descansar: '🛌', subir: '🧗', ver: '👀', llover: '🌧️',
     'hacer calor': '🌡️', 'pedir perdón': '🙏', guardar: '📦', encender: '💡', morder: '🦷', avisar: '✋',
-    perderse: '🧭', mojarse: '💦', taparse: '🧥'
+    perderse: '🧭', mojarse: '💦', taparse: '🧥',
+    libro: '📖', rosa: '🌹', elegir: '☝️', leer: '📖', patio: '🏛️', palacio: '🏛️', fuente: '⛲', plano: '🗺️', guiar: '🧭',
+    ofrenda: '🌼', flor: '🌼', recuerdo: '💛', recordar: '💭', papel: '📄', mercado: '🛍️', almuerzo: '🍽️', comprar: '🧺',
+    tango: '🎶', música: '🎵', ensayar: '👣', bailar: '💃', barrilete: '🪁', color: '🎨', construir: '🛠️', exponer: '🖼️',
+    plaza: '🏘️', taller: '✂️', dibujar: '✏️', preparar: '👐', 'centro cultural': '🏛️', consultar: '🗺️',
+    molino: '🌬️', gigante: '👣', imaginar: '💭', reconocer: '👀', nombre: '🔤', etiqueta: '🏷️', olvidar: '❓', escribir: '✍️',
+    biblioteca: '📚', laberinto: '🌀', salida: '🚪', autorretrato: '🖼️', espejo: '🪞', observar: '👀', pintar: '🖌️'
   };
 
   return { ADJ, V, PICTOS, acuerdo, gn, sujeto, conj, cap, unir };

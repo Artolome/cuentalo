@@ -1,4 +1,4 @@
-CUÉNTALO — todas las frases generables (1634) — generado por test/frases.js
+CUÉNTALO — todas las frases generables (2039) — generado por test/frases.js
 
 ## PRESENTE · La selva · evento pierde
 Lucía camina sola por la selva y se pierde.
@@ -832,6 +832,252 @@ Valeria encuentra a Lucía. ¡Qué alegría! ¡El helicóptero! Lucía y Valeria
 Lucía y Mateo se encuentran. Ya no están perdidos. ¡El helicóptero! Lucía y Mateo están a salvo. Ahora Lucía y Mateo son amigos.
 Lucía y Valeria se encuentran. Ya no están perdidas. ¡El helicóptero! Lucía y Valeria están a salvo. Ahora Lucía y Valeria son amigas.
 Mateo y Diego se encuentran. Ya no están perdidos. ¡El helicóptero! Mateo y Diego están a salvo. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · Sant Jordi · evento eligeLibro
+Lucía elige un libro en un puesto de Sant Jordi.
+Mateo elige un libro en un puesto de Sant Jordi.
+
+## PRESENTE · Sant Jordi · evento observaCultura
+Lucía y Mateo miran los puestos de libros.
+Lucía y Mateo miran los puestos de libros. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los puestos de libros.
+Lucía y Valeria miran los puestos de libros. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los puestos de libros.
+Mateo y Diego miran los puestos de libros. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · Sant Jordi · evento amigos
+Lucía y Mateo miran los puestos de libros. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los puestos de libros. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los puestos de libros. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La Alhambra · evento observaCultura
+Lucía mira los caminos de la Alhambra. Sin un plano, está perdida.
+Lucía y Mateo miran los caminos de la Alhambra. Sin un plano, están perdidos.
+Lucía y Mateo miran los caminos de la Alhambra. Sin un plano, están perdidos. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los caminos de la Alhambra. Sin un plano, están perdidas.
+Lucía y Valeria miran los caminos de la Alhambra. Sin un plano, están perdidas. Ahora Lucía y Valeria son amigas.
+Mateo mira los caminos de la Alhambra. Sin un plano, está perdido.
+Mateo y Diego miran los caminos de la Alhambra. Sin un plano, están perdidos.
+Mateo y Diego miran los caminos de la Alhambra. Sin un plano, están perdidos. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La Alhambra · evento amigos
+Lucía y Mateo miran los caminos de la Alhambra. Sin un plano, están perdidos. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los caminos de la Alhambra. Sin un plano, están perdidas. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los caminos de la Alhambra. Sin un plano, están perdidos. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La ofrenda · evento recuerdaFamilia
+Lucía recuerda con cariño a un ser querido ante la ofrenda.
+Mateo recuerda con cariño a un ser querido ante la ofrenda.
+
+## PRESENTE · La ofrenda · evento observaCultura
+Lucía y Mateo miran las flores de la ofrenda.
+Lucía y Mateo miran las flores de la ofrenda. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran las flores de la ofrenda.
+Lucía y Valeria miran las flores de la ofrenda. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran las flores de la ofrenda.
+Mateo y Diego miran las flores de la ofrenda. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La ofrenda · evento amigos
+Lucía y Mateo miran las flores de la ofrenda. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran las flores de la ofrenda. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran las flores de la ofrenda. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · El mercado de Cusco · evento compraMercado
+Lucía compra comida en el mercado de San Pedro. La guarda para compartir.
+Mateo compra comida en el mercado de San Pedro. La guarda para compartir.
+
+## PRESENTE · El mercado de Cusco · evento observaCultura
+Lucía y Mateo miran los puestos del mercado.
+Lucía y Mateo miran los puestos del mercado. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los puestos del mercado.
+Lucía y Valeria miran los puestos del mercado. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los puestos del mercado.
+Mateo y Diego miran los puestos del mercado. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · El mercado de Cusco · evento amigos
+Lucía comparte un almuerzo con Mateo en el mercado. Lucía y Mateo ya no tienen hambre. Ahora Lucía y Mateo son amigos.
+Lucía comparte un almuerzo con Mateo en el mercado. Mateo ya no tiene hambre. Ahora Lucía y Mateo son amigos.
+Lucía comparte un almuerzo con Valeria en el mercado. Lucía y Valeria ya no tienen hambre. Ahora Lucía y Valeria son amigas.
+Lucía comparte un almuerzo con Valeria en el mercado. Valeria ya no tiene hambre. Ahora Lucía y Valeria son amigas.
+Lucía y Mateo miran los puestos del mercado. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los puestos del mercado. Ahora Lucía y Valeria son amigas.
+Mateo comparte un almuerzo con Diego en el mercado. Diego ya no tiene hambre. Ahora Mateo y Diego son amigos.
+Mateo comparte un almuerzo con Diego en el mercado. Mateo y Diego ya no tienen hambre. Ahora Mateo y Diego son amigos.
+Mateo y Diego miran los puestos del mercado. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · El mercado de Cusco · evento comparteMercado
+Lucía comparte un almuerzo con Mateo en el mercado. Lucía y Mateo ya no tienen hambre.
+Lucía comparte un almuerzo con Mateo en el mercado. Lucía y Mateo ya no tienen hambre. Ahora Lucía y Mateo son amigos.
+Lucía comparte un almuerzo con Mateo en el mercado. Mateo ya no tiene hambre.
+Lucía comparte un almuerzo con Mateo en el mercado. Mateo ya no tiene hambre. Ahora Lucía y Mateo son amigos.
+Lucía comparte un almuerzo con Valeria en el mercado. Lucía y Valeria ya no tienen hambre.
+Lucía comparte un almuerzo con Valeria en el mercado. Lucía y Valeria ya no tienen hambre. Ahora Lucía y Valeria son amigas.
+Lucía comparte un almuerzo con Valeria en el mercado. Valeria ya no tiene hambre.
+Lucía comparte un almuerzo con Valeria en el mercado. Valeria ya no tiene hambre. Ahora Lucía y Valeria son amigas.
+Mateo comparte un almuerzo con Diego en el mercado. Diego ya no tiene hambre.
+Mateo comparte un almuerzo con Diego en el mercado. Diego ya no tiene hambre. Ahora Mateo y Diego son amigos.
+Mateo comparte un almuerzo con Diego en el mercado. Mateo y Diego ya no tienen hambre.
+Mateo comparte un almuerzo con Diego en el mercado. Mateo y Diego ya no tienen hambre. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · El tango · evento ensayaTango
+Lucía ensaya los pasos del tango. Después está cansada: necesita descansar.
+Lucía y Mateo ensayan los pasos del tango. Después están cansados: necesitan descansar.
+Lucía y Mateo ensayan los pasos del tango. Después están cansados: necesitan descansar. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria ensayan los pasos del tango. Después están cansadas: necesitan descansar.
+Lucía y Valeria ensayan los pasos del tango. Después están cansadas: necesitan descansar. Ahora Lucía y Valeria son amigas.
+Mateo ensaya los pasos del tango. Después está cansado: necesita descansar.
+Mateo y Diego ensayan los pasos del tango. Después están cansados: necesitan descansar.
+Mateo y Diego ensayan los pasos del tango. Después están cansados: necesitan descansar. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · El tango · evento amigos
+Lucía y Mateo ensayan los pasos del tango. Después están cansados: necesitan descansar. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria ensayan los pasos del tango. Después están cansadas: necesitan descansar. Ahora Lucía y Valeria son amigas.
+Mateo y Diego ensayan los pasos del tango. Después están cansados: necesitan descansar. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · Los barriletes · evento observaCultura
+Lucía mira los barriletes de colores.
+Lucía y Mateo miran los barriletes de colores.
+Lucía y Mateo miran los barriletes de colores. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los barriletes de colores.
+Lucía y Valeria miran los barriletes de colores. Ahora Lucía y Valeria son amigas.
+Mateo mira los barriletes de colores.
+Mateo y Diego miran los barriletes de colores.
+Mateo y Diego miran los barriletes de colores. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · Los barriletes · evento amigos
+Lucía y Mateo miran los barriletes de colores. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los barriletes de colores. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los barriletes de colores. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La plaza · evento paseaPlaza
+Lucía camina por la plaza. Tiene hambre y está cansada.
+Lucía y Mateo caminan por la plaza. Tienen hambre y están cansados.
+Lucía y Mateo caminan por la plaza. Tienen hambre y están cansados. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria caminan por la plaza. Tienen hambre y están cansadas.
+Lucía y Valeria caminan por la plaza. Tienen hambre y están cansadas. Ahora Lucía y Valeria son amigas.
+Mateo camina por la plaza. Tiene hambre y está cansado.
+Mateo y Diego caminan por la plaza. Tienen hambre y están cansados.
+Mateo y Diego caminan por la plaza. Tienen hambre y están cansados. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La plaza · evento amigos
+Lucía y Mateo caminan por la plaza. Tienen hambre y están cansados. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria caminan por la plaza. Tienen hambre y están cansadas. Ahora Lucía y Valeria son amigas.
+Mateo y Diego caminan por la plaza. Tienen hambre y están cansados. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · El taller · evento preparaPapel
+Lucía prepara papel y dibuja en el taller. Guarda el papel para su proyecto.
+Lucía y Mateo preparan papel y dibujan en el taller. Guardan el papel para su proyecto.
+Lucía y Mateo preparan papel y dibujan en el taller. Guardan el papel para su proyecto. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria preparan papel y dibujan en el taller. Guardan el papel para su proyecto.
+Lucía y Valeria preparan papel y dibujan en el taller. Guardan el papel para su proyecto. Ahora Lucía y Valeria son amigas.
+Mateo prepara papel y dibuja en el taller. Guarda el papel para su proyecto.
+Mateo y Diego preparan papel y dibujan en el taller. Guardan el papel para su proyecto.
+Mateo y Diego preparan papel y dibujan en el taller. Guardan el papel para su proyecto. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · El taller · evento amigos
+Lucía y Mateo preparan papel y dibujan en el taller. Guardan el papel para su proyecto. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria preparan papel y dibujan en el taller. Guardan el papel para su proyecto. Ahora Lucía y Valeria son amigas.
+Mateo y Diego preparan papel y dibujan en el taller. Guardan el papel para su proyecto. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · El centro cultural · evento visitaCentro
+Lucía consulta un plano en el centro cultural. Descansa un poco.
+Lucía consulta un plano en el centro cultural. Descansa un poco. Lucía ya no está cansada.
+Lucía y Mateo consultan un plano en el centro cultural. Descansan un poco.
+Lucía y Mateo consultan un plano en el centro cultural. Descansan un poco. Ahora Lucía y Mateo son amigos.
+Lucía y Mateo consultan un plano en el centro cultural. Descansan un poco. Lucía y Mateo ya no están cansados. Ahora Lucía y Mateo son amigos.
+Lucía y Mateo consultan un plano en el centro cultural. Descansan un poco. Lucía ya no está cansada.
+Lucía y Mateo consultan un plano en el centro cultural. Descansan un poco. Lucía ya no está cansada. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria consultan un plano en el centro cultural. Descansan un poco.
+Lucía y Valeria consultan un plano en el centro cultural. Descansan un poco. Ahora Lucía y Valeria son amigas.
+Lucía y Valeria consultan un plano en el centro cultural. Descansan un poco. Lucía y Valeria ya no están cansadas. Ahora Lucía y Valeria son amigas.
+Lucía y Valeria consultan un plano en el centro cultural. Descansan un poco. Lucía ya no está cansada.
+Lucía y Valeria consultan un plano en el centro cultural. Descansan un poco. Lucía ya no está cansada. Ahora Lucía y Valeria son amigas.
+Mateo consulta un plano en el centro cultural. Descansa un poco.
+Mateo consulta un plano en el centro cultural. Descansa un poco. Mateo ya no está cansado.
+Mateo y Diego consultan un plano en el centro cultural. Descansan un poco.
+Mateo y Diego consultan un plano en el centro cultural. Descansan un poco. Ahora Mateo y Diego son amigos.
+Mateo y Diego consultan un plano en el centro cultural. Descansan un poco. Mateo y Diego ya no están cansados. Ahora Mateo y Diego son amigos.
+Mateo y Diego consultan un plano en el centro cultural. Descansan un poco. Mateo ya no está cansado.
+Mateo y Diego consultan un plano en el centro cultural. Descansan un poco. Mateo ya no está cansado. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · El centro cultural · evento amigos
+Lucía y Mateo consultan un plano en el centro cultural. Descansan un poco. Ahora Lucía y Mateo son amigos.
+Lucía y Mateo consultan un plano en el centro cultural. Descansan un poco. Lucía y Mateo ya no están cansados. Ahora Lucía y Mateo son amigos.
+Lucía y Mateo consultan un plano en el centro cultural. Descansan un poco. Lucía ya no está cansada. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria consultan un plano en el centro cultural. Descansan un poco. Ahora Lucía y Valeria son amigas.
+Lucía y Valeria consultan un plano en el centro cultural. Descansan un poco. Lucía y Valeria ya no están cansadas. Ahora Lucía y Valeria son amigas.
+Lucía y Valeria consultan un plano en el centro cultural. Descansan un poco. Lucía ya no está cansada. Ahora Lucía y Valeria son amigas.
+Mateo y Diego consultan un plano en el centro cultural. Descansan un poco. Ahora Mateo y Diego son amigos.
+Mateo y Diego consultan un plano en el centro cultural. Descansan un poco. Mateo y Diego ya no están cansados. Ahora Mateo y Diego son amigos.
+Mateo y Diego consultan un plano en el centro cultural. Descansan un poco. Mateo ya no está cansado. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · Los molinos · evento imaginaGigantes
+En esta aventura de ficción, Lucía imagina que los molinos son gigantes. Tiene miedo.
+En esta aventura de ficción, Mateo imagina que los molinos son gigantes. Tiene miedo.
+
+## PRESENTE · Los molinos · evento observaCultura
+Lucía y Mateo miran los molinos de viento.
+Lucía y Mateo miran los molinos de viento. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los molinos de viento.
+Lucía y Valeria miran los molinos de viento. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los molinos de viento.
+Mateo y Diego miran los molinos de viento. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · Los molinos · evento amigos
+Lucía y Mateo miran los molinos de viento. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los molinos de viento. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los molinos de viento. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · Macondo · evento olvidaNombres
+En el pueblo imaginario de Macondo, Lucía olvida los nombres de las cosas.
+En el pueblo imaginario de Macondo, Mateo olvida los nombres de las cosas.
+
+## PRESENTE · Macondo · evento observaCultura
+Lucía y Mateo miran las casas de Macondo.
+Lucía y Mateo miran las casas de Macondo. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran las casas de Macondo.
+Lucía y Valeria miran las casas de Macondo. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran las casas de Macondo.
+Mateo y Diego miran las casas de Macondo. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · Macondo · evento amigos
+Lucía y Mateo miran las casas de Macondo. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran las casas de Macondo. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran las casas de Macondo. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La biblioteca laberinto · evento entraLaberinto
+En esta biblioteca de ficción, Lucía camina entre los libros y se pierde.
+En esta biblioteca de ficción, Mateo camina entre los libros y se pierde.
+
+## PRESENTE · La biblioteca laberinto · evento observaCultura
+Lucía y Mateo miran los estantes de la biblioteca.
+Lucía y Mateo miran los estantes de la biblioteca. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los estantes de la biblioteca.
+Lucía y Valeria miran los estantes de la biblioteca. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los estantes de la biblioteca.
+Mateo y Diego miran los estantes de la biblioteca. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La biblioteca laberinto · evento amigos
+Lucía y Mateo miran los estantes de la biblioteca. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los estantes de la biblioteca. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los estantes de la biblioteca. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La Casa Azul · evento observaAutorretrato
+Lucía observa un autorretrato en el museo de la Casa Azul. Mira los colores y la expresión.
+Mateo observa un autorretrato en el museo de la Casa Azul. Mira los colores y la expresión.
+
+## PRESENTE · La Casa Azul · evento observaCultura
+Lucía y Mateo miran los cuadros del museo.
+Lucía y Mateo miran los cuadros del museo. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los cuadros del museo.
+Lucía y Valeria miran los cuadros del museo. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los cuadros del museo.
+Mateo y Diego miran los cuadros del museo. Ahora Mateo y Diego son amigos.
+
+## PRESENTE · La Casa Azul · evento amigos
+Lucía y Mateo miran los cuadros del museo. Ahora Lucía y Mateo son amigos.
+Lucía y Valeria miran los cuadros del museo. Ahora Lucía y Valeria son amigas.
+Mateo y Diego miran los cuadros del museo. Ahora Mateo y Diego son amigos.
 
 ## PRESENTE · incoherencia
 ¡Pero Lucía ya está a salvo! No puede estar aquí.
@@ -1670,38 +1916,307 @@ Lucía y Mateo se encontraron. Ya no estaban perdidos. ¡El helicóptero! Lucía
 Lucía y Valeria se encontraron. Ya no estaban perdidas. ¡El helicóptero! Lucía y Valeria se salvaron. Lucía y Valeria se hicieron amigas.
 Mateo y Diego se encontraron. Ya no estaban perdidos. ¡El helicóptero! Mateo y Diego se salvaron. Mateo y Diego se hicieron amigos.
 
+## PRETÉRITO · Sant Jordi · evento eligeLibro
+Lucía eligió un libro en un puesto de Sant Jordi.
+Mateo eligió un libro en un puesto de Sant Jordi.
+
+## PRETÉRITO · Sant Jordi · evento observaCultura
+Lucía y Mateo miraron los puestos de libros.
+Lucía y Mateo miraron los puestos de libros. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los puestos de libros.
+Lucía y Valeria miraron los puestos de libros. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los puestos de libros.
+Mateo y Diego miraron los puestos de libros. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · Sant Jordi · evento amigos
+Lucía y Mateo miraron los puestos de libros. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los puestos de libros. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los puestos de libros. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La Alhambra · evento observaCultura
+Lucía miró los caminos de la Alhambra. Sin un plano, estaba perdida.
+Lucía y Mateo miraron los caminos de la Alhambra. Sin un plano, estaban perdidos.
+Lucía y Mateo miraron los caminos de la Alhambra. Sin un plano, estaban perdidos. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los caminos de la Alhambra. Sin un plano, estaban perdidas.
+Lucía y Valeria miraron los caminos de la Alhambra. Sin un plano, estaban perdidas. Lucía y Valeria se hicieron amigas.
+Mateo miró los caminos de la Alhambra. Sin un plano, estaba perdido.
+Mateo y Diego miraron los caminos de la Alhambra. Sin un plano, estaban perdidos.
+Mateo y Diego miraron los caminos de la Alhambra. Sin un plano, estaban perdidos. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La Alhambra · evento amigos
+Lucía y Mateo miraron los caminos de la Alhambra. Sin un plano, estaban perdidos. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los caminos de la Alhambra. Sin un plano, estaban perdidas. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los caminos de la Alhambra. Sin un plano, estaban perdidos. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La ofrenda · evento recuerdaFamilia
+Lucía recordó con cariño a un ser querido ante la ofrenda.
+Mateo recordó con cariño a un ser querido ante la ofrenda.
+
+## PRETÉRITO · La ofrenda · evento observaCultura
+Lucía y Mateo miraron las flores de la ofrenda.
+Lucía y Mateo miraron las flores de la ofrenda. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron las flores de la ofrenda.
+Lucía y Valeria miraron las flores de la ofrenda. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron las flores de la ofrenda.
+Mateo y Diego miraron las flores de la ofrenda. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La ofrenda · evento amigos
+Lucía y Mateo miraron las flores de la ofrenda. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron las flores de la ofrenda. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron las flores de la ofrenda. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · El mercado de Cusco · evento compraMercado
+Lucía compró comida en el mercado de San Pedro. La guardó para compartir.
+Mateo compró comida en el mercado de San Pedro. La guardó para compartir.
+
+## PRETÉRITO · El mercado de Cusco · evento observaCultura
+Lucía y Mateo miraron los puestos del mercado.
+Lucía y Mateo miraron los puestos del mercado. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los puestos del mercado.
+Lucía y Valeria miraron los puestos del mercado. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los puestos del mercado.
+Mateo y Diego miraron los puestos del mercado. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · El mercado de Cusco · evento amigos
+Lucía compartió un almuerzo con Mateo en el mercado. Lucía y Mateo ya no tenían hambre. Lucía y Mateo se hicieron amigos.
+Lucía compartió un almuerzo con Mateo en el mercado. Mateo ya no tenía hambre. Lucía y Mateo se hicieron amigos.
+Lucía compartió un almuerzo con Valeria en el mercado. Lucía y Valeria ya no tenían hambre. Lucía y Valeria se hicieron amigas.
+Lucía compartió un almuerzo con Valeria en el mercado. Valeria ya no tenía hambre. Lucía y Valeria se hicieron amigas.
+Lucía y Mateo miraron los puestos del mercado. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los puestos del mercado. Lucía y Valeria se hicieron amigas.
+Mateo compartió un almuerzo con Diego en el mercado. Diego ya no tenía hambre. Mateo y Diego se hicieron amigos.
+Mateo compartió un almuerzo con Diego en el mercado. Mateo y Diego ya no tenían hambre. Mateo y Diego se hicieron amigos.
+Mateo y Diego miraron los puestos del mercado. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · El mercado de Cusco · evento comparteMercado
+Lucía compartió un almuerzo con Mateo en el mercado. Lucía y Mateo ya no tenían hambre.
+Lucía compartió un almuerzo con Mateo en el mercado. Lucía y Mateo ya no tenían hambre. Lucía y Mateo se hicieron amigos.
+Lucía compartió un almuerzo con Mateo en el mercado. Mateo ya no tenía hambre.
+Lucía compartió un almuerzo con Mateo en el mercado. Mateo ya no tenía hambre. Lucía y Mateo se hicieron amigos.
+Lucía compartió un almuerzo con Valeria en el mercado. Lucía y Valeria ya no tenían hambre.
+Lucía compartió un almuerzo con Valeria en el mercado. Lucía y Valeria ya no tenían hambre. Lucía y Valeria se hicieron amigas.
+Lucía compartió un almuerzo con Valeria en el mercado. Valeria ya no tenía hambre.
+Lucía compartió un almuerzo con Valeria en el mercado. Valeria ya no tenía hambre. Lucía y Valeria se hicieron amigas.
+Mateo compartió un almuerzo con Diego en el mercado. Diego ya no tenía hambre.
+Mateo compartió un almuerzo con Diego en el mercado. Diego ya no tenía hambre. Mateo y Diego se hicieron amigos.
+Mateo compartió un almuerzo con Diego en el mercado. Mateo y Diego ya no tenían hambre.
+Mateo compartió un almuerzo con Diego en el mercado. Mateo y Diego ya no tenían hambre. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · El tango · evento ensayaTango
+Lucía ensayó los pasos del tango. Después estaba cansada: necesitaba descansar.
+Lucía y Mateo ensayaron los pasos del tango. Después estaban cansados: necesitaban descansar.
+Lucía y Mateo ensayaron los pasos del tango. Después estaban cansados: necesitaban descansar. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria ensayaron los pasos del tango. Después estaban cansadas: necesitaban descansar.
+Lucía y Valeria ensayaron los pasos del tango. Después estaban cansadas: necesitaban descansar. Lucía y Valeria se hicieron amigas.
+Mateo ensayó los pasos del tango. Después estaba cansado: necesitaba descansar.
+Mateo y Diego ensayaron los pasos del tango. Después estaban cansados: necesitaban descansar.
+Mateo y Diego ensayaron los pasos del tango. Después estaban cansados: necesitaban descansar. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · El tango · evento amigos
+Lucía y Mateo ensayaron los pasos del tango. Después estaban cansados: necesitaban descansar. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria ensayaron los pasos del tango. Después estaban cansadas: necesitaban descansar. Lucía y Valeria se hicieron amigas.
+Mateo y Diego ensayaron los pasos del tango. Después estaban cansados: necesitaban descansar. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · Los barriletes · evento observaCultura
+Lucía miró los barriletes de colores.
+Lucía y Mateo miraron los barriletes de colores.
+Lucía y Mateo miraron los barriletes de colores. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los barriletes de colores.
+Lucía y Valeria miraron los barriletes de colores. Lucía y Valeria se hicieron amigas.
+Mateo miró los barriletes de colores.
+Mateo y Diego miraron los barriletes de colores.
+Mateo y Diego miraron los barriletes de colores. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · Los barriletes · evento amigos
+Lucía y Mateo miraron los barriletes de colores. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los barriletes de colores. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los barriletes de colores. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La plaza · evento paseaPlaza
+Lucía caminó por la plaza. Tenía hambre y estaba cansada.
+Lucía y Mateo caminaron por la plaza. Tenían hambre y estaban cansados.
+Lucía y Mateo caminaron por la plaza. Tenían hambre y estaban cansados. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria caminaron por la plaza. Tenían hambre y estaban cansadas.
+Lucía y Valeria caminaron por la plaza. Tenían hambre y estaban cansadas. Lucía y Valeria se hicieron amigas.
+Mateo caminó por la plaza. Tenía hambre y estaba cansado.
+Mateo y Diego caminaron por la plaza. Tenían hambre y estaban cansados.
+Mateo y Diego caminaron por la plaza. Tenían hambre y estaban cansados. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La plaza · evento amigos
+Lucía y Mateo caminaron por la plaza. Tenían hambre y estaban cansados. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria caminaron por la plaza. Tenían hambre y estaban cansadas. Lucía y Valeria se hicieron amigas.
+Mateo y Diego caminaron por la plaza. Tenían hambre y estaban cansados. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · El taller · evento preparaPapel
+Lucía preparó papel y dibujó en el taller. Guardó el papel para su proyecto.
+Lucía y Mateo prepararon papel y dibujaron en el taller. Guardaron el papel para su proyecto.
+Lucía y Mateo prepararon papel y dibujaron en el taller. Guardaron el papel para su proyecto. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria prepararon papel y dibujaron en el taller. Guardaron el papel para su proyecto.
+Lucía y Valeria prepararon papel y dibujaron en el taller. Guardaron el papel para su proyecto. Lucía y Valeria se hicieron amigas.
+Mateo preparó papel y dibujó en el taller. Guardó el papel para su proyecto.
+Mateo y Diego prepararon papel y dibujaron en el taller. Guardaron el papel para su proyecto.
+Mateo y Diego prepararon papel y dibujaron en el taller. Guardaron el papel para su proyecto. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · El taller · evento amigos
+Lucía y Mateo prepararon papel y dibujaron en el taller. Guardaron el papel para su proyecto. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria prepararon papel y dibujaron en el taller. Guardaron el papel para su proyecto. Lucía y Valeria se hicieron amigas.
+Mateo y Diego prepararon papel y dibujaron en el taller. Guardaron el papel para su proyecto. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · El centro cultural · evento visitaCentro
+Lucía consultó un plano en el centro cultural. Descansó un poco.
+Lucía consultó un plano en el centro cultural. Descansó un poco. Lucía ya no estaba cansada.
+Lucía y Mateo consultaron un plano en el centro cultural. Descansaron un poco.
+Lucía y Mateo consultaron un plano en el centro cultural. Descansaron un poco. Lucía y Mateo se hicieron amigos.
+Lucía y Mateo consultaron un plano en el centro cultural. Descansaron un poco. Lucía y Mateo ya no estaban cansados. Lucía y Mateo se hicieron amigos.
+Lucía y Mateo consultaron un plano en el centro cultural. Descansaron un poco. Lucía ya no estaba cansada.
+Lucía y Mateo consultaron un plano en el centro cultural. Descansaron un poco. Lucía ya no estaba cansada. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria consultaron un plano en el centro cultural. Descansaron un poco.
+Lucía y Valeria consultaron un plano en el centro cultural. Descansaron un poco. Lucía y Valeria se hicieron amigas.
+Lucía y Valeria consultaron un plano en el centro cultural. Descansaron un poco. Lucía y Valeria ya no estaban cansadas. Lucía y Valeria se hicieron amigas.
+Lucía y Valeria consultaron un plano en el centro cultural. Descansaron un poco. Lucía ya no estaba cansada.
+Lucía y Valeria consultaron un plano en el centro cultural. Descansaron un poco. Lucía ya no estaba cansada. Lucía y Valeria se hicieron amigas.
+Mateo consultó un plano en el centro cultural. Descansó un poco.
+Mateo consultó un plano en el centro cultural. Descansó un poco. Mateo ya no estaba cansado.
+Mateo y Diego consultaron un plano en el centro cultural. Descansaron un poco.
+Mateo y Diego consultaron un plano en el centro cultural. Descansaron un poco. Mateo y Diego se hicieron amigos.
+Mateo y Diego consultaron un plano en el centro cultural. Descansaron un poco. Mateo y Diego ya no estaban cansados. Mateo y Diego se hicieron amigos.
+Mateo y Diego consultaron un plano en el centro cultural. Descansaron un poco. Mateo ya no estaba cansado.
+Mateo y Diego consultaron un plano en el centro cultural. Descansaron un poco. Mateo ya no estaba cansado. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · El centro cultural · evento amigos
+Lucía y Mateo consultaron un plano en el centro cultural. Descansaron un poco. Lucía y Mateo se hicieron amigos.
+Lucía y Mateo consultaron un plano en el centro cultural. Descansaron un poco. Lucía y Mateo ya no estaban cansados. Lucía y Mateo se hicieron amigos.
+Lucía y Mateo consultaron un plano en el centro cultural. Descansaron un poco. Lucía ya no estaba cansada. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria consultaron un plano en el centro cultural. Descansaron un poco. Lucía y Valeria se hicieron amigas.
+Lucía y Valeria consultaron un plano en el centro cultural. Descansaron un poco. Lucía y Valeria ya no estaban cansadas. Lucía y Valeria se hicieron amigas.
+Lucía y Valeria consultaron un plano en el centro cultural. Descansaron un poco. Lucía ya no estaba cansada. Lucía y Valeria se hicieron amigas.
+Mateo y Diego consultaron un plano en el centro cultural. Descansaron un poco. Mateo y Diego se hicieron amigos.
+Mateo y Diego consultaron un plano en el centro cultural. Descansaron un poco. Mateo y Diego ya no estaban cansados. Mateo y Diego se hicieron amigos.
+Mateo y Diego consultaron un plano en el centro cultural. Descansaron un poco. Mateo ya no estaba cansado. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · Los molinos · evento imaginaGigantes
+En esta aventura de ficción, Lucía imaginó que los molinos eran gigantes. Tenía miedo.
+En esta aventura de ficción, Mateo imaginó que los molinos eran gigantes. Tenía miedo.
+
+## PRETÉRITO · Los molinos · evento observaCultura
+Lucía y Mateo miraron los molinos de viento.
+Lucía y Mateo miraron los molinos de viento. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los molinos de viento.
+Lucía y Valeria miraron los molinos de viento. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los molinos de viento.
+Mateo y Diego miraron los molinos de viento. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · Los molinos · evento amigos
+Lucía y Mateo miraron los molinos de viento. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los molinos de viento. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los molinos de viento. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · Macondo · evento olvidaNombres
+En el pueblo imaginario de Macondo, Lucía olvidó los nombres de las cosas.
+En el pueblo imaginario de Macondo, Mateo olvidó los nombres de las cosas.
+
+## PRETÉRITO · Macondo · evento observaCultura
+Lucía y Mateo miraron las casas de Macondo.
+Lucía y Mateo miraron las casas de Macondo. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron las casas de Macondo.
+Lucía y Valeria miraron las casas de Macondo. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron las casas de Macondo.
+Mateo y Diego miraron las casas de Macondo. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · Macondo · evento amigos
+Lucía y Mateo miraron las casas de Macondo. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron las casas de Macondo. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron las casas de Macondo. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La biblioteca laberinto · evento entraLaberinto
+En esta biblioteca de ficción, Lucía caminó entre los libros y se perdió.
+En esta biblioteca de ficción, Mateo caminó entre los libros y se perdió.
+
+## PRETÉRITO · La biblioteca laberinto · evento observaCultura
+Lucía y Mateo miraron los estantes de la biblioteca.
+Lucía y Mateo miraron los estantes de la biblioteca. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los estantes de la biblioteca.
+Lucía y Valeria miraron los estantes de la biblioteca. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los estantes de la biblioteca.
+Mateo y Diego miraron los estantes de la biblioteca. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La biblioteca laberinto · evento amigos
+Lucía y Mateo miraron los estantes de la biblioteca. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los estantes de la biblioteca. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los estantes de la biblioteca. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La Casa Azul · evento observaAutorretrato
+Lucía observó un autorretrato en el museo de la Casa Azul. Miró los colores y la expresión.
+Mateo observó un autorretrato en el museo de la Casa Azul. Miró los colores y la expresión.
+
+## PRETÉRITO · La Casa Azul · evento observaCultura
+Lucía y Mateo miraron los cuadros del museo.
+Lucía y Mateo miraron los cuadros del museo. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los cuadros del museo.
+Lucía y Valeria miraron los cuadros del museo. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los cuadros del museo.
+Mateo y Diego miraron los cuadros del museo. Mateo y Diego se hicieron amigos.
+
+## PRETÉRITO · La Casa Azul · evento amigos
+Lucía y Mateo miraron los cuadros del museo. Lucía y Mateo se hicieron amigos.
+Lucía y Valeria miraron los cuadros del museo. Lucía y Valeria se hicieron amigas.
+Mateo y Diego miraron los cuadros del museo. Mateo y Diego se hicieron amigos.
+
 ## PRETÉRITO · incoherencia
 ¡Pero Lucía ya estaba a salvo! No podía estar aquí.
 Aquí solo cabe una persona.
 
 ## TÍTULOS · niveles
 Diego encuentra a Lucía y todos están a salvo   [c3n5]
+Diego guía a Mateo hasta la salida de la biblioteca   [c5n3]
 Diego pide perdón a Lucía   [c3n3]
 Diego ya no está perdido   [c1n4]
 Lucía comparte la comida con Mateo   [c3n1]
+Lucía comparte un libro con Mateo   [c4n1]
 Lucía está a salvo   [c1n5]
+Lucía pinta un autorretrato con Valeria   [c5n4]
+Lucía y Diego preparan una ofrenda   [c4n3]
+Lucía y Mateo exponen un barrilete   [c4n6]
 Lucía y Mateo ya no tienen hambre   [c2n3]
 Lucía ya no tiene sed   [c1n1]
+Mateo ayuda a Lucía a reconocer los molinos   [c5n1]
+Mateo comparte un almuerzo con Valeria   [c4n4]
 Mateo encuentra a Lucía   [c2n1]
 Mateo está enfadado con Lucía   [c3n2]
 Mateo ya no tiene frío   [c1n2]
 Nadie tiene miedo y todos tienen frío   [c2n4]
 Todos están contentos y a salvo   [c3n6]
+Valeria ayuda a Diego a recordar los nombres   [c5n2]
 Valeria cura a Diego   [c2n2]
 Valeria duerme tranquila   [c1n3]
 Valeria duerme tranquila y todos están a salvo   [c3n4]
 Valeria encuentra a Mateo y todos están a salvo   [c2n5]
+Valeria guía a Diego por los patios de la Alhambra   [c4n2]
+Valeria y Diego bailan el tango   [c4n5]
 
 ## PISTAS
 ¿Quién necesita el mapa?   [c2n5]
 Al principio todos tienen hambre y están cansados.   [c3n6]
 Caminar juntos da hambre.   [c2n3]
+Caminar por la plaza da hambre a Valeria.   [c4n4]
 Con el mapa, Lucía no se pierde.   [c1n5]
 Con la linterna, no tiene miedo.   [c1n3]
 Contento = sin hambre, sin sed, sin frío, sin miedo. Y no está cansado.   [c3n6]
 De noche y sola, Valeria tiene miedo.   [c1n3]
 Desde la montaña se ve el río.   [c1n4]
+Después, construyen juntos un barrilete.   [c4n6]
+Después, Diego ayuda a Mateo en la biblioteca.   [c5n3]
+Después, los dos escriben los nombres en Macondo.   [c5n2]
+Después, los dos miran los molinos juntos.   [c5n1]
+Después, los dos preparan la ofrenda con respeto.   [c4n3]
+Después, los dos visitan la Alhambra juntos.   [c4n2]
+Después, Lucía y Mateo están juntos en Sant Jordi.   [c4n1]
 Después, Mateo y Lucía están juntos.   [c2n1]
+Después, prepara papel para dibujar en el taller.   [c5n4]
+Después, se reúnen en el mercado para compartir.   [c4n4]
+Después, vuelven juntos a bailar.   [c4n5]
+Diego busca los patios sin un plano.   [c4n2]
+Diego consulta el plano en el centro cultural.   [c5n3]
 El fuego quita el frío. ¡Cuidado con el orden!   [c1n2]
 El helicóptero no ve a quien está perdido.   [c3n4]
 El helicóptero no ve a una persona perdida.   [c1n5]
@@ -1711,22 +2226,38 @@ El helicóptero solo lleva a dos personas.   [c3n6]
 En el refugio se pide perdón.   [c3n3]
 En el refugio, el otro cura al herido.   [c2n2]
 En el río, Lucía bebe agua.   [c1n1]
+En este pueblo de ficción, Diego olvida los nombres.   [c5n2]
+Ensayar cansa: los dos descansan en el centro cultural.   [c4n5]
 Juntos, no tienen miedo.   [c2n4]
 La tormenta da frío… y miedo a quien está solo.   [c2n4]
 Las frutas quitan el hambre: ¡cuidado con el orden!   [c2n3]
+Los dos preparan papel decorado en el taller.   [c4n3]
+Los dos preparan papel decorado en el taller.   [c4n6]
+Lucía mira los molinos sola e imagina gigantes.   [c5n1]
 Lucía necesita la mochila.   [c3n1]
+Lucía observa un autorretrato en la Casa Azul.   [c5n4]
+Lucía pinta su propia cara y Valeria la ayuda con los colores.   [c5n4]
+Mateo compra comida solo en el mercado.   [c4n4]
+Mateo consulta un plano en el centro cultural.   [c5n1]
+Mateo entra solo y se pierde entre los libros.   [c5n3]
 Mateo necesita tener hambre.   [c3n1]
 Mateo se moja en el río.   [c1n2]
 Mateo tiene hambre, pero Lucía no comparte.   [c3n2]
 Primero hace calor… ¿y después?   [c1n1]
+Primero, alguien recuerda a un ser querido ante la ofrenda.   [c4n3]
 Primero, Diego no comparte y Lucía está enfadada.   [c3n3]
+Primero, los dos ensayan el tango.   [c4n5]
+Primero, Lucía elige un libro sola en el puesto.   [c4n1]
 Primero, Lucía se pierde sola.   [c2n1]
 Primero, Lucía se pierde sola.   [c3n5]
 Si Diego está solo, la serpiente le muerde.   [c2n2]
 Si no son amigos, Lucía no comparte.   [c3n2]
 Si va solo por la selva, Diego se pierde.   [c1n4]
 Solo se comparte con los amigos.   [c3n1]
+Una vez construido, vuelven juntos para exponerlo.   [c4n6]
+Valeria consulta el plano en el centro cultural.   [c4n2]
 Valeria necesita la linterna antes de la noche.   [c3n4]
+Valeria prepara papel para las etiquetas en el taller.   [c5n2]
 
 ## TÍTULOS · secretos
 Diego tiene miedo   [c3n4]
@@ -1933,6 +2464,11 @@ Diego no sale en la historia.   [c2n4]
 Diego no sale en la historia.   [c3n3]
 Diego no sale en la historia.   [c3n4]
 Diego no sale en la historia.   [c3n5]
+Diego no sale en la historia.   [c4n2]
+Diego no sale en la historia.   [c4n3]
+Diego no sale en la historia.   [c4n5]
+Diego no sale en la historia.   [c5n2]
+Diego no sale en la historia.   [c5n3]
 Diego todavía está perdido.   [c1n4]
 Falta: «Valeria duerme tranquila».   [c1n3]
 Lucía no está a salvo.   [c1n5]
@@ -1944,6 +2480,11 @@ Mateo no sale en la historia.   [c3n1]
 Mateo no sale en la historia.   [c3n2]
 Mateo no sale en la historia.   [c3n5]
 Mateo no sale en la historia.   [c3n6]
+Mateo no sale en la historia.   [c4n1]
+Mateo no sale en la historia.   [c4n6]
+Mateo no sale en la historia.   [c5n1]
 Mateo todavía tiene frío.   [c1n2]
 Valeria necesita la linterna antes de la noche, y pasar la noche sola.   [c1n3]
 Valeria no sale en la historia.   [c3n6]
+Valeria no sale en la historia.   [c4n4]
+Valeria no sale en la historia.   [c5n4]

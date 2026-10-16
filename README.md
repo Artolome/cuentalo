@@ -2,7 +2,9 @@
 
 Jeu de narration visuelle en espagnol (A1 → A2) inspiré de *Storyteller* : un titre en espagnol, 3 à 6 cases de BD, des **escenas** et des **personajes** à glisser ; chaque case produit une phrase en espagnol générée par le moteur. Quand l'histoire réalise le titre, le niveau est réussi.
 
-Un carnet d'aventure **cartoon** : cinq compagnons détaillés, de grands yeux expressifs, des contours bruns et dix-sept décors aux ambiances distinctes. Rivière turquoise, savane ocre, orage violet, nuit indigo et campement orangé se reconnaissent dès la petite carte. Lucía garde sa casquette, Mateo son maillot, Valeria son appareil photo et Diego son carnet ; Kiwi est un perroquet vert. Leurs visages et leurs poses montrent la soif, le froid, la peur ou la joie.
+Un carnet d'aventure **cartoon** : cinq compagnons détaillés, de grands yeux expressifs, des contours bruns et trente décors aux ambiances distinctes. Rivière turquoise, savane ocre, orage violet, nuit indigo et campement orangé se reconnaissent dès la petite carte. Lucía garde sa casquette, Mateo son maillot, Valeria son appareil photo et Diego son carnet ; Kiwi est un perroquet vert. Leurs visages et leurs poses montrent la soif, le froid, la peur ou la joie.
+
+**26 histoires en cinq chapitres.** « Viajes y culturas » ajoute six énigmes à travers l'Espagne et l'Amérique latine : Sant Jordi, Alhambra, Día de Muertos, marché de Cusco, tango et barriletes du Guatemala. « Libros y artistas » invite à découvrir Don Quichotte, le Macondo de García Márquez, les labyrinthes de Borges et Frida Kahlo. Ces quatre petites aventures originales proposent une première rencontre avec les œuvres et l'artiste. Chaque nouveau niveau possède une fiche « Descubrir » avec un repère culturel et des mots pour raconter. Accès direct aux deux chapitres depuis l'accueil, ou par « Niveles ». [Guide des nouvelles aventures](docs/CULTURAS.md) · [Sources culturelles](docs/FUENTES_CULTURALES.md).
 
 **Jouer en ligne :** https://artolome.github.io/cuentalo/
 
@@ -48,6 +50,10 @@ node test/autor.js
 ```
 
 ```bash
+node test/cultura.js
+```
+
+```bash
 node test/pizarra.js
 ```
 
@@ -82,4 +88,5 @@ node test/serve.js 4173
 - `docs/ejemplo_impresion.html` — aperçu de « Imprimir mi historia » (BD résolue + hojas de viñetas), généré par `node test/imprimir.js`
 - `docs/lexico_fuente.md` — lexique réel des decks de ¡Sobrevive!
 - `docs/ART_DIRECTION.md` — direction visuelle, ressources et prompts de génération
+- `docs/ART_CULTURAS.md` — treize nouveaux décors : intentions visuelles, ressources et prompts
 - `scripts/galeria-art.js` — génère une planche HTML autonome des personnages, émotions et décors pour contrôle visuel

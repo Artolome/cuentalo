@@ -8,9 +8,9 @@
 
 « Cuéntalo » est un jeu de narration visuelle inspiré de *Storyteller*. Chaque niveau donne un titre en espagnol (« Lucía ya no tiene sed »), 3 à 6 cases de BD vides, quelques « escenas » (la selva, el río, la noche…) et un ou plusieurs « personajes » (Lucía, Mateo, Valeria, Diego). L'élève glisse une escena et un personaje dans chaque case. Le moteur écrit aussitôt la phrase de la case : « Lucía bebe agua del río. Ya no tiene sed. » Quand l'histoire réalise le titre, le niveau est réussi.
 
-Le cœur pédagogique n'est pas le puzzle, c'est la phrase. Chaque case produit 1 à 3 phrases courtes, que l'élève lit, écoute et compare. Les phrases réemploient le lexique de la survie et font travailler les accords (« cansado / cansada / cansados »), les structures « tiene / está / ya no », puis « encuentra a », « comparte con », « pide perdón a ».
+Le cœur pédagogique n'est pas le puzzle, c'est la phrase. Chaque case produit des phrases courtes, que l'élève lit, écoute et compare. Les phrases réemploient le lexique de la survie, du voyage et de la création artistique et font travailler les accords (« cansado / cansada / cansados »), les structures « tiene / está / ya no », puis « encuentra a », « comparte con », « pide perdón a ».
 
-L'univers visuel prend la forme d'un carnet d'aventure cartoon : personnages aux grands yeux expressifs, tenues détaillées et contours bruns. Dix-sept décors se distinguent par leur composition et leur couleur : rivière turquoise, savane ocre, orage violet, nuit indigo, campement orangé… Les accessoires restent des repères stables — la casquette de Lucía, le maillot de Mateo, l'appareil photo de Valeria, le carnet de Diego et les plumes vertes de Kiwi. Les expressions et les gestes changent avec les états du récit : bras croisés quand il fait froid, yeux écarquillés quand le personnage a peur, pansement quand il est blessé. Ces indices invitent à formuler une hypothèse avant de lire la phrase, sans remplacer les mots espagnols.
+L'univers visuel prend la forme d'un carnet d'aventure cartoon : personnages aux grands yeux expressifs, tenues détaillées et contours bruns. Trente décors se distinguent par leur composition et leur couleur : rivière turquoise, savane ocre, orage violet, nuit indigo, campement orangé, moulins de La Mancha ou cour bleue de Coyoacán… Les accessoires restent des repères stables — la casquette de Lucía, le maillot de Mateo, l'appareil photo de Valeria, le carnet de Diego et les plumes vertes de Kiwi. Les expressions et les gestes changent avec les états du récit : bras croisés quand il fait froid, yeux écarquillés quand le personnage a peur, pansement quand il est blessé. Ces indices invitent à formuler une hypothèse avant de lire la phrase, sans remplacer les mots espagnols.
 
 Pour découvrir ce nouvel univers, montrer une case et demander « ¿Cómo está? », puis faire lire ou écouter la phrase pour vérifier. Faire ensuite changer une seule scène : qu'est-ce qui a changé dans le visage, dans l'histoire et dans la phrase ? Cette comparaison relie directement l'image au sens de « tiene », « está » et « ya no ».
 
@@ -30,6 +30,8 @@ Trois entrées :
 
 Le mode choisi est mémorisé sur ce poste : au lancement suivant, le jeu s'ouvre directement en « Pizarra » ou en « Solo » ; « 🏠 » (en haut à gauche) ramène à cet écran pour en changer. Choisir « Autor » sans avoir encore choisi de mode ouvre le jeu en « Solo ».
 
+Deux accès supplémentaires ouvrent les nouveaux chapitres : **Viajes y culturas** et **Libros y artistas**. Le mode Pizarra est conservé s'il est déjà actif. Les mêmes niveaux sont aussi disponibles dans « Niveles ». Dans chaque nouvelle aventure, cliquer sur **Descubrir**, sous le titre, ouvre une fiche sur le lieu, l'œuvre ou l'artiste, accompagnée de mots utiles. Le repère culturel figure également sur la BD imprimée. Voir [les dix nouvelles aventures et leurs solutions](CULTURAS.md).
+
 Astuce pour le poste du vidéoprojecteur : un raccourci vers `cuentalo.html?modo=pizarra&nivel=c1n1&dif=2` ouvre directement le mode, le niveau et le réglage ★ voulus.
 
 ### 2.2 Le sélecteur d'étoiles ★ / ★★ / ★★★
@@ -38,11 +40,11 @@ En haut à droite, un petit sélecteur règle le jeu. Il ne dit jamais « facile
 
 | Réglage | Nom | Ce qui change |
 |---|---|---|
-| ★ | « Paso a paso » | niveaux de 3 cases et 2-3 escenas (chapitres 1 et 2) ; chaque escena porte son picto emoji, sur la carte et dans la case ; une pista s'affiche automatiquement tous les 2 échecs (en tournant) ; les phrases restent visibles, sauf si la professeure a activé le « modo escritor » pour tous dans le panneau Profe |
+| ★ | « Paso a paso » | niveaux de 3 cases et 2-3 escenas ; chaque escena porte son picto emoji, sur la carte et dans la case ; une pista s'affiche automatiquement tous les 2 échecs (en tournant) ; les phrases restent visibles, sauf si la professeure a activé le « modo escritor » pour tous dans le panneau Profe |
 | ★★ | « Estándar » | tous les niveaux ; une seule pista automatique, au 4ᵉ échec ; le titre secret s'affiche une fois le niveau réussi une première fois |
-| ★★★ | « Reto » | niveaux de 4-6 cases (chapitre 3) ; le « modo escritor » est obligatoire (variante A1 ou A2 selon le réglage du panneau Profe, A1 par défaut) ; aucune pista automatique ; le « título secreto » reste caché tant qu'il n'est pas trouvé |
+| ★★★ | « Reto » | niveaux de 4-6 cases ; le « modo escritor » est obligatoire (variante A1 ou A2 selon le réglage du panneau Profe, A1 par défaut) ; aucune pista automatique ; le « título secreto » reste caché tant qu'il n'est pas trouvé |
 
-Dans tous les réglages, le titre est lu à voix haute à l'ouverture du niveau, et le bouton « 💡 Pista » reste disponible. La liste « ☰ Niveles » ne montre que les niveaux du réglage (chapitres 1-2 en ★, chapitre 3 en ★★★, tout en ★★) ; le nivel libre et les niveaux de la classe sont toujours visibles. Si le niveau en cours disparaît, le premier niveau visible s'ouvre.
+Dans tous les réglages, le titre est lu à voix haute à l'ouverture du niveau, et le bouton « 💡 Pista » reste disponible. La liste « ☰ Niveles » ne montre que les niveaux correspondant au nombre de cases et de scènes du réglage ; le nivel libre et les niveaux de la classe sont toujours visibles. Si le niveau en cours disparaît, le premier niveau visible s'ouvre. Pour voir les dix nouvelles aventures culturelles ensemble, choisir ★★.
 
 ### 2.3 Les boutons de l'interface
 
@@ -83,13 +85,15 @@ L'aide apparaît à la première visite. Elle suit l'avancement du plateau et la
 
 ## 3. Les niveaux
 
-16 niveaux en 3 chapitres, plus un « nivel libre ». La progression suit la grammaire :
+26 niveaux en 5 chapitres, plus un « nivel libre ». Les trois premiers chapitres suivent une progression grammaticale ; les deux suivants réemploient ces structures dans des découvertes culturelles :
 
 | Chapitre | Personajes | Cases | Ce qu'on travaille |
 |---|---|---|---|
 | 1 · Solo en la selva | 1 | 3 | « tiene hambre / sed / frío / miedo », « está cansado/a, perdido/a, a salvo », « ya no » ; la 3e case ferme l'histoire |
 | 2 · Juntos | 2 | 3 | « encuentra a », « cura a », « todos / nadie », le pluriel et l'accord, « son amigos » |
 | 3 · El grupo | 2-3 | 4-6 | « comparte con », « enfadado/a con », « pide perdón a », « nunca », titres composés avec « y », état initial (« Al principio… ») |
+| 4 · Viajes y culturas | 2 | 3 | préparer, partager, guider, danser ; découvrir des lieux et pratiques d'Espagne et d'Amérique latine |
+| 5 · Libros y artistas | 2 | 3 | observer, comprendre, se souvenir, créer ; Cervantes, García Márquez, Borges et Frida Kahlo |
 
 ### 3.1 Ce que fait chaque escena
 
@@ -188,7 +192,7 @@ Voici, pour chaque niveau, les phrases que le moteur écrit pour la solution du 
 
 ### 3.7 Le « nivel libre »
 
-Le niveau « Mi historia » n'a pas de titre : 6 cases, les 17 escenas et les 4 personajes. Il n'y a pas de pistas. Le moteur écrit quand même les phrases de chaque case, et « ¿Qué pasa? » relit l'histoire complète et résume l'état final de chacun (« Lucía tiene hambre y frío. Está perdida. »). Le panneau « Léxico » y réunit les 56 mots du jeu. C'est le terrain d'entraînement de la tâche finale (partie 4.3) : l'élève invente, lit ce que le moteur écrit, puis trouve lui-même un titre à son histoire. L'indicateur à droite du titre compte les cases remplies (« 3/6 viñetas ») puis affiche « ¡Historia completa! » ; « 🖨 » s'active alors. Le « modo escritor » ne s'applique pas au nivel libre (ni pendant la création d'un niveau en Autor) : il n'y a pas de phrase « attendue ».
+Le niveau « Mi historia » n'a pas de titre : 6 cases, les 30 escenas et les 4 personajes. Il n'y a pas de pistas. Le moteur écrit quand même les phrases de chaque case, et « ¿Qué pasa? » relit l'histoire complète et résume l'état final de chacun (« Lucía tiene hambre y frío. Está perdida. »). Le panneau « Léxico » y réunit les mots associés aux scènes disponibles. C'est le terrain d'entraînement de la tâche finale (partie 4.3) : l'élève invente, lit ce que le moteur écrit, puis trouve lui-même un titre à son histoire. L'indicateur à droite du titre compte les cases remplies (« 3/6 viñetas ») puis affiche « ¡Historia completa! » ; « 🖨 » s'active alors. Le « modo escritor » ne s'applique pas au nivel libre (ni pendant la création d'un niveau en Autor) : il n'y a pas de phrase « attendue ».
 
 ## 4. Trois déroulés
 
