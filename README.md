@@ -1,20 +1,29 @@
 # Cuéntalo
 
+L'accueil présente maintenant une **bibliothèque de quatre histoires**, chacune avec cinq chapitres liés, ses protagonistes et son dénouement : **Don Quichotte et Sancho, les Buendía à Macondo, le narrateur bibliothécaire de Borges et la vie de Frida**. Les adaptations sont brèves et rédigées en prose originale ; la quête de Borges est explicitement une invention inspirée de *La biblioteca de Babel*. Les choix ouvrent des observations et des points de vue, sans réécrire la biographie. La progression se sauvegarde par histoire, la relecture reste possible, et un carnet personnel peut être téléchargé à la fin. [Guide des histoires et sources](HISTORIAS.md) · [Couvertures et prompts](docs/ART_HISTORIAS.md).
+
+Les anciens niveaux décrits ci-dessous restent dans **Taller de viñetas**, accessible depuis la bibliothèque. Les liens directs vers un niveau continuent de fonctionner. Liens de la bibliothèque : `cuentalo.html?biblioteca=1`, `cuentalo.html?historia=don_quijote`, `cuentalo.html?historia=frida`.
+
 Jeu de narration visuelle en espagnol (A1 → A2) inspiré de *Storyteller* : un titre en espagnol, 3 à 6 cases de BD, des **escenas** et des **personajes** à glisser ; chaque case produit une phrase en espagnol générée par le moteur. Quand l'histoire réalise le titre, le niveau est réussi.
 
 Un carnet d'aventure **cartoon** : cinq compagnons détaillés, de grands yeux expressifs, des contours bruns et trente décors aux ambiances distinctes. Rivière turquoise, savane ocre, orage violet, nuit indigo et campement orangé se reconnaissent dès la petite carte. Lucía garde sa casquette, Mateo son maillot, Valeria son appareil photo et Diego son carnet ; Kiwi est un perroquet vert. Leurs visages et leurs poses montrent la soif, le froid, la peur ou la joie.
 
-**26 histoires en cinq chapitres.** « Viajes y culturas » ajoute six énigmes à travers l'Espagne et l'Amérique latine : Sant Jordi, Alhambra, Día de Muertos, marché de Cusco, tango et barriletes du Guatemala. « Libros y artistas » invite à découvrir Don Quichotte, le Macondo de García Márquez, les labyrinthes de Borges et Frida Kahlo. Ces quatre petites aventures originales proposent une première rencontre avec les œuvres et l'artiste. Chaque nouveau niveau possède une fiche « Descubrir » avec un repère culturel et des mots pour raconter. Accès direct aux deux chapitres depuis l'accueil, ou par « Niveles ». [Guide des nouvelles aventures](docs/CULTURAS.md) · [Sources culturelles](docs/FUENTES_CULTURALES.md).
+**26 énigmes conservées dans l'atelier.** « Viajes y culturas » propose six énigmes à travers l'Espagne et l'Amérique latine : Sant Jordi, Alhambra, Día de Muertos, marché de Cusco, tango et barriletes du Guatemala. Les quatre anciennes énigmes « Libros y artistas » restent aussi dans « Niveles ». Chaque niveau culturel possède une fiche « Descubrir » avec un repère et des mots pour raconter. [Guide des énigmes culturelles](docs/CULTURAS.md) · [Sources culturelles](docs/FUENTES_CULTURALES.md).
 
 **Jouer en ligne :** https://artolome.github.io/cuentalo/
 
 **Jouer hors-ligne :** télécharger [`cuentalo.html`](cuentalo.html) (bouton « Download raw file ») et l'ouvrir par double-clic : un seul fichier, aucune donnée envoyée ; Chrome, Edge ou Firefox. Guide de la professeure : [`docs/GUIA_PROFE.md`](docs/GUIA_PROFE.md).
-Écran d'accueil : **Pizarra** (classe, vidéoprojecteur) · **Solo** (élève) · **Autor** (créer un niveau). Sélecteur ★ / ★★ / ★★★ en haut à droite. Touche **P** : panneau Profe (mot de passe par défaut `profe`).
+Accueil de **Taller de viñetas** : **Pizarra** (classe, vidéoprojecteur) · **Solo** (élève) · **Autor** (créer un niveau). Sélecteur ★ / ★★ / ★★★ en haut à droite. Touche **P** : panneau Profe (mot de passe par défaut `profe`).
 Paramètres d'URL facultatifs : `cuentalo.html?modo=pizarra&nivel=c2n1&dif=2`.
 
 **Pour commencer :** « ? Ayuda » accompagne les premiers gestes (escena → personaje → suite de l'histoire → titre). Les histoires en cours se sauvegardent automatiquement sur ce navigateur et se reprennent après fermeture ou changement de niveau. Une fois un niveau réussi, « ✎ Contar » propose de raconter avec ses propres mots en trois étapes : « Primero… », « Después… », « Al final… », à l'oral ou à l'écrit. Ce récit personnel ne reçoit pas de correction automatique ; son brouillon reste sur le poste.
 
 ## Sources
+
+- `src/historias-data.js` — quatre récits, vingt chapitres, choix et sources
+- `src/historias-state.js` — progression pure, validation des sauvegardes et relecture
+- `src/historias-ui.js`, `src/historias.css` — bibliothèque, lecture continue et carnet
+- `src/art/assets/historias/` — quatre couvertures originales avec les protagonistes
 
 - `src/lengua.js` — accords, conjugaison (présent / pretérito), pictos
 - `src/contenido.js` — personajes, estados, escenas, niveaux
@@ -28,6 +37,8 @@ Paramètres d'URL facultatifs : `cuentalo.html?modo=pizarra&nivel=c2n1&dif=2`.
 - `build.js` → `cuentalo.html`
 
 ## Commandes
+
+Tests des quatre histoires : `node test/historias.js`.
 
 ```bash
 node build.js

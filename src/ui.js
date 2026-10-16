@@ -362,7 +362,7 @@
     if (window.SVApp.imprimir) bi.onclick = () => { d.close(); window.SVApp.imprimir(); }; else bi.hidden = true;
     clearTimeout(exitoTimer);
     const firma = nivel.id + '|' + JSON.stringify(viñetas);
-    exitoTimer = setTimeout(() => { if (!d.open && res.resuelto && !escritorPendiente() && firma === nivel.id + '|' + JSON.stringify(viñetas)) d.showModal(); }, 350);
+    exitoTimer = setTimeout(() => { if (!(window.SVHistorias && window.SVHistorias.activo()) && !d.open && res.resuelto && !escritorPendiente() && firma === nivel.id + '|' + JSON.stringify(viñetas)) d.showModal(); }, 350);
     hablar(res.frasesTodas.join(' '));
   }
 
@@ -481,6 +481,7 @@
   }
   /* Alumno: estrellas, nivel actual y ajustes de juego. Se conservan el modo, la contraseña del profe y los niveles de la clase. */
   function borrarMisDatos() {
+    if (window.SVHistorias) window.SVHistorias.borrar();
     const a = ajustes(), conservar = { modo: a.modo, clave: a.clave, escritor: a.escritor, escritorNivel: a.escritorNivel, preterito: a.preterito };
     partidas.borrarTodo(); ayudaActiva = true;
     progreso = { ajustes: Object.assign({ dif: 2 }, conservar) }; guardar();
@@ -489,6 +490,7 @@
   }
   /* Profe: todo lo que el juego guarda en este navegador (progreso, ajustes, contraseña, niveles de la clase, barra de clase). */
   function borrarTodo() {
+    if (window.SVHistorias) window.SVHistorias.borrar();
     // la barra de clase se desmonta antes de borrar su almacenamiento (si no, volvería a guardar nombres y puntos)
     if (pizarraApi) { try { pizarraApi.destruir(); } catch (_) { /* nada */ } pizarraApi = null; delete $('#clase').dataset.montado; }
     progreso = {}; guardar();
@@ -517,7 +519,7 @@
     abrirNivel(primero.id);
   }
   $('#btnCulturas').onclick = () => abrirCapitulo(4);
-  $('#btnLibros').onclick = () => abrirCapitulo(5);
+  $('#btnLibros').onclick = () => window.SVHistorias ? window.SVHistorias.biblioteca() : abrirCapitulo(5);
   $('#culturaNivel').addEventListener('toggle', ajustarTira);
   $('#btnNiveles').onclick = () => { const p = $('#panelNiveles'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
   $('#btnLexico').onclick = () => { const p = $('#panelLexico'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
@@ -536,6 +538,7 @@
   document.querySelectorAll('#inicioApp [data-modo]').forEach(b => b.onclick = () => elegirModo(b.dataset.modo));
   $('#cardAutor').onclick = () => { if (window.SVApp.abrirAutor) { if (!ajustes().modo) elegirModo('solo'); $('#inicioApp').hidden = true; window.SVApp.abrirAutor(); } };
   document.addEventListener('keydown', ev => {
+    if (window.SVHistorias && window.SVHistorias.activo()) return;
     const t = ev.target;
     if (t && t.matches && (t.matches('input,textarea,select') || t.isContentEditable)) return;
     if (ev.key === 'Escape') { seleccionar(null); cerrarPaneles(); }
