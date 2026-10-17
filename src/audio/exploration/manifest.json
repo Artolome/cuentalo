@@ -1,0 +1,1158 @@
+{
+  "version": 1,
+  "provider": "Microsoft Edge Neural TTS",
+  "clips": {
+    "borges.dialogue.0.0": {
+      "file": "borges.dialogue.0.0.mp3",
+      "text": "Acá está el libro azul que buscábamos.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "c31806553544c485036dfde05bb10bb600486accc041445d49ab0fa4712d0b6e",
+      "duration": 3.288
+    },
+    "borges.dialogue.0.1": {
+      "file": "borges.dialogue.0.1.mp3",
+      "text": "¡Lo encontraste! Ahora necesitamos un poco de luz.",
+      "voice": "es-AR-ElenaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "59ef4771960c431bba4e63989110c3c138576add902b0e9ee22e46a9e26c23f1",
+      "duration": 5.064
+    },
+    "borges.dialogue.1.0": {
+      "file": "borges.dialogue.1.0.mp3",
+      "text": "Las dos lámparas ya están encendidas.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "b363fda22ab84b6c9d9847ab7effae792f1963b7fce893a70fd7ace1af414977",
+      "duration": 3.144
+    },
+    "borges.dialogue.1.1": {
+      "file": "borges.dialogue.1.1.mp3",
+      "text": "Ahora podemos ver el camino a la sala.",
+      "voice": "es-AR-ElenaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "d10ab762dea10ad7633dba8d5698da0c0f6d475caac060abc289b45dd36a594c",
+      "duration": 3.216
+    },
+    "borges.dialogue.2.0": {
+      "file": "borges.dialogue.2.0.mp3",
+      "text": "Encontré la llave dorada junto a los libros.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "10aadb9b8dc734cb0854ab5a712506d471c95567b48bb554f853a1f747c74a13",
+      "duration": 3.408
+    },
+    "borges.dialogue.2.1": {
+      "file": "borges.dialogue.2.1.mp3",
+      "text": "Entonces ya podemos abrir la puerta.",
+      "voice": "es-AR-ElenaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "3d71f36098d236b3d2532ed3d442d394bc1d0b4322f9bcc05dfc061db2625a56",
+      "duration": 3.216
+    },
+    "borges.dialogue.3.0": {
+      "file": "borges.dialogue.3.0.mp3",
+      "text": "La puerta está abierta. Pasá, por favor.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "b736452dcfc3c8b6586789bc3bd5b2f521b72dbdb8e829bfdc2fe4b7dca6e2a6",
+      "duration": 4.416
+    },
+    "borges.dialogue.3.1": {
+      "file": "borges.dialogue.3.1.mp3",
+      "text": "Gracias. ¡Mirá cómo brillan esas estrellas!",
+      "voice": "es-AR-ElenaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "cc8023d63ce33460884788a0b3c0852f4b8961640ea1ec07f52996ae8bb91b28",
+      "duration": 4.8
+    },
+    "borges.dialogue.4.0": {
+      "file": "borges.dialogue.4.0.mp3",
+      "text": "Tenemos tres estrellas para iluminar la biblioteca.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "64e081ba375ac0a7f39af61a610a491f396cba0280f414d5de91b5a88a28790e",
+      "duration": 3.648
+    },
+    "borges.dialogue.4.1": {
+      "file": "borges.dialogue.4.1.mp3",
+      "text": "Ya está todo listo. Avisemos a los demás.",
+      "voice": "es-AR-ElenaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "074d04b07500e1de3a7ab87aaaa1db80c4f89b60c332a63bba5fa1685726a17d",
+      "duration": 4.704
+    },
+    "borges.dialogue.5.0": {
+      "file": "borges.dialogue.5.0.mp3",
+      "text": "¡Bienvenidos! Hay muchos libros por descubrir.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "33a5a6883d0153ce188f3bc8e07bce254838bf801453f389956939e7931799ce",
+      "duration": 4.536
+    },
+    "borges.dialogue.5.1": {
+      "file": "borges.dialogue.5.1.mp3",
+      "text": "¿Empezamos por el libro azul?",
+      "voice": "es-AR-ElenaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "fc2800ab584336dc72b0aa017997575d4a55c1d8429d2422239281d2c8d3acfb",
+      "duration": 2.736
+    },
+    "borges.goal.0.easy": {
+      "file": "borges.goal.0.easy.mp3",
+      "text": "Busca el libro azul.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "4420261d80442fb7dcfb5b02a5ea329271a930b69960becdcc2f323cd5920251",
+      "duration": 2.256
+    },
+    "borges.goal.0.normal": {
+      "file": "borges.goal.0.normal.mp3",
+      "text": "Encuentra el libro azul entre los libros de colores.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "07bb88277ec9ffafa9cd11b82fbdf4bfe235e3f3873a3037334c2ee88a8aff67",
+      "duration": 3.768
+    },
+    "borges.goal.1.easy": {
+      "file": "borges.goal.1.easy.mp3",
+      "text": "Enciende las 2 lámparas.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "a2b245f996b9c308f72964162b9d8a081103afa91ecd4d913f866dc62ed766da",
+      "duration": 2.688
+    },
+    "borges.goal.1.normal": {
+      "file": "borges.goal.1.normal.mp3",
+      "text": "Enciende las dos lámparas para iluminar el patio.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "7773f9e651c07d9a3764a247980cc827a1958238e3a1354abbbe4198c5af4698",
+      "duration": 3.72
+    },
+    "borges.goal.2.easy": {
+      "file": "borges.goal.2.easy.mp3",
+      "text": "Busca la llave dorada.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "108d4a2262481ca1f15372b35bd16f50cc287e09cf0e53a809e4cace7071cd60",
+      "duration": 2.352
+    },
+    "borges.goal.2.normal": {
+      "file": "borges.goal.2.normal.mp3",
+      "text": "Encuentra la llave dorada de la biblioteca.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "cf21a545d38f3b8267f3d5a61ad090e9a3db95ed8e15bc2bc2e4d4cc2e71cff8",
+      "duration": 3.384
+    },
+    "borges.goal.3.easy": {
+      "file": "borges.goal.3.easy.mp3",
+      "text": "Abre la puerta.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "ecaa1c63b0dccaae4f2a3986c76c302cd8dc271148d9007c116c8dacbdef7857",
+      "duration": 1.92
+    },
+    "borges.goal.3.normal": {
+      "file": "borges.goal.3.normal.mp3",
+      "text": "Abre la puerta de la biblioteca.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "3bfe0921d21ac8129b2101ffacc7b09cea7bdebd7ba832c2d3e9915a032403cf",
+      "duration": 2.688
+    },
+    "borges.goal.4.easy": {
+      "file": "borges.goal.4.easy.mp3",
+      "text": "Recoge 3 estrellas.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "6e9a80ec24b97e0add57821cc0fec71d151496b686f780b93d4f3c7a30d1f04c",
+      "duration": 2.592
+    },
+    "borges.goal.4.normal": {
+      "file": "borges.goal.4.normal.mp3",
+      "text": "Recoge las tres estrellas que brillan en el patio.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "17b7b0ab93e3c6f0744e9ce59477b47f767eda7225caf436bfc88d3d4b23ae83",
+      "duration": 3.816
+    },
+    "borges.goal.5.easy": {
+      "file": "borges.goal.5.easy.mp3",
+      "text": "Toca la campana.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "28a0fa1810a4900fb2bc4daeee27c4c17570f69ae69a5a57a978ad0d90df8000",
+      "duration": 1.968
+    },
+    "borges.goal.5.normal": {
+      "file": "borges.goal.5.normal.mp3",
+      "text": "Toca la campana para abrir la biblioteca al público.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "1fdb7da6b34ecd30a8a9403b67e3dce010c433a2b8d336f0ce06f2d046052ac2",
+      "duration": 3.696
+    },
+    "borges.intro": {
+      "file": "borges.intro.mp3",
+      "text": "Un cuento y su biblioteca. La biblioteca de Babel es un cuento de Jorge Luis Borges. Las misiones de luces y llaves son inventadas; estos fragmentos presentan la biblioteca y las búsquedas del relato original.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "d4648d32e8163642a9e9a890f4414dcf259d6b1fb64869544d57b250a87df53c",
+      "duration": 14.448
+    },
+    "borges.story.0": {
+      "file": "borges.story.0.mp3",
+      "text": "Un mundo entre libros. Un bibliotecario cuenta su vida en una biblioteca enorme, formada por salas de seis lados, pasillos y escaleras. Ha viajado por muchas salas buscando libros, pero no conoce los límites de ese mundo.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "6079e4611652cdabf0b4e0a3b1646632eb0a5a77404147a1f82a206e1d3fa56f",
+      "duration": 15.696
+    },
+    "borges.story.1": {
+      "file": "borges.story.1.mp3",
+      "text": "Páginas difíciles de entender. Los libros tienen el mismo formato y usan un pequeño conjunto de letras y otros signos. Casi todas las páginas que encuentran los lectores parecen mezclas sin sentido, difíciles de comprender.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "c667aa755842c8e698ddde4a4eb1f426cfeb3b6ea5f7f5dc90d2b9278420056c",
+      "duration": 15.144
+    },
+    "borges.story.2": {
+      "file": "borges.story.2.mp3",
+      "text": "Todas las combinaciones posibles. Alguien descubre que la Biblioteca contiene todas las combinaciones posibles de esos signos en sus libros. Por eso hay textos verdaderos y falsos, respuestas y errores, entre una enorme cantidad de páginas incomprensibles.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "c9f1cc5d292cfd1c01eb7b8631d45266f24d85f634d836b9cd45475dddfec2d4",
+      "duration": 16.968
+    },
+    "borges.story.3": {
+      "file": "borges.story.3.mp3",
+      "text": "En busca de respuestas. Al saberlo, muchas personas esperan encontrar un libro que explique su propia vida y anuncie su futuro. Algunas abandonan las salas donde viven y recorren la Biblioteca en busca de esas respuestas.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "50fd2134b91862d87a82837e67903934a2a555301433c9d55faf6bc1a551d2c9",
+      "duration": 14.736
+    },
+    "borges.story.4": {
+      "file": "borges.story.4.mp3",
+      "text": "Una búsqueda entre conflictos. La búsqueda se vuelve difícil, porque hay muchísimos libros y nadie sabe dónde encontrar las respuestas que necesita. Surgen peleas, y algunas personas llegan a destruir libros que consideran inútiles.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "3008300a3cffa66806ffffcf3c0527ef8aba2eb22e58df9f051c9c47d322ec39",
+      "duration": 15.504
+    },
+    "borges.story.5": {
+      "file": "borges.story.5.mp3",
+      "text": "Una esperanza de orden. Al final, el narrador imagina que, al viajar sin límite, los mismos libros podrían volver a aparecer. Esa posible repetición le permite esperar un orden, aunque no haya encontrado una explicación completa.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "c2e74c74bd81efb8aa65cf2338dcbdad37ce76d5d7229a01e6a5f89fcb1b03f7",
+      "duration": 15.888
+    },
+    "borges.summary": {
+      "file": "borges.summary.mp3",
+      "text": "La biblioteca de Babel. Un bibliotecario describe un mundo de salas llenas de libros. Todos usan los mismos signos, combinados de todas las maneras posibles: allí están las respuestas, pero también los errores y las páginas incomprensibles. Los habitantes buscan libros que expliquen sus vidas; esa búsqueda provoca esperanzas y conflictos, sin una solución segura. Al final, el narrador imagina una biblioteca sin límite donde los libros se repiten, y encuentra en esa posibilidad una esperanza de orden.",
+      "voice": "es-AR-TomasNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "3f8a6999cc0e8d02cb47d4797e3a24690f487ea226c1ba87926fec6d44ea6fc4",
+      "duration": 32.424
+    },
+    "don_quijote.dialogue.0.0": {
+      "file": "don_quijote.dialogue.0.0.mp3",
+      "text": "Sancho, ¿vienes conmigo a buscar aventuras?",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "1e50893ec5c55f7c22b9f1438b6512999a017f4c3a0c3c3e15068afd69a62d1b",
+      "duration": 3.864
+    },
+    "don_quijote.dialogue.0.1": {
+      "file": "don_quijote.dialogue.0.1.mp3",
+      "text": "¡Claro! Pero primero busquemos a Rocinante.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-2%",
+      "pitch": "-8Hz",
+      "sha256": "ee6f8fcc131eb38e11a6661280bbb4471eabc847bad8d84ce8eb5dbada3f23c3",
+      "duration": 4.392
+    },
+    "don_quijote.dialogue.1.0": {
+      "file": "don_quijote.dialogue.1.0.mp3",
+      "text": "Aquí está Rocinante, junto al camino.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "15c9a4c6be78a3c3820bc7cba80b56695b3b59ab693bd6eab70a3172b1480ada",
+      "duration": 3.504
+    },
+    "don_quijote.dialogue.1.1": {
+      "file": "don_quijote.dialogue.1.1.mp3",
+      "text": "Ya podemos seguir. ¡Vamos, amigo!",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-2%",
+      "pitch": "-8Hz",
+      "sha256": "e6253b7bc9ac74bb0430c1ab8795cefbbba1977681015546e65663546f007343",
+      "duration": 4.416
+    },
+    "don_quijote.dialogue.2.0": {
+      "file": "don_quijote.dialogue.2.0.mp3",
+      "text": "¡Qué grandes son las aspas!",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "662a70e524052eacf2bf35a3a53db2f6ab518d6e1533d769f1fc4fe9da14d71a",
+      "duration": 2.544
+    },
+    "don_quijote.dialogue.2.1": {
+      "file": "don_quijote.dialogue.2.1.mp3",
+      "text": "Sí, son molinos. El viento las mueve.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-2%",
+      "pitch": "-8Hz",
+      "sha256": "87a6caa93864095dd2079584c14787b5dd94281ba0802007fe83a40a04112519",
+      "duration": 4.608
+    },
+    "don_quijote.dialogue.3.0": {
+      "file": "don_quijote.dialogue.3.0.mp3",
+      "text": "Tenemos tres frutas para el viaje.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "0a317956b87d6e59ec441c4eb2c96d39e19f7c6235094c9c4c2db826794ae89b",
+      "duration": 3.048
+    },
+    "don_quijote.dialogue.3.1": {
+      "file": "don_quijote.dialogue.3.1.mp3",
+      "text": "Perfecto, guardemos una para el camino.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-2%",
+      "pitch": "-8Hz",
+      "sha256": "22eab5efbe135cec6e3470555683be8a444318875031ecb093a3194aa87a5840",
+      "duration": 3.36
+    },
+    "don_quijote.dialogue.4.0": {
+      "file": "don_quijote.dialogue.4.0.mp3",
+      "text": "Esta carta viene de casa.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "7b05614417b496b32b340f9509052c367be51f4178d695287ac42e2128bb43a7",
+      "duration": 2.64
+    },
+    "don_quijote.dialogue.4.1": {
+      "file": "don_quijote.dialogue.4.1.mp3",
+      "text": "Entonces, volvamos antes de que anochezca.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-2%",
+      "pitch": "-8Hz",
+      "sha256": "1c00d85c057be1a0f976918228610351483b1d6228e51a9d550ad98a4da52d56",
+      "duration": 3.672
+    },
+    "don_quijote.dialogue.5.0": {
+      "file": "don_quijote.dialogue.5.0.mp3",
+      "text": "Sancho, ya estamos en casa.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "6632f9bea74ab1695c452236eb175b9d8231ee30bd609328f604bac7a5784006",
+      "duration": 3.168
+    },
+    "don_quijote.dialogue.5.1": {
+      "file": "don_quijote.dialogue.5.1.mp3",
+      "text": "¡Por fin! Ahora podemos descansar.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-2%",
+      "pitch": "-8Hz",
+      "sha256": "ef5d48723bc3a058dd92fe47a9a8fa0e72618933e1f2429ba47b9346efea5203",
+      "duration": 4.032
+    },
+    "don_quijote.goal.0.easy": {
+      "file": "don_quijote.goal.0.easy.mp3",
+      "text": "Habla con Sancho.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "e0b7155489ad5f33d1cec5b994bacec07bd92c56282e3dda7b3c5c1498036d98",
+      "duration": 2.232
+    },
+    "don_quijote.goal.0.normal": {
+      "file": "don_quijote.goal.0.normal.mp3",
+      "text": "Acércate a Sancho y habla con él.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "003e9d0a054f95d9f34b33ec7947d22e4f80b16a269aa1a86da3b28c106a67a5",
+      "duration": 3.168
+    },
+    "don_quijote.goal.1.easy": {
+      "file": "don_quijote.goal.1.easy.mp3",
+      "text": "Busca a Rocinante.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "62aada9a7b8671209054e58bf8a88ec541ba0f14f670946eda77b20aefc28819",
+      "duration": 2.4
+    },
+    "don_quijote.goal.1.normal": {
+      "file": "don_quijote.goal.1.normal.mp3",
+      "text": "Encuentra a Rocinante junto al camino.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "b3bbb5151a6792a241ee3a0ad43be83daca702672f662b6c01c4594b89991d83",
+      "duration": 3.336
+    },
+    "don_quijote.goal.2.easy": {
+      "file": "don_quijote.goal.2.easy.mp3",
+      "text": "Visita el molino.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "7118ea0e7123a0d1be556e6ea08ace8172f00748839c23c5c1d380d9180b5c23",
+      "duration": 2.232
+    },
+    "don_quijote.goal.2.normal": {
+      "file": "don_quijote.goal.2.normal.mp3",
+      "text": "Acércate al molino para verlo de cerca.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "551fb5469e25f945957ae1f492feffa249c63cd1ecf557d5990518694fa1d0c5",
+      "duration": 3.504
+    },
+    "don_quijote.goal.3.easy": {
+      "file": "don_quijote.goal.3.easy.mp3",
+      "text": "Recoge 3 frutas.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "472509f1c036a6b09ae186455ff5af03b0c007830c42ad1a185d49605fe5cd2a",
+      "duration": 2.544
+    },
+    "don_quijote.goal.3.normal": {
+      "file": "don_quijote.goal.3.normal.mp3",
+      "text": "Recoge las tres frutas para el viaje.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "005ed4f591fc74932054d37b8470b5b41255250a9c572e5c399e110e426870a0",
+      "duration": 3.36
+    },
+    "don_quijote.goal.4.easy": {
+      "file": "don_quijote.goal.4.easy.mp3",
+      "text": "Busca la carta.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "eb592ce1d8a26706449b6210fe410c6da076980ec895283f6f8c4234e596f860",
+      "duration": 2.184
+    },
+    "don_quijote.goal.4.normal": {
+      "file": "don_quijote.goal.4.normal.mp3",
+      "text": "Encuentra la carta que llega de casa.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "6d6ebdaec34d9166bc8dade2d10e563f75f424186dfe7712a51fb25e917a12ff",
+      "duration": 3.216
+    },
+    "don_quijote.goal.5.easy": {
+      "file": "don_quijote.goal.5.easy.mp3",
+      "text": "Abre la puerta.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "762cbb434d08a635a8725956899d911d332f5a85bd6ec04f7abdf36aa999d57b",
+      "duration": 2.04
+    },
+    "don_quijote.goal.5.normal": {
+      "file": "don_quijote.goal.5.normal.mp3",
+      "text": "Abre la puerta de casa para terminar el viaje.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "f936b08b39b0ce5fe1a6c33fe8a3b7b121d74bef28a62d75b3c1847941a5eff2",
+      "duration": 3.768
+    },
+    "don_quijote.intro": {
+      "file": "don_quijote.intro.mp3",
+      "text": "Un libro y un juego. Don Quijote de la Mancha es una novela de Miguel de Cervantes. El viaje que juegas es inventado; estos fragmentos cuentan algunos momentos del libro, incluido su final.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "2031d1b433c9aeb2614141da7023314d05e9041a471e592c4e19998f21195481",
+      "duration": 13.872
+    },
+    "don_quijote.story.0": {
+      "file": "don_quijote.story.0.mp3",
+      "text": "Un nombre de caballero. Alonso Quijano lee tantos libros de caballerías que decide convertirse en caballero y llamarse Don Quijote. Sale de su pueblo para buscar aventuras y ayudar a quienes tienen problemas.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "60a36b52b3474162b0bdf78a9ce99b0278b7b0c701f4632f1fcbf10387f366d2",
+      "duration": 14.52
+    },
+    "don_quijote.story.1": {
+      "file": "don_quijote.story.1.mp3",
+      "text": "Dos compañeros de camino. Sancho Panza, un campesino vecino, acepta acompañar a Don Quijote como escudero, es decir, como ayudante. Don Quijote monta a Rocinante y Sancho viaja en un burro por los caminos.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "261eee523470a75819d581f1a2913b0a0f5fb70e8b810ab65d3793ec2ea888e5",
+      "duration": 15.648
+    },
+    "don_quijote.story.2": {
+      "file": "don_quijote.story.2.mp3",
+      "text": "Gigantes junto al camino. Don Quijote ve unos molinos de viento, cree que son gigantes y se lanza contra ellos. Sancho intenta avisarle, pero una aspa derriba al caballero y su compañero lo ayuda.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "6cfb15eca164873b950bbaa13b41cca0786d2aceaec24c99f63df6d16cc801e5",
+      "duration": 14.352
+    },
+    "don_quijote.story.3": {
+      "file": "don_quijote.story.3.mp3",
+      "text": "Sancho prueba a gobernar. Mucho después, unos duques organizan una burla y nombran a Sancho gobernador de un lugar llamado Barataria. Sancho resuelve problemas con buen juicio, pero acaba dejando el cargo y vuelve con Don Quijote.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "87fd16d005ac731658d52a52240eb19f57a7144de0970b12251f49eb7f585249",
+      "duration": 15.96
+    },
+    "don_quijote.story.4": {
+      "file": "don_quijote.story.4.mp3",
+      "text": "La promesa del regreso. Tras muchas otras aventuras, Don Quijote llega a Barcelona y pierde un combate contra el Caballero de la Blanca Luna. Como había prometido, debe regresar a su pueblo y dejar las aventuras durante un año.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "4fc95a006dd0ca328210f658724e06ed771ef3b18e6e36acdf52d96fcea906d1",
+      "duration": 16.032
+    },
+    "don_quijote.story.5": {
+      "file": "don_quijote.story.5.mp3",
+      "text": "Alonso Quijano en casa. De vuelta en casa, Don Quijote enferma y comprende que las aventuras de sus libros no eran reales. Recupera el nombre de Alonso Quijano y muere acompañado por personas que lo quieren, entre ellas Sancho.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "adf8c0e2bd4a6bac10cb498c9e0e95da7b7c4277dbad99055755c88e4cb941e2",
+      "duration": 15.528
+    },
+    "don_quijote.summary": {
+      "file": "don_quijote.summary.mp3",
+      "text": "Don Quijote de la Mancha. Alonso Quijano lee libros de caballerías y decide ser Don Quijote, un caballero que quiere ayudar a otros. Viaja con Sancho Panza y confunde molinos con gigantes. Más adelante, Sancho gobierna Barataria durante una burla de unos duques, pero abandona el cargo. Tras muchas aventuras, Don Quijote pierde un combate en Barcelona y cumple su promesa de volver a casa. Allí enferma, reconoce sus errores y muere como Alonso Quijano, junto a sus seres queridos.",
+      "voice": "es-ES-AlvaroNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "ef044dc7c308e82d380562977d4ee9b14cf59fcef2b938129b345ec7cb6da4c1",
+      "duration": 33.888
+    },
+    "frida.dialogue.0.0": {
+      "file": "frida.dialogue.0.0.mp3",
+      "text": "Tres flores rojas para alegrar el taller.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "052a8a2074dc14fab6afba362fe1a719b36f99e8515a9632fddd71b20ba26a4b",
+      "duration": 3.456
+    },
+    "frida.dialogue.0.1": {
+      "file": "frida.dialogue.0.1.mp3",
+      "text": "¡Qué bonitas! Las llevamos junto a la ventana.",
+      "voice": "es-MX-JorgeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "ef509aa81f577962ad9d033b5ba55933a08e069598e2cba8f57ba3faa90f9ff6",
+      "duration": 4.44
+    },
+    "frida.dialogue.1.0": {
+      "file": "frida.dialogue.1.0.mp3",
+      "text": "Ya tengo pintura azul y amarilla.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "2e0c859fee0969ca59a03a2d3807628f8b5bd20fc9e73575ffb196d12d137ace",
+      "duration": 3.0
+    },
+    "frida.dialogue.1.1": {
+      "file": "frida.dialogue.1.1.mp3",
+      "text": "¡Qué bien! El lienzo te está esperando.",
+      "voice": "es-MX-JorgeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "f36ff7918fc8546ea5175f2d0f9ad5592160cd9b65c93255a69054509202d598",
+      "duration": 4.08
+    },
+    "frida.dialogue.2.0": {
+      "file": "frida.dialogue.2.0.mp3",
+      "text": "Mi cuadro ya está terminado.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "d0787cbe8cb30c4d2df7cc785279ff151900dd6a64e236201184d2b228484700",
+      "duration": 2.76
+    },
+    "frida.dialogue.2.1": {
+      "file": "frida.dialogue.2.1.mp3",
+      "text": "Me gustan mucho esos colores.",
+      "voice": "es-MX-JorgeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "8718f4fc2da2150e45332043555a0f62369c4e33e604ae7a403927eb09edd112",
+      "duration": 2.928
+    },
+    "frida.dialogue.3.0": {
+      "file": "frida.dialogue.3.0.mp3",
+      "text": "La puerta está abierta. Vamos a la exposición.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "709fe6651fb19ad2fa6aafd1054c05e466efeedcc27b40f5645639a886868e79",
+      "duration": 4.824
+    },
+    "frida.dialogue.3.1": {
+      "file": "frida.dialogue.3.1.mp3",
+      "text": "Sí, busquemos un lugar para tu cuadro.",
+      "voice": "es-MX-JorgeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "9f662d7a2dd70a8470f8fbaf2fe4ce37ad7751c3df1962b3f669616bf3e44cbe",
+      "duration": 3.48
+    },
+    "frida.dialogue.4.0": {
+      "file": "frida.dialogue.4.0.mp3",
+      "text": "Aquí se ve bien mi cuadro.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "a64f5cc9994e4cba37682431a051bd83a4c70e1fdd3a2e3959a067ed64f73bdb",
+      "duration": 2.544
+    },
+    "frida.dialogue.4.1": {
+      "file": "frida.dialogue.4.1.mp3",
+      "text": "Sí, desde aquí se aprecian los detalles.",
+      "voice": "es-MX-JorgeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "13c5c9b5f65de8dba0d04317de87c5002e743dec2a6732c5c68ce001fa893554",
+      "duration": 3.6
+    },
+    "frida.dialogue.5.0": {
+      "file": "frida.dialogue.5.0.mp3",
+      "text": "¡Ya pueden entrar! La exposición está abierta.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "9f6c22e990809f986d656b83744ada7958b9bf2df1a871d4525935aa0ceeb3d7",
+      "duration": 4.728
+    },
+    "frida.dialogue.5.1": {
+      "file": "frida.dialogue.5.1.mp3",
+      "text": "Gracias, Frida. Vamos a mirar los cuadros.",
+      "voice": "es-MX-JorgeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "e89fd4961ef99d1c2de761273d9c7974eac9b431fcfdde86c8f50da82478a457",
+      "duration": 4.872
+    },
+    "frida.goal.0.easy": {
+      "file": "frida.goal.0.easy.mp3",
+      "text": "Recoge 3 flores rojas.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "d2e8b58b9cb5c5b1bae289deaeebb7cef44bea885cdde52fb9598de1eb1be79b",
+      "duration": 3.0
+    },
+    "frida.goal.0.normal": {
+      "file": "frida.goal.0.normal.mp3",
+      "text": "Recoge las tres flores rojas del jardín.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "b3c95e3c0cd05459cbd7b2131814351160356a38292bb1f4e36ae8bc24f16b27",
+      "duration": 3.528
+    },
+    "frida.goal.1.easy": {
+      "file": "frida.goal.1.easy.mp3",
+      "text": "Recoge azul y amarillo.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "804027b67d610da751fa95f9320f97fdc48f9a43b1cc76664103a5eab43b3351",
+      "duration": 2.568
+    },
+    "frida.goal.1.normal": {
+      "file": "frida.goal.1.normal.mp3",
+      "text": "Recoge los botes de pintura azul y amarilla.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "672f29446730ed3c6f76b3eb543e361f677212a1cf4fedb98ec568fc2813fc8a",
+      "duration": 3.6
+    },
+    "frida.goal.2.easy": {
+      "file": "frida.goal.2.easy.mp3",
+      "text": "Pinta en el lienzo.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "830b2f000468c139e1791023b0acb80b17c75fa9cc7dd50f8a0263139e1378ae",
+      "duration": 2.208
+    },
+    "frida.goal.2.normal": {
+      "file": "frida.goal.2.normal.mp3",
+      "text": "Acércate al lienzo blanco y pinta en él.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "36d576cf76acb5df949779be73ed30e6ab60216ac183bbb934275a2e31dd5056",
+      "duration": 3.6
+    },
+    "frida.goal.3.easy": {
+      "file": "frida.goal.3.easy.mp3",
+      "text": "Abre la puerta.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "a6425fb899ced4cf237625f0fdc524e3d8629bd7d5d1e015482704a9d938c7cd",
+      "duration": 2.088
+    },
+    "frida.goal.3.normal": {
+      "file": "frida.goal.3.normal.mp3",
+      "text": "Abre la puerta para ir a la exposición.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "d321ee5f4b00a08c25de85f8f03f95d00e1210e91cd914fdffd28b3d9ab10d79",
+      "duration": 3.24
+    },
+    "frida.goal.4.easy": {
+      "file": "frida.goal.4.easy.mp3",
+      "text": "Muestra tu cuadro.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "2258cde8819655c31853d175f4ffdf6d2b3c2aaf23bcdf3eadd7dc68d630203b",
+      "duration": 2.232
+    },
+    "frida.goal.4.normal": {
+      "file": "frida.goal.4.normal.mp3",
+      "text": "Acércate al cuadro y muéstralo en la sala.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "c918348b256ea206c26b7098c8bee182a6e0010cfb15f8cd45703ffe66e1d942",
+      "duration": 3.456
+    },
+    "frida.goal.5.easy": {
+      "file": "frida.goal.5.easy.mp3",
+      "text": "Toca la campana.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "1aaa0e80fe1782bb8a9f301fa17aec719a896715248e4c9c09403b4676fac829",
+      "duration": 2.16
+    },
+    "frida.goal.5.normal": {
+      "file": "frida.goal.5.normal.mp3",
+      "text": "Toca la campana para invitar al público.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "822f47e8dd69c41766801f4c1afdf55c3db6b1e73f77381a2c6c6eaec4fd9255",
+      "duration": 3.384
+    },
+    "frida.intro": {
+      "file": "frida.intro.mp3",
+      "text": "Una artista de verdad. Frida Kahlo fue una pintora mexicana y una persona real. Las flores y la exposición del juego son inventadas; aquí descubrirás algunos hechos de su vida.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "2786199532041529648a3b2067a8d420edf73b3b485dce17f247cec5e75817d4",
+      "duration": 13.464
+    },
+    "frida.story.0": {
+      "file": "frida.story.0.mp3",
+      "text": "Crecer en la Casa Azul. Frida Kahlo nace en 1907 en Coyoacán, en la casa que hoy conocemos como Casa Azul. Su padre es fotógrafo y, en 1922, ella entra en la Escuela Nacional Preparatoria.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "6a393304da0a6fa335dc35ca08126f7a677de22172f85da28e5fa1d6cf2b9d44",
+      "duration": 16.56
+    },
+    "frida.story.1": {
+      "file": "frida.story.1.mp3",
+      "text": "Un espejo para pintar. En 1925, Frida sufre un grave accidente de autobús y pasa mucho tiempo recuperándose en casa. Durante ese periodo pinta con ayuda de un espejo y realiza su primer autorretrato en 1926.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "91bb920a9eadbf45e84b0a4f9256df2867d042dbb24a0650e202ca862248f452",
+      "duration": 17.64
+    },
+    "frida.story.2": {
+      "file": "frida.story.2.mp3",
+      "text": "Pintar con raíces mexicanas. En 1929, Frida se casa con el pintor Diego Rivera y continúa desarrollando su propia obra. La ropa que pinta en sus autorretratos refleja su interés por el arte popular y la cultura de México.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "1f058784940c4531281e218f2a73f80aadc8cd25e2326f422e2d5b8da6c440b9",
+      "duration": 16.824
+    },
+    "frida.story.3": {
+      "file": "frida.story.3.mp3",
+      "text": "Sus cuadros cruzan fronteras. En 1938, Frida presenta su primera exposición individual en Nueva York, donde el público puede conocer sus cuadros. Al año siguiente, participa en una exposición en París y pinta Las dos Fridas.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "90314129c5c067305e8facf11ed863bba611992a298662c356a3380aae0cf852",
+      "duration": 17.736
+    },
+    "frida.story.4": {
+      "file": "frida.story.4.mp3",
+      "text": "Enseñar y compartir su obra. Frida enseña en La Esmeralda y continúa algunas clases en la Casa Azul con el grupo llamado Los Fridos. En 1953, Lola Álvarez Bravo organiza su exposición individual en México.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "4bca5c5c643191368e175aef29ad934c42153fca607f64a2b9589929d8ee1807",
+      "duration": 16.224
+    },
+    "frida.story.5": {
+      "file": "frida.story.5.mp3",
+      "text": "Una casa para recordar. Frida muere el 13 de julio de 1954, a los cuarenta y siete años, en la Casa Azul. En 1958, la casa abre como museo para conservar y compartir su obra y su historia.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "a01cd21245805ed031a3654d7d3e8b75f9080955f7e343e8340f243e208f2f99",
+      "duration": 17.208
+    },
+    "frida.summary": {
+      "file": "frida.summary.mp3",
+      "text": "Frida Kahlo: vida y pintura. Frida Kahlo nace en Coyoacán en 1907 y estudia en la Escuela Nacional Preparatoria. Después de un accidente de autobús, dedica más tiempo a pintar y crea autorretratos. Se casa con Diego Rivera y desarrolla una obra propia, relacionada con la cultura mexicana. Expone en Nueva York, París y México, y enseña a jóvenes artistas. Muere en 1954; cuatro años después, la Casa Azul abre como museo para dar a conocer su vida y su pintura.",
+      "voice": "es-MX-DaliaNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "40e5e0f0948a4db8bcc80e6e0925019e1048bb45fbf7679583fce03a4098cab2",
+      "duration": 37.032
+    },
+    "macondo.dialogue.0.0": {
+      "file": "macondo.dialogue.0.0.mp3",
+      "text": "Mira, tres mariposas amarillas junto a la casa.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "ac5bef8e21f31137c3e576922421e1c31bde0dafdb71af5727b16fcaaeb528d0",
+      "duration": 4.32
+    },
+    "macondo.dialogue.0.1": {
+      "file": "macondo.dialogue.0.1.mp3",
+      "text": "¡Qué bonitas! Vamos hacia la puerta.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+3Hz",
+      "sha256": "087bcd14afe815e46fc1740382dfec6118ca965efcec5d22c03cef2f039efdd8",
+      "duration": 4.056
+    },
+    "macondo.dialogue.1.0": {
+      "file": "macondo.dialogue.1.0.mp3",
+      "text": "Ya abrí la puerta. Puedes pasar.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "fe445bd0ff3d21ab66b79b10c3577dad212a40a387149db79ff221148abb2675",
+      "duration": 3.792
+    },
+    "macondo.dialogue.1.1": {
+      "file": "macondo.dialogue.1.1.mp3",
+      "text": "Gracias, Úrsula. Aquí hay una carta.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+3Hz",
+      "sha256": "8c10c5a60e5531e368ea32fc19f1f2a8529dfefc1b4c1b00ce40c6146c4f20f9",
+      "duration": 4.824
+    },
+    "macondo.dialogue.2.0": {
+      "file": "macondo.dialogue.2.0.mp3",
+      "text": "Nos invitan a una fiesta en la plaza.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "ba01687649a26522f46e353e3dbce121cd5796e22be1b73a8e927474b765d553",
+      "duration": 3.216
+    },
+    "macondo.dialogue.2.1": {
+      "file": "macondo.dialogue.2.1.mp3",
+      "text": "Llevemos fruta para compartir con los vecinos.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+3Hz",
+      "sha256": "d5e276a90f52606f64625347f1aa348f4f106bf490f435a6089107890282dab2",
+      "duration": 3.72
+    },
+    "macondo.dialogue.3.0": {
+      "file": "macondo.dialogue.3.0.mp3",
+      "text": "Ya tenemos fruta para todos.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "5c940c8dfbb980a2fcdfdc3b346ef37430af4f46311e012d6684e492178be8a2",
+      "duration": 2.88
+    },
+    "macondo.dialogue.3.1": {
+      "file": "macondo.dialogue.3.1.mp3",
+      "text": "Ahora falta el agua. Vamos al pozo.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+3Hz",
+      "sha256": "522fea67a0c1fe1c555d3a057e93df55f49523c80aa4d8e74b567d4cf5f357d6",
+      "duration": 4.032
+    },
+    "macondo.dialogue.4.0": {
+      "file": "macondo.dialogue.4.0.mp3",
+      "text": "El agua ya está lista para la fiesta.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "2a2b31562f141cd35626929c479f5445a8b71ba6eb04a05f6d5b883da1b368fc",
+      "duration": 3.264
+    },
+    "macondo.dialogue.4.1": {
+      "file": "macondo.dialogue.4.1.mp3",
+      "text": "Solo falta llamar a los vecinos.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+3Hz",
+      "sha256": "21482fe88d8674c36a8b826b9fc1a5725086ed5d09152f6f283784e4ba239cdc",
+      "duration": 3.048
+    },
+    "macondo.dialogue.5.0": {
+      "file": "macondo.dialogue.5.0.mp3",
+      "text": "¡La campana suena! La fiesta empieza.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+0Hz",
+      "sha256": "f30c3a7adb3fb18e2eea92d9f7f4c6a8a888fdd8f8857fb1032d70b2601d765d",
+      "duration": 4.272
+    },
+    "macondo.dialogue.5.1": {
+      "file": "macondo.dialogue.5.1.mp3",
+      "text": "¡Vamos a la plaza con los demás!",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-4%",
+      "pitch": "+3Hz",
+      "sha256": "83ecfa6b7e9f086d45ff2e6384ecbd457e741d3e6972e5ca31f7cc426baef0f0",
+      "duration": 2.88
+    },
+    "macondo.goal.0.easy": {
+      "file": "macondo.goal.0.easy.mp3",
+      "text": "Busca 3 mariposas amarillas.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "330cff7f082c8d848901c57ee8d8e6f7974af71f6844816d1cbe323d682ef1dd",
+      "duration": 3.168
+    },
+    "macondo.goal.0.normal": {
+      "file": "macondo.goal.0.normal.mp3",
+      "text": "Encuentra las tres mariposas amarillas del jardín.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "e798ea5c865ddf00e94dc9740655ee72ea19e2676b9abdf996789ec665cc034e",
+      "duration": 4.128
+    },
+    "macondo.goal.1.easy": {
+      "file": "macondo.goal.1.easy.mp3",
+      "text": "Abre la puerta azul.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "e297b4929f1cea2b1c71e49e46e58f893b3050a74b8a27852bc236e0b378be12",
+      "duration": 2.304
+    },
+    "macondo.goal.1.normal": {
+      "file": "macondo.goal.1.normal.mp3",
+      "text": "Acércate a la puerta azul y ábrela.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "3c973e03aa417078dcf76d7b64a9b8e1be86c736ab6483f128e1eb94074d8011",
+      "duration": 3.312
+    },
+    "macondo.goal.2.easy": {
+      "file": "macondo.goal.2.easy.mp3",
+      "text": "Busca la carta.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "5737fad0c7b62737ef1c8bad045f452dd3ab230bd762d3c5abdec6ca23e5af57",
+      "duration": 2.088
+    },
+    "macondo.goal.2.normal": {
+      "file": "macondo.goal.2.normal.mp3",
+      "text": "Busca la carta para la fiesta de la plaza.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "4957b7aeb07672110c46fe5ac23c4d0792e6ee840e0fbe6204b886a7dd75683e",
+      "duration": 3.432
+    },
+    "macondo.goal.3.easy": {
+      "file": "macondo.goal.3.easy.mp3",
+      "text": "Recoge 3 frutas.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "062a64a099a6b6595521b7ceebd11303cdcc921cf817663b113668f4bc5cb6f3",
+      "duration": 2.448
+    },
+    "macondo.goal.3.normal": {
+      "file": "macondo.goal.3.normal.mp3",
+      "text": "Recoge las tres frutas para compartir en la plaza.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "f859d0981fd78375d0a3f66e66058ffb0eecc2d82c0fa12e23896c3d3d01cffc",
+      "duration": 4.128
+    },
+    "macondo.goal.4.easy": {
+      "file": "macondo.goal.4.easy.mp3",
+      "text": "Busca agua en el pozo.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "a9597a479592d4ef8f4f242acd98046396746d3e4a7e44111df467b69c5fbeae",
+      "duration": 2.424
+    },
+    "macondo.goal.4.normal": {
+      "file": "macondo.goal.4.normal.mp3",
+      "text": "Acércate al pozo y recoge agua para la fiesta.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "bfb1abecab875f2a201a2c508ea46dd4d1f76129a234b4e121e822303e01eb6f",
+      "duration": 4.176
+    },
+    "macondo.goal.5.easy": {
+      "file": "macondo.goal.5.easy.mp3",
+      "text": "Toca la campana.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "563c685be52f4f301b2442fa21d00d2dc33ba514797bc5a9314cd05b99c2f7c7",
+      "duration": 2.064
+    },
+    "macondo.goal.5.normal": {
+      "file": "macondo.goal.5.normal.mp3",
+      "text": "Toca la campana de la plaza para avisar.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "7dd7f69201aef1ec040d2243db5209d0b0dd511e47e479ad8b432b2fceef6537",
+      "duration": 3.24
+    },
+    "macondo.intro": {
+      "file": "macondo.intro.mp3",
+      "text": "Una familia en una novela. Cien años de soledad, de Gabriel García Márquez, cuenta varias generaciones de los Buendía en Macondo. La fiesta que juegas es inventada; estos fragmentos resumen la novela, incluido su final.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "56663f6e6fd5316c729af7d31a42796b93ecb5dd9e0069131157bd9fb2c27e11",
+      "duration": 17.16
+    },
+    "macondo.story.0": {
+      "file": "macondo.story.0.mp3",
+      "text": "El comienzo de Macondo. José Arcadio Buendía y Úrsula Iguarán fundan Macondo, donde empieza la historia de su familia. El viajero Melquíades visita el pueblo y muestra objetos nuevos que despiertan la curiosidad de José Arcadio.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "2fba2e42718fcc4e51065023d775e5d46c8b21421a41a2fab75a0f92af4b9b35",
+      "duration": 15.72
+    },
+    "macondo.story.1": {
+      "file": "macondo.story.1.mp3",
+      "text": "Los nombres se olvidan. Una enfermedad impide dormir a los habitantes y después les hace perder la memoria, incluso los nombres de las cosas. Ponen etiquetas a los objetos, hasta que Melquíades trae un remedio que devuelve los recuerdos.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "a5ad3cef02137af8cb8e841d167c3029bede9caab7661a7b7a5ae2b3eefbd2f1",
+      "duration": 16.872
+    },
+    "macondo.story.2": {
+      "file": "macondo.story.2.mp3",
+      "text": "El coronel y sus peces. Aureliano, hijo de los fundadores, se convierte en coronel y participa en muchas guerras que cambian su vida. Más tarde vuelve a su taller de Macondo, donde fabrica pequeños peces de oro.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "bc40c31eb0c0c76bcef3f0e321080bff88337a3ffade23b2813ec7c7154bb2dd",
+      "duration": 16.2
+    },
+    "macondo.story.3": {
+      "file": "macondo.story.3.mp3",
+      "text": "Las mariposas de Mauricio. En otra generación, Meme Buendía y Mauricio Babilonia se enamoran; unas mariposas amarillas acompañan a Mauricio. Su hijo, Aureliano Babilonia, crecerá en la casa de los Buendía y será importante en el final.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "056fa0a7176b70f60f30dde3519da034f31ea85dbb1af33abc944d076937bd96",
+      "duration": 18.48
+    },
+    "macondo.story.4": {
+      "file": "macondo.story.4.mp3",
+      "text": "La memoria del pueblo. Una compañía bananera cambia Macondo, y una protesta de sus trabajadores termina en una masacre. José Arcadio Segundo sobrevive, pero otros niegan lo ocurrido; después, años de lluvia dejan el pueblo en ruinas.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "87c2bc7d8616f059b090380edf8db8c3e73bc0778734d92282af8123a5b4a4d3",
+      "duration": 17.928
+    },
+    "macondo.story.5": {
+      "file": "macondo.story.5.mp3",
+      "text": "La última lectura de Aureliano. Al final, Aureliano Babilonia logra leer los antiguos escritos de Melquíades y descubre que cuentan la historia de su familia. Cuando la lectura alcanza su propio presente, un gran viento destruye Macondo y termina la novela.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "f7473dfcf27bc76a09752e8e5ec31a33d17a606b7d7ab587d2689e3aa61f13ff",
+      "duration": 18.12
+    },
+    "macondo.summary": {
+      "file": "macondo.summary.mp3",
+      "text": "Cien años de soledad. José Arcadio Buendía y Úrsula fundan Macondo, el pueblo imaginario de su familia. Sus descendientes viven amores, guerras y olvidos, mientras se repiten nombres y errores. El coronel Aureliano acaba haciendo peces de oro; generaciones después, Meme y Mauricio tienen a Aureliano Babilonia. Una compañía bananera, una masacre y años de lluvia transforman el pueblo. Aureliano Babilonia descifra los escritos de Melquíades y descubre la historia familiar, justo cuando un viento destruye Macondo.",
+      "voice": "es-CO-SalomeNeural",
+      "rate": "-6%",
+      "pitch": "+0Hz",
+      "sha256": "7fa8814506d4f9e5510fd8ada82ea38bcd4084279600edf3fd3c5217cea491c5",
+      "duration": 38.976
+    }
+  }
+}
