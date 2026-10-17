@@ -83,7 +83,7 @@ body.explorando>#cab,body.explorando>#clase,body.explorando>#juego,body.exploran
 .x-hero[data-motion="paint"] img{animation:none}
 .x-hero[data-motion="reach"] img{animation:x-reach .65s ease-in-out}
 .x-object.speaking img{animation:x-converse .56s ease-in-out infinite}
-.x-object.speaking:after{content:'¡Vamos, compañero!';position:absolute;bottom:105%;left:50%;transform:translateX(-50%);font:600 clamp(11px,1.5cqw,15px)/1.4 system-ui;background:#fff7dd;padding:8px 12px;border-radius:13px;width:max-content;max-width:180px;box-shadow:0 3px 7px #263c3533}
+.x-object.speaking:after{content:attr(data-speech);position:absolute;bottom:105%;left:50%;transform:translateX(-50%);font:600 clamp(11px,1.5cqw,15px)/1.4 system-ui;background:#fff7dd;padding:8px 12px;border-radius:13px;width:max-content;max-width:180px;box-shadow:0 3px 7px #263c3533}
 .x-object.speaking .x-object-label{visibility:hidden}
 .painting .x-painted{opacity:1;animation:x-paint-reveal 2.2s linear forwards}
 .x-history-button{border:1px solid #c8ceba;border-radius:20px;background:#eef0df;padding:8px 14px;color:#42614c!important;white-space:nowrap}
@@ -113,3 +113,19 @@ body.explorando>#cab,body.explorando>#clase,body.explorando>#juego,body.exploran
 @media(max-width:750px){.x-top-tools{gap:7px}.x-history-button{font-size:12px!important;padding:8px 10px}.x-story-card{padding:22px;border-radius:20px}.x-story-banner{gap:15px}.x-story-banner img{width:76px;height:108px}.x-story-banner h2{font-size:26px}.x-story-text{font-size:16px!important}.x-success.x-story-fragment{padding:14px 16px;bottom:10px}.x-story-fragment h2{font-size:22px}.x-story-fragment .x-story-text{font-size:15px!important;line-height:1.4!important;margin-bottom:12px!important}.x-achieved{flex-basis:100%;font-size:11px}.x-story-actions{gap:8px}.x-story-actions .x-primary{padding:10px 17px}.x-story-actions .x-listen{padding:8px 10px}.x-ending-summary{padding:16px}.x-ending{padding-top:25px;padding-bottom:35px}}
 @media(max-height:560px){.x-story-dialog{padding:12px}.x-story-card{max-height:calc(100dvh - 24px)}.x-story-banner img{height:80px;width:58px}.x-success.x-story-fragment{padding:10px 16px;bottom:8px}.x-story-fragment h2{font-size:19px}.x-story-fragment .x-story-text{font-size:14px!important;line-height:1.35!important;margin:6px 0 8px!important}.x-story-eyebrow{margin-bottom:4px!important}}
 @media(prefers-reduced-motion:reduce){#exploracionApp .x-hero img,#exploracionApp .x-object img,#exploracionApp .x-painted{animation:none!important;transition:none!important}.painting .x-painted{clip-path:none}}
+
+/* Deux voix, deux répliques ; le récit reprend dès la fin de l'échange. */
+.x-voice-toggle{border:1px solid #c8ceba;border-radius:20px;background:#edf0df;padding:8px 11px;white-space:nowrap;min-height:36px}
+.x-voice-toggle[aria-pressed="false"]{background:transparent;color:#767a68!important}
+.x-listen.is-speaking{background:#dce9ca;border-color:#65844f;box-shadow:0 0 0 2px #65844f25}
+.x-dialogue[hidden],.x-result-story[hidden],.x-story-actions button[hidden]{display:none!important}
+.x-dialogue{margin-bottom:12px}.x-dialogue-line{display:flex;align-items:center;gap:11px;padding:5px 10px;border-radius:11px;border-left:3px solid transparent;transition:background .15s,border-color .15s}
+.x-dialogue-line.is-speaking{background:#e6ebd5;border-left-color:#71905d}
+.x-dialogue-line p{margin:0;line-height:1.35}.x-dialogue-line b{display:block;font:700 10px/1.4 system-ui;letter-spacing:.6px;color:#617a50;margin-bottom:2px}.x-dialogue-line p>span{font:17px/1.35 Georgia;color:#304c3b}
+.x-dialogue-portrait{width:43px;height:45px;border-radius:50%;overflow:hidden;flex:none;display:grid;place-items:center;background:#e8e7cf;color:#6b7a59;font:23px Georgia}
+.x-dialogue-portrait img{width:70px;height:105px;max-width:none;object-fit:contain;align-self:start;transform:translateY(2px)}
+.x-voice-note,.x-audio-notice{font:12px/1.5 system-ui;color:#6d7c61;margin:12px 0}.x-audio-notice{margin:10px 0 0;color:#815e35}
+.x-story-actions .x-achieved{flex-basis:100%;min-width:0}
+@media(max-width:750px){.x-top-tools{gap:5px}.x-top-tools .x-voice-toggle span{display:none}.x-top-tools .x-voice-toggle{padding:7px 10px}.x-dialogue-line{gap:8px;padding:5px 6px}.x-dialogue-line p>span{font-size:15px}.x-dialogue-portrait{width:36px;height:39px}.x-dialogue-portrait img{width:63px;height:94px}.x-dialogue{margin-bottom:9px}.x-story-actions .x-listen{padding:8px 9px}}
+@media(max-height:560px){.x-dialogue-line p>span{font-size:14px}.x-dialogue-line{padding:3px 6px}.x-dialogue-portrait{height:33px;width:33px}.x-dialogue{margin-bottom:5px}}
+@media(max-width:380px){.x-game .x-top{gap:8px}.x-game .x-wordmark{font-size:20px!important}.x-top-tools{gap:4px}.x-history-button{padding:8px}}
