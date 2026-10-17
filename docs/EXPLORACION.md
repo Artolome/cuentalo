@@ -19,9 +19,13 @@ La redacción **fácil** usa indicaciones más breves. La redacción **normal** 
 
 Las ilustraciones originales siguen siendo los personajes en reposo. Las nuevas poses pintadas alternan al caminar, hablar y, para Frida, pintar. Sancho responde con sus propios gestos. La acción se completa después del gesto; durante ese momento el personaje permanece junto al objeto. Abrir la ayuda o el resumen interrumpe el gesto sin contar una acción a medias. Se puede volver a intentarlo al cerrar el panel.
 
+Los accesorios de las aventuras utilizan 32 ilustraciones pintadas en WebP transparente. Al tocarlos reaccionan de inmediato: las flores y los árboles se balancean, los libros se inclinan, las mariposas baten las alas y el molino gira. La zona que se puede pulsar permanece fija mientras se anima el dibujo. La reacción visual no cuenta como una acción completada; el personaje debe acercarse como antes. Los colores de las misiones y sus etiquetas se conservan.
+
 La preferencia del dispositivo para reducir movimiento detiene los ciclos y acorta la espera. Los controles y la progresión son idénticos. Las imágenes se incluyen dentro del HTML, como los fondos anteriores; no dependen de una conexión durante la partida.
 
-El botón «Historia» —«Su vida» para Frida— permite abrir un resumen, escuchar el texto y consultar los seis fragmentos o sus fuentes. No hay examen ni tiempo de lectura obligatorio. Los 24 fragmentos tienen entre 29 y 36 palabras; el selector Fácil/Normal cambia las consignas, no esos relatos. La lectura en voz alta utiliza la voz española disponible en el navegador. Los textos revelan el final de las obras y la introducción lo indica.
+El botón «Historia» —«Su vida» para Frida— permite abrir un resumen, escuchar el texto y consultar los seis fragmentos o sus fuentes. No hay examen ni tiempo de lectura obligatorio. Los 24 fragmentos tienen entre 29 y 36 palabras; el selector Fácil/Normal cambia las consignas, no esos relatos. La lectura en voz alta utiliza las grabaciones españolas integradas en el juego. Los textos revelan el final de las obras y la introducción lo indica.
+
+Después de una misión, **Plus lent** repite el diálogo al 80 % de velocidad conservando el tono cuando el navegador lo permite. **Traduction** muestra u oculta el francés debajo de cada réplica. La traducción es opcional y se oculta en la siguiente escena; cuando está visible permanece en pantalla al acabar la escucha. Véase [Voces españolas](AUDIO_ES.md).
 
 ## Los cuatro recorridos
 

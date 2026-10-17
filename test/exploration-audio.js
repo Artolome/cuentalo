@@ -9,6 +9,7 @@ class MockAudio {
   constructor() {
     this.listeners = new Map(); this.requests = []; this.paused = true; this.ended = false;
     this.error = null; this.src = ''; this.currentSrc = ''; this.currentTime = 0;
+    this.defaultPlaybackRate = 1; this.playbackRate = 1; this.preservesPitch = false;
   }
   addEventListener(type, fn) {
     if (!this.listeners.has(type)) this.listeners.set(type, new Set());
@@ -19,7 +20,7 @@ class MockAudio {
   emit(type) { this.handlers(type).forEach(fn => fn()); }
   pause() { this.paused = true; }
   removeAttribute(name) { if (name === 'src') this.src = ''; }
-  load() { this.currentSrc = this.src; this.ended = false; this.error = null; this.paused = true; }
+  load() { this.currentSrc = this.src; this.ended = false; this.error = null; this.paused = true; this.playbackRate = this.defaultPlaybackRate; }
   play() {
     const request = {};
     request.promise = new Promise((resolve, reject) => { request.resolve = resolve; request.reject = reject; });
@@ -124,9 +125,66 @@ const flush = () => Promise.resolve();
   assert.equal(synchronous.play('one'), 'blocked');
   const unavailable = Engine.create(); assert.equal(unavailable.play('unknown'), 'error');
 
+  // Le choix de vitesse précède la création du média et persiste entre les répliques.
+  const slowAudio = new MockAudio(); let slowCreations = 0;
+  slowAudio.webkitPreservesPitch = false; slowAudio.mozPreservesPitch = false;
+  const slow = Engine.create({ clips, createAudio: () => { slowCreations++; return slowAudio; } });
+  assert.equal(slow.getRate(), 1);
+  slow.setRate(0.8);
+  assert.equal(slow.getRate(), 0.8); assert.equal(slowCreations, 0, 'choisir une vitesse ne crée ni ne lance de son');
+  const slowEvents = [];
+  slow.play('one', { onStart: () => slowEvents.push('one:start'), onEnd: () => {
+    slowEvents.push('one:end'); slow.setRate(0.8);
+    slow.play('two', { onStart: () => slowEvents.push('two:start'), onEnd: () => slowEvents.push('two:end') });
+  } });
+  assert.equal(slowAudio.playbackRate, 0.8); assert.equal(slowAudio.defaultPlaybackRate, 0.8);
+  for (const property of ['preservesPitch', 'webkitPreservesPitch', 'mozPreservesPitch']) assert.equal(slowAudio[property], true);
+  slow.setRate(1); assert.equal(slow.getStatus(), 'loading', 'la vitesse ne coupe pas le chargement');
+  slowAudio.begin(); await flush();
+  slowAudio.currentTime = 2.5;
+  const slowRequestCount = slowAudio.requests.length;
+  slow.setRate(0.8);
+  assert.equal(slowAudio.playbackRate, 0.8); assert.equal(slowAudio.defaultPlaybackRate, 0.8);
+  assert.equal(slowAudio.currentTime, 2.5, 'changement pendant la réplique sans retour au début');
+  assert.equal(slowAudio.paused, false); assert.equal(slowAudio.requests.length, slowRequestCount, 'aucune nouvelle lecture');
+  assert.equal(slow.getStatus(), 'playing'); assert.deepEqual(slowEvents, ['one:start']);
+  slow.setRate(1); slowAudio.finish();
+  assert.equal(slow.getRate(), 0.8); assert.equal(slowAudio.playbackRate, 0.8, 'nouvelle vitesse entre les deux répliques');
+  assert.equal(slowAudio.defaultPlaybackRate, 0.8); slowAudio.begin(); await flush(); slowAudio.finish();
+  assert.deepEqual(slowEvents, ['one:start', 'one:end', 'two:start', 'two:end']);
+  assert.equal(slowCreations, 1);
+
+  slow.play('one', { onStart: () => slowEvents.push('stale:start'), onEnd: () => slowEvents.push('stale:end') });
+  const ratePending = slowAudio.requests.at(-1);
+  slow.setMuted(true); slow.setRate(1); slow.setRate(0.8); ratePending.resolve(); await flush();
+  assert.equal(slow.getMuted(), true); assert.equal(slow.getStatus(), 'muted');
+  assert.equal(slowAudio.playbackRate, 0.8); assert.equal(slowAudio.paused, true);
+  const mutedRequests = slowAudio.requests.length;
+  slow.setMuted(false); slow.stop(); slow.setRate(1);
+  assert.equal(slow.getStatus(), 'idle'); assert.equal(slowAudio.requests.length, mutedRequests);
+  assert.ok(!slowEvents.some(event => event.startsWith('stale:')), 'la vitesse ne réactive aucun callback annulé');
+  for (const value of [0, -1, 2, 0.5, NaN, Infinity, '0.8', undefined, null, true, {}]) {
+    slow.setRate(0.8); slow.setRate(value);
+    assert.equal(slow.getRate(), 1, 'valeur invalide : vitesse normale');
+    assert.equal(slowAudio.playbackRate, 1); assert.equal(slowAudio.defaultPlaybackRate, 1);
+    assert.equal(slow.getMuted(), false); assert.equal(slow.getStatus(), 'idle');
+  }
+  assert.equal(slowAudio.requests.length, mutedRequests, 'aucun son à chaque réglage');
+
+  // Une API absente ou un ancien setter non pris en charge ne bloque pas le lecteur.
+  const legacyAudio = new MockAudio(); delete legacyAudio.preservesPitch;
+  Object.defineProperty(legacyAudio, 'webkitPreservesPitch', { get: () => false, set: () => { throw new Error('unsupported'); } });
+  legacyAudio.mozPreservesPitch = false;
+  const legacy = Engine.create({ clips, createAudio: () => legacyAudio });
+  legacy.setRate(0.8);
+  assert.equal(legacy.play('one'), 'loading'); legacyAudio.begin(); await flush();
+  assert.equal(legacy.getStatus(), 'playing'); assert.equal(legacyAudio.playbackRate, 0.8);
+  assert.equal(legacyAudio.mozPreservesPitch, true); assert.equal('preservesPitch' in legacyAudio, false);
+  legacy.setRate(1); assert.equal(legacyAudio.playbackRate, 1); legacy.stop();
+
   const sandbox = { self: {} };
   vm.runInNewContext(fs.readFileSync(require.resolve('../src/exploration-audio.js'), 'utf8'), sandbox);
   assert.equal(typeof sandbox.self.SVExplorationAudioEngine.create, 'function');
   assert.equal(sandbox.self.SVExplorationAudioEngine.create({ clips }).has('one'), true);
-  console.log('✔ Audio : média unique, lecture séquentielle, arrêts, promesses obsolètes, refus, erreurs et mode muet.');
+  console.log('✔ Audio : média unique, séquence, annulations, refus, mode muet et vitesse 1/0,8 avec hauteur préservée.');
 })().catch(error => { console.error(error); process.exitCode = 1; });

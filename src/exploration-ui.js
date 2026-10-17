@@ -3,7 +3,7 @@
   'use strict';
   const D = window.SVExplorationData, E = window.SVExplorationEngine;
   const A = window.SVExplorationMotionEngine, N = window.SVExplorationStories;
-  const L = window.SVExplorationDialogues;
+  const L = window.SVExplorationDialogues, T = window.SVExplorationTranslations;
   const voicePlayer = window.SVExplorationAudioEngine.create({clips:window.SVAudioClips,createAudio(){
     const audio=document.createElement('audio');audio.id='x-voice-player';audio.hidden=true;document.body.appendChild(audio);return audio;
   }});
@@ -17,6 +17,7 @@
   let hero, actorImage, stage, actionButton, marker, bubble, cachedObjects = [], currentProgress;
   let action = null, storyDialog = null, actorKind = 'idle', actorSince = 0, actorSrc = '', npcSrc = '';
   let storyAudioKey = '', voicesEnabled = true, voiceRun = 0, activeClip = '', audioSpeaker = null, speakerSince = 0;
+  let translated = false;
   const accents = {don_quijote:'España',macondo:'Colombia',borges:'Argentina',frida:'México'};
   const narrative = () => world && N.worlds[world.id];
   const storyLabel = () => narrative().kind === 'vida' ? 'LA VIDA DE FRIDA' : 'LA OBRA';
@@ -28,6 +29,13 @@
   const progress = () => E.progress(D, state, world.id);
   const sprite = id => window.SVExplorationSprites[id];
   const warmedSprites = new Map();
+  const reactionTimers = new Map();
+  function reactObject(o){
+    const node=cachedObjects.find(x=>x.o.id===o.id)?.node;if(!node)return;
+    clearTimeout(reactionTimers.get(node));node.classList.remove('x-reacting');
+    void node.offsetWidth;node.classList.add('x-reacting');
+    reactionTimers.set(node,setTimeout(()=>{node.classList.remove('x-reacting');reactionTimers.delete(node);},1500));
+  }
   function warmSprites(id) {
     if(warmedSprites.has(id))return;
     const images=Object.values(window.SVExplorationMotion[id]).flat().map(src=>{const img=new Image();img.src=src;if(img.decode)img.decode().catch(()=>{});return img;});
@@ -43,8 +51,11 @@
   function playbackButtons(key) {
     root.querySelectorAll('[data-audio-key]').forEach(el=>{const on=el.dataset.audioKey===key;el.classList.toggle('is-speaking',on);el.setAttribute('aria-pressed',String(on));});
   }
+  function dialoguePlayback(rate){
+    root.querySelectorAll('[data-dialogue-rate]').forEach(el=>{const on=Number(el.dataset.dialogueRate)===rate;el.classList.toggle('is-speaking',on);el.setAttribute('aria-pressed',String(on));});
+  }
   function silence() {
-    voiceRun++;voicePlayer.stop();activeClip='';setSpeaker(null);playbackButtons('');
+    voiceRun++;voicePlayer.stop();activeClip='';setSpeaker(null);playbackButtons('');dialoguePlayback(0);
     root.querySelectorAll('.x-audio-notice').forEach(el=>el.remove());
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   }
@@ -62,7 +73,7 @@
   function save() { try { localStorage.setItem(E.KEY, JSON.stringify(state)); storageOK = true; } catch (_) { storageOK = false; } }
   function stopInput() { held.clear(); touchDirection = null; touchPointer = null; destination = null; autoTarget = null; }
   function cancelAction() { if(action){ const obj=cachedObjects.find(x=>x.o.id===action.object.id);if(obj)obj.node.classList.remove('painting'); } action=null; }
-  function stop() { cancelAnimationFrame(frame); frame = 0; isPlaying = false; cancelAction(); storyDialog=null; stopInput(); silence(); }
+  function stop() { cancelAnimationFrame(frame); frame = 0; isPlaying = false; cancelAction(); storyDialog=null; stopInput(); silence();reactionTimers.forEach((timer,node)=>{clearTimeout(timer);node.classList.remove('x-reacting');});reactionTimers.clear(); }
   function isolate(on) {
     root.hidden = !on; document.body.classList.toggle('explorando', on);
     if (on && window.SVHistorias) window.SVHistorias.ocultar();
@@ -91,6 +102,7 @@
   }
   function play() {
     const p = currentProgress = progress(), m = p.mission;
+    translated=false;
     if (p.completed) { ending(); return; }
     warmSprites(world.player);if(world.id==='don_quijote')warmSprites('sancho');
     root.innerHTML = '<div class="x-game">'+top(true)+'<section class="x-mission" aria-label="Tu misión"><div class="x-mission-title"><span class="x-number">'+(p.index+1)+'</span><div><p class="x-place">'+esc(m.title)+'</p><h1 class="x-goal" tabindex="-1">'+esc(m.goal[language])+'</h1></div></div><div class="x-mission-side"><span class="x-count" aria-label="Objetos encontrados">'+p.count+' / '+p.required+'</span>'+button('listen','♪ <span>Escuchar</span>','x-listen')+'</div></section><div class="x-stage-wrap"><div class="x-stage" tabindex="0" role="group" aria-label="'+esc(m.title)+', zona de exploración" style="background-image:url('+window.SVFondos[m.scene]+')"><div class="x-path"></div>'+objectsHTML(m,p)+'<div class="x-destination" hidden></div><div class="x-hero" data-player="'+world.player+'"><span class="x-bubble" hidden></span><img src="'+sprite(world.player)+'" alt="" draggable="false"></div><div id="x-feedback" role="status" aria-live="polite" class="sr-only"></div></div></div><footer class="x-controls"><div class="x-control-left"><div class="x-dpad" aria-label="Déplacer le personnage"><button data-dir="up" aria-label="Avancer">↑</button><button data-dir="left" aria-label="Aller à gauche">←</button><button data-dir="down" aria-label="Reculer">↓</button><button data-dir="right" aria-label="Aller à droite">→</button></div><span class="x-control-help">Déplace-toi avec les flèches<br>ou touche le décor.</span></div><div class="x-dots" aria-label="Étape '+(p.index+1)+' sur '+p.total+'">'+world.missions.map((_,i)=>'<i class="'+(i<p.index?'done':i===p.index?'current':'')+'"></i>').join('')+'</div><div class="x-action-group"><span class="x-action-hint">ESPACE / E</span>'+button('act','Interactuar','x-primary x-action-button')+'</div></footer></div>';
@@ -113,13 +125,16 @@
     const piece=narrative().chapters[currentProgress.index];
     const box=document.createElement('section');box.className='x-success x-story-fragment';box.setAttribute('aria-label','Diálogo y relato');box.tabIndex=-1;
     const dialogue=L.worlds[world.id], lines=dialogue.chapters[currentProgress.index];
-    box.innerHTML='<div class="x-dialogue" hidden><p class="x-story-eyebrow">HABLEMOS · ESPAÑOL DE '+esc(accents[world.id]).toUpperCase()+'</p>'+lines.map(line=>{
+    box.innerHTML='<div class="x-dialogue" hidden><p class="x-story-eyebrow">HABLEMOS · ESPAÑOL DE '+esc(accents[world.id]).toUpperCase()+'<span class="x-slow-note" lang="fr" hidden> · ÉCOUTE LENTE</span></p>'+lines.map((line,i)=>{
       const portrait=sprite(line.speaker);
-      return '<div class="x-dialogue-line" data-speaker="'+line.speaker+'"><span class="x-dialogue-portrait">'+(portrait?'<img src="'+portrait+'" data-portrait="'+line.speaker+'" alt="">':'<span aria-hidden="true">'+esc(dialogue.speakers[line.speaker].name[0])+'</span>')+'</span><p><b>'+esc(dialogue.speakers[line.speaker].name)+'</b><span>'+esc(line.text)+'</span></p></div>';
-    }).join('')+'</div><div class="x-result-story"><p class="x-story-eyebrow">'+storyLabel()+' · '+(currentProgress.index+1)+' / '+currentProgress.total+'</p><h2>'+esc(piece.title)+'</h2><p class="x-story-text">'+esc(piece.text)+'</p></div><div class="x-story-actions"><span class="x-achieved" role="status">✓ '+esc(m.success)+'</span>'+button('dialogue','▷ Diálogo','x-listen')+button('show-piece','Historia','x-listen')+button('listen-piece','♪ Relato','x-listen')+button('next',currentProgress.index===currentProgress.total-1?'Terminar →':'Seguir →','x-primary')+'</div>';
+      return '<div class="x-dialogue-line" data-speaker="'+line.speaker+'"><span class="x-dialogue-portrait">'+(portrait?'<img src="'+portrait+'" data-portrait="'+line.speaker+'" alt="">':'<span aria-hidden="true">'+esc(dialogue.speakers[line.speaker].name[0])+'</span>')+'</span><p><b>'+esc(dialogue.speakers[line.speaker].name)+'</b><span lang="es">'+esc(line.text)+'</span><span class="x-translation" id="x-fr-'+i+'" lang="fr" hidden>'+esc(T.worlds[world.id].chapters[currentProgress.index][i])+'</span></p></div>';
+    }).join('')+'</div><div class="x-result-story"><p class="x-story-eyebrow">'+storyLabel()+' · '+(currentProgress.index+1)+' / '+currentProgress.total+'</p><h2>'+esc(piece.title)+'</h2><p class="x-story-text">'+esc(piece.text)+'</p></div><div class="x-dialogue-tools">'+button('dialogue','▷ Diálogo','x-listen')+button('slow-dialogue','♪ Plus lent','x-listen')+button('translate','Traduction','x-listen')+'</div><div class="x-story-actions"><span class="x-achieved" role="status">✓ '+esc(m.success)+'</span>'+button('show-piece','Historia','x-listen')+button('listen-piece','♪ Relato','x-listen')+button('next',currentProgress.index===currentProgress.total-1?'Terminar →':'Seguir →','x-primary')+'</div>';
     root.querySelector('.x-stage-wrap').appendChild(box);
     box.focus({preventScroll:true});
     const listen=box.querySelector('[data-x="listen-piece"]');listen.dataset.audioKey=world.id+'.story.'+currentProgress.index;listen.disabled=!voicePlayer.has(listen.dataset.audioKey);
+    const slow=box.querySelector('[data-x="slow-dialogue"]');slow.lang='fr';slow.dataset.dialogueRate='.8';slow.setAttribute('aria-label','Réécouter le dialogue plus lentement');slow.title='Même voix, débit plus lent';
+    const normal=box.querySelector('[data-x="dialogue"]');normal.dataset.dialogueRate='1';normal.setAttribute('aria-label','Escuchar el diálogo a velocidad normal');
+    const translate=box.querySelector('[data-x="translate"]');translate.lang='fr';translate.setAttribute('aria-pressed','false');translate.setAttribute('aria-label','Afficher la traduction en français');translate.setAttribute('aria-controls','x-fr-0 x-fr-1');
     dialogueView(false);
     actionButton.disabled=true;actionButton.textContent='¡Hecho!';
     if(autoDialogue&&voicesEnabled)playDialogue(false);
@@ -131,25 +146,32 @@
     box.querySelector('[data-x="dialogue"]').textContent=on?'↺ Repetir':'▷ Diálogo';
     if(box.contains(focused)&&focused.closest('[hidden]'))box.focus({preventScroll:true});
   }
-  function playDialogue(manual){
+  function toggleTranslation(){
+    translated=!translated;dialogueView(true);
+    root.querySelectorAll('.x-translation').forEach(el=>el.hidden=!translated);
+    const b=root.querySelector('[data-x="translate"]');b.setAttribute('aria-pressed',String(translated));b.setAttribute('aria-label',translated?'Masquer la traduction en français':'Afficher la traduction en français');
+  }
+  function playDialogue(manual,rate=1){
     silence();if(manual)setVoices(true);if(!voicesEnabled)return;
+    voicePlayer.setRate(rate);
     const run=voiceRun,id=world.id,index=currentProgress.index,lines=L.worlds[id].chapters[index];
     dialogueView(true);
+    root.querySelector('.x-slow-note').hidden=rate===1;
     function lineAt(i){
       if(run!==voiceRun)return;
-      if(i===lines.length){activeClip='';setSpeaker(null);dialogueView(false);return;}
+      if(i===lines.length){activeClip='';setSpeaker(null);dialoguePlayback(0);if(!translated)dialogueView(false);return;}
       const line=lines[i],key=id+'.dialogue.'+index+'.'+i;activeClip=key;
       voicePlayer.play(key,{
-        onStart(){if(run===voiceRun)setSpeaker(line.speaker,line.text);},
+        onStart(){if(run===voiceRun){setSpeaker(line.speaker,line.text);dialoguePlayback(rate);}},
         onEnd(){if(run===voiceRun){setSpeaker(null);lineAt(i+1);}},
-        onError(reason){if(run===voiceRun){activeClip='';setSpeaker(null);audioNotice(reason);}}
+        onError(reason){if(run===voiceRun){activeClip='';setSpeaker(null);dialoguePlayback(0);audioNotice(reason);}}
       });
     }
     lineAt(0);
   }
   function speak(key,speaker){
     if(activeClip===key&&['loading','playing'].includes(voicePlayer.getStatus())){silence();return;}
-    silence();setVoices(true);const run=voiceRun;activeClip=key;
+    silence();setVoices(true);voicePlayer.setRate(1);const run=voiceRun;activeClip=key;
     voicePlayer.play(key,{
       onStart(){if(run===voiceRun){setSpeaker(speaker||null);playbackButtons(key);}},
       onEnd(){if(run===voiceRun){activeClip='';setSpeaker(null);playbackButtons('');}},
@@ -199,6 +221,7 @@
   }
   function interact(o) {
     if(!isPlaying||!o||currentProgress.ready||action||storyDialog)return;
+    reactObject(o);
     const result=E.interact(D,state,world.id,o.id,player);
     const reactions={tree:'¡Qué buena sombra!',bench:'Un lugar para descansar.',flower:'¡Qué bonita flor!',well:'El agua brilla.',book:'Otro libro por descubrir.',butterfly:'¡Mira cómo vuela!',paint:'Un color para otra ocasión.'};
     if(!E.near(player,o)||result.event==='wrong'||currentProgress.collected.includes(o.id)){
@@ -259,7 +282,7 @@
     stopInput();cancelAction();silence();
     if(root.querySelector('.x-help'))return;
     const overlay=document.createElement('div');overlay.className='x-help';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','Comment jouer');
-    overlay.innerHTML='<div class="x-help-card"><h2>À toi d’explorer.</h2><p><b>1.</b> Lis la petite mission en espagnol. ♪ permet de l’écouter.</p><p><b>2.</b> Déplace-toi avec les flèches, ZQSD ou en touchant le décor.</p><p><b>3.</b> Près d’un objet, appuie sur Espace. Tu peux aussi toucher directement cet objet.</p><p>Après la mission, écoute deux petites répliques. <b>Diálogo</b> les rejoue ; <b>Voces</b> coupe ou active le son. Tu peux continuer à tout moment.</p>'+button('close-help','¡Vamos!','x-primary')+'</div>';
+    overlay.innerHTML='<div class="x-help-card"><h2>À toi d’explorer.</h2><p><b>1.</b> Lis la petite mission en espagnol. ♪ permet de l’écouter.</p><p><b>2.</b> Déplace-toi avec les flèches, ZQSD ou en touchant le décor.</p><p><b>3.</b> Près d’un objet, appuie sur Espace. Tu peux aussi toucher directement cet objet.</p><p>Après la mission, écoute deux petites répliques. <b>Diálogo</b> les rejoue ; <b>Plus lent</b> ralentit la voix et <b>Traduction</b> affiche le français. <b>Voces</b> coupe ou active le son. Tu peux continuer à tout moment.</p>'+button('close-help','¡Vamos!','x-primary')+'</div>';
     root.appendChild(overlay);Array.from(root.children).filter(n=>n!==overlay).forEach(n=>n.inert=true);overlay.querySelector('button').focus();
   }
   function closeHelp(){const overlay=root.querySelector('.x-help');if(!overlay)return;overlay.remove();Array.from(root.children).forEach(n=>n.inert=false);(isPlaying?stage:root.querySelector('[data-x="help"]')).focus();last=0;}
@@ -275,6 +298,8 @@
     else if(a==='listen-story')speak(storyAudioKey);
     else if(a==='listen-piece')speak(world.id+'.story.'+currentProgress.index);
     else if(a==='dialogue')playDialogue(true);
+    else if(a==='slow-dialogue')playDialogue(true,.8);
+    else if(a==='translate')toggleTranslation();
     else if(a==='show-piece'){silence();dialogueView(false);}
     else if(a==='close-help')closeHelp();
     else if(a==='workshop'){stop();isolate(false);const url=new URL(location.href);url.search='?taller=1';history.pushState({},'',url);window.dispatchEvent(new PopStateEvent('popstate'));}
@@ -282,7 +307,7 @@
     else if(a==='restart'){state=E.restart(D,state,world.id);save();introSeen.delete(world.id);show(world.id);}
     else if(a==='act'){if(nearest)interact(nearest);else say('Acércate a un objeto.');}
     else if(a==='listen')speak(world.id+'.goal.'+currentProgress.index+'.'+language,world.player);
-    else if(b&&b.dataset.object&&isPlaying&&!currentProgress.ready&&!action&&!storyDialog){const o=currentProgress.mission.objects.find(o=>o.id===b.dataset.object);stopInput();destination=E.clampPlayer(o);autoTarget=o;}
+    else if(b&&b.dataset.object&&isPlaying&&!storyDialog){const o=currentProgress.mission.objects.find(o=>o.id===b.dataset.object);reactObject(o);if(!currentProgress.ready&&!action){stopInput();destination=E.clampPlayer(o);autoTarget=o;}}
   });
   root.addEventListener('pointerdown',ev=>{
     const d=ev.target.closest('[data-dir]');

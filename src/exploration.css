@@ -37,19 +37,19 @@ body.explorando>#cab,body.explorando>#clase,body.explorando>#juego,body.exploran
 .x-stage:after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 45%,#23382820);pointer-events:none}
 .x-path{position:absolute;inset:49% 0 0;pointer-events:none;background:linear-gradient(transparent,#b0a26b12)}
 .x-object{position:absolute;transform:translate(-50%,-100%);width:9%;height:auto;border:0;padding:0;background:none!important;overflow:visible;filter:drop-shadow(0 7px 3px #28362430);transition:filter .2s,opacity .3s}
-.x-object svg{width:100%;display:block;overflow:visible}.x-object[data-kind="tree"],.x-object[data-kind="mill"],.x-object[data-kind="door"]{width:14%}.x-object[data-kind="sancho"]{width:12%}.x-object[data-kind="horse"]{width:15%}
+.x-object[data-kind="tree"],.x-object[data-kind="mill"],.x-object[data-kind="door"]{width:14%}.x-object[data-kind="sancho"]{width:12%}.x-object[data-kind="horse"]{width:15%}
 .x-object img{width:100%;display:block}.x-object:before{content:'';position:absolute;bottom:-7%;left:10%;right:10%;height:12%;border-radius:50%;background:#27412f26;filter:blur(2px);z-index:-1}
 .x-object-label{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font:600 clamp(10px,1.5cqw,15px)/1.2 system-ui;white-space:nowrap;background:#fff8e4f2;padding:6px 9px;border:1px solid #d6cfb0;border-radius:10px;box-shadow:0 2px 3px #28442b20;pointer-events:none}
 .x-object.near{filter:drop-shadow(0 0 6px #fff3b0)}.x-object.near .x-object-label{background:#fff8c6;border-color:#ddb864}
 .x-object[data-edge="right"] .x-object-label{left:auto;right:0;transform:none}.x-object[data-edge="left"] .x-object-label{left:0;transform:none}
 .x-object.collected{filter:drop-shadow(0 0 7px #fff5ad)}.x-object.collected .x-object-label:before{content:'✓ ';color:#247341}
 .x-object.collected[data-kind="flower"],.x-object.collected[data-kind="fruit"],.x-object.collected[data-kind="key"],.x-object.collected[data-kind="letter"],.x-object.collected[data-kind="star"],.x-object.collected[data-kind="paint"],.x-object.collected[data-kind="book"]{opacity:.46}
-.x-painted{opacity:0}.collected .x-painted{opacity:1;transition:opacity 1s}.collected[data-kind="door"] svg{transform:perspective(150px) rotateY(-30deg);transform-origin:20% 50%;transition:transform .5s}.collected[data-kind="lamp"]{filter:drop-shadow(0 0 20px #ffde59)}
+.x-painted{opacity:0}.collected .x-painted{opacity:1;transition:opacity 1s}.collected[data-kind="lamp"]{filter:drop-shadow(0 0 20px #ffde59)}
 .x-finished-painting .x-painted{opacity:1}
-.x-object[data-kind="lamp"] svg{filter:saturate(.45) brightness(.75)}.x-object.collected[data-kind="lamp"] svg{filter:none}
-.x-object.collected[data-kind="sancho"] img,.x-object.collected[data-kind="horse"] svg{animation:x-greet .6s ease-in-out 2}
-.x-object[data-kind="butterfly"] svg{animation:x-flutter 2.3s ease-in-out infinite}.x-object.collected[data-kind="butterfly"]{transform:translate(-50%,-150%);opacity:.5}
-.x-sails{transform-origin:50px 45px}.collected .x-sails{animation:x-spin 7s linear infinite}.collected[data-kind="bell"] svg{animation:x-ring .6s ease-in-out 3;transform-origin:50% 15%}
+
+.x-object.collected[data-kind="sancho"] img{animation:x-greet .6s ease-in-out 2}
+.x-object.collected[data-kind="butterfly"]{transform:translate(-50%,-150%);opacity:.5}
+
 .x-hero{position:absolute;width:13.8%;height:auto;transform:translate(-50%,-100%);pointer-events:none;will-change:left,top;z-index:470}
 .x-hero:before{content:'';position:absolute;width:64%;left:18%;height:7%;bottom:-2%;background:#1d3c3b45;border-radius:50%;filter:blur(3px)}
 .x-hero img{width:100%;display:block;transform:scaleX(var(--face,1));transform-origin:50% 100%;filter:drop-shadow(0 3px 2px #243b2a22)}.x-hero.walking img{animation:x-walk .32s ease-in-out infinite alternate}
@@ -129,3 +129,42 @@ body.explorando>#cab,body.explorando>#clase,body.explorando>#juego,body.exploran
 @media(max-width:750px){.x-top-tools{gap:5px}.x-top-tools .x-voice-toggle span{display:none}.x-top-tools .x-voice-toggle{padding:7px 10px}.x-dialogue-line{gap:8px;padding:5px 6px}.x-dialogue-line p>span{font-size:15px}.x-dialogue-portrait{width:36px;height:39px}.x-dialogue-portrait img{width:63px;height:94px}.x-dialogue{margin-bottom:9px}.x-story-actions .x-listen{padding:8px 9px}}
 @media(max-height:560px){.x-dialogue-line p>span{font-size:14px}.x-dialogue-line{padding:3px 6px}.x-dialogue-portrait{height:33px;width:33px}.x-dialogue{margin-bottom:5px}}
 @media(max-width:380px){.x-game .x-top{gap:8px}.x-game .x-wordmark{font-size:20px!important}.x-top-tools{gap:4px}.x-history-button{padding:8px}}
+
+.x-dialogue-tools{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.x-dialogue-tools .x-listen{font-size:12px!important;padding:9px 12px;min-height:40px}
+.x-dialogue-tools [data-x="translate"][aria-pressed="true"]{background:#e7e3cf;border-color:#b4a77b}
+.x-dialogue-line p>span{display:block}.x-dialogue-line p>.x-translation{font:13px/1.4 system-ui;color:#6a705e;margin-top:5px;padding-top:4px;border-top:1px solid #c8ceb780}
+.x-translation[hidden],.x-slow-note[hidden]{display:none!important}.x-slow-note{letter-spacing:.6px;color:#55794d}
+@media(max-width:750px){.x-dialogue-tools{gap:6px;margin:9px 0}.x-dialogue-tools .x-listen{padding:8px 9px;flex:1;min-width:0}.x-dialogue-line p>.x-translation{font-size:12px}.x-dialogue-tools+.x-story-actions .x-achieved{flex-basis:100%}}
+
+/* Accessoires peints : mouvement du dessin, sans déplacer la cible tactile. */
+.x-object-art{display:block;position:relative;width:100%;transform-origin:50% 92%}
+.x-object .x-object-illustration{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;pointer-events:none;user-select:none}
+.x-object-art>.x-painted,.x-object-art>.x-mill-sails{position:absolute;inset:0;width:100%;height:100%}
+/* Moyeu des ailes à 45% de l'image, aligné sur celui de la tour à 43%. */
+.x-object-art>.x-mill-sails{top:-2%;transform-origin:50% 45%}
+.x-object.x-reacting .x-object-art{animation:x-object-pop 1.2s ease-in-out}
+.x-object[data-kind="tree"].x-reacting .x-object-art,.x-object[data-kind="flower"].x-reacting .x-object-art{animation:x-object-sway 1.35s ease-in-out}
+.x-object[data-kind="horse"].x-reacting .x-object-art{animation:x-horse-prance 1.3s ease-in-out}
+.x-object[data-kind="book"].x-reacting .x-object-art,.x-object[data-kind="letter"].x-reacting .x-object-art{animation:x-paper-welcome 1.2s ease-in-out}
+.x-object[data-kind="bell"].x-reacting .x-object-art{animation:x-bell-chime 1.4s ease-in-out;transform-origin:50% 18%}
+.x-object[data-kind="butterfly"] .x-object-art{animation:x-butterfly-float 3s ease-in-out infinite}
+.x-object[data-kind="butterfly"].x-reacting .x-object-illustration{animation:x-painted-wings .24s ease-in-out 6}
+.x-object[data-kind="mill"].x-reacting .x-mill-sails{animation:x-spin 1.5s ease-in-out}
+.x-object[data-kind="mill"].collected .x-mill-sails{animation:x-spin 7s linear infinite}
+.x-object[data-kind="lamp"] .x-object-illustration{filter:saturate(.6) brightness(.8);transition:filter .5s}
+.x-object[data-kind="lamp"].x-reacting .x-object-illustration,.x-object[data-kind="lamp"].collected .x-object-illustration{filter:drop-shadow(0 0 12px #ffe18c) saturate(1.1) brightness(1.12)}
+.x-object[data-kind="door"] .x-object-art{transform-origin:20% 90%;transition:transform .6s}
+.x-object[data-kind="door"].collected .x-object-art{transform:perspective(400px) rotateY(-25deg)}
+.x-object[data-kind="sancho"].x-reacting img{animation:x-greet .6s ease-in-out 2}
+.x-object.x-reacting .x-object-art:after{content:'';position:absolute;left:49%;top:32%;width:5px;height:5px;border-radius:50%;background:#fff2b4;box-shadow:-19px 9px 0 #ffe39c,20px -10px 0 #fff2b4,8px 17px 0 #f9d986;animation:x-painted-spark 1.3s ease-out forwards;pointer-events:none}
+.x-object[data-kind="well"].x-reacting .x-object-art:after{background:#91d5e7;box-shadow:-17px 9px 0 #b7e6e8,19px -8px 0 #80c5da,7px 18px 0 #b7e6e8;top:52%}
+.x-object[data-kind="tree"].x-reacting .x-object-art:after{background:#b6c887;box-shadow:-17px 9px 0 #cbd49c,19px -8px 0 #a7c17a,7px 18px 0 #e2d899;top:25%}
+@keyframes x-object-pop{0%,100%{transform:translateY(0) scale(1)}30%{transform:translateY(-8px) scale(1.07)}60%{transform:translateY(-2px) scale(.98)}}
+@keyframes x-object-sway{0%,100%{transform:rotate(0)}20%{transform:rotate(-7deg)}45%{transform:rotate(6deg)}70%{transform:rotate(-3deg)}}
+@keyframes x-horse-prance{0%,100%{transform:translateY(0) rotate(0)}25%,65%{transform:translateY(-9px) rotate(-3deg)}45%,85%{transform:translateY(-2px) rotate(2deg)}}
+@keyframes x-paper-welcome{0%,100%{transform:perspective(300px) rotateY(0) rotate(0)}35%{transform:perspective(300px) rotateY(-24deg) rotate(-7deg) translateY(-7px)}70%{transform:perspective(300px) rotateY(14deg) rotate(4deg)}}
+@keyframes x-bell-chime{0%,100%{transform:rotate(0)}15%,45%{transform:rotate(-14deg)}30%,60%{transform:rotate(13deg)}80%{transform:rotate(-5deg)}}
+@keyframes x-butterfly-float{50%{transform:translateY(-5px) rotate(3deg)}}
+@keyframes x-painted-wings{50%{transform:scaleX(.32) rotate(-4deg)}}
+@keyframes x-painted-spark{0%{opacity:0;transform:translateY(8px) scale(.5)}30%{opacity:1}100%{opacity:0;transform:translateY(-35px) scale(1.3)}}
+@media(prefers-reduced-motion:reduce){#exploracionApp .x-object-art,#exploracionApp .x-object-art:after,#exploracionApp .x-object-illustration{animation:none!important;transition:none!important}.x-object.x-reacting{filter:drop-shadow(0 0 7px #fff3b0)}.x-object.x-reacting .x-object-art:after{display:none}}

@@ -19,6 +19,10 @@ Fuentes técnicas: [voces y variantes de Microsoft](https://learn.microsoft.com/
 
 Después de una nueva misión se oyen las dos réplicas y se muestra el resumen. La repetición, el silencio y el botón para continuar siempre están disponibles. Cambiar de escena, abrir la ayuda o esconder la página detiene el audio. Reanudar una misión guardada no inicia una lectura automática. Si el navegador bloquea el inicio automático, se puede pulsar Repetir; los subtítulos permiten continuar igualmente.
 
+El botón **Plus lent** vuelve a reproducir las dos réplicas al 80 % de la velocidad normal. Se mantienen las mismas grabaciones y se activa la conservación del tono en los navegadores compatibles (`preservesPitch` o su variante con prefijo). **Diálogo / Repetir** vuelve a la velocidad normal; las consignas y los relatos también conservan su velocidad original. Véase la [documentación de preservesPitch](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/preservesPitch).
+
+**Traduction** muestra u oculta la traducción francesa debajo de cada réplica, sin interrumpir la escucha. Las 48 traducciones se encuentran en `src/exploration-translations.js`. Se ocultan al entrar en otra escena. Si el alumno las muestra, el diálogo permanece visible al terminar el audio para que pueda leerlo a su ritmo.
+
 ## Regeneración
 
 Se necesitan Node y Python con `edge-tts==7.3.1`, `soundfile` y `numpy` instalados en un entorno de desarrollo. Estas dependencias no se distribuyen con el juego. La generación utiliza el servicio en línea de Edge y necesita acceso a la red; conserva las grabaciones válidas cuya configuración no haya cambiado.
