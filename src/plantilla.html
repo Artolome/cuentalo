@@ -248,7 +248,8 @@ dialog .fila.izq{justify-content:flex-start}
   <h1>Cuéntalo <small id="subcap"></small></h1>
   <div class="acciones">
     <button id="btnClase" class="btn sec" title="Barra de clase: cronómetro, sorteo y equipos" hidden>⏱ Clase</button>
-    <button id="btnPista" class="btn sec">💡 Pista</button>
+    <button id="btnTraduction" class="btn sec" lang="fr" aria-pressed="false">Traduction</button>
+    <button id="btnPista" class="btn sec" lang="fr" title="Un indice pour réussir l’histoire">💡 Indice</button>
     <button id="btnLexico" class="btn sec">📖 Léxico</button>
     <button id="btnQuePasa" class="btn">¿Qué pasa?</button>
     <button id="btnImprimir" class="btn sec" title="Imprimir mi historia" hidden>🖨</button>
@@ -268,13 +269,16 @@ dialog .fila.izq{justify-content:flex-start}
   <section id="titulo">
     <button id="tituloTxt" class="titulo" title="Escuchar el título"></button>
     <span id="estadoNivel"></span>
+    <p id="titreTraduction" class="atelier-fr" lang="fr" hidden></p>
     <p id="inicio" class="inicio" hidden></p>
+    <p id="inicioTraduction" class="atelier-fr" lang="fr" hidden></p>
     <details id="culturaNivel" class="cultura-nivel" hidden></details>
   </section>
   <section id="tira" aria-label="Viñetas"></section>
-  <section id="stock" aria-label="Escenas y personajes">
-    <div id="stockEscenas" class="stock-fila"></div>
-    <div id="stockPersonajes" class="stock-fila"></div>
+  <section id="stock" class="atelier-stock" aria-label="Cartes pour construire l’histoire">
+    <section class="atelier-stock-group" aria-labelledby="stockScenesTitle"><h2 id="stockScenesTitle" lang="fr">1. Scènes</h2><div id="stockEscenas" class="stock-fila" tabindex="0" aria-label="Cartes de scènes, défilement horizontal"></div></section>
+    <section class="atelier-stock-group" aria-labelledby="stockCharactersTitle"><h2 id="stockCharactersTitle" lang="fr">2. Personnages</h2><div id="stockPersonajes" class="stock-fila" tabindex="0" aria-label="Cartes de personnages, défilement horizontal"></div></section>
+    <div id="selectionCarte" class="atelier-selection" lang="fr" hidden><span id="selectionText" role="status" aria-live="polite"></span><button id="annulerCarte" class="btn sec mini" type="button">Annuler</button></div>
   </section>
 </main>
 <aside id="panelNiveles" class="panel" hidden></aside>
@@ -282,6 +286,8 @@ dialog .fila.izq{justify-content:flex-start}
 <dialog id="dlgQuePasa"></dialog>
 <dialog id="dlgExito"></dialog>
 <dialog id="dlgModos"></dialog>
+<dialog id="dlgCarte" class="atelier-card-dialog" aria-labelledby="titreCarte"></dialog>
+<dialog id="dlgPista" aria-labelledby="titreIndice"></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <div id="inicioApp" class="inicio-app" hidden>
   <div class="portada-marca" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M36 57C5 40 15 13 54 10c8 31-4 47-18 47Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M23 65 49 23M34 47l-7-18m12 9 14-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>

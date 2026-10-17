@@ -1,0 +1,234 @@
+/* Aides de l'atelier original. Ces règles restent hors des aventures illustrées. */
+@media screen {
+  #cab { flex-wrap:wrap; }
+  #cab .actions, #cab .acciones { min-width:0; }
+  #cab #btnTraduction { min-height:38px; }
+  #cab #btnTraduction[aria-pressed="true"] {
+    color:#fffdf4; background:#3e624d; border-color:#3e624d;
+  }
+
+  /* Le texte peut grandir : le plateau défile au lieu de réduire les images. */
+  #juego {
+    display:flex; flex-direction:column; min-width:0; overflow-x:hidden;
+    overflow-y:auto; overscroll-behavior-y:contain; scrollbar-gutter:stable;
+    padding-bottom:16px;
+  }
+  #juego > #titulo, #juego > #stock { flex:0 0 auto; }
+  #juego #titulo { min-width:0; }
+  #juego #tituloTxt { max-width:100%; overflow-wrap:anywhere; }
+  #juego #titreTraduction, #juego #inicioTraduction {
+    flex-basis:100%; margin:0; text-align:center; line-height:1.45;
+  }
+  #juego #titreTraduction { font-size:max(15px,.94rem); }
+  #juego #inicioTraduction { font-size:max(14px,.85rem); }
+  #juego .atelier-fr, #dlgCarte .atelier-fr, #dlgPista .atelier-fr, #dlgQuePasa .atelier-fr,
+  #dlgExito .atelier-fr, #panelLexico .atelier-fr {
+    color:#526b5b; font-style:normal; line-height:1.45;
+  }
+  #juego .atelier-fr[hidden], #dlgCarte .atelier-fr[hidden], #dlgPista .atelier-fr[hidden],
+  #dlgQuePasa .atelier-fr[hidden], #dlgExito .atelier-fr[hidden],
+  #panelLexico .atelier-fr[hidden] { display:none !important; }
+  #dlgQuePasa .historia .atelier-fr { display:block; margin-top:5px; }
+  #juego #ayudaJuego[hidden], #stock #selectionCarte[hidden] { display:none !important; }
+
+  #juego #tira {
+    flex:1 0 auto; min-width:0; min-height:0;
+    grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));
+    grid-auto-rows:auto; align-content:center; align-items:start;
+  }
+  #juego .vineta { max-height:none; min-width:0; }
+  #juego .vineta .escena-caja { flex:none; min-height:0; aspect-ratio:16/10; }
+  #juego .vineta .frase {
+    flex:none; max-height:none; overflow:visible;
+    font-size:max(15px,calc(1.04rem * var(--fz,1))); line-height:1.45;
+    overflow-wrap:anywhere;
+  }
+  #juego .vineta .frase-traduction {
+    margin:0 .6em .6em; padding:.5em .1em 0;
+    border-top:1px solid #d4ddcc; font-size:max(14px,.86rem);
+    overflow-wrap:anywhere;
+  }
+  #juego .atelier-scene-name {
+    position:absolute; z-index:3; left:7px; right:7px; bottom:7px;
+    width:fit-content; max-width:calc(100% - 14px); padding:4px 8px;
+    border:1px solid #e0e6d3; border-radius:6px; background:#fffdf2ed;
+    color:#293e35; font-size:max(13px,.74rem); font-weight:650;
+    line-height:1.25; pointer-events:none;
+  }
+  #juego .escena-caja::before { display:none; }
+  #juego .escena-caja.compatible::before {
+    content:""; display:block; position:absolute; z-index:4; inset:0;
+    border:3px dashed #a27328; border-radius:8px; outline:none;
+    background:#fff6cd12; animation:none; pointer-events:none;
+  }
+  #juego .escena-caja.compatible { cursor:pointer; }
+  #juego .escena-caja.sobre::before { border-style:solid; }
+
+  /* Deux familles explicites, sans défilement horizontal de toute la page. */
+  #juego #stock.atelier-stock {
+    --carta:118px;
+    display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+    align-items:start; gap:12px 20px; position:static;
+    min-width:0; width:100%; overflow:visible; padding:14px;
+  }
+  #stock .atelier-stock-group { min-width:0; }
+  #stock .atelier-stock-group + .atelier-stock-group {
+    border-left:1px solid #c3cfb7; padding-left:20px;
+  }
+  #stock .atelier-stock-group > h2 {
+    margin:0 0 8px; color:#38533e; font:700 max(14px,.88rem)/1.3 var(--f-texto);
+  }
+  #stock .stock-fila {
+    display:flex; align-items:stretch; gap:10px; width:100%; min-width:0;
+    overflow-x:auto; overflow-y:hidden; padding:5px 4px 10px;
+    scroll-padding:8px; overscroll-behavior-x:contain;
+    scrollbar-width:thin; scrollbar-color:#95aa83 #e5ebdd;
+  }
+  #stock #stockPersonajes { border-left:0; padding-left:4px; }
+  #stock .atelier-card-wrap {
+    display:flex; flex-direction:column; flex:0 0 118px; min-width:0; gap:6px;
+  }
+  #stock .atelier-card-wrap .carta {
+    width:100%; flex:1 0 auto; min-width:0; padding:6px; gap:5px;
+    border-width:2px; cursor:pointer; transform:none;
+    transition:border-color .15s,background-color .15s,box-shadow .15s;
+  }
+  #stock .carta:hover { border-color:#698458; background:#f8faef; }
+  #stock .carta:focus-visible {
+    outline:3px solid #9b732e; outline-offset:2px;
+  }
+  #stock .carta.sel {
+    outline:2px solid #96702e; outline-offset:1px;
+    border-color:#96702e; background:#fff3d4; transform:none;
+  }
+  #stock .carta > svg, #stock .carta > img {
+    display:block; width:100%; height:auto; aspect-ratio:16/10;
+    object-fit:cover; border:0; border-radius:6px;
+  }
+  #stock .carta.ficha > svg, #stock .carta.ficha > img {
+    height:75px; width:100%; aspect-ratio:auto; object-fit:contain;
+  }
+  #stock .carta .nom {
+    display:block; width:100%; margin:0; padding:0;
+    color:#293e35; font-size:max(13px,.85rem); line-height:1.3;
+    font-weight:750; text-align:center; overflow-wrap:anywhere;
+  }
+  #stock .carte-effet {
+    display:block; width:100%; min-height:2.6em;
+    font-size:max(13px,.75rem); line-height:1.3; text-align:center;
+    color:#485e46; overflow-wrap:anywhere;
+  }
+  #stock .carte-fr {
+    display:block; width:100%; padding-top:4px; border-top:1px solid #dae2d1;
+    font-size:max(13px,.75rem); line-height:1.3; text-align:center;
+    overflow-wrap:anywhere;
+  }
+  #stock .carte-capacite {
+    display:block; width:100%; margin-top:auto; padding-top:5px;
+    color:#5d6b55; font-size:max(13px,.72rem); line-height:1.3;
+    text-align:center;
+  }
+  #stock .carte-selected {
+    padding:3px 7px; border-radius:5px; background:#486141; color:#fffdf4;
+    font-size:max(13px,.72rem); font-weight:700; line-height:1.3;
+  }
+  #stock .carte-info {
+    width:100%; min-height:34px; padding:5px 6px; border:1px solid #b3c1a4;
+    border-radius:7px; background:#f1f5e9; color:#3d583e;
+    font-size:max(13px,.75rem); line-height:1.25;
+  }
+  #stock .carte-info:hover { background:#e2ebd7; }
+  #stock .atelier-selection {
+    grid-column:1 / -1; display:flex; align-items:center; justify-content:space-between;
+    gap:8px 14px; min-width:0; padding:10px 12px; border:1px solid #bdcba9;
+    border-radius:9px; background:#eaf0df; font-size:max(14px,.85rem); line-height:1.4;
+  }
+  #stock .atelier-selection > :first-child { min-width:0; overflow-wrap:anywhere; }
+  #stock .atelier-selection button { flex-shrink:0; min-height:36px; }
+
+  #juego #ayudaJuego {
+    display:grid; grid-template-columns:minmax(0,1fr) auto;
+    gap:9px 12px; width:100%; max-width:1040px;
+    padding:12px 14px; text-align:left; font-size:max(14px,.86rem);
+  }
+  #juego .ayuda-etapes {
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-column:1 / -1; gap:8px; margin:0; padding:0; list-style:none;
+  }
+  #juego .ayuda-etapes li {
+    min-width:0; padding:8px 10px; border:1px solid #ccd6c0;
+    border-radius:8px; background:#f7f8ee; color:#54624d; line-height:1.35;
+  }
+  #juego .ayuda-etapes li.active {
+    border-color:#698651; background:#e3ecd6; color:#2e4934; font-weight:700;
+    box-shadow:inset 3px 0 0 #698651;
+  }
+  #juego .ayuda-action { grid-column:1 / -1; margin:0; line-height:1.45; }
+  #juego .ayuda-astuces { min-width:0; align-self:center; }
+  #juego .ayuda-astuces summary { cursor:pointer; font-weight:650; color:#3f613f; }
+  #juego .ayuda-astuces p, #juego .ayuda-astuces li { line-height:1.45; }
+  #juego .ayuda-astuces ul { margin:8px 0; padding-left:1.3em; }
+  #juego #btnCerrarAyuda { justify-self:end; align-self:start; min-height:34px; }
+
+  #dlgCarte.atelier-card-dialog {
+    width:min(680px,94vw); overflow-x:hidden; overflow-y:auto; padding:24px;
+  }
+  #dlgCarte h2 { margin:0 0 12px; font-size:clamp(24px,3.5vw,34px); line-height:1.15; }
+  #dlgCarte .atelier-card-large {
+    width:min(100%,500px); margin:0 auto 18px; padding:8px;
+    background:#eaf0df; border:1px solid #bdcbae; border-radius:14px;
+  }
+  #dlgCarte .atelier-card-large > svg, #dlgCarte .atelier-card-large > img {
+    display:block; width:100%; max-height:36vh; height:auto;
+    object-fit:contain; border-radius:8px;
+  }
+  #dlgCarte .carte-detail { margin:10px 0; line-height:1.6; font-size:max(16px,1rem); }
+  #dlgCarte .atelier-fr {
+    padding-top:10px; margin-top:10px; border-top:1px solid #ccd8c1;
+    font-size:max(15px,.93rem);
+  }
+  #dlgCarte .fila { gap:8px; }
+  #dlgCarte .fila .btn { min-height:42px; }
+
+  /* Six images restent lisibles sur une projection de classe. */
+  html.pizarra #juego #tira:has(> .vineta:nth-child(5)) {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  @media (max-width:1100px) {
+    #cab { gap:8px; }
+    #cab .acciones { flex-basis:100%; justify-content:flex-start; }
+    #cab .acciones .btn { min-height:36px; }
+    #juego #tira:has(> .vineta:nth-child(5)) {
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+    #juego #stock.atelier-stock { grid-template-columns:minmax(0,3fr) minmax(0,2fr); }
+  }
+  @media (max-width:720px) {
+    #juego { overflow:visible; scrollbar-gutter:auto; padding:14px 12px 20px; }
+    #juego #tira, html.pizarra #juego #tira:has(> .vineta:nth-child(5)),
+    #juego #tira:has(> .vineta:nth-child(5)) {
+      grid-template-columns:minmax(0,1fr); gap:16px;
+    }
+    #juego #stock.atelier-stock {
+      --carta:100px; grid-template-columns:minmax(0,1fr); gap:12px;
+      position:static; padding:10px; z-index:auto;
+    }
+    #stock .atelier-stock-group + .atelier-stock-group {
+      border-left:0; border-top:1px solid #c3cfb7; padding-left:0; padding-top:10px;
+    }
+    #stock .atelier-card-wrap { flex-basis:100px; }
+    #stock .carta.ficha > svg, #stock .carta.ficha > img { height:64px; }
+    #stock .atelier-selection { flex-wrap:wrap; padding:8px 10px; }
+    #stock .atelier-selection button { margin-left:auto; }
+    #juego #ayudaJuego { padding:10px; gap:8px; }
+    #juego .ayuda-etapes { grid-template-columns:minmax(0,1fr); gap:5px; }
+    #juego .ayuda-etapes li { padding:6px 9px; }
+    #juego .ayuda-astuces { grid-column:1 / -1; }
+    #juego #btnCerrarAyuda { grid-column:1 / -1; }
+    #juego .atelier-scene-name { font-size:14px; }
+    #dlgCarte.atelier-card-dialog { padding:18px; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    #stock .carta { transition:none; }
+  }
+}

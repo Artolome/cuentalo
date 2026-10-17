@@ -8,10 +8,10 @@ const SRC = path.join(__dirname, 'src');
 // Orden de carga: lengua → contenido → motor → arte → módulos sin DOM (escritor, autor) → pizarra → ui → ui-modos.
 // Los módulos marcados como opcionales se incluyen solo si existen (se añaden en la fase 2).
 const OPCIONALES = ['escritor.js', 'autor.js', 'pizarra.js', 'ui-modos.js'];
-const SCRIPTS = ['lengua.js', 'contenido.js', 'engine.js', path.join('art', 'personajes.js'), path.join('art', 'escenas.js'), 'escritor.js', 'autor.js', 'pizarra.js', 'partidas.js', 'ui.js', 'ui-modos.js', 'historias-data.js', 'historias-state.js', 'historias-ui.js', 'exploration-data.js', 'exploration-engine.js', 'exploration-stories.js', 'exploration-motion.js', 'exploration-art.js', 'exploration-dialogues.js', 'exploration-translations.js', 'exploration-audio.js', 'exploration-ui.js']
+const SCRIPTS = ['lengua.js', 'contenido.js', 'engine.js', path.join('art', 'personajes.js'), path.join('art', 'escenas.js'), 'escritor.js', 'autor.js', 'pizarra.js', 'partidas.js', 'atelier-cards.js', 'atelier-fr.js', 'ui.js', 'ui-modos.js', 'historias-data.js', 'historias-state.js', 'historias-ui.js', 'exploration-data.js', 'exploration-engine.js', 'exploration-stories.js', 'exploration-motion.js', 'exploration-art.js', 'exploration-dialogues.js', 'exploration-translations.js', 'exploration-audio.js', 'exploration-ui.js']
   .filter(f => !OPCIONALES.includes(f) || fs.existsSync(path.join(SRC, f)));
 let html = fs.readFileSync(path.join(SRC, 'plantilla.html'), 'utf8');
-html = html.replace('/*THEME*/', () => ['theme.css', 'historias.css', 'exploration.css'].map(f => fs.readFileSync(path.join(SRC, f), 'utf8')).join('\n'));
+html = html.replace('/*THEME*/', () => ['theme.css', 'historias.css', 'exploration.css', 'atelier.css'].map(f => fs.readFileSync(path.join(SRC, f), 'utf8')).join('\n'));
 // Each asset is embedded once; scene and character SVGs reuse the data URI.
 const { fondos, personajes } = require('./scripts/load-art')();
 const cubiertas = Object.fromEntries(['don_quijote', 'macondo', 'biblioteca_borges', 'casa_azul'].map(id => [id, 'data:image/webp;base64,' + fs.readFileSync(path.join(SRC, 'art', 'assets', 'historias', id + '.webp')).toString('base64')]));
