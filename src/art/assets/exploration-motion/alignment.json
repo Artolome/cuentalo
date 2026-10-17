@@ -1,0 +1,512 @@
+{
+  "quijote-walk-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      48,
+      6,
+      259,
+      471
+    ],
+    "head_anchor_x": 152.0,
+    "idle_head_anchor_x": 152.0,
+    "scale": 0.62923,
+    "foot_baseline": 471,
+    "idle_foot_baseline": 471
+  },
+  "quijote-walk-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      91,
+      5,
+      219,
+      471
+    ],
+    "head_anchor_x": 152.0,
+    "idle_head_anchor_x": 152.0,
+    "scale": 0.62753,
+    "foot_baseline": 471,
+    "idle_foot_baseline": 471
+  },
+  "quijote-walk-2.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      51,
+      5,
+      279,
+      471
+    ],
+    "head_anchor_x": 152.0,
+    "idle_head_anchor_x": 152.0,
+    "scale": 0.47741,
+    "foot_baseline": 471,
+    "idle_foot_baseline": 471
+  },
+  "quijote-walk-3.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      62,
+      6,
+      281,
+      471
+    ],
+    "head_anchor_x": 152.0,
+    "idle_head_anchor_x": 152.0,
+    "scale": 0.48187,
+    "foot_baseline": 471,
+    "idle_foot_baseline": 471
+  },
+  "quijote-talk-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      71,
+      5,
+      272,
+      471
+    ],
+    "head_anchor_x": 152.0,
+    "idle_head_anchor_x": 152.0,
+    "scale": 0.64673,
+    "foot_baseline": 471,
+    "idle_foot_baseline": 471
+  },
+  "quijote-talk-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      81,
+      6,
+      270,
+      471
+    ],
+    "head_anchor_x": 152.0,
+    "idle_head_anchor_x": 152.0,
+    "scale": 0.6405,
+    "foot_baseline": 471,
+    "idle_foot_baseline": 471
+  },
+  "ursula-walk-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      5,
+      5,
+      291,
+      475
+    ],
+    "head_anchor_x": 155.0,
+    "idle_head_anchor_x": 155.0,
+    "scale": 0.77815,
+    "foot_baseline": 475,
+    "idle_foot_baseline": 475
+  },
+  "ursula-walk-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      49,
+      6,
+      270,
+      475
+    ],
+    "head_anchor_x": 155.0,
+    "idle_head_anchor_x": 155.0,
+    "scale": 0.78203,
+    "foot_baseline": 475,
+    "idle_foot_baseline": 475
+  },
+  "ursula-walk-2.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      27,
+      5,
+      282,
+      475
+    ],
+    "head_anchor_x": 155.0,
+    "idle_head_anchor_x": 155.0,
+    "scale": 0.47475,
+    "foot_baseline": 475,
+    "idle_foot_baseline": 475
+  },
+  "ursula-walk-3.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      41,
+      5,
+      292,
+      475
+    ],
+    "head_anchor_x": 155.0,
+    "idle_head_anchor_x": 155.0,
+    "scale": 0.48554,
+    "foot_baseline": 475,
+    "idle_foot_baseline": 475
+  },
+  "ursula-talk-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      41,
+      5,
+      293,
+      475
+    ],
+    "head_anchor_x": 155.0,
+    "idle_head_anchor_x": 155.0,
+    "scale": 0.77049,
+    "foot_baseline": 475,
+    "idle_foot_baseline": 475
+  },
+  "ursula-talk-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      49,
+      5,
+      311,
+      475
+    ],
+    "head_anchor_x": 155.0,
+    "idle_head_anchor_x": 155.0,
+    "scale": 0.76923,
+    "foot_baseline": 475,
+    "idle_foot_baseline": 475
+  },
+  "bibliotecario-walk-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      53,
+      4,
+      278,
+      464
+    ],
+    "head_anchor_x": 165.0,
+    "idle_head_anchor_x": 165.0,
+    "scale": 0.62162,
+    "foot_baseline": 464,
+    "idle_foot_baseline": 464
+  },
+  "bibliotecario-walk-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      90,
+      4,
+      239,
+      464
+    ],
+    "head_anchor_x": 165.0,
+    "idle_head_anchor_x": 165.0,
+    "scale": 0.62162,
+    "foot_baseline": 464,
+    "idle_foot_baseline": 464
+  },
+  "bibliotecario-walk-2.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      52,
+      4,
+      288,
+      464
+    ],
+    "head_anchor_x": 165.0,
+    "idle_head_anchor_x": 165.0,
+    "scale": 0.47867,
+    "foot_baseline": 464,
+    "idle_foot_baseline": 464
+  },
+  "bibliotecario-walk-3.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      54,
+      4,
+      250,
+      464
+    ],
+    "head_anchor_x": 165.0,
+    "idle_head_anchor_x": 165.0,
+    "scale": 0.47817,
+    "foot_baseline": 464,
+    "idle_foot_baseline": 464
+  },
+  "bibliotecario-talk-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      75,
+      4,
+      278,
+      464
+    ],
+    "head_anchor_x": 165.0,
+    "idle_head_anchor_x": 165.0,
+    "scale": 0.631,
+    "foot_baseline": 464,
+    "idle_foot_baseline": 464
+  },
+  "bibliotecario-talk-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      79,
+      4,
+      273,
+      464
+    ],
+    "head_anchor_x": 165.0,
+    "idle_head_anchor_x": 165.0,
+    "scale": 0.63014,
+    "foot_baseline": 464,
+    "idle_foot_baseline": 464
+  },
+  "frida-walk-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      32,
+      6,
+      267,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.64861,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  },
+  "frida-walk-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      68,
+      6,
+      251,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.64414,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  },
+  "frida-walk-2.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      32,
+      7,
+      260,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.47411,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  },
+  "frida-walk-3.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      31,
+      6,
+      279,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.48244,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  },
+  "frida-talk-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      60,
+      6,
+      270,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.63194,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  },
+  "frida-talk-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      55,
+      6,
+      255,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.63194,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  },
+  "sancho-talk-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      57,
+      6,
+      278,
+      466
+    ],
+    "head_anchor_x": 144.0,
+    "idle_head_anchor_x": 144.0,
+    "scale": 0.43881,
+    "foot_baseline": 466,
+    "idle_foot_baseline": 466
+  },
+  "sancho-talk-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      61,
+      7,
+      278,
+      466
+    ],
+    "head_anchor_x": 144.0,
+    "idle_head_anchor_x": 144.0,
+    "scale": 0.43923,
+    "foot_baseline": 466,
+    "idle_foot_baseline": 466
+  },
+  "frida-paint-0.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      28,
+      6,
+      318,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.62101,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  },
+  "frida-paint-1.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      32,
+      5,
+      286,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.62184,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  },
+  "frida-paint-2.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      32,
+      6,
+      304,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.31175,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  },
+  "frida-paint-3.webp": {
+    "size": [
+      320,
+      480
+    ],
+    "bbox": [
+      36,
+      6,
+      296,
+      473
+    ],
+    "head_anchor_x": 151.0,
+    "idle_head_anchor_x": 151.0,
+    "scale": 0.62433,
+    "foot_baseline": 473,
+    "idle_foot_baseline": 473
+  }
+}

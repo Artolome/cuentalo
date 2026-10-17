@@ -22,7 +22,10 @@ Paramètres d'URL facultatifs : `cuentalo.html?modo=pizarra&nivel=c2n1&dif=2`.
 
 - `src/exploration-data.js` — quatre mondes, vingt-quatre missions et consignes faciles/normales
 - `src/exploration-engine.js` — progression pure, proximité, mouvement et validation des sauvegardes
+- `src/exploration-motion.js` — cycles des poses de marche, de parole et de peinture, réduction du mouvement
+- `src/exploration-stories.js` — 24 passages courts sur les œuvres et la vie de Frida, résumés et sources
 - `src/exploration-ui.js`, `src/exploration.css` — déplacement et interactions dans les décors
+- `src/art/assets/exploration-motion/` — poses peintes dérivées des personnages existants, intégrées au HTML
 - `src/historias-data.js` — quatre récits, vingt chapitres, choix et sources
 - `src/historias-state.js` — progression pure, validation des sauvegardes et relecture
 - `src/historias-ui.js`, `src/historias.css` — bibliothèque, lecture continue et carnet
@@ -42,6 +45,8 @@ Paramètres d'URL facultatifs : `cuentalo.html?modo=pizarra&nivel=c2n1&dif=2`.
 ## Commandes
 
 Tests de l'exploration : `node test/exploration.js`. Tests des anciennes lectures : `node test/historias.js`.
+
+Animations et récits courts : `node test/exploration-motion.js` et `node test/exploration-stories.js`.
 
 ```bash
 node build.js
@@ -97,6 +102,8 @@ node test/serve.js 4173
 
 - `docs/GUIA_PROFE.md` — guide de la professeure : exploration, atelier, niveaux et solutions, différenciation, Autor, impression, données et dépannage
 - `docs/EXPLORACION.md` — mondes, missions, commandes et portée culturelle des aventures
+- `docs/ART_ANIMACIONES.md` — poses animées, références et prompts de génération
+- `docs/RELATOS_EXPLORACION.md` — critères éditoriaux et sources des passages entre les missions
 - `docs/CONTENIDO.md` — modèle de contenu (personajes, estados, escenas, règles, niveaux, gabarits, lexique)
 - `docs/DECISIONS.md` — choix et points à vérifier, phase par phase
 - `docs/frases.txt` — toutes les phrases générables (relecture linguistique)

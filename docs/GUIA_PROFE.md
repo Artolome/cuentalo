@@ -12,6 +12,10 @@ Les **quatre mondes comprennent six missions chacun** : Don Quichotte et Sancho 
 
 Les décors peints et les personnages cartoon sont conservés. Le personnage marche devant le paysage, les objets de la mission se distinguent du fond et les actions font évoluer la scène. Les aventures sont des inventions ludiques inspirées d'univers littéraires et artistiques : elles ne racontent pas intégralement les œuvres et les gestes du personnage de Frida ne constituent pas des épisodes biographiques attestés. Voir [les missions et leur portée culturelle](EXPLORACION.md).
 
+Les personnages disposent désormais de plusieurs poses pour marcher et parler ; Frida utilise aussi son pinceau. Les décors et illustrations au repos restent les mêmes. L'action se termine après le geste, sans manipulation supplémentaire. La préférence « réduire les animations » du système est respectée.
+
+Après chaque mission, **deux phrases en espagnol** racontent un épisode de l'œuvre ou une étape de la vie de Frida. Ces passages sont distincts de la fiction du jeu et peuvent s'écouter. « Seguir » reste disponible immédiatement. Le bouton **Historia** —**Su vida** chez Frida— donne accès à un résumé et aux sources ; le résumé apparaît également à la fin de chaque aventure. Le vocabulaire des récits peut demander un accompagnement oral : le réglage Facile/Normal concerne uniquement les consignes. Les récits révèlent les dénouements des œuvres.
+
 Pour commencer en classe, faire lire une consigne et demander à un élève de montrer la cible avant de se déplacer. Après l'action, lui faire dire un mot ou une courte phrase : « Sancho », « Tres frutas », « Tengo el libro ». En binôme, un élève lit ou écoute, l'autre déplace le personnage ; les rôles changent à la mission suivante.
 
 L'ancien **Taller de viñetas** reste disponible pour composer des BD, produire des phrases et utiliser les modes Pizarra / Solo / Autor. Ses 26 énigmes, ses sauvegardes et ses codes sont conservés. Les sections 2.2 à 7 et les tableaux de solutions de ce guide concernent cet atelier ; ils ne sont pas nécessaires pour commencer l'exploration.
