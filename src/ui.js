@@ -4,6 +4,7 @@
 (function () {
   'use strict';
   const C = window.SVContenido, E = window.SVEngine, AP = window.SVArtePersonajes, AE = window.SVArteEscenas;
+  const FR = window.SVAtelierFrench, CARDS = window.SVAtelierCards;
   const $ = s => document.querySelector(s);
   const el = (tag, attrs, html) => { const n = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === 'class') n.className = attrs[k]; else if (k.startsWith('on')) n.addEventListener(k.slice(2), attrs[k]); else n.setAttribute(k, attrs[k]); } if (html !== undefined) n.innerHTML = html; return n; };
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); // los títulos de autor son texto libre
@@ -18,6 +19,7 @@
   /* ---------- estado de la aplicación ---------- */
   let nivel = null, viñetas = [], res = null, seleccion = null, intentos = 0, pistaIdx = 0;
   let progreso = cargar();
+  let traduccion = ajustes().traduction === true;
   let extra = []; // niveles de autor (los añade ui-modos.js)
   let pizarraApi = null; // barra de clase montada (cronómetro, sorteo, equipos)
   let relato = ['', '', ''], ayudaActiva = true, exitoTimer = 0;
@@ -121,6 +123,7 @@
     if (window.SVApp.escritor && window.SVApp.escritor.restaurar) window.SVApp.escritor.restaurar(partida.escritor);
     progreso.actual = nivel.id; guardar();
     pintarTodo();
+    seleccionar(null);
     hablar(nivel.libre ? 'Mi historia' : nivel.titulo);
   }
   function siguienteNivel() {
@@ -173,20 +176,37 @@
     const se = $('#stockEscenas'); se.innerHTML = '';
     for (const id of nivel.escenas) {
       const e = ES[id];
-      const c = el('div', { class: 'carta escena', draggable: 'true', 'data-tipo': 'escena', 'data-id': id, title: e.nombre, role: 'button', tabindex: '0' });
-      c.innerHTML = AE.escenaSVG(id) + `<span class="nom"><span class="pic">${e.emoji}</span> ${e.nombre}</span>`;
+      const info = CARDS.scenes[id];
+      const c = el('div', { class: 'carta escena', draggable: 'true', 'data-tipo': 'escena', 'data-id': id, role: 'button', tabindex: '0', 'aria-pressed': 'false', 'aria-label': e.nombre + '. ' + info.shortEs + '. ' + e.slots + ' personnage' + (e.slots > 1 ? 's' : '') + ' maximum.' });
+      c.innerHTML = AE.escenaSVG(id) + `<span class="nom">${esc(e.nombre)}</span><span class="carte-effet" lang="es">${esc(info.shortEs)}</span><span class="atelier-fr carte-fr" lang="fr" hidden>${esc(info.nameFr)} · ${esc(info.shortFr)}</span><span class="carte-capacite" lang="fr">${e.slots === 1 ? '1 personnage' : '1–2 personnages'}</span><span class="carte-selected" lang="fr" hidden>✓ Choisie</span>`;
       arrastrable(c, 'escena', id);
-      se.appendChild(c);
+      carteAvecApercu(se, c, 'escena', id, e.nombre);
     }
     const sp = $('#stockPersonajes'); sp.innerHTML = '';
     for (const id of nivel.personajes) {
       const p = PJ[id];
-      const c = el('div', { class: 'carta ficha ' + id, draggable: 'true', 'data-tipo': 'personaje', 'data-id': id, title: p.rasgo, role: 'button', tabindex: '0' });
-      c.innerHTML = AP.retratoSVG(p) + `<span class="nom">${p.nombre}</span>`;
+      const info = CARDS.characters[id];
+      const c = el('div', { class: 'carta ficha ' + id, draggable: 'true', 'data-tipo': 'personaje', 'data-id': id, role: 'button', tabindex: '0', 'aria-pressed': 'false', 'aria-label': p.nombre + '. ' + info.shortEs });
+      c.innerHTML = AP.retratoSVG(p) + `<span class="nom">${esc(p.nombre)}</span><span class="carte-effet" lang="es">${esc(info.shortEs)}</span><span class="atelier-fr carte-fr" lang="fr" hidden>${esc(info.shortFr)}</span><span class="carte-selected" lang="fr" hidden>✓ Choisie</span>`;
       arrastrable(c, 'personaje', id);
-      sp.appendChild(c);
+      carteAvecApercu(sp, c, 'personaje', id, p.nombre);
     }
     $('#stock').style.setProperty('--n-cartas', nivel.escenas.length + nivel.personajes.length);
+  }
+  function carteAvecApercu(host, card, tipo, id, name) {
+    const wrap = el('div', {class:'atelier-card-wrap'});
+    const more = el('button', {class:'carte-info', type:'button', lang:'fr', 'aria-label':'Agrandir la carte : '+name}, 'Agrandir');
+    more.onclick = () => apercuCarte(tipo, id);
+    wrap.append(card, more); host.appendChild(wrap);
+  }
+  function apercuCarte(tipo, id) {
+    const scene = tipo === 'escena', item = scene ? ES[id] : PJ[id], info = scene ? CARDS.scenes[id] : CARDS.characters[id];
+    const d = $('#dlgCarte');
+    d.innerHTML = `<h2 id="titreCarte">${esc(item.nombre)}</h2><div class="atelier-card-large">${scene ? AE.escenaSVG(id) : AP.personajeSVG(item, 'contento')}</div>${scene ? `<p class="carte-capacite" lang="fr">Cette scène accueille ${item.slots === 1 ? 'un seul personnage' : 'un ou deux personnages'}.</p>` : ''}<p class="carte-detail" lang="es">${esc(scene ? info.detailEs : info.shortEs)}</p><p class="atelier-fr" lang="fr" hidden>${esc(scene ? info.detailFr : info.shortFr)}</p><div class="fila"><button class="btn sec" data-atelier-translate type="button" lang="fr">Traduction</button><button class="btn sec" data-close type="button" lang="fr">Fermer</button><button class="btn verde" data-use type="button" lang="fr">Utiliser cette carte</button></div>`;
+    d.querySelector('[data-close]').onclick = () => d.close();
+    d.querySelector('[data-use]').onclick = () => { d.close(); seleccionar({tipo,id}); $('#stock').querySelector(`[data-tipo="${tipo}"][data-id="${id}"]`).focus(); };
+    d.querySelector('[data-atelier-translate]').onclick = toggleTraduction;
+    pintarTraduccion(); d.showModal();
   }
   function arrastrable(c, tipo, id) {
     c.addEventListener('dragstart', ev => { ev.dataTransfer.setData('text/plain', tipo + ':' + id); ev.dataTransfer.effectAllowed = 'copy'; seleccionar(null); });
@@ -197,15 +217,17 @@
   function seleccionar(s) {
     seleccion = s;
     if (s && window.matchMedia('(max-height:800px) and (min-width:721px)').matches) $('#culturaNivel').open = false;
-    document.querySelectorAll('.carta').forEach(c => c.classList.toggle('sel', !!s && c.dataset.tipo === s.tipo && c.dataset.id === s.id));
+    document.querySelectorAll('.carta').forEach(c => { const chosen = !!s && c.dataset.tipo === s.tipo && c.dataset.id === s.id; c.classList.toggle('sel', chosen); c.setAttribute('aria-pressed', String(chosen)); const badge=c.querySelector('.carte-selected'); if(badge)badge.hidden=!chosen; });
     document.body.classList.toggle('seleccion', !!s);
-    if (s) toast(s.tipo === 'escena' ? `Ahora haz clic en una viñeta para poner «${ES[s.id].nombre}»` : `Ahora haz clic en una viñeta para poner a ${PJ[s.id].nombre}`, 3500);
+    document.querySelectorAll('#tira .escena-caja').forEach(c => c.classList.toggle('compatible', !!s && (s.tipo === 'escena' || !!viñetas[+c.dataset.i].escena)));
+    $('#selectionCarte').hidden = !s;
+    $('#selectionText').textContent = s ? `« ${s.tipo === 'escena' ? ES[s.id].nombre : PJ[s.id].nombre} » choisie. Clique sur ${s.tipo === 'escena' ? 'une case' : 'une case avec une scène'}.` : '';
     pintarAyuda();
   }
   function pintarTira() {
     const tira = $('#tira'); tira.innerHTML = '';
     const n = nivel.viñetas;
-    // Una sola fila (como una tira de cómic): se lee de izquierda a derecha y cabe en 16:9 sin desplazamiento.
+    // Lecture de gauche à droite ; la grille passe sur plusieurs lignes sur petit écran.
     tira.style.setProperty('--cols', n);
     tira.style.setProperty('--fz', n <= 3 ? 1 : n === 4 ? 0.92 : 0.84);
     viñetas.forEach((v, i) => {
@@ -216,6 +238,7 @@
       if (v.escena) {
         esc.insertAdjacentHTML('beforeend', AE.escenaSVG(v.escena, { clase: 'fondo' }));
         esc.appendChild(el('span', { class: 'pic-esc', title: ES[v.escena].nombre }, ES[v.escena].emoji));
+        esc.appendChild(el('span', { class: 'atelier-scene-name' }, window.SVApp.esc(ES[v.escena].nombre)));
         const pjs = el('div', { class: 'personajes' + (v.personajes.length ? '' : ' vacia') });
         esc.appendChild(pjs);
         esc.appendChild(el('button', { class: 'quitar', title: 'Quitar la escena', onclick: ev => { ev.stopPropagation(); viñetas[i] = { escena: null, personajes: [] }; pintarTira(); simular(); } }, '×'));
@@ -229,9 +252,10 @@
       const frase = el('div', { class: 'frase vacia', title: 'Escuchar' }, '…');
       frase.addEventListener('click', ev => { if (ev.target.closest('button,input,label')) return; if (frase.dataset.texto) hablar(frase.dataset.texto); });
       caja.appendChild(frase);
+      caja.appendChild(el('p', {class:'frase-traduction atelier-fr',lang:'fr',hidden:''}));
       tira.appendChild(caja);
     });
-    ajustarTira();
+    seleccionar(seleccion); ajustarTira();
   }
   /* Ancho máximo de cada viñeta para que la imagen (16:10) y unas 3 líneas de frase quepan en la altura disponible, sin recortes. */
   function ajustarTira() {
@@ -257,18 +281,20 @@
   function colocar(i, tipo, id) {
     const v = viñetas[i];
     if (!v || !cartaValida(tipo, id)) return false;
+    let cambio = '';
     if (tipo === 'escena') {
       v.escena = id;
       const slots = ES[id].slots;
-      if (v.personajes.length > slots) v.personajes = v.personajes.slice(0, slots);
+      if (v.personajes.length > slots) { cambio = `${v.personajes.slice(slots).map(p=>PJ[p].nombre).join(', ')} quitte cette case : « ${ES[id].nombre} » accueille ${slots} personnage.`; v.personajes = v.personajes.slice(0, slots); }
     } else {
-      if (!v.escena) { toast('Primero pon una escena en la viñeta.'); return false; }
+      if (!v.escena) { toast('Ajoute d’abord une scène dans cette case, puis ton personnage.'); return false; }
       if (v.personajes.includes(id)) { toast(`${PJ[id].nombre} ya está en esta viñeta.`); return false; }
       const slots = ES[v.escena].slots;
-      if (v.personajes.length >= slots) { if (slots === 1) v.personajes = [id]; else v.personajes[slots - 1] = id; }
+      if (v.personajes.length >= slots) { cambio = `${PJ[id].nombre} remplace ${PJ[v.personajes[slots - 1]].nombre} : cette scène accueille ${slots} personnage${slots > 1 ? 's' : ''} maximum.`; if (slots === 1) v.personajes = [id]; else v.personajes[slots - 1] = id; }
       else v.personajes.push(id);
     }
     pintarTira(); simular();
+    if(cambio)toast(cambio,6000);
     return true;
   }
   function quitarPersonaje(i, id) { viñetas[i].personajes = viñetas[i].personajes.filter(x => x !== id); pintarTira(); simular(); }
@@ -293,8 +319,8 @@
       }
       const f = caja.querySelector('.frase');
       f.dataset.texto = '';
-      if (!v.escena) { f.textContent = '…'; f.className = 'frase vacia'; }
-      else if (!v.personajes.length) { f.textContent = `${ES[v.escena].nombre}. ¿Quién está aquí?`; f.className = 'frase vacia'; }
+      if (!v.escena) { f.textContent = '1. Elige una escena.'; f.className = 'frase vacia'; }
+      else if (!v.personajes.length) { f.textContent = '2. Añade un personaje.'; f.className = 'frase vacia'; }
       else if (r.frases.length) {
         const texto = r.frases.join(' ');
         const alerta = r.eventos.some(e => e.tipo === 'yaSalvo' || e.tipo === 'demasiados');
@@ -305,6 +331,7 @@
       }
       else { f.textContent = '…'; f.className = 'frase vacia'; }
     });
+    pintarTraduccion();
     // estado del nivel
     const est = $('#estadoNivel'), tt = $('#tituloTxt');
     if (window.SVApp.alSimular) window.SVApp.alSimular(res);
@@ -346,6 +373,34 @@
     mostrarExito(p);
   }
   function escritorPendiente() { return !!(window.SVApp.escritor && window.SVApp.escritor.activo() && !window.SVApp.escritor.completo()); }
+  /* Le français suit les événements du moteur, sans changer les cartes ni relancer la partie. */
+  function pintarTraduccion() {
+    if (!nivel || !res) return;
+    const fr = FR.story(nivel, res, {tiempo:tiempo()});
+    const titulo = $('#titreTraduction'), inicio = $('#inicioTraduction');
+    titulo.textContent = fr.title || '';
+    inicio.textContent = fr.initial.length ? 'Au début : ' + fr.initial.join(' ') : '';
+    titulo.hidden = !traduccion || !titulo.textContent;
+    inicio.hidden = !traduccion || !inicio.textContent;
+    const pendiente = escritorPendiente();
+    document.querySelectorAll('#tira .vineta').forEach((caja,i) => {
+      const p = caja.querySelector('.frase-traduction'), v = viñetas[i];
+      // Aucune réponse française, même cachée dans le DOM, avant validation en mode écrivain.
+      const visible = !pendiente || window.SVApp.escritor.hecha(i);
+      p.textContent = !v.escena ? '1. Choisis une scène.' : !v.personajes.length ? '2. Ajoute un personnage.' : visible ? fr.panels[i] : '';
+      p.hidden = !traduccion || !p.textContent;
+    });
+    document.querySelectorAll('#stock .carte-fr, #panelLexico .atelier-fr, #dlgCarte .atelier-fr, #dlgPista .atelier-fr, #dlgQuePasa .atelier-fr').forEach(p => { p.hidden = !traduccion || !p.textContent; });
+    document.querySelectorAll('#btnTraduction, [data-atelier-translate]').forEach(b => {
+      b.setAttribute('aria-pressed', String(traduccion));
+      b.setAttribute('aria-label', traduccion ? 'Masquer la traduction française' : 'Afficher la traduction française');
+      b.textContent = traduccion ? 'Traduction ✓' : 'Traduction';
+    });
+  }
+  function toggleTraduction() {
+    traduccion = !traduccion; ajustes().traduction = traduccion; guardar();
+    pintarTraduccion(); ajustarTira();
+  }
   function mostrarExito(p) {
     p = p || progresoDe(nivel.id);
     const d = $('#dlgExito');
@@ -368,10 +423,10 @@
 
   /* ---------- primeras acciones: ayuda breve, sin bloquear el juego ---------- */
   function montarAyuda() {
-    const ayuda = el('section', { id: 'ayudaJuego', class: 'ayuda-juego', 'aria-label': 'Cómo jugar' });
-    ayuda.innerHTML = '<div class="ayuda-texto" role="status" aria-live="polite" aria-atomic="true"><b class="ayuda-paso"></b> <span></span></div><button type="button" id="btnCerrarAyuda" class="btn sec mini" aria-label="Cerrar la ayuda">Entendido ×</button>';
+    const ayuda = el('section', { id: 'ayudaJuego', class: 'ayuda-juego', lang:'fr', 'aria-label': 'Comment jouer' });
+    ayuda.innerHTML = '<ol class="ayuda-etapes"><li><b>1. Choisis une scène</b><br>Clique sur une carte, puis sur une case.</li><li><b>2. Ajoute un personnage</b><br>Clique sur son portrait, puis sur la scène.</li><li><b>3. Construis ton histoire</b><br>Lis ce qui arrive, puis complète la case suivante.</li></ol><p class="ayuda-action" role="status" aria-live="polite" aria-atomic="true"></p><details class="ayuda-astuces"><summary>Quelques astuces</summary><ul><li>Les cases se lisent de gauche à droite. Le titre indique le but à atteindre.</li><li>Tu peux utiliser plusieurs fois la même carte. Le personnage garde ce qui lui est arrivé dans les cases précédentes.</li><li>« Agrandir » montre la carte et explique son effet. « Indice » aide à réussir l’histoire.</li><li>Pour corriger : annule la sélection, puis clique sur un personnage pour le retirer. Le × vide toute la case.</li></ul></details><button type="button" id="btnCerrarAyuda" class="btn sec mini">Compris ×</button>';
     $('#titulo').appendChild(ayuda);
-    const boton = el('button', { id: 'btnAyuda', class: 'btn sec', type: 'button', 'aria-controls': 'ayudaJuego', 'aria-expanded': 'false' }, '? Ayuda');
+    const boton = el('button', { id: 'btnAyuda', class: 'btn sec', type: 'button', lang:'fr', 'aria-controls': 'ayudaJuego', 'aria-expanded': 'false' }, '? Comment jouer');
     $('#cab .acciones').insertBefore(boton, $('#btnPista'));
     boton.onclick = () => { ayudaActiva = !ayudaActiva; if (!ayudaActiva) { ajustes().ayudaVista = true; guardar(); } pintarAyuda(); ajustarTira(); };
     $('#btnCerrarAyuda').onclick = () => cerrarAyuda(true);
@@ -387,22 +442,23 @@
     a.hidden = !visible; $('#btnAyuda').hidden = !!nivel.enConstruccion;
     $('#btnAyuda').setAttribute('aria-expanded', String(visible));
     if (!visible) return;
-    let paso, texto;
-    if (!viñetas.some(v => v.escena)) {
-      paso = '1 · Elige el lugar.';
-      texto = seleccion && seleccion.tipo === 'escena' ? 'Ahora pulsa una viñeta vacía para poner la escena.' : 'Pulsa una carta de escena en la bandeja y luego una viñeta vacía. También puedes arrastrarla.';
-    } else if (!viñetas.some(v => v.personajes.length)) {
-      paso = '2 · Añade un personaje.';
-      texto = seleccion && seleccion.tipo === 'personaje' ? 'Ahora pulsa la viñeta que tiene una escena.' : 'Pulsa una carta de personaje y después la escena que has colocado.';
+    let paso = 2, texto;
+    if (seleccion) {
+      paso = seleccion.tipo === 'escena' ? 0 : 1;
+      texto = seleccion.tipo === 'escena' ? 'Scène choisie : clique maintenant sur une case de ton histoire.' : 'Personnage choisi : clique sur une case qui contient déjà une scène.';
+    } else if (!viñetas.some(v => v.escena)) {
+      paso = 0; texto = 'Pour commencer, choisis une carte dans la zone « 1. Scènes ».';
+    } else if (viñetas.some(v => v.escena && !v.personajes.length)) {
+      paso = 1; texto = 'Une scène attend un personnage : choisis son portrait, puis clique sur cette scène.';
     } else if (res && res.incompleto) {
-      paso = '3 · Construye la historia.';
-      texto = 'Completa las viñetas de izquierda a derecha. Lee las frases: las acciones cambian cómo están los personajes.';
+      texto = 'Lis la phrase sous chaque image. Continue dans la case suivante pour atteindre le but du titre.';
+    } else if (escritorPendiente()) {
+      texto = 'À toi de trouver les phrases espagnoles ! La traduction apparaît après chaque réponse validée.';
     } else {
-      paso = '4 · Mira el título.';
-      texto = '¿Tu historia cumple el título? Puedes cambiar las cartas. «¿Qué pasa?» explica el resultado y «Pista» te ayuda.';
+      texto = nivel.libre ? 'Ton histoire est complète ! Tu peux encore changer les cartes ou la raconter avec tes mots.' : 'Ton histoire correspond-elle au titre ? « ¿Qué pasa? » explique le résultat. « Indice » peut t’aider.';
     }
-    const b = a.querySelector('.ayuda-paso'), t = a.querySelector('.ayuda-texto span');
-    if (b.textContent !== paso) b.textContent = paso;
+    a.querySelectorAll('.ayuda-etapes li').forEach((li,i) => li.classList.toggle('active',i === paso));
+    const t = a.querySelector('.ayuda-action');
     if (t.textContent !== texto) t.textContent = texto;
   }
 
@@ -435,22 +491,38 @@
   /* ---------- ¿Qué pasa? ---------- */
   function quePasa() {
     const d = $('#dlgQuePasa');
+    const fr = FR.story(nivel, res, {tiempo:tiempo()});
     // En modo escritor, las frases que el alumno todavía no ha elegido o escrito no se muestran aquí (se conserva el diagnóstico).
     const oculto = escritorPendiente();
     const visible = i => !oculto || window.SVApp.escritor.hecha(i);
-    const partes = res.viñetas.map((v, i) => `<p data-f="${i}"${visible(i) ? '' : ' class="oculta"'}><b>${i + 1}.</b> ${!v.frases.length ? '<i>…</i>' : visible(i) ? v.frases.join(' ') : '<i>¿Qué frase es? Mírala en la viñeta.</i>'}</p>`).join('');
-    const resumen = res.resumen.length ? `<h3>Al final</h3>${res.resumen.map(s => `<p class="res">${s}</p>`).join('')}` : '';
+    const partes = res.viñetas.map((v, i) => `<p data-f="${i}"${visible(i) ? ` data-es="${esc(v.frases.join(' '))}"` : ' class="oculta"'}><b>${i + 1}.</b> ${!v.frases.length ? '<i>…</i>' : visible(i) ? esc(v.frases.join(' ')) : '<i>¿Qué frase es? Mírala en la viñeta.</i>'}${visible(i) && fr.panels[i] ? `<span class="atelier-fr" lang="fr" hidden>${esc(fr.panels[i])}</span>` : ''}</p>`).join('');
+    const resumen = res.resumen.length ? `<h3>Al final</h3>${res.resumen.map(s => `<p class="res" data-es="${esc(s)}">${esc(s)}</p>`).join('')}${fr.summary.length ? `<p class="atelier-fr" lang="fr" hidden>${esc(fr.summary.join(' '))}</p>` : ''}` : '';
     let juicio = '';
     if (!nivel.libre) {
       if (res.resuelto) juicio = `<div class="porque ok">✔ ¡Muy bien! Esta historia es: «${esc(nivel.titulo)}».</div>`;
       else if (res.porque.length) juicio = `<div class="porque">${res.porque.map(p => `<div>✗ ${esc(p)}</div>`).join('')}</div>`;
     }
-    d.innerHTML = `<h2>¿Qué pasa?</h2><div class="historia">${partes}${resumen}</div>${juicio}
-      <div class="fila"><button class="btn sec" id="btnOir">🔊 Escuchar todo</button><button class="btn" id="btnCerrar">Cerrar</button></div>`;
-    d.querySelectorAll('.historia p').forEach(p => p.addEventListener('click', () => { if (!p.classList.contains('oculta')) hablar(p.textContent.replace(/^\d+\.\s*/, '')); }));
+    d.innerHTML = `<h2>¿Qué pasa?</h2>${fr.title ? `<p class="atelier-fr" lang="fr" hidden>${esc(fr.title)}</p>` : ''}<div class="historia">${partes}${resumen}</div>${juicio}${fr.reason ? `<p class="atelier-fr" lang="fr" hidden>${esc(fr.reason)}</p>` : ''}
+      <div class="fila"><button class="btn sec" id="btnOir">🔊 Escuchar todo</button><button class="btn sec" data-atelier-translate lang="fr">Traduction</button><button class="btn" id="btnCerrar">Cerrar</button></div>`;
+    d.querySelectorAll('.historia [data-es]').forEach(p => p.addEventListener('click', () => hablar(p.dataset.es)));
     d.querySelector('#btnOir').onclick = () => hablar(res.viñetas.filter((v, i) => visible(i)).map(v => v.frases.join(' ')).concat(res.resumen).join(' '));
     d.querySelector('#btnCerrar').onclick = () => d.close();
+    d.querySelector('[data-atelier-translate]').onclick = toggleTraduction;
+    pintarTraduccion();
     d.showModal();
+  }
+
+  function mostrarIndice() {
+    const pistas = nivel.pistas || [], index = pistas.length ? pistaIdx % pistas.length : 0;
+    const texto = pistas.length ? pistas[index] : nivel.libre ? '¡Inventa tu historia! Puedes reutilizar las cartas.' : 'Mira el título y lee las frases de tu historia.';
+    const fr = pistas.length ? FR.hint(nivel,index) : nivel.libre ? 'Invente ton histoire ! Tu peux réutiliser les cartes.' : 'Regarde le titre et lis les phrases de ton histoire.';
+    const d = $('#dlgPista');
+    d.innerHTML = `<h2 id="titreIndice" lang="fr">💡 Un indice pour ton histoire</h2>${pistas.length ? `<p class="nota" lang="fr">Indice ${index + 1} sur ${pistas.length}</p>` : ''}<p lang="es">${esc(texto)}</p>${fr ? `<p class="atelier-fr" lang="fr" hidden>${esc(fr)}</p>` : ''}<div class="fila"><button class="btn sec" data-atelier-translate lang="fr">Traduction</button>${pistas.length > 1 ? '<button class="btn sec" data-next lang="fr">Indice suivant</button>' : ''}<button class="btn" data-close lang="fr">Fermer</button></div>`;
+    if (pistas.length) { pistaIdx++; guardarPartida(); }
+    const next = d.querySelector('[data-next]'); if(next)next.onclick = () => { mostrarIndice(); d.querySelector('[data-next]').focus(); };
+    d.querySelector('[data-close]').onclick = () => d.close();
+    d.querySelector('[data-atelier-translate]').onclick = toggleTraduction;
+    pintarTraduccion(); if(!d.open)d.showModal();
   }
 
   /* ---------- paneles ---------- */
@@ -483,7 +555,7 @@
   function borrarMisDatos() {
     if (window.SVHistorias) window.SVHistorias.borrar();
     if (window.SVExploracion) window.SVExploracion.borrar();
-    const a = ajustes(), conservar = { modo: a.modo, clave: a.clave, escritor: a.escritor, escritorNivel: a.escritorNivel, preterito: a.preterito };
+    const a = ajustes(), conservar = { modo: a.modo, clave: a.clave, escritor: a.escritor, escritorNivel: a.escritorNivel, preterito: a.preterito, traduction: traduccion };
     partidas.borrarTodo(); ayudaActiva = true;
     progreso = { ajustes: Object.assign({ dif: 2 }, conservar) }; guardar();
     if (window.SVApp.escritor) window.SVApp.escritor.reiniciar();
@@ -495,7 +567,7 @@
     if (window.SVExploracion) window.SVExploracion.borrar();
     // la barra de clase se desmonta antes de borrar su almacenamiento (si no, volvería a guardar nombres y puntos)
     if (pizarraApi) { try { pizarraApi.destruir(); } catch (_) { /* nada */ } pizarraApi = null; delete $('#clase').dataset.montado; }
-    progreso = {}; guardar();
+    progreso = {}; traduccion = false; guardar();
     partidas.borrarTodo(); ayudaActiva = true;
     if (window.SVApp.borrarDatos) window.SVApp.borrarDatos();
     extra = [];
@@ -506,7 +578,7 @@
   function pintarLexico() {
     const p = $('#panelLexico');
     const lex = E.lexicoDe(nivel);
-    p.innerHTML = `<h2>Léxico <button class="btn sec cerrar" aria-label="Cerrar">×</button></h2><p class="nota">Palabras de este nivel. Haz clic para escuchar.</p><div class="lex">${lex.map(w => `<button data-w="${esc(w.palabra)}"><span>${esc(w.picto)}</span><span>${esc(w.palabra)}</span></button>`).join('')}</div>`;
+    p.innerHTML = `<h2>Léxico <button class="btn sec cerrar" aria-label="Cerrar">×</button></h2><p class="nota" lang="fr">Les mots de cette histoire. Clique pour écouter l’espagnol.</p><div class="lex">${lex.map(w => `<button data-w="${esc(w.palabra)}"><span>${esc(w.picto)}</span><span>${esc(w.palabra)}</span>${CARDS.lexicon[w.palabra] ? `<small class="atelier-fr" lang="fr"${traduccion ? '' : ' hidden'}>${esc(CARDS.lexicon[w.palabra])}</small>` : ''}</button>`).join('')}</div>`;
     p.querySelector('.cerrar').onclick = () => { p.hidden = true; };
     p.querySelectorAll('.lex button').forEach(b => b.onclick = () => hablar(b.dataset.w));
   }
@@ -526,12 +598,10 @@
   $('#btnNiveles').onclick = () => { const p = $('#panelNiveles'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
   $('#btnLexico').onclick = () => { const p = $('#panelLexico'); const h = p.hidden; cerrarPaneles(); p.hidden = !h; };
   $('#btnQuePasa').onclick = quePasa;
+  $('#btnTraduction').onclick = toggleTraduction;
+  $('#annulerCarte').onclick = () => seleccionar(null);
   $('#btnReiniciar').onclick = () => { clearTimeout(exitoTimer); viñetas = viñetas.map(() => ({ escena: null, personajes: [] })); if (window.SVApp.escritor) window.SVApp.escritor.reiniciar(); seleccionar(null); pintarTira(); simular(); };
-  $('#btnPista').onclick = () => {
-    if (nivel.libre) { toast('Aquí no hay pistas: ¡inventa tu historia!'); return; }
-    if (!nivel.pistas || !nivel.pistas.length) { toast('Este nivel no tiene pistas. Lee bien el título.'); return; }
-    toast('💡 ' + nivel.pistas[pistaIdx % nivel.pistas.length], 6000); pistaIdx++; guardarPartida();
-  };
+  $('#btnPista').onclick = mostrarIndice;
   $('#btnClase').onclick = () => { const c = $('#clase'); c.hidden = !c.hidden; ajustes().clase = !c.hidden; guardar(); ajustarTira(); };
   $('#btnDif').onclick = ev => { ev.stopPropagation(); const m = $('#menuDif'); const h = m.hidden; cerrarPaneles(); m.hidden = !h; };
   document.querySelectorAll('#menuDif button').forEach(b => b.onclick = () => ponerDif(+b.dataset.d));
@@ -544,7 +614,7 @@
     if (window.SVExploracion && window.SVExploracion.activo()) return;
     const t = ev.target;
     if (t && t.matches && (t.matches('input,textarea,select') || t.isContentEditable)) return;
-    if (ev.key === 'Escape') { seleccionar(null); cerrarPaneles(); }
+    if (ev.key === 'Escape' && !document.querySelector('dialog[open]')) { seleccionar(null); cerrarPaneles(); }
     if ((ev.key === 'p' || ev.key === 'P') && !ev.ctrlKey && !ev.metaKey && !ev.altKey && window.SVApp.abrirProfe && !document.querySelector('dialog[open]')) { ev.preventDefault(); window.SVApp.abrirProfe(); }
   });
 
