@@ -2,18 +2,26 @@
 
 Cuatro pequeños mundos para jugar moviendo un personaje. Cada aventura contiene seis misiones breves y un final. Se avanza con las flechas del teclado o los controles táctiles y se utiliza un único botón de acción cerca del objeto o personaje indicado.
 
-Las cuatro son **aventuras imaginadas**. Don Quijote, Úrsula, el bibliotecario y Frida sirven de protagonistas para acciones nuevas. Los recorridos no son resúmenes de las novelas ni reconstrucciones de la biografía de Frida. Cada subtítulo lo indica desde la elección del mundo. Para el contexto documental de las obras y de la artista, véase [Fuentes culturales](FUENTES_CULTURALES.md).
+Las cuatro son **aventuras imaginadas**. Don Quijote, Úrsula, el bibliotecario y Frida sirven de protagonistas para acciones nuevas. Los recorridos no son reconstrucciones de las novelas ni de la biografía de Frida. Entre las misiones, un fragmento de dos frases cuenta la obra real o la vida de la artista, con la etiqueta «La obra» o «La vida de Frida». La introducción distingue las misiones inventadas de esos relatos. Véanse [Relatos y fuentes](RELATOS_EXPLORACION.md) y [Fuentes culturales](FUENTES_CULTURALES.md).
 
 ## Cómo se juega
 
 1. Elige un mundo y lee su misión de una línea.
 2. Mueve el personaje hasta el objeto indicado.
 3. Utiliza el botón de acción. Si hay varias cosas que encontrar, visita cada una una sola vez.
-4. Completa la misión y sigue hacia el siguiente lugar.
+4. Completa la misión, lee o escucha el breve fragmento de historia y pulsa «Seguir» cuando quieras.
 
 No hay preguntas, respuestas de opción múltiple, asociaciones de tarjetas ni objetos que combinar. Una misión puede pedir hablar, acercarse, encontrar, recoger, abrir, encender, pintar o tocar una campana. Todas utilizan el mismo control de acción. La interacción con un elemento ajeno al objetivo no lo cuenta como una misión completada.
 
 La redacción **fácil** usa indicaciones más breves. La redacción **normal** añade contexto. Las dos conservan los mismos objetos, cantidades y condiciones; cambiar el idioma de la consigna no cambia el recorrido.
+
+## Movimiento y relatos
+
+Las ilustraciones originales siguen siendo los personajes en reposo. Las nuevas poses pintadas alternan al caminar, hablar y, para Frida, pintar. Sancho responde con sus propios gestos. La acción se completa después del gesto; durante ese momento el personaje permanece junto al objeto. Abrir la ayuda o el resumen interrumpe el gesto sin contar una acción a medias. Se puede volver a intentarlo al cerrar el panel.
+
+La preferencia del dispositivo para reducir movimiento detiene los ciclos y acorta la espera. Los controles y la progresión son idénticos. Las imágenes se incluyen dentro del HTML, como los fondos anteriores; no dependen de una conexión durante la partida.
+
+El botón «Historia» —«Su vida» para Frida— permite abrir un resumen, escuchar el texto y consultar los seis fragmentos o sus fuentes. No hay examen ni tiempo de lectura obligatorio. Los 24 fragmentos tienen entre 29 y 36 palabras; el selector Fácil/Normal cambia las consignas, no esos relatos. La lectura en voz alta utiliza la voz española disponible en el navegador. Los textos revelan el final de las obras y la introducción lo indica.
 
 ## Los cuatro recorridos
 
@@ -90,5 +98,7 @@ Los límites de texto del contenido son:
 ## Comprobaciones
 
 `node --check src/exploration-data.js` verifica la sintaxis. `node test/exploration.js` comprueba el contrato de las 24 misiones y el comportamiento del motor: progreso, proximidad, intentos con objetos ajenos al objetivo, duplicados y reanudación. La validación de datos comprueba además las referencias a fondos, las cantidades, los textos cortos, los identificadores y el espacio entre objetos.
+
+`node test/exploration-motion.js` comprueba los ciclos y la reducción de movimiento; `node test/exploration-stories.js` comprueba la cobertura, las longitudes y las fuentes de los relatos. Las poses, referencias y prompts se documentan en [Animaciones](ART_ANIMACIONES.md).
 
 Para la revisión visual, conviene recorrer un mundo completo con teclado y otro con controles táctiles, activar una misión de tres objetos en distinto orden y comprobar que los nombres y el botón de acción siguen legibles en una pantalla pequeña. La presentación debe reflejar la acción elegida: una lámpara encendida, un objeto encontrado o un cuadro mostrado.

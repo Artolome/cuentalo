@@ -75,3 +75,41 @@ body.explorando>#cab,body.explorando>#clase,body.explorando>#juego,body.exploran
 @media(max-height:600px) and (min-width:751px){.x-game{min-height:0}.x-game .x-top{min-height:44px;padding:6px 20px}.x-mission{padding:8px 20px}.x-goal{font-size:21px}.x-controls{min-height:65px;padding:5px 20px}.x-stage{max-width:calc((100dvh - 178px) * 1000 / 560)}.x-control-help{display:none}}
 @media(prefers-reduced-motion:reduce){#exploracionApp *,#exploracionApp *:before{animation:none!important;transition:none!important}}
 @media(max-width:750px){.x-game .x-world-name{display:none}.x-stage{height:100%;aspect-ratio:auto;background-size:cover}.x-object{min-width:44px}.x-object[data-kind="sancho"]{min-width:60px}.x-hero{width:17%}.x-dots{display:none}.x-dpad{grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,38px)}.x-action-button{min-width:125px;max-width:160px}.x-stage:focus{outline:none}}
+
+/* Les poses peintes assurent les gestes ; les déplacements CSS restent discrets. */
+.x-hero img{aspect-ratio:2/3;object-fit:contain;animation:x-breathe 3.5s ease-in-out infinite}
+.x-hero.walking img{animation:x-footfall .325s ease-in-out infinite}
+.x-hero[data-motion="talk"] img{animation:x-converse .56s ease-in-out infinite}
+.x-hero[data-motion="paint"] img{animation:none}
+.x-hero[data-motion="reach"] img{animation:x-reach .65s ease-in-out}
+.x-object.speaking img{animation:x-converse .56s ease-in-out infinite}
+.x-object.speaking:after{content:'¡Vamos, compañero!';position:absolute;bottom:105%;left:50%;transform:translateX(-50%);font:600 clamp(11px,1.5cqw,15px)/1.4 system-ui;background:#fff7dd;padding:8px 12px;border-radius:13px;width:max-content;max-width:180px;box-shadow:0 3px 7px #263c3533}
+.x-object.speaking .x-object-label{visibility:hidden}
+.painting .x-painted{opacity:1;animation:x-paint-reveal 2.2s linear forwards}
+.x-history-button{border:1px solid #c8ceba;border-radius:20px;background:#eef0df;padding:8px 14px;color:#42614c!important;white-space:nowrap}
+.x-story-eyebrow{font:700 10px/1.4 system-ui!important;letter-spacing:1.5px;color:#7d815e;margin:0 0 8px!important}
+.x-story-text{font:17px/1.55 Georgia!important;color:#354b3e;margin:12px 0 18px!important}
+.x-success.x-story-fragment{display:block;width:650px;max-width:calc(100% - 28px);max-height:calc(100% - 28px);overflow:auto;overscroll-behavior:contain;padding:18px 22px;border-radius:17px;background:#fff9edfa}
+.x-story-fragment h2{font:25px/1.1 Georgia;margin:0;color:#314f3d}
+.x-story-fragment .x-story-text{font-size:16px!important;margin:9px 0 14px!important;max-width:none}
+.x-story-actions{display:flex;align-items:center;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.x-achieved{flex:1;min-width:140px;font:12px/1.4 system-ui;color:#607b52}
+.x-story-actions .x-listen{font-size:12px!important;padding:9px 12px;min-height:42px}
+.x-story-actions .x-primary{padding:11px 20px;min-height:42px}
+.x-story-dialog{position:fixed;inset:0;z-index:1600;display:grid;place-items:center;padding:22px;background:#233d36a8;backdrop-filter:blur(4px);overflow:auto}
+.x-story-card{width:min(560px,100%);max-height:calc(100dvh - 44px);overflow:auto;background:#fff8e9;border:1px solid #ddd6b4;border-radius:24px;padding:26px;box-shadow:0 18px 80px #0c261e66}
+.x-story-banner{display:flex;gap:22px;align-items:center;margin-bottom:18px}
+.x-story-banner img{width:104px;height:132px;object-fit:cover;border-radius:50px 50px 9px 9px;box-shadow:0 6px 12px #2d48332b;flex:none}
+.x-story-banner h2{font:32px/1.1 Georgia;letter-spacing:-.6px;margin:6px 0 0;color:#304f3c}
+.x-story-details{font:13px/1.6 system-ui;color:#556c51;border-top:1px solid #dedfc6;padding:12px 0}
+.x-story-details summary{cursor:pointer}.x-story-details h3{font:20px Georgia;color:#37563f;margin-bottom:7px}.x-story-details ol{padding-left:22px}.x-story-details p{font:15px/1.55 Georgia}.x-story-details a{color:#3c6a56;text-underline-offset:3px}.x-story-details+.x-story-actions{margin-top:18px}
+.x-ending-summary{max-width:500px;margin-top:24px;padding:20px 22px;background:#fff8e6b8;border-left:3px solid #9ba57e;border-radius:0 14px 14px 0}
+.x-ending-summary h2{font:25px/1.2 Georgia;margin:0 0 10px}.x-ending-summary p:not(.x-story-eyebrow){font:16px/1.6 Georgia;margin:0;max-width:none}.x-ending-summary .x-link{font-size:12px!important;padding-left:0;margin-top:8px}
+@keyframes x-breathe{50%{transform:scaleX(var(--face,1)) scaleY(1.008)}}
+@keyframes x-footfall{50%{transform:scaleX(var(--face,1)) translateY(-2px)}}
+@keyframes x-converse{50%{transform:scaleX(var(--face,1)) translateY(-1px) rotate(.6deg)}}
+@keyframes x-reach{50%{transform:scaleX(var(--face,1)) rotate(5deg) translateX(3px)}}
+@keyframes x-paint-reveal{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+@media(max-width:750px){.x-top-tools{gap:7px}.x-history-button{font-size:12px!important;padding:8px 10px}.x-story-card{padding:22px;border-radius:20px}.x-story-banner{gap:15px}.x-story-banner img{width:76px;height:108px}.x-story-banner h2{font-size:26px}.x-story-text{font-size:16px!important}.x-success.x-story-fragment{padding:14px 16px;bottom:10px}.x-story-fragment h2{font-size:22px}.x-story-fragment .x-story-text{font-size:15px!important;line-height:1.4!important;margin-bottom:12px!important}.x-achieved{flex-basis:100%;font-size:11px}.x-story-actions{gap:8px}.x-story-actions .x-primary{padding:10px 17px}.x-story-actions .x-listen{padding:8px 10px}.x-ending-summary{padding:16px}.x-ending{padding-top:25px;padding-bottom:35px}}
+@media(max-height:560px){.x-story-dialog{padding:12px}.x-story-card{max-height:calc(100dvh - 24px)}.x-story-banner img{height:80px;width:58px}.x-success.x-story-fragment{padding:10px 16px;bottom:8px}.x-story-fragment h2{font-size:19px}.x-story-fragment .x-story-text{font-size:14px!important;line-height:1.35!important;margin:6px 0 8px!important}.x-story-eyebrow{margin-bottom:4px!important}}
+@media(prefers-reduced-motion:reduce){#exploracionApp .x-hero img,#exploracionApp .x-object img,#exploracionApp .x-painted{animation:none!important;transition:none!important}.painting .x-painted{clip-path:none}}
