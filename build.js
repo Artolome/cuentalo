@@ -8,7 +8,7 @@ const SRC = path.join(__dirname, 'src');
 // Orden de carga: lengua → contenido → motor → arte → módulos sin DOM (escritor, autor) → pizarra → ui → ui-modos.
 // Los módulos marcados como opcionales se incluyen solo si existen (se añaden en la fase 2).
 const OPCIONALES = ['escritor.js', 'autor.js', 'pizarra.js', 'ui-modos.js'];
-const SCRIPTS = ['lengua.js', 'contenido.js', 'engine.js', path.join('art', 'personajes.js'), path.join('art', 'escenas.js'), 'escritor.js', 'autor.js', 'pizarra.js', 'partidas.js', 'ui.js', 'ui-modos.js', 'historias-data.js', 'historias-state.js', 'historias-ui.js', 'exploration-data.js', 'exploration-engine.js', 'exploration-stories.js', 'exploration-motion.js', 'exploration-art.js', 'exploration-dialogues.js', 'exploration-audio.js', 'exploration-ui.js']
+const SCRIPTS = ['lengua.js', 'contenido.js', 'engine.js', path.join('art', 'personajes.js'), path.join('art', 'escenas.js'), 'escritor.js', 'autor.js', 'pizarra.js', 'partidas.js', 'ui.js', 'ui-modos.js', 'historias-data.js', 'historias-state.js', 'historias-ui.js', 'exploration-data.js', 'exploration-engine.js', 'exploration-stories.js', 'exploration-motion.js', 'exploration-art.js', 'exploration-dialogues.js', 'exploration-translations.js', 'exploration-audio.js', 'exploration-ui.js']
   .filter(f => !OPCIONALES.includes(f) || fs.existsSync(path.join(SRC, f)));
 let html = fs.readFileSync(path.join(SRC, 'plantilla.html'), 'utf8');
 html = html.replace('/*THEME*/', () => ['theme.css', 'historias.css', 'exploration.css'].map(f => fs.readFileSync(path.join(SRC, f), 'utf8')).join('\n'));
@@ -16,12 +16,14 @@ html = html.replace('/*THEME*/', () => ['theme.css', 'historias.css', 'explorati
 const { fondos, personajes } = require('./scripts/load-art')();
 const cubiertas = Object.fromEntries(['don_quijote', 'macondo', 'biblioteca_borges', 'casa_azul'].map(id => [id, 'data:image/webp;base64,' + fs.readFileSync(path.join(SRC, 'art', 'assets', 'historias', id + '.webp')).toString('base64')]));
 const sprites = Object.fromEntries(['quijote', 'sancho', 'ursula', 'bibliotecario', 'frida'].map(id => [id, 'data:image/webp;base64,' + fs.readFileSync(path.join(SRC, 'art', 'assets', 'exploration', id + '.webp')).toString('base64')]));
+const objectNames = require('./src/exploration-art').assetNames;
+const objects = Object.fromEntries(objectNames.map(id => [id, 'data:image/webp;base64,' + fs.readFileSync(path.join(SRC, 'art', 'assets', 'exploration-objects', id + '.webp')).toString('base64')]));
 const motion = {};
 for (const id of ['quijote', 'ursula', 'bibliotecario', 'frida', 'sancho']) {
   const actions = id === 'sancho' ? {talk:2} : id === 'frida' ? {walk:4,talk:2,paint:4} : {walk:4,talk:2};
   motion[id] = Object.fromEntries(Object.entries(actions).map(([action,count]) => [action,Array.from({length:count},(_,i) => 'data:image/webp;base64,' + fs.readFileSync(path.join(SRC,'art','assets','exploration-motion',`${id}-${action}-${i}.webp`)).toString('base64'))]));
 }
-const arte = `<script>window.SVFondos=${JSON.stringify(fondos)};window.SVCubiertas=${JSON.stringify(cubiertas)};window.SVExplorationSprites=${JSON.stringify(sprites)};window.SVExplorationMotion=${JSON.stringify(motion)};window.SVPersonajesCartoon=${JSON.stringify(personajes)};document.documentElement.style.setProperty('--bosque-portada','url("'+window.SVFondos.selva+'")');</script>`;
+const arte = `<script>window.SVFondos=${JSON.stringify(fondos)};window.SVCubiertas=${JSON.stringify(cubiertas)};window.SVExplorationSprites=${JSON.stringify(sprites)};window.SVExplorationMotion=${JSON.stringify(motion)};window.SVExplorationObjects=${JSON.stringify(objects)};window.SVPersonajesCartoon=${JSON.stringify(personajes)};document.documentElement.style.setProperty('--bosque-portada','url("'+window.SVFondos.selva+'")');</script>`;
 // La compilation refuse un audio périmé : le texte affiché doit être celui entendu.
 const audioDir = path.join(SRC, 'audio', 'exploration');
 const manifest = JSON.parse(fs.readFileSync(path.join(audioDir, 'manifest.json'), 'utf8'));

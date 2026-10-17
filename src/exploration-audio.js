@@ -10,7 +10,7 @@
     options = options || {};
     const clips = options.clips && typeof options.clips === 'object' ? options.clips : {};
     const makeAudio = typeof options.createAudio === 'function' ? options.createAudio : () => new Audio();
-    let audio = null, generation = 0, active = null, muted = false, status = 'idle';
+    let audio = null, generation = 0, active = null, muted = false, status = 'idle', rate = 1;
 
     function has(key) {
       return typeof key === 'string' && Object.prototype.hasOwnProperty.call(clips, key) &&
@@ -19,6 +19,14 @@
     function detach() {
       if (!audio || !active) return;
       for (const type of ['playing', 'ended', 'error']) audio.removeEventListener(type, active.handlers[type]);
+    }
+    function applyRate() {
+      if (!audio) return;
+      for (const property of ['preservesPitch', 'webkitPreservesPitch', 'mozPreservesPitch']) {
+        try { if (property in audio) audio[property] = true; } catch (_) { /* API optionnelle selon le navigateur. */ }
+      }
+      try { audio.defaultPlaybackRate = rate; } catch (_) { /* Un ancien lecteur peut refuser ce réglage. */ }
+      try { audio.playbackRate = rate; } catch (_) { /* La lecture reste utilisable à sa vitesse disponible. */ }
     }
     function stop() {
       generation++;
@@ -72,7 +80,7 @@
       status = 'loading';
       try {
         for (const type of ['playing', 'ended', 'error']) audio.addEventListener(type, active.handlers[type]);
-        audio.loop = false; audio.preload = 'auto'; audio.src = source; audio.load();
+        audio.loop = false; audio.preload = 'auto'; audio.src = source; audio.load(); applyRate();
         const pending = audio.play();
         if (pending && typeof pending.then === 'function') pending.then(start, error => {
           fail(error && error.name === 'NotAllowedError' ? 'blocked' : 'error');
@@ -88,7 +96,9 @@
       muted = next;
       if (muted) stop(); else status = 'idle';
     }
-    return Object.freeze({ has, play, stop, setMuted, getMuted: () => muted, getStatus: () => status });
+    // Ce réglage reste commun aux répliques sans relancer le son ni modifier leur jeton.
+    function setRate(value) { rate = value === 0.8 ? 0.8 : 1; applyRate(); return rate; }
+    return Object.freeze({ has, play, stop, setMuted, setRate, getMuted: () => muted, getRate: () => rate, getStatus: () => status });
   }
   return Object.freeze({ create });
 });
