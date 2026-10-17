@@ -1,14 +1,14 @@
 # Cuéntalo
 
-L'accueil présente maintenant une **bibliothèque de quatre histoires**, chacune avec cinq chapitres liés, ses protagonistes et son dénouement : **Don Quichotte et Sancho, les Buendía à Macondo, le narrateur bibliothécaire de Borges et la vie de Frida**. Les adaptations sont brèves et rédigées en prose originale ; la quête de Borges est explicitement une invention inspirée de *La biblioteca de Babel*. Les choix ouvrent des observations et des points de vue, sans réécrire la biographie. La progression se sauvegarde par histoire, la relecture reste possible, et un carnet personnel peut être téléchargé à la fin. [Guide des histoires et sources](HISTORIAS.md) · [Couvertures et prompts](docs/ART_HISTORIAS.md).
+**Un jeu d'exploration 2D en espagnol pour le collège.** Choisir un monde, déplacer son personnage dans les décors illustrés et accomplir une mission courte à la fois : parler à Sancho, ramasser trois fruits, trouver un livre ou préparer une peinture. **Quatre mondes, six missions chacun** : Don Quichotte, Macondo avec Úrsula, une bibliothèque inspirée de Borges et un atelier avec Frida. Les aventures sont imaginées pour le jeu ; elles ne constituent pas une reconstitution de la vie de Frida ni une adaptation complète des romans. [Guide des aventures](docs/EXPLORACION.md).
 
-Les anciens niveaux décrits ci-dessous restent dans **Taller de viñetas**, accessible depuis la bibliothèque. Les liens directs vers un niveau continuent de fonctionner. Liens de la bibliothèque : `cuentalo.html?biblioteca=1`, `cuentalo.html?historia=don_quijote`, `cuentalo.html?historia=frida`.
+**Jouer :** se déplacer avec les flèches du clavier, ou cliquer/toucher un endroit du décor. Un clic sur un objet fait marcher le personnage jusqu'à lui puis agir. Au clavier, s'approcher et appuyer sur **Espace**, **E**, ou le bouton d'action. Une mission peut demander plusieurs objets : le compteur suit la collecte. Une fois l'objectif atteint, **Seguir** ouvre la mission suivante. Le réglage d'espagnol **facile / normal** change la longueur de la consigne, avec la même action à réaliser. L'audio est facultatif.
 
-Jeu de narration visuelle en espagnol (A1 → A2) inspiré de *Storyteller* : un titre en espagnol, 3 à 6 cases de BD, des **escenas** et des **personajes** à glisser ; chaque case produit une phrase en espagnol générée par le moteur. Quand l'histoire réalise le titre, le niveau est réussi.
+Entrée principale : `cuentalo.html?biblioteca=1`. Accès direct à un monde : `cuentalo.html?aventura=don_quijote` ; autres IDs : `macondo`, `borges`, `frida`. Les missions et les objets déjà trouvés se sauvegardent automatiquement sur le même navigateur, indépendamment des anciens puzzles.
 
-Un carnet d'aventure **cartoon** : cinq compagnons détaillés, de grands yeux expressifs, des contours bruns et trente décors aux ambiances distinctes. Rivière turquoise, savane ocre, orage violet, nuit indigo et campement orangé se reconnaissent dès la petite carte. Lucía garde sa casquette, Mateo son maillot, Valeria son appareil photo et Diego son carnet ; Kiwi est un perroquet vert. Leurs visages et leurs poses montrent la soif, le froid, la peur ou la joie.
+Les illustrations peintes restent au cœur du jeu : chemins de La Mancha, village de Macondo, bibliothèque et cour bleue. Le personnage se déplace devant le décor ; objets, réactions et courtes phrases espagnoles rendent l'objectif visible.
 
-**26 énigmes conservées dans l'atelier.** « Viajes y culturas » propose six énigmes à travers l'Espagne et l'Amérique latine : Sant Jordi, Alhambra, Día de Muertos, marché de Cusco, tango et barriletes du Guatemala. Les quatre anciennes énigmes « Libros y artistas » restent aussi dans « Niveles ». Chaque niveau culturel possède une fiche « Descubrir » avec un repère et des mots pour raconter. [Guide des énigmes culturelles](docs/CULTURAS.md) · [Sources culturelles](docs/FUENTES_CULTURALES.md).
+**L'atelier de viñetas reste accessible** avec `cuentalo.html?taller=1`. Il conserve ses 26 énigmes de narration, le niveau libre, les modes Pizarra / Solo / Autor et les codes partagés. On y assemble des scènes et personnages dans des cases ; le moteur génère les phrases en espagnol. [Énigmes culturelles](docs/CULTURAS.md) · [Sources culturelles](docs/FUENTES_CULTURALES.md).
 
 **Jouer en ligne :** https://artolome.github.io/cuentalo/
 
@@ -16,10 +16,13 @@ Un carnet d'aventure **cartoon** : cinq compagnons détaillés, de grands yeux e
 Accueil de **Taller de viñetas** : **Pizarra** (classe, vidéoprojecteur) · **Solo** (élève) · **Autor** (créer un niveau). Sélecteur ★ / ★★ / ★★★ en haut à droite. Touche **P** : panneau Profe (mot de passe par défaut `profe`).
 Paramètres d'URL facultatifs : `cuentalo.html?modo=pizarra&nivel=c2n1&dif=2`.
 
-**Pour commencer :** « ? Ayuda » accompagne les premiers gestes (escena → personaje → suite de l'histoire → titre). Les histoires en cours se sauvegardent automatiquement sur ce navigateur et se reprennent après fermeture ou changement de niveau. Une fois un niveau réussi, « ✎ Contar » propose de raconter avec ses propres mots en trois étapes : « Primero… », « Después… », « Al final… », à l'oral ou à l'écrit. Ce récit personnel ne reçoit pas de correction automatique ; son brouillon reste sur le poste.
+**Dans l'atelier :** « ? Ayuda » accompagne les premiers gestes (escena → personaje → suite de l'histoire → titre). Les cases en cours se sauvegardent automatiquement. Une fois un niveau réussi, « ✎ Contar » propose un récit personnel : « Primero… », « Después… », « Al final… », à l'oral ou à l'écrit, sans correction automatique. Les anciennes lectures restent disponibles par leur lien explicite, par exemple `cuentalo.html?lectura=1&historia=don_quijote` ; leur progression est conservée séparément.
 
 ## Sources
 
+- `src/exploration-data.js` — quatre mondes, vingt-quatre missions et consignes faciles/normales
+- `src/exploration-engine.js` — progression pure, proximité, mouvement et validation des sauvegardes
+- `src/exploration-ui.js`, `src/exploration.css` — déplacement et interactions dans les décors
 - `src/historias-data.js` — quatre récits, vingt chapitres, choix et sources
 - `src/historias-state.js` — progression pure, validation des sauvegardes et relecture
 - `src/historias-ui.js`, `src/historias.css` — bibliothèque, lecture continue et carnet
@@ -38,7 +41,7 @@ Paramètres d'URL facultatifs : `cuentalo.html?modo=pizarra&nivel=c2n1&dif=2`.
 
 ## Commandes
 
-Tests des quatre histoires : `node test/historias.js`.
+Tests de l'exploration : `node test/exploration.js`. Tests des anciennes lectures : `node test/historias.js`.
 
 ```bash
 node build.js
@@ -92,7 +95,8 @@ node test/serve.js 4173
 
 ## Documentation
 
-- `docs/GUIA_PROFE.md` — guide de la professeure : prise en main, niveaux et solutions, déroulés, différenciation, Autor, impression, RGPD, dépannage
+- `docs/GUIA_PROFE.md` — guide de la professeure : exploration, atelier, niveaux et solutions, différenciation, Autor, impression, données et dépannage
+- `docs/EXPLORACION.md` — mondes, missions, commandes et portée culturelle des aventures
 - `docs/CONTENIDO.md` — modèle de contenu (personajes, estados, escenas, règles, niveaux, gabarits, lexique)
 - `docs/DECISIONS.md` — choix et points à vérifier, phase par phase
 - `docs/frases.txt` — toutes les phrases générables (relecture linguistique)

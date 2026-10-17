@@ -6,13 +6,15 @@
 
 ## 1. Présentation
 
-« Cuéntalo » est un jeu de narration visuelle inspiré de *Storyteller*. Chaque niveau donne un titre en espagnol (« Lucía ya no tiene sed »), 3 à 6 cases de BD vides, quelques « escenas » (la selva, el río, la noche…) et un ou plusieurs « personajes » (Lucía, Mateo, Valeria, Diego). L'élève glisse une escena et un personaje dans chaque case. Le moteur écrit aussitôt la phrase de la case : « Lucía bebe agua del río. Ya no tiene sed. » Quand l'histoire réalise le titre, le niveau est réussi.
+L'entrée principale de « Cuéntalo » est un **jeu d'exploration 2D**. L'élève choisit un monde, déplace son personnage dans un décor illustré et suit **une courte consigne espagnole à la fois** : « Habla con Sancho », « Recoge 3 frutas », « Busca el libro azul ». Il s'approche d'une personne ou d'un objet et agit. Une réaction visuelle, une phrase courte et un compteur rendent le résultat perceptible.
 
-Le cœur pédagogique n'est pas le puzzle, c'est la phrase. Chaque case produit des phrases courtes, que l'élève lit, écoute et compare. Les phrases réemploient le lexique de la survie, du voyage et de la création artistique et font travailler les accords (« cansado / cansada / cansados »), les structures « tiene / está / ya no », puis « encuentra a », « comparte con », « pide perdón a ».
+Les **quatre mondes comprennent six missions chacun** : Don Quichotte et Sancho ; Macondo avec Úrsula ; une bibliothèque inspirée de Borges ; un atelier avec Frida. Les élèves explorent, repèrent des couleurs, reconnaissent des objets et comprennent des verbes d'action. Le réglage d'espagnol facile raccourcit la consigne ; le réglage normal la développe, sans changer l'objectif. L'écoute est facultative. Il n'y a pas de questionnaire à remplir pour avancer.
 
-L'univers visuel prend la forme d'un carnet d'aventure cartoon : personnages aux grands yeux expressifs, tenues détaillées et contours bruns. Trente décors se distinguent par leur composition et leur couleur : rivière turquoise, savane ocre, orage violet, nuit indigo, campement orangé, moulins de La Mancha ou cour bleue de Coyoacán… Les accessoires restent des repères stables — la casquette de Lucía, le maillot de Mateo, l'appareil photo de Valeria, le carnet de Diego et les plumes vertes de Kiwi. Les expressions et les gestes changent avec les états du récit : bras croisés quand il fait froid, yeux écarquillés quand le personnage a peur, pansement quand il est blessé. Ces indices invitent à formuler une hypothèse avant de lire la phrase, sans remplacer les mots espagnols.
+Les décors peints et les personnages cartoon sont conservés. Le personnage marche devant le paysage, les objets de la mission se distinguent du fond et les actions font évoluer la scène. Les aventures sont des inventions ludiques inspirées d'univers littéraires et artistiques : elles ne racontent pas intégralement les œuvres et les gestes du personnage de Frida ne constituent pas des épisodes biographiques attestés. Voir [les missions et leur portée culturelle](EXPLORACION.md).
 
-Pour découvrir ce nouvel univers, montrer une case et demander « ¿Cómo está? », puis faire lire ou écouter la phrase pour vérifier. Faire ensuite changer une seule scène : qu'est-ce qui a changé dans le visage, dans l'histoire et dans la phrase ? Cette comparaison relie directement l'image au sens de « tiene », « está » et « ya no ».
+Pour commencer en classe, faire lire une consigne et demander à un élève de montrer la cible avant de se déplacer. Après l'action, lui faire dire un mot ou une courte phrase : « Sancho », « Tres frutas », « Tengo el libro ». En binôme, un élève lit ou écoute, l'autre déplace le personnage ; les rôles changent à la mission suivante.
+
+L'ancien **Taller de viñetas** reste disponible pour composer des BD, produire des phrases et utiliser les modes Pizarra / Solo / Autor. Ses 26 énigmes, ses sauvegardes et ses codes sont conservés. Les sections 2.2 à 7 et les tableaux de solutions de ce guide concernent cet atelier ; ils ne sont pas nécessaires pour commencer l'exploration.
 
 Le fichier `cuentalo.html` contient tout le jeu : un seul fichier, à ouvrir par double-clic, qui fonctionne hors-ligne et n'envoie aucune donnée nulle part. Il se copie sur une clé USB, un ENT ou le réseau du collège.
 
@@ -20,9 +22,25 @@ Le fichier `cuentalo.html` contient tout le jeu : un seul fichier, à ouvrir par
 
 ### 2.1 L'écran d'accueil
 
-L'accueil est une **bibliothèque de quatre histoires en cinq chapitres** : Don Quichotte, Macondo, une quête inspirée de Borges et la vie de Frida. L'élève choisit un livre, découvre ses personnages et suit le récit jusqu'au dénouement. À chaque chapitre, deux choix invitent à observer ou interpréter ; il n'y a pas de réponse fausse et les faits biographiques ne changent pas. L'avancement se sauvegarde par histoire. Les chapitres déjà parcourus restent accessibles, puis un carnet permet d'écrire et de télécharger sa réflexion. Ces récits sont plus longs que les phrases de l'atelier : une lecture accompagnée peut être utile. Voir [le guide des histoires](../HISTORIAS.md).
+L'accueil permet de choisir l'un des quatre mondes. Le lien `cuentalo.html?biblioteca=1` ouvre cet accueil ; `cuentalo.html?aventura=don_quijote` ouvre directement Don Quichotte. Les autres identifiants sont `macondo`, `borges` et `frida`.
 
-Le bouton **Taller de viñetas** ouvre trois entrées :
+| Geste dans l'exploration | Résultat |
+|---|---|
+| Flèches du clavier | faire marcher le personnage |
+| Cliquer ou toucher le sol du décor | marcher vers cet endroit |
+| Cliquer ou toucher un objet | s'approcher puis agir sur cet objet |
+| Espace, E, ou bouton d'action | agir sur un objet proche |
+| **Seguir**, après la réussite | passer à la mission suivante ; après la sixième, terminer l'aventure |
+| Espagnol facile / normal | changer la longueur de la consigne, avec la même mission |
+| Écoute de la consigne | entendre l'espagnol si une voix est disponible ; on peut jouer sans son |
+
+Il faut s'approcher avant d'agir. Les objets qui ne répondent pas à la consigne ne font pas avancer la mission ; les objets déjà trouvés ne se comptent pas deux fois. Pour « Recoge 3 frutas », l'élève doit visiter trois objets distincts. Il peut les chercher dans l'ordre de son choix. Une mission terminée attend **Seguir** : on peut prendre le temps de reformuler avant de continuer.
+
+**Reprise.** Le monde, la mission et les objets déjà trouvés se sauvegardent localement. Revenir sur le même navigateur permet de poursuivre. Cette progression possède sa propre sauvegarde, séparée des étoiles et des BD de l'atelier. Sur un poste partagé, la progression appartient au poste, pas à un compte élève.
+
+**Première séance d'exploration, 10 à 15 minutes.** Montrer le déplacement et l'action sur la première mission. Laisser ensuite les binômes avancer dans un monde en échangeant les rôles à chaque mission. Terminer par trois mots ou une phrase que chacun a compris grâce à une action. Le mode facile convient pour découvrir les verbes et les objets ; le mode normal ajoute leur contexte dans une phrase.
+
+Pour utiliser l'ancien atelier, ouvrir **Taller de viñetas** ou `cuentalo.html?taller=1`. Il propose trois entrées :
 
 | Entrée | Pour qui | Usage |
 |---|---|---|
@@ -30,13 +48,15 @@ Le bouton **Taller de viñetas** ouvre trois entrées :
 | « Solo » | un élève en autonomie | sur poste ou tablette, seul ou en binôme |
 | « Autor » | un élève ou la professeure | créer un niveau : choisir les escenas, les personajes, le titre, puis le partager par un code (partie 6) |
 
-Le mode choisi est mémorisé pour l'atelier. Le lien général ouvre la bibliothèque ; les liens directs vers un niveau ou un mode conservent leur comportement. « 🏠 » (en haut à gauche du jeu de viñetas) ramène à l'accueil de l'atelier. Choisir « Autor » sans avoir encore choisi de mode ouvre l'atelier en « Solo ».
+Le mode choisi est mémorisé pour l'atelier. Les liens directs vers un niveau ou un mode conservent leur comportement. « 🏠 » (en haut à gauche du jeu de viñetas) ramène à l'accueil de l'atelier. Choisir « Autor » sans avoir encore choisi de mode ouvre l'atelier en « Solo ».
 
-Deux accès supplémentaires sont proposés : **Viajes y culturas** ouvre les énigmes culturelles ; **Elegir una historia completa** ramène à la bibliothèque. Les vingt-six énigmes, y compris « Libros y artistas », restent dans « Niveles ». Dans chaque énigme culturelle, **Descubrir** ouvre une fiche sur le lieu, l'œuvre ou l'artiste. Ce repère figure aussi sur la BD imprimée. Voir [les dix énigmes culturelles et leurs solutions](CULTURAS.md).
+Dans l'atelier, **Viajes y culturas** ouvre les énigmes culturelles. Les vingt-six énigmes, y compris « Libros y artistas », restent dans « Niveles ». Dans chaque énigme culturelle, **Descubrir** ouvre une fiche sur le lieu, l'œuvre ou l'artiste. Ce repère figure aussi sur la BD imprimée. Voir [les dix énigmes culturelles et leurs solutions](CULTURAS.md).
+
+Les anciennes lectures sont conservées pour les liens déjà distribués, par exemple `cuentalo.html?lectura=1&historia=don_quijote`. Elles disposent de leur propre progression et de leur carnet ; elles ne sont plus l'entrée principale du jeu.
 
 Astuce pour le poste du vidéoprojecteur : un raccourci vers `cuentalo.html?modo=pizarra&nivel=c1n1&dif=2` ouvre directement le mode, le niveau et le réglage ★ voulus.
 
-### 2.2 Le sélecteur d'étoiles ★ / ★★ / ★★★
+### 2.2 Atelier : le sélecteur d'étoiles ★ / ★★ / ★★★
 
 En haut à droite, un petit sélecteur règle le jeu. Il ne dit jamais « facile » ou « difficile » : les trois réglages s'appellent « Paso a paso », « Estándar » et « Reto ». L'élève le choisit lui-même, ce qui évite l'étiquette.
 
@@ -48,7 +68,7 @@ En haut à droite, un petit sélecteur règle le jeu. Il ne dit jamais « facile
 
 Dans tous les réglages, le titre est lu à voix haute à l'ouverture du niveau, et le bouton « 💡 Pista » reste disponible. La liste « ☰ Niveles » ne montre que les niveaux correspondant au nombre de cases et de scènes du réglage ; le nivel libre et les niveaux de la classe sont toujours visibles. Si le niveau en cours disparaît, le premier niveau visible s'ouvre. Pour voir les dix nouvelles aventures culturelles ensemble, choisir ★★.
 
-### 2.3 Les boutons de l'interface
+### 2.3 Atelier : les boutons de l'interface
 
 | Bouton | Ce qu'il fait |
 |---|---|
@@ -67,7 +87,7 @@ L'aide apparaît à la première visite. Elle suit l'avancement du plateau et la
 
 **Reprendre une histoire.** Les cases se sauvegardent au fil des manipulations, niveau par niveau. Fermer la page ou passer à un autre niveau ne fait plus perdre la BD en cours ; les tentatives et les indices déjà parcourus sont également conservés. En mode écrivain, les réponses se retrouvent si le temps verbal et le mode n'ont pas changé. La reprise fonctionne sur le même poste et dans le même navigateur, y compris pour les niveaux de la classe déjà enregistrés. Un niveau encore en construction dans « Autor » doit toujours être enregistré avec « Guardar el nivel ».
 
-### 2.4 Les gestes
+### 2.4 Atelier : les gestes
 
 - **Glisser-déposer** : on tire une carte escena ou une carte personaje vers une case.
 - **Repli clic-clic** : clic sur la carte, puis clic sur la case (au clavier : Entrée ou Espace sur la carte, puis sur la case). Utile sur tablette, avec une souris capricieuse, ou pour un élève gêné par le glisser. Si la case refuse la carte (un personaje sans escena), la carte reste sélectionnée.
@@ -76,7 +96,7 @@ L'aide apparaît à la première visite. Elle suit l'avancement du plateau et la
 - **Touche P** : ouvre le panneau Profe. Mot de passe par défaut : « profe » (3 caractères minimum pour le nouveau). Il se change dans le panneau lui-même et reste stocké dans ce navigateur : c'est un verrou de confort, pas une protection. La touche ne répond pas quand le curseur est dans un champ de saisie ou qu'une fenêtre est ouverte : cliquer d'abord ailleurs.
 - **Touche Échap** : ferme les panneaux ouverts et désélectionne la carte en cours.
 
-### 2.5 Avant la première séance
+### 2.5 Avant une séance dans l'atelier
 
 1. Copier `cuentalo.html` sur le poste du vidéoprojecteur et sur les postes élèves (ou sur le réseau). Double-clic : le jeu s'ouvre dans le navigateur par défaut.
 2. Cliquer sur un titre : si aucune voix espagnole ne se fait entendre, voir la partie 10.
@@ -85,7 +105,7 @@ L'aide apparaît à la première visite. Elle suit l'avancement du plateau et la
 5. Ouvrir « 📖 Léxico » sur un niveau du chapitre 1 et regarder quels mots sont nouveaux pour la classe (partie 9).
 6. Montrer « ? Ayuda », puis fermer et rouvrir un niveau commencé pour faire découvrir la reprise automatique.
 
-## 3. Les niveaux
+## 3. Atelier : les niveaux
 
 26 niveaux en 5 chapitres, plus un « nivel libre ». Les trois premiers chapitres suivent une progression grammaticale ; les deux suivants réemploient ces structures dans des découvertes culturelles :
 
@@ -196,7 +216,7 @@ Voici, pour chaque niveau, les phrases que le moteur écrit pour la solution du 
 
 Le niveau « Mi historia » n'a pas de titre : 6 cases, les 30 escenas et les 4 personajes. Il n'y a pas de pistas. Le moteur écrit quand même les phrases de chaque case, et « ¿Qué pasa? » relit l'histoire complète et résume l'état final de chacun (« Lucía tiene hambre y frío. Está perdida. »). Le panneau « Léxico » y réunit les mots associés aux scènes disponibles. C'est le terrain d'entraînement de la tâche finale (partie 4.3) : l'élève invente, lit ce que le moteur écrit, puis trouve lui-même un titre à son histoire. L'indicateur à droite du titre compte les cases remplies (« 3/6 viñetas ») puis affiche « ¡Historia completa! » ; « 🖨 » s'active alors. Le « modo escritor » ne s'applique pas au nivel libre (ni pendant la création d'un niveau en Autor) : il n'y a pas de phrase « attendue ».
 
-## 4. Trois déroulés
+## 4. Atelier : trois déroulés
 
 ### 4.1 Rituel de 10 minutes en début d'heure (« Pizarra »)
 
@@ -257,7 +277,7 @@ Cette étape est facultative et ne modifie pas les étoiles. Elle ne compare pas
 
 Le brouillon se sauvegarde automatiquement avec le niveau sur ce navigateur. Il reste à recopier si une trace sur papier est souhaitée : « 🖨 » imprime la BD et les feuilles de cases, pas les trois champs du récit personnel.
 
-## 5. Différenciation et inclusion
+## 5. Atelier : différenciation et inclusion
 
 - **Les étoiles** (partie 2.2) sont le premier levier : même niveau, même titre, mais pictos sur les escenas et pistas automatiques en ★ ; modo escritor et titre secret en ★★★. Sans mention de niveau de difficulté, l'élève choisit sans se sentir jugé, et peut changer en cours de route.
 - **Les pictos** : chaque escena a son dessin et son emoji, chaque mot du « Léxico » a un picto. Un élève qui ne lit pas encore le mot reconnaît l'image, et le visage du personnage change avec son état (peur, faim, froid…).
@@ -296,7 +316,7 @@ Conseils :
 - Demander aux élèves d'écrire leur code en haut de leur hoja de viñetas : il remplace le nom sur la copie et permet de rejouer leur histoire.
 - Exporter le JSON en fin de séquence, avant « Borrar todo » dans le panneau Profe (partie 8).
 
-## 7. Impression
+## 7. Atelier : impression
 
 « 🖨 » (dans la barre du haut, ou « 🖨 Imprimir » dans la fenêtre de réussite) ouvre la boîte d'impression du navigateur avec trois pages **A4 paysage** :
 
@@ -319,7 +339,7 @@ Conseils :
 
 - Le jeu ne demande **aucun nom d'élève**, aucune adresse, aucun identifiant. Le tirage au sort en « Pizarra » utilise des numéros, pas des noms.
 - **Aucune télémétrie** : le fichier ne fait aucune requête réseau. Il fonctionne sans Internet. Rien n'est envoyé à qui que ce soit.
-- Tout ce que le jeu retient (étoiles, niveau en cours, cases des histoires commencées, réponses du mode écrivain, récits personnels, réglages — y compris le mot de passe Profe —, niveaux créés en « Autor », scores et noms des equipos de la barre Clase) est dans le **`localStorage`** du navigateur (clés `cuentalo.progreso.v0`, `cuentalo.partidas.v1`, `cuentalo.autor.v0`, `cuentalo.pizarra.v0`) : sur ce poste, dans ce navigateur, uniquement. Donner aux equipos des noms de fantaisie (« Los jaguares »), jamais des noms d'élèves.
+- La progression d'exploration est stockée sous **`cuentalo.exploration.v1`** : monde, mission et objets trouvés. Les anciennes lectures utilisent `cuentalo.historias.v1` et leur carnet `cuentalo.historias.cuaderno.v1`. Les données de l'atelier gardent leurs clés `cuentalo.progreso.v0`, `cuentalo.partidas.v1`, `cuentalo.autor.v0` et `cuentalo.pizarra.v0`. Tout reste dans le **`localStorage`** du même navigateur, sur le même poste. Jouer à une aventure ne remplace pas les sauvegardes de l'atelier. Donner aux equipos de la barre Clase des noms de fantaisie (« Los jaguares »), jamais des noms d'élèves.
 - Le bouton **« Borrar mis datos »** (dans « ☰ Niveles », à la portée des élèves) efface les étoiles, le niveau en cours, le réglage ★, les histoires commencées et les brouillons de récit ; il conserve les niveaux de la classe, le mot de passe et les réglages de la professeure.
 - Le bouton **« Borrar todo »** (panneau Profe, touche P) efface tout ce que ce navigateur a retenu : étoiles, réglages, mot de passe (il redevient « profe »), niveaux de la classe, equipos.
 - **Sur un poste partagé** (salle informatique, CDI) : les étoiles, les BD en cours et les récits restent d'un élève à l'autre. Deux solutions : « Borrar mis datos » en fin de séance, ou considérer que la progression est celle du poste et non de l'élève (c'est le plus simple). Les niveaux « Autor » importants sont à exporter en JSON (partie 6) avant « Borrar todo ».
@@ -368,6 +388,10 @@ Presque tous sont concrets et « dessinables ». « frío, sed, perdido, herido,
 
 | Problème | Cause probable | Solution |
 |---|---|---|
+| L'action ne se déclenche pas dans l'exploration | le personnage est trop loin de l'objet | s'approcher avec les flèches ou toucher l'objet ; appuyer sur Espace, E ou le bouton d'action à proximité. |
+| Une mission de collecte n'avance plus | objet déjà trouvé ou différent de la consigne | regarder le compteur et chercher un autre objet correspondant ; le même objet ne compte qu'une fois. |
+| La mission est réussie, mais la suivante ne s'affiche pas | la transition attend la validation de l'élève | cliquer sur **Seguir**. |
+| L'exploration reprend au début | autre navigateur/poste, stockage bloqué ou données effacées | utiliser le même navigateur ; si le stockage est indisponible, continuer dans la session ouverte. Les données ne passent pas d'un poste à l'autre. |
 | Pas de voix espagnole : un clic sur une phrase ne lit rien, ou lit avec un accent français | aucune voix « es-ES » installée dans Windows | Windows : Paramètres → Heure et langue → Langue et région → Ajouter une langue → Español (España), cocher « Synthèse vocale ». Ou ouvrir le fichier dans Edge ou Chrome, qui ont leurs propres voix espagnoles. |
 | Le fichier s'ouvre, mais rien ne bouge : pas de cartes, pas de phrases | JavaScript bloqué, ou navigateur trop ancien | ouvrir `cuentalo.html` dans Chrome, Edge ou Firefox ; vérifier que JavaScript n'est pas désactivé par une politique du poste. Le fichier n'a besoin d'aucune connexion. |
 | Au vidéoprojecteur (1280 × 720), les cases sont petites ou quelque chose dépasse | fenêtre non maximisée, barre « Clase » ouverte | passer en plein écran avec **F11** ; fermer la barre « ⏱ Clase » quand on ne s'en sert pas (elle prend ~100 px). Tous les niveaux, de 3 à 6 cases, tiennent sur une seule ligne sans défilement ; seul le stock de cartes défile horizontalement quand il déborde (nivel libre). En dessous de 720 px de large, les cases passent en colonne. |
