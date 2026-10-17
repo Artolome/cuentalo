@@ -42,7 +42,8 @@
   }
   function urlFor(v) {
     const url = new URL(location.href);
-    ['historia', 'capitulo', 'fin', 'biblioteca', 'taller', 'modo', 'nivel', 'dif'].forEach(k => url.searchParams.delete(k));
+    ['historia', 'capitulo', 'fin', 'biblioteca', 'taller', 'modo', 'nivel', 'dif', 'aventura', 'lectura'].forEach(k => url.searchParams.delete(k));
+    if (v.type !== 'workshop') url.searchParams.set('lectura', '1');
     if (v.type === 'library') url.searchParams.set('biblioteca', '1');
     else if (v.type === 'workshop') url.searchParams.set('taller', '1');
     else {
@@ -199,6 +200,7 @@
   function route() {
     silence();
     const q = new URLSearchParams(location.search), s = get(q.get('historia'));
+    if (!q.has('lectura') && !q.has('taller') && !q.has('nivel') && !q.has('modo')) { isolate(false); return; }
     if (s) {
       const p = prog(s), n = Number(q.get('capitulo'));
       view = q.has('fin') && p.completed ? {type:'ending', id:s.id} :
@@ -224,6 +226,8 @@
   }
   window.addEventListener('popstate', route);
   window.SVHistorias = {
+    ocultar() { silence(); isolate(false); },
+    route,
     biblioteca() { navigate({type:'library'}); },
     activo() { return !root.hidden; },
     borrar() { state = S.normalizar(D, null); notes = {}; save(); saveNotes(); }
